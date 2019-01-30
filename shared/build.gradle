@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'alta'
+group 'shared'
 version '1.0'
 
 sourceCompatibility = 1.8
@@ -12,9 +12,5 @@ repositories {
 }
 
 dependencies {
-    compile project(':shared')
-
-    compile "com.google.inject:guice:4.2.2"
-
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

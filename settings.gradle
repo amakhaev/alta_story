@@ -1,2 +1,4 @@
 rootProject.name = 'alta'
 
+include ':shared'
+
