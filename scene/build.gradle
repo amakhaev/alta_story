@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'alta'
+group 'scene'
 version '1.0'
 
 sourceCompatibility = 1.8
@@ -13,8 +13,6 @@ repositories {
 
 dependencies {
     compile project(':shared')
-    compile project(':inputListener')
-    compile project(':scene')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
