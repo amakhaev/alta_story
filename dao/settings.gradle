@@ -1,0 +1,5 @@
+rootProject.name = 'dao'
+
+include ":shared"
+project(':shared').projectDir = new File('../shared')
+

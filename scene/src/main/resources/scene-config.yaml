@@ -1,0 +1,8 @@
+app:
+  name: "AlTa"
+  version: "1.0"
+uiContainer:
+  width: 800
+  height: 600
+  fullScreen: false
+  fpsLimit: 60

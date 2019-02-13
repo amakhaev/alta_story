@@ -1,16 +1,10 @@
-import com.alta.eventStream.EventStream;
-import com.alta.eventStream.GenericEvent;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.lmax.disruptor.EventHandler;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.alta.scene.Scene;
 
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Running");
+        new Scene().start();
+
         /*Injector injector = Guice.createInjector(new AppInjector());
         AnotherClass app = injector.getInstance(AnotherClass.class);
 

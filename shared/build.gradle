@@ -15,6 +15,8 @@ ext {
     googleGuiceVersion = '4.2.2'
     disruptorVersion = '3.4.2'
     lombokVersion = "1.18.4"
+    logbackVersion = "1.1.2"
+    snakeyamlVersion = "1.23"
 }
 
 dependencies {
@@ -22,6 +24,9 @@ dependencies {
     compile "com.lmax:disruptor:${disruptorVersion}"
     compile "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    compile "ch.qos.logback:logback-core:${logbackVersion}"
+    compile "org.yaml:snakeyaml:${snakeyamlVersion}"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
