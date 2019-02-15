@@ -6,6 +6,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -35,6 +36,15 @@ public class Scene {
         } catch (SlickException e) {
             log.error(e.getMessage());
         }
+    }
+
+    /**
+     * Sets the listener of input on scene
+     *
+     * @param listener - the listener instance
+     */
+    public void setInputListener(KeyListener listener) {
+        this.sceneContainer.setInputListener(listener);
     }
 
     /**
