@@ -1,4 +1,4 @@
 rootProject.name = 'alta'
 
-include ':shared', ':inputListener', ':scene', ':dao'
+include ':shared', ':scene', ':dao'
 

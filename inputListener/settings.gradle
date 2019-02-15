@@ -1,4 +1,0 @@
-rootProject.name = 'inputListener'
-
-include ":shared"
-project(':shared').projectDir = new File('../shared')
