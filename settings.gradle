@@ -1,4 +1,5 @@
 rootProject.name = 'alta'
 
-include ':shared', ':scene', ':dao'
+include ':mediator', ':scene', ':dao', ':shared'
+project(':shared').projectDir = new File('./shared')
 

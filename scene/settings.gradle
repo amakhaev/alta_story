@@ -1,4 +1,3 @@
 rootProject.name = 'scene'
 
 include ":shared"
-project(':shared').projectDir = new File('../shared')

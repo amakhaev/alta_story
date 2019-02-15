@@ -1,9 +1,11 @@
+import com.alta.mediator.Mediator;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 
 public class AppInjector extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        // bind(MessageService.class).to(MessageServiceImpl.class);
+    @Provides
+    public Mediator createMediator() {
+        return new Mediator();
     }
 }

@@ -1,15 +1,13 @@
-import com.alta.scene.Scene;
+import com.alta.mediator.Mediator;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class Main {
 
     public static void main(String[] args) {
-        new Scene().start();
-
-        /*Injector injector = Guice.createInjector(new AppInjector());
-        AnotherClass app = injector.getInstance(AnotherClass.class);
-
-        System.out.println(app.messageService.sendMessage("my message"));
-        app.messageService.test.sendMessage();*/
+        Injector injector = Guice.createInjector(new AppInjector());
+        Mediator mediator = injector.getInstance(Mediator.class);
+        mediator.sceneStart();
 
         /*EventStream<String> stream = new EventStream<>();
         stream.setHandleEvents(new EventHandler<GenericEvent<String>>() {
