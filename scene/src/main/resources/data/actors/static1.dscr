@@ -1,0 +1,990 @@
+{
+  "imageName": "static1",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "cross1",
+      "positions": [
+        {
+          "x": 1,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "cross2",
+      "positions": [
+        {
+          "x": 0,
+          "y": 5,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 6,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "cross3",
+      "positions": [
+        {
+          "x": 1,
+          "y": 5,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 6,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "cross4",
+      "positions": [
+        {
+          "x": 2,
+          "y": 5,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 6,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "cross5",
+      "positions": [
+        {
+          "x": 3,
+          "y": 5,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 6,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "tombstone1",
+      "positions": [
+        {
+          "x": 2,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "pedestal1",
+      "positions": [
+        {
+          "x": 3,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "pedestal2",
+      "positions": [
+        {
+          "x": 2,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "pedestal3",
+      "positions": [
+        {
+          "x": 4,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue1",
+      "positions": [
+        {
+          "x": 5,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue2",
+      "positions": [
+        {
+          "x": 6,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue3",
+      "positions": [
+        {
+          "x": 7,
+          "y": 0,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue4",
+      "positions": [
+        {
+          "x": 0,
+          "y": 1,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue5",
+      "positions": [
+        {
+          "x": 1,
+          "y": 1,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue6",
+      "positions": [
+        {
+          "x": 2,
+          "y": 1,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue7",
+      "positions": [
+        {
+          "x": 3,
+          "y": 1,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue8",
+      "positions": [
+        {
+          "x": 4,
+          "y": 1,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue9",
+      "positions": [
+        {
+          "x": 7,
+          "y": 1,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 7,
+          "y": 2,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue10",
+      "positions": [
+        {
+          "x": 0,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue11",
+      "positions": [
+        {
+          "x": 1,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue12",
+      "positions": [
+        {
+          "x": 4,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue13",
+      "positions": [
+        {
+          "x": 5,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue14",
+      "positions": [
+        {
+          "x": 6,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 6,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue15",
+      "positions": [
+        {
+          "x": 7,
+          "y": 3,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 7,
+          "y": 4,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue16",
+      "positions": [
+        {
+          "x": 0,
+          "y": 7,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 7,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 8,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 8,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue17",
+      "positions": [
+        {
+          "x": 2,
+          "y": 7,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 7,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 8,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 8,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue18",
+      "positions": [
+        {
+          "x": 5,
+          "y": 5,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue19",
+      "positions": [
+        {
+          "x": 6,
+          "y": 5,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 6,
+          "y": 6,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue20",
+      "positions": [
+        {
+          "x": 4,
+          "y": 7,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 8,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue21",
+      "positions": [
+        {
+          "x": 5,
+          "y": 7,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 5,
+          "y": 8,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue22",
+      "positions": [
+        {
+          "x": 0,
+          "y": 9,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 9,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 10,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 10,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 11,
+          "relatedX": 0,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 11,
+          "relatedX": 1,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue23",
+      "positions": [
+        {
+          "x": 2,
+          "y": 9,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 9,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 10,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 10,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 11,
+          "relatedX": 1,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 11,
+          "relatedX": 1,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue24",
+      "positions": [
+        {
+          "x": 0,
+          "y": 12,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 12,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 12,
+          "relatedX": 2,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 13,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 13,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 13,
+          "relatedX": 2,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 14,
+          "relatedX": 0,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 14,
+          "relatedX": 1,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 14,
+          "relatedX": 2,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 0,
+          "y": 15,
+          "relatedX": 0,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 1,
+          "y": 15,
+          "relatedX": 1,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 2,
+          "y": 15,
+          "relatedX": 2,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue25",
+      "positions": [
+        {
+          "x": 3,
+          "y": 12,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 12,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 13,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 13,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 14,
+          "relatedX": 0,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 14,
+          "relatedX": 1,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 3,
+          "y": 15,
+          "relatedX": 0,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 4,
+          "y": 15,
+          "relatedX": 1,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    },
+    {
+      "name": "statue26",
+      "positions": [
+        {
+          "x": 5,
+          "y": 12,
+          "relatedX": 0,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 6,
+          "y": 12,
+          "relatedX": 1,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 7,
+          "y": 12,
+          "relatedX": 2,
+          "relatedY": 0,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 5,
+          "y": 13,
+          "relatedX": 0,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 6,
+          "y": 13,
+          "relatedX": 1,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 7,
+          "y": 13,
+          "relatedX": 2,
+          "relatedY": 1,
+          "movableType": "FREE",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 5,
+          "y": 14,
+          "relatedX": 0,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 6,
+          "y": 14,
+          "relatedX": 1,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 7,
+          "y": 14,
+          "relatedX": 2,
+          "relatedY": 2,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 5,
+          "y": 15,
+          "relatedX": 0,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 6,
+          "y": 15,
+          "relatedX": 1,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        },
+        {
+          "x": 7,
+          "y": 15,
+          "relatedX": 2,
+          "relatedY": 3,
+          "movableType": "BARRIER",
+          "terrainType": "OVER"
+        }
+      ]
+    }
+  ]
+}

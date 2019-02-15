@@ -11,6 +11,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+
+}
+
 dependencies {
     compile project(':shared')
 
