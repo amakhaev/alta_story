@@ -14,6 +14,7 @@ repositories {
 dependencies {
     compile project(':shared')
     compile project(':scene')
+    compile project(':dao')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

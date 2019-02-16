@@ -1,14 +1,14 @@
 [
 	{
 		name: "test",
-		path: "scene/data/maps/test/map.tmx"
+		path: "scene_data/maps/test/map.tmx",
 		jump: {
 			LEFT_UP: "test2"
 		}
 	},
 	{
 		name: "test2",
-		path: "scene/data/maps/test/map.tmx"
+		path: "scene_data/maps/test/map.tmx",
 		jump: {
 			RIGHT_UP: "test"
 		}

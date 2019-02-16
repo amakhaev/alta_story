@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneUtility;
+package com.alta.mediator.sceneModule;
 
 import com.google.inject.Singleton;
 import org.newdawn.slick.Input;

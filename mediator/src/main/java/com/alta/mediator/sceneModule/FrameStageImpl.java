@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneUtility;
+package com.alta.mediator.sceneModule;
 
 import com.alta.scene.frameStorage.FrameStage;
 import com.alta.scene.frameStorage.FrameTemplate;

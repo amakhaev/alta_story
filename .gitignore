@@ -21,3 +21,6 @@
 .gradle
 !gradle-wrapper.jar
 gradle.properties
+
+# database
+*.db3
