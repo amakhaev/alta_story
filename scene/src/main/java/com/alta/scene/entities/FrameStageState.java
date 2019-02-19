@@ -1,4 +1,4 @@
-package com.alta.scene.frameStorage;
+package com.alta.scene.entities;
 
 /**
  * Provides possible states of frame stage

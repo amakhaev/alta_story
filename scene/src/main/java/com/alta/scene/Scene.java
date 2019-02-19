@@ -1,7 +1,7 @@
 package com.alta.scene;
 
-import com.alta.scene.frameStorage.FrameStage;
-import com.alta.scene.frameStorage.FrameStageState;
+import com.alta.scene.entities.FrameStage;
+import com.alta.scene.entities.FrameStageState;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import lombok.extern.slf4j.Slf4j;

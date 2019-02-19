@@ -1,8 +1,10 @@
-package com.alta.scene.frameStorage;
+package com.alta.scene.entities;
 
 import lombok.Getter;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+
+import java.util.List;
 
 /**
  * Provides the stage on scene
@@ -10,6 +12,7 @@ import org.newdawn.slick.Graphics;
 public abstract class FrameStage {
 
     protected final FrameTemplate frameTemplate;
+    protected final List<Actor> actors;
 
     @Getter
     protected FrameStageState stageState;
@@ -17,8 +20,9 @@ public abstract class FrameStage {
     /**
      * Initialize new instance of {@link FrameStage}
      */
-    protected FrameStage(FrameTemplate frameTemplate) {
+    protected FrameStage(FrameTemplate frameTemplate, List<Actor> actors) {
         this.frameTemplate = frameTemplate;
+        this.actors = actors;
         this.stageState = FrameStageState.CREATED;
     }
 
@@ -36,12 +40,20 @@ public abstract class FrameStage {
      * @param gameContainer - the game container instance
      * @param graphics - the graphic to render primitives
      */
-    public abstract void onRenderFrame(GameContainer gameContainer, Graphics graphics);
+    public abstract void onRenderStage(GameContainer gameContainer, Graphics graphics);
 
     /**
      * Initializes frame stage in GL context
      *
      * @param gameContainer - the game container instance
      */
-    public abstract void onInit(GameContainer gameContainer);
+    public void onInit(GameContainer gameContainer) {
+        if (this.frameTemplate != null) {
+            this.frameTemplate.initializeFrame();
+        }
+
+        if (this.actors != null) {
+            this.actors.forEach(Actor::initializeActor);
+        }
+    }
 }

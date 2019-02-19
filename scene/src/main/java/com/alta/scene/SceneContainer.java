@@ -1,7 +1,7 @@
 package com.alta.scene;
 
 import com.alta.scene.configuration.SceneConfig;
-import com.alta.scene.frameStorage.FrameStage;
+import com.alta.scene.entities.FrameStage;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Getter;
@@ -62,7 +62,7 @@ public class SceneContainer extends BasicGame {
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) {
         if (this.currentStage != null) {
-            this.currentStage.onRenderFrame(gameContainer, graphics);
+            this.currentStage.onRenderStage(gameContainer, graphics);
         }
     }
 }

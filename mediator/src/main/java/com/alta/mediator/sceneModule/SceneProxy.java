@@ -5,14 +5,13 @@ import com.alta.dao.domain.map.MapsContainer;
 import com.alta.dao.domain.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.scene.Scene;
-import com.alta.scene.frameStorage.FrameTemplate;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+
+import java.util.Collections;
 
 /**
  * Provides the proxy object for access to scene
  */
-@Singleton
 public class SceneProxy {
 
     private final MapsContainer mapsContainer;
@@ -50,8 +49,7 @@ public class SceneProxy {
         String absolutePathToTiledMap = this.mapService.getAbsolutePathToMap(
                 this.mapsContainer.getMapByName(preservation.getMapName()).getPath()
         );
-        FrameTemplate template = new FrameImpl(absolutePathToTiledMap);
-        this.scene.renderStage(new FrameStageImpl(template));
+        this.scene.renderStage(new BaseFrameStage(new BaseFrameTemplate(absolutePathToTiledMap), Collections.emptyList()));
     }
 
 }

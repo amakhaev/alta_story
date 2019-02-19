@@ -23,7 +23,7 @@ public class Mediator {
     /**
      * Starts the scene
      */
-    public void loadSavedSceneAndStart() {
+    public void loadSavedGameAndStart() {
         this.sceneProxy.loadSceneFromPreservation();
         this.sceneProxy.sceneStart();
     }

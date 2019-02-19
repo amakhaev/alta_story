@@ -1,6 +1,6 @@
 package com.alta.mediator.sceneModule;
 
-import com.alta.scene.frameStorage.FrameTemplate;
+import com.alta.scene.entities.FrameTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -8,15 +8,15 @@ import org.newdawn.slick.tiled.TiledMap;
 import java.awt.*;
 
 @Slf4j
-public class FrameImpl implements FrameTemplate {
+public class BaseFrameTemplate implements FrameTemplate {
 
     private final String pathToMap;
     private TiledMap map;
 
     /**
-     * Initialize new instance of {@link FrameImpl}
+     * Initialize new instance of {@link BaseFrameTemplate}
      */
-    public FrameImpl(String pathToMap) {
+    BaseFrameTemplate(String pathToMap) {
         this.pathToMap = pathToMap;
     }
 
@@ -33,15 +33,21 @@ public class FrameImpl implements FrameTemplate {
      */
     @Override
     public TiledMap getTiledMap() {
-        try {
-            if (this.map == null) {
-                this.map = new TiledMap(this.pathToMap);
-            }
+        return this.map;
+    }
 
-            return this.map;
+    /**
+     * Initializes the frame
+     */
+    @Override
+    public void initializeFrame() {
+        log.debug("Start frame initialization");
+        try {
+            log.debug("Tiled map path: {}", this.pathToMap);
+            this.map = new TiledMap(this.pathToMap);
         } catch (SlickException e) {
             log.error(e.getMessage());
-            return null;
         }
+        log.debug("Frame initialization completed");
     }
 }

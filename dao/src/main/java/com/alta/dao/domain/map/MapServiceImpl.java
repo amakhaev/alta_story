@@ -1,7 +1,7 @@
 package com.alta.dao.domain.map;
 
 import com.alta.dao.ResourcesLocation;
-import com.alta.helpers.JsonParser;
+import com.alta.utils.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 
