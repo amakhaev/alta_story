@@ -5,6 +5,7 @@ import com.alta.dao.domain.map.MapsContainer;
 import com.alta.dao.domain.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.scene.Scene;
+import com.alta.utils.ThreadPoolExecutor;
 import com.google.inject.Inject;
 
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.Collections;
  */
 public class SceneProxy {
 
+    private final ThreadPoolExecutor threadPoolExecutor;
     private final MapsContainer mapsContainer;
     private final PreservationService preservationService;
     private final MapService mapService;
@@ -23,10 +25,12 @@ public class SceneProxy {
      * Initialize new instance of {@link SceneProxy}
      */
     @Inject
-    public SceneProxy(MapsContainer mapsContainer,
+    public SceneProxy(ThreadPoolExecutor threadPoolExecutor,
+                      MapsContainer mapsContainer,
                       PreservationService preservationService,
                       MapService mapService,
                       Scene scene) {
+        this.threadPoolExecutor = threadPoolExecutor;
         this.mapsContainer = mapsContainer;
 
         this.preservationService = preservationService;
@@ -49,7 +53,12 @@ public class SceneProxy {
         String absolutePathToTiledMap = this.mapService.getAbsolutePathToMap(
                 this.mapsContainer.getMapByName(preservation.getMapName()).getPath()
         );
-        this.scene.renderStage(new BaseFrameStage(new BaseFrameTemplate(absolutePathToTiledMap), Collections.emptyList()));
+        this.scene.renderStage(
+                new BaseFrameStage(
+                        new BaseFrameTemplate(absolutePathToTiledMap),Collections.emptyList(),
+                        this.threadPoolExecutor
+                )
+        );
     }
 
 }

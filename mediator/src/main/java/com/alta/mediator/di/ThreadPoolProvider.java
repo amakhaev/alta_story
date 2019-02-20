@@ -1,6 +1,7 @@
 package com.alta.mediator.di;
 
 import com.alta.utils.ThreadPoolExecutor;
+import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 public class ThreadPoolProvider implements Provider<ThreadPoolExecutor> {
@@ -13,6 +14,7 @@ public class ThreadPoolProvider implements Provider<ThreadPoolExecutor> {
     /**
      * Initialize new instance of {@link ThreadPoolProvider}
      */
+    @Inject
     private ThreadPoolProvider() {
         this.threadPoolExecutor = new ThreadPoolExecutor(POOL_SIZE, POOL_NAME);
     }

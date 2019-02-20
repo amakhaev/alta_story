@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="com" level="INFO"></logger>
+    <logger name="com" level="DEBUG"></logger>
 
     <root level="info">
         <appender-ref ref="CONSOLE"></appender-ref>

@@ -17,7 +17,7 @@ public class ThreadPoolExecutor {
      * Initialize new instance of {@link ThreadPoolExecutor}
      */
     public ThreadPoolExecutor(int threadCount, String poolName) {
-        this.executorService = Executors.newFixedThreadPool(threadCount,new ThreadFactory(poolName));
+        this.executorService = Executors.newFixedThreadPool(threadCount,new NamedThreadFactory(poolName));
     }
 
     /**
@@ -26,8 +26,8 @@ public class ThreadPoolExecutor {
      * @param runnable - the action that should be performed
      * @param taskName - the name of task for execution
      */
-    public void run(Runnable runnable, String taskName) {
-        log.debug("Start execution of {} task", taskName);
+    public void run(String taskName, Runnable runnable) {
+        log.debug("Start execution of '{}' task", taskName);
         this.executorService.execute(runnable);
     }
 }
