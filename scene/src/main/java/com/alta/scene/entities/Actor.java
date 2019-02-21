@@ -6,7 +6,7 @@ package com.alta.scene.entities;
 public interface Actor {
 
     /**
-     * Initializes the frame
+     * Initializes the actor
      */
     void initializeActor();
 

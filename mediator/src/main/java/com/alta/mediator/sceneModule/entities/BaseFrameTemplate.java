@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneModule;
+package com.alta.mediator.sceneModule.entities;
 
 import com.alta.scene.entities.FrameTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class BaseFrameTemplate implements FrameTemplate {
     /**
      * Initialize new instance of {@link BaseFrameTemplate}
      */
-    BaseFrameTemplate(String pathToMap) {
+    public BaseFrameTemplate(String pathToMap) {
         this.pathToMap = pathToMap;
     }
 

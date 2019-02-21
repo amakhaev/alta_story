@@ -1,6 +1,7 @@
-package com.alta.mediator.sceneModule;
+package com.alta.mediator.sceneModule.entities;
 
-import com.alta.computator.altitudeMap.AltitudeMap;
+import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.service.movement.StageComputator;
 import com.alta.scene.entities.Actor;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
@@ -10,18 +11,25 @@ import org.newdawn.slick.Graphics;
 
 import java.util.List;
 
+/**
+ * Provides base implementation of frame stage
+ */
 @Slf4j
 public class BaseFrameStage extends FrameStage {
 
     private final ThreadPoolExecutor threadPoolExecutor;
-    private AltitudeMap altitudeMap;
+    private final StageComputator stageComputator;
 
     /**
      * Initialize new instance of {@link FrameStage}
      */
-    BaseFrameStage(BaseFrameTemplate frameTemplate, List<Actor> actors, ThreadPoolExecutor threadPoolExecutor) {
+    public BaseFrameStage(BaseFrameTemplate frameTemplate,
+                          List<Actor> actors,
+                          ThreadPoolExecutor threadPoolExecutor,
+                          StageComputator stageComputator) {
         super(frameTemplate, actors);
         this.threadPoolExecutor = threadPoolExecutor;
+        this.stageComputator = stageComputator;
     }
 
     /**
@@ -32,7 +40,7 @@ public class BaseFrameStage extends FrameStage {
      */
     @Override
     public void onUpdateStage(GameContainer gameContainer, int delta) {
-
+        this.stageComputator.onTick();
     }
 
     /**
@@ -57,7 +65,7 @@ public class BaseFrameStage extends FrameStage {
         this.threadPoolExecutor.run(
                 "Create altitude map",
                 () -> {
-                    this.altitudeMap = new AltitudeMap(this.frameTemplate.getTiledMap());
+                    this.stageComputator.setAltitudeMap(new AltitudeMap(this.frameTemplate.getTiledMap()));
                     log.debug("Completed creating of altitude ");
                 }
         );

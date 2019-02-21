@@ -1,4 +1,4 @@
-package com.alta.computator.altitudeMap;
+package com.alta.computator.model.altitudeMap;
 
 /**
  * Provides the possible states of tile

@@ -1,9 +1,12 @@
 package com.alta.mediator.sceneModule;
 
+import com.alta.computator.service.movement.StageComputator;
 import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.MapsContainer;
 import com.alta.dao.domain.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
+import com.alta.mediator.sceneModule.entities.BaseFrameStage;
+import com.alta.mediator.sceneModule.entities.BaseFrameTemplate;
 import com.alta.scene.Scene;
 import com.alta.utils.ThreadPoolExecutor;
 import com.google.inject.Inject;
@@ -20,6 +23,7 @@ public class SceneProxy {
     private final PreservationService preservationService;
     private final MapService mapService;
     private final Scene scene;
+    private final StageComputator stageComputator;
 
     /**
      * Initialize new instance of {@link SceneProxy}
@@ -29,13 +33,15 @@ public class SceneProxy {
                       MapsContainer mapsContainer,
                       PreservationService preservationService,
                       MapService mapService,
-                      Scene scene) {
+                      Scene scene,
+                      StageComputator computator) {
         this.threadPoolExecutor = threadPoolExecutor;
         this.mapsContainer = mapsContainer;
 
         this.preservationService = preservationService;
         this.mapService = mapService;
         this.scene = scene;
+        this.stageComputator = computator;
     }
 
     /**
@@ -56,8 +62,8 @@ public class SceneProxy {
         this.scene.renderStage(
                 new BaseFrameStage(
                         new BaseFrameTemplate(absolutePathToTiledMap),Collections.emptyList(),
-                        this.threadPoolExecutor
-                )
+                        this.threadPoolExecutor,
+                        stageComputator)
         );
     }
 

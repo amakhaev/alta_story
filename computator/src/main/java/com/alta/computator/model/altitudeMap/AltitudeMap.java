@@ -1,4 +1,4 @@
-package com.alta.computator.altitudeMap;
+package com.alta.computator.model.altitudeMap;
 
 import com.alta.computator.computationExceptions.AltitudeMapException;
 import org.newdawn.slick.tiled.TiledMap;
