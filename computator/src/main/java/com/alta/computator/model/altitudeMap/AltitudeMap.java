@@ -1,6 +1,8 @@
 package com.alta.computator.model.altitudeMap;
 
 import com.alta.computator.computationExceptions.AltitudeMapException;
+import lombok.Getter;
+import lombok.Setter;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.HashMap;
@@ -21,11 +23,20 @@ public class AltitudeMap {
 
     private TileState[][] initialTileStates;
 
+    @Getter private final int screenWidth;
+    @Getter private final int screenHeight;
+    @Getter private final int tileWidth;
+    @Getter private final int tileHeight;
+
     /**
      * Initialize new instance of {@link AltitudeMap}
      */
-    public AltitudeMap(TiledMap tiledMap) {
+    public AltitudeMap(TiledMap tiledMap, int screenWidth, int screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         this.createTileStates(tiledMap);
+        this.tileWidth = tiledMap.getTileWidth();
+        this.tileHeight = tiledMap.getTileHeight();
     }
 
     private void createTileStates(TiledMap tiledMap) {

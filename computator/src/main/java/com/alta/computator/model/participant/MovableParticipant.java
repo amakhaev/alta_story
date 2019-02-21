@@ -1,7 +1,6 @@
 package com.alta.computator.model.participant;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.awt.*;
 
@@ -10,16 +9,10 @@ import java.awt.*;
  */
 public class MovableParticipant extends ParticipantComputation {
 
-    @Getter
-    private final Point startMapCoordinates;
+    @Getter private final Point startMapCoordinates;
 
-    @Getter
-    @Setter
-    private Point currentMapCoordinates;
-
-    @Getter
-    @Setter
-    private Point currentGlobalCoordinates;
+    @Getter private Point currentMapCoordinates;
+    @Getter private Point currentGlobalCoordinates;
 
     /**
      * Initialize new instance of {@link MovableParticipant}
@@ -27,5 +20,29 @@ public class MovableParticipant extends ParticipantComputation {
     public MovableParticipant(Point startMapCoordinates, String uuid) {
         super(uuid);
         this.startMapCoordinates = startMapCoordinates;
+        this.currentMapCoordinates = new Point(0, 0);
+        this.currentGlobalCoordinates = new Point(0, 0);
+    }
+
+    /**
+     * Updates the value of current map coordinates
+     *
+     * @param x - the X coordinate
+     * @param y - the Y coordinate
+     */
+    public void updateCurrentMapCoordinates(int x, int y) {
+        this.currentMapCoordinates.x = x;
+        this.currentMapCoordinates.y = y;
+    }
+
+    /**
+     * Updates the value of current global coordinates
+     *
+     * @param x - the X coordinate
+     * @param y - the Y coordinate
+     */
+    public void updateCurrentGlobalCoordinates(int x, int y) {
+        this.currentGlobalCoordinates.x = x;
+        this.currentGlobalCoordinates.y = y;
     }
 }

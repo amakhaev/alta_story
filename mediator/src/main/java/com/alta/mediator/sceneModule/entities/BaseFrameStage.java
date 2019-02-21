@@ -6,6 +6,7 @@ import com.alta.scene.entities.Actor;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -25,8 +26,8 @@ public class BaseFrameStage extends FrameStage {
      */
     public BaseFrameStage(BaseFrameTemplate frameTemplate,
                           List<Actor> actors,
-                          ThreadPoolExecutor threadPoolExecutor,
-                          StageComputator stageComputator) {
+                          StageComputator stageComputator,
+                          ThreadPoolExecutor threadPoolExecutor) {
         super(frameTemplate, actors);
         this.threadPoolExecutor = threadPoolExecutor;
         this.stageComputator = stageComputator;
@@ -51,7 +52,9 @@ public class BaseFrameStage extends FrameStage {
      */
     @Override
     public void onRenderStage(GameContainer gameContainer, Graphics graphics) {
-        this.frameTemplate.getTiledMap().render(this.frameTemplate.getStartPosition().x, this.frameTemplate.getStartPosition().y);
+        // this.frameTemplate.getTiledMap().render(this.frameTemplate.getStartPosition().x, this.frameTemplate.getStartPosition().y);
+        this.renderFrame();
+        this.renderFocusPoint(graphics);
     }
 
     /**
@@ -62,12 +65,47 @@ public class BaseFrameStage extends FrameStage {
     @Override
     public void onInit(GameContainer gameContainer) {
         super.onInit(gameContainer);
+
         this.threadPoolExecutor.run(
-                "Create altitude map",
+                "Initialize computator for scene",
                 () -> {
-                    this.stageComputator.setAltitudeMap(new AltitudeMap(this.frameTemplate.getTiledMap()));
-                    log.debug("Completed creating of altitude ");
+                    this.stageComputator.setAltitudeMap(
+                            new AltitudeMap(this.frameTemplate.getTiledMap(),
+                                    gameContainer.getWidth(),
+                                    gameContainer.getHeight()
+                            )
+                    );
+                    log.debug("Completed initialization of computator");
                 }
+        );
+    }
+
+    private void renderFocusPoint(Graphics graphics) {
+        if (this.stageComputator.getFocusPointParticipant() == null ||
+                this.stageComputator.getFocusPointParticipant().getCurrentGlobalCoordinates() == null ||
+                this.stageComputator.getAltitudeMap() == null) {
+            return;
+        }
+
+        graphics.setColor(Color.red);
+        graphics.fillRect(
+                this.stageComputator.getFocusPointParticipant().getCurrentGlobalCoordinates().x,
+                this.stageComputator.getFocusPointParticipant().getCurrentGlobalCoordinates().y,
+                this.stageComputator.getAltitudeMap().getTileWidth(),
+                this.stageComputator.getAltitudeMap().getTileHeight()
+        );
+    }
+
+    private void renderFrame() {
+        if (this.stageComputator.getMapParticipant() == null ||
+                this.stageComputator.getMapParticipant().getCurrentGlobalCoordinates() == null ||
+                this.stageComputator.getAltitudeMap() == null) {
+            return;
+        }
+
+        this.frameTemplate.getTiledMap().render(
+                this.stageComputator.getMapParticipant().getCurrentGlobalCoordinates().x,
+                this.stageComputator.getMapParticipant().getCurrentGlobalCoordinates().y
         );
     }
 }
