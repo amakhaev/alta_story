@@ -5,9 +5,9 @@ import lombok.Getter;
 import java.awt.*;
 
 /**
- * Provides the movable participant of movable.
+ * Provides the movable participant.
  */
-public class MovableParticipant extends ParticipantComputation {
+public class FocusPointParticipant extends ParticipantComputation {
 
     @Getter private final Point startMapCoordinates;
 
@@ -15,9 +15,9 @@ public class MovableParticipant extends ParticipantComputation {
     @Getter private Point currentGlobalCoordinates;
 
     /**
-     * Initialize new instance of {@link MovableParticipant}
+     * Initialize new instance of {@link FocusPointParticipant}
      */
-    public MovableParticipant(Point startMapCoordinates, String uuid) {
+    public FocusPointParticipant(Point startMapCoordinates, String uuid) {
         super(uuid);
         this.startMapCoordinates = startMapCoordinates;
         this.currentMapCoordinates = new Point(0, 0);

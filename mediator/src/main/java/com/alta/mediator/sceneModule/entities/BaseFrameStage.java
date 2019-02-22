@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -81,31 +82,29 @@ public class BaseFrameStage extends FrameStage {
     }
 
     private void renderFocusPoint(Graphics graphics) {
-        if (this.stageComputator.getFocusPointParticipant() == null ||
-                this.stageComputator.getFocusPointParticipant().getCurrentGlobalCoordinates() == null ||
-                this.stageComputator.getAltitudeMap() == null) {
+        Point focusPointCoordinates = this.stageComputator.getFocusPointGlobalCoordinates();
+        if (focusPointCoordinates == null || this.stageComputator.getAltitudeMap() == null) {
             return;
         }
 
         graphics.setColor(Color.red);
         graphics.fillRect(
-                this.stageComputator.getFocusPointParticipant().getCurrentGlobalCoordinates().x,
-                this.stageComputator.getFocusPointParticipant().getCurrentGlobalCoordinates().y,
+                focusPointCoordinates.x,
+                focusPointCoordinates.y,
                 this.stageComputator.getAltitudeMap().getTileWidth(),
                 this.stageComputator.getAltitudeMap().getTileHeight()
         );
     }
 
     private void renderFrame() {
-        if (this.stageComputator.getMapParticipant() == null ||
-                this.stageComputator.getMapParticipant().getCurrentGlobalCoordinates() == null ||
-                this.stageComputator.getAltitudeMap() == null) {
+        Point mapCoordinates = this.stageComputator.getMapGlobalCoordinates();
+        if (mapCoordinates == null) {
             return;
         }
 
         this.frameTemplate.getTiledMap().render(
-                this.stageComputator.getMapParticipant().getCurrentGlobalCoordinates().x,
-                this.stageComputator.getMapParticipant().getCurrentGlobalCoordinates().y
+                mapCoordinates.x,
+                mapCoordinates.y
         );
     }
 }

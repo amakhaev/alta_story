@@ -24,7 +24,7 @@ public class MovementCoordinateComputator {
      *
      * @param objectSize - the size of object
      * @param screenSize - the screen size
-     * @return
+     * @return global coordinate of object
      */
     public int calculateGlobalStartCoordinateOnCenterOfScreen(int objectSize, int screenSize) {
         return screenSize / 2 - objectSize / 2;
