@@ -1,6 +1,7 @@
 package com.alta.mediator.sceneModule;
 
 import com.alta.computator.service.movement.StageComputator;
+import com.alta.dao.domain.facility.FacilityService;
 import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.MapsContainer;
 import com.alta.dao.domain.preservation.PreservationModel;
@@ -13,6 +14,8 @@ import com.google.inject.Singleton;
 
 import java.awt.*;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides the factory to generate entities
@@ -24,6 +27,7 @@ public class EntityFactory {
     private final PreservationService preservationService;
     private final MapService mapService;
     private final ActionProducer actionProducer;
+    private final FacilityService facilityService;
 
     /**
      * Initialize new instance of {@link EntityFactory}
@@ -31,11 +35,13 @@ public class EntityFactory {
     @Inject
     public EntityFactory(MapsContainer mapsContainer,
                          PreservationService preservationService,
-                         MapService mapService, ActionProducer actionProducer) {
+                         MapService mapService, ActionProducer actionProducer,
+                         FacilityService facilityService) {
         this.mapsContainer = mapsContainer;
         this.preservationService = preservationService;
         this.mapService = mapService;
         this.actionProducer = actionProducer;
+        this.facilityService = facilityService;
     }
 
     /**
@@ -60,6 +66,9 @@ public class EntityFactory {
     private StageComputator createStageComputator(Point focusPointStartPosition) {
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
+
+        Map<String, String> f = new HashMap<>();
+        f.put("facility1", "")
 
         return stageComputator;
     }

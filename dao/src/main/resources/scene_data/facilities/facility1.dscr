@@ -1,0 +1,990 @@
+{
+  "imageName": "facility1.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "cross1",
+      "positions": [
+        {
+          "x": 1,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "cross2",
+      "positions": [
+        {
+          "x": 0,
+          "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 6,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "cross3",
+      "positions": [
+        {
+          "x": 1,
+          "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 6,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "cross4",
+      "positions": [
+        {
+          "x": 2,
+          "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 6,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "cross5",
+      "positions": [
+        {
+          "x": 3,
+          "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 6,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "tombstone1",
+      "positions": [
+        {
+          "x": 2,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "pedestal1",
+      "positions": [
+        {
+          "x": 3,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "pedestal2",
+      "positions": [
+        {
+          "x": 2,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "pedestal3",
+      "positions": [
+        {
+          "x": 4,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue1",
+      "positions": [
+        {
+          "x": 5,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue2",
+      "positions": [
+        {
+          "x": 6,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue3",
+      "positions": [
+        {
+          "x": 7,
+          "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue4",
+      "positions": [
+        {
+          "x": 0,
+          "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue5",
+      "positions": [
+        {
+          "x": 1,
+          "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue6",
+      "positions": [
+        {
+          "x": 2,
+          "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue7",
+      "positions": [
+        {
+          "x": 3,
+          "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue8",
+      "positions": [
+        {
+          "x": 4,
+          "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue9",
+      "positions": [
+        {
+          "x": 7,
+          "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 2,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue10",
+      "positions": [
+        {
+          "x": 0,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue11",
+      "positions": [
+        {
+          "x": 1,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue12",
+      "positions": [
+        {
+          "x": 4,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue13",
+      "positions": [
+        {
+          "x": 5,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue14",
+      "positions": [
+        {
+          "x": 6,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue15",
+      "positions": [
+        {
+          "x": 7,
+          "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 4,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue16",
+      "positions": [
+        {
+          "x": 0,
+          "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 7,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 8,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 8,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue17",
+      "positions": [
+        {
+          "x": 2,
+          "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 7,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 8,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 8,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue18",
+      "positions": [
+        {
+          "x": 5,
+          "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue19",
+      "positions": [
+        {
+          "x": 6,
+          "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 6,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue20",
+      "positions": [
+        {
+          "x": 4,
+          "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 8,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue21",
+      "positions": [
+        {
+          "x": 5,
+          "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 8,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue22",
+      "positions": [
+        {
+          "x": 0,
+          "y": 9,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 9,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 10,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 10,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 11,
+          "shiftX": 0,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 11,
+          "shiftX": 1,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue23",
+      "positions": [
+        {
+          "x": 2,
+          "y": 9,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 9,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 10,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 10,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 11,
+          "shiftX": 1,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 11,
+          "shiftX": 1,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue24",
+      "positions": [
+        {
+          "x": 0,
+          "y": 12,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 12,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 12,
+          "shiftX": 2,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 13,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 13,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 13,
+          "shiftX": 2,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 14,
+          "shiftX": 0,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 14,
+          "shiftX": 1,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 14,
+          "shiftX": 2,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 15,
+          "shiftX": 0,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 15,
+          "shiftX": 1,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 15,
+          "shiftX": 2,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue25",
+      "positions": [
+        {
+          "x": 3,
+          "y": 12,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 12,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 13,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 13,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 14,
+          "shiftX": 0,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 14,
+          "shiftX": 1,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 15,
+          "shiftX": 0,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 15,
+          "shiftX": 1,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "statue26",
+      "positions": [
+        {
+          "x": 5,
+          "y": 12,
+          "shiftX": 0,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 12,
+          "shiftX": 1,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 12,
+          "shiftX": 2,
+          "shiftY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 13,
+          "shiftX": 0,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 13,
+          "shiftX": 1,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 13,
+          "shiftX": 2,
+          "shiftY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 14,
+          "shiftX": 0,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 14,
+          "shiftX": 1,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 14,
+          "shiftX": 2,
+          "shiftY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 15,
+          "shiftX": 0,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 15,
+          "shiftX": 1,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 15,
+          "shiftX": 2,
+          "shiftY": 3,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    }
+  ]
+}
