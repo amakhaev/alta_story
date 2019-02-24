@@ -1,0 +1,9 @@
+{
+	"facilities": [
+		{
+			"name": "cross1" 
+			"startX": 2,
+			"startY": 2,
+		}
+	]
+}

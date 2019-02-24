@@ -1,5 +1,6 @@
 package com.alta.dao.domain.preservation;
 
+import com.alta.dao.data.preservation.PreservationModel;
 import com.google.inject.Inject;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;

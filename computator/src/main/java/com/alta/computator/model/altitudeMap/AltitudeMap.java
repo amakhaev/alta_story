@@ -55,7 +55,7 @@ public class AltitudeMap {
 
     private void createTileStates(TiledMap tiledMap) {
         if (tiledMap == null) {
-            throw new AltitudeMapException("Can't create tiled tile states array because no given tiled map");
+            throw new AltitudeMapException("Can't create tiled map states array because no given tiled map");
         }
 
         this.initialTileStates = new TileState[tiledMap.getWidth()][tiledMap.getHeight()];

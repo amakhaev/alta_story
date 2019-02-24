@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="2.tsx"/>
  <tileset firstgid="193" source="3.tsx"/>
  <tileset firstgid="321" source="1.tsx"/>
- <tileset firstgid="577" source="../../../../../../../../../../../../mnt/local_d/work/alta/data/maps/test/2.tsx"/>
+ <tileset firstgid="577" source="./2.tsx"/>
  <layer name="backgrounds" width="100" height="100">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAA+3WMY7CQBAAQQj8/5ccP4C3HYkz64IDPL2iRmo5AntdGsHlcv5cB+650lxPbhu4Z6mfZ7eDK4+Z7s8eB1ceM9mPVvajlf1oZT9a2Y9W9mONeLTi0YpHKx6teLTi0YpHKx6teLTi0YpHKx6teLTi0YpHKx6teLTi0YpHKx6teLTi0YpHqwkLHn97TJjw4LFCPFrxaMWjFY9WPFrxaMWjFY9WPFrxaMWjFY9WPFrxaMWjFY9WEx4seKwSj1Y8WvFoxaMVj1Y8Wk14MOGxSjxa8WjFoxWPVjxa8WjFo9WEx8Yj5zF97mo8WvFoxaMVj1Y8WvFoxaPVlAeTjsduMn32Yjxa8Wg16cGk47GbTJ+/Fo9WPFrxaMWjFY9WUx7+7/Y8ps9ejEcrHq14tNottg90ZPDfz35L+7z7e195zzzmn4MHj2I1D78frSk+09nzC4vu3QRAnAAA

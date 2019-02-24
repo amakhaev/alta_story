@@ -1,4 +1,4 @@
-package com.alta.dao.domain.facility;
+package com.alta.dao.data.facility;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-class FacilityList {
+public class FacilityList {
 
     private Map<String, FacilityModel> detailsAsMap;
 
@@ -21,7 +21,7 @@ class FacilityList {
     private int tileHeight;
     private List<FacilityModel> details;
 
-    public Map<String, FacilityModel> getDetailsAsMap() {
+    public synchronized Map<String, FacilityModel> getDetailsAsMap() {
         if (this.detailsAsMap == null && this.details != null) {
             this.detailsAsMap = this.details.parallelStream()
                     .collect(Collectors.toMap(FacilityModel::getName, detail -> detail));

@@ -1,4 +1,4 @@
-package com.alta.dao.domain.preservation;
+package com.alta.dao.data.preservation;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

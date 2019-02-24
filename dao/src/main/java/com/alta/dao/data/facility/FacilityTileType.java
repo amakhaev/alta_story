@@ -1,4 +1,4 @@
-package com.alta.dao.domain.facility;
+package com.alta.dao.data.facility;
 
 /**
  * Provides possible types of tile that related to facility

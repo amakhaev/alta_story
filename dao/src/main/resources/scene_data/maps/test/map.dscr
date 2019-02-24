@@ -1,0 +1,10 @@
+{
+	"facilities": [
+		{
+			"name": "cross1",
+			"descriptorName": "facility1",
+			"startX": 2,
+			"startY": 2,
+		}
+	]
+}

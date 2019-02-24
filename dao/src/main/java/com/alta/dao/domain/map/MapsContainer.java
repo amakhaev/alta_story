@@ -1,5 +1,7 @@
 package com.alta.dao.domain.map;
 
+import com.alta.dao.data.map.MapModel;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

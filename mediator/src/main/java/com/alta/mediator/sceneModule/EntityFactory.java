@@ -4,7 +4,7 @@ import com.alta.computator.service.movement.StageComputator;
 import com.alta.dao.domain.facility.FacilityService;
 import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.MapsContainer;
-import com.alta.dao.domain.preservation.PreservationModel;
+import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.mediator.sceneModule.entities.BaseFrameStage;
 import com.alta.mediator.sceneModule.entities.BaseFrameTemplate;
@@ -13,9 +13,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import java.awt.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Provides the factory to generate entities
@@ -67,8 +65,9 @@ public class EntityFactory {
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
 
-        Map<String, String> f = new HashMap<>();
-        f.put("facility1", "")
+        /*Map<String, List<String>> f = new HashMap<>();
+        f.put("facility1", Arrays.asList("cross2", "pedestal1", "statue3", "statue9", "statue24"));
+        this.facilityService.findFacilitiesByName(f);*/
 
         return stageComputator;
     }
