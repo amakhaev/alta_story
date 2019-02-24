@@ -1,11 +1,13 @@
-package com.alta.mediator.sceneModule.entities;
+package com.alta.mediator.sceneModule;
 
 import com.alta.computator.service.movement.StageComputator;
 import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.MapsContainer;
 import com.alta.dao.domain.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.utils.ThreadPoolExecutor;
+import com.alta.mediator.sceneModule.entities.BaseFrameStage;
+import com.alta.mediator.sceneModule.entities.BaseFrameTemplate;
+import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -18,27 +20,22 @@ import java.util.Collections;
 @Singleton
 public class EntityFactory {
 
-    private final ThreadPoolExecutor threadPoolExecutor;
     private final MapsContainer mapsContainer;
     private final PreservationService preservationService;
     private final MapService mapService;
-    private final StageComputator stageComputator;
+    private final ActionProducer actionProducer;
 
     /**
      * Initialize new instance of {@link EntityFactory}
      */
     @Inject
-    public EntityFactory(ThreadPoolExecutor threadPoolExecutor,
-                         MapsContainer mapsContainer,
+    public EntityFactory(MapsContainer mapsContainer,
                          PreservationService preservationService,
-                         MapService mapService,
-                         StageComputator computator) {
-        this.threadPoolExecutor = threadPoolExecutor;
+                         MapService mapService, ActionProducer actionProducer) {
         this.mapsContainer = mapsContainer;
-
         this.preservationService = preservationService;
         this.mapService = mapService;
-        this.stageComputator = computator;
+        this.actionProducer = actionProducer;
     }
 
     /**
@@ -52,13 +49,18 @@ public class EntityFactory {
                 this.mapsContainer.getMapByName(preservation.getMapName()).getPath()
         );
 
-        this.stageComputator.addFocusPointParticipant(new Point(preservation.getFocusX(), preservation.getFocusY()));
         return new BaseFrameStage(
                 new BaseFrameTemplate(absolutePathToTiledMap),
                 Collections.emptyList(),
-                this.stageComputator,
-                this.threadPoolExecutor
+                this.createStageComputator(new Point(preservation.getFocusX(), preservation.getFocusY())),
+                this.actionProducer
         );
     }
 
+    private StageComputator createStageComputator(Point focusPointStartPosition) {
+        StageComputator stageComputator = new StageComputator();
+        stageComputator.addFocusPointParticipant(focusPointStartPosition);
+
+        return stageComputator;
+    }
 }

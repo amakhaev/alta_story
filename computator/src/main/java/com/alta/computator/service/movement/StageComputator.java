@@ -61,7 +61,8 @@ public class StageComputator {
      * @return the {@link Point} or null if not exists
      */
     public Point getFocusPointGlobalCoordinates() {
-        return this.focusPointComputator != null && this.focusPointComputator.getConstantGlobalStartCoordination() != null ?
+        return this.focusPointComputator != null &&
+                this.focusPointComputator.getConstantGlobalStartCoordination() != null ?
                 this.focusPointComputator.getConstantGlobalStartCoordination() : null;
     }
 

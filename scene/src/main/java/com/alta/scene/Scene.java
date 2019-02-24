@@ -48,16 +48,6 @@ public class Scene {
     }
 
     /**
-     * Indicates when scene can render next stage
-     *
-     * @return true if scene can render another stage, false otherwise
-     */
-    public boolean isReadyForRenderNextStage() {
-        FrameStage stage = this.sceneContainer.getCurrentStage();
-        return stage != null && stage.getStageState() == FrameStageState.AWAIT_TERMINATION;
-    }
-
-    /**
      * Sets the frame stage to render
      *
      * @param frameStage - the stage to render

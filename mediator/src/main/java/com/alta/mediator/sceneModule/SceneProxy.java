@@ -1,6 +1,5 @@
 package com.alta.mediator.sceneModule;
 
-import com.alta.mediator.sceneModule.entities.EntityFactory;
 import com.alta.scene.Scene;
 import com.google.inject.Inject;
 

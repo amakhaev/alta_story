@@ -1,6 +1,6 @@
 package com.alta.mediator.di;
 
-import com.alta.mediator.sceneModule.SceneInputListener;
+import com.alta.mediator.sceneModule.inputManagement.SceneInputListener;
 import com.alta.scene.Scene;
 import com.google.inject.Inject;
 import com.google.inject.Provider;

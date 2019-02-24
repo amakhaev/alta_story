@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-import java.awt.*;
-
 @Slf4j
 public class BaseFrameTemplate implements FrameTemplate {
 
@@ -18,14 +16,6 @@ public class BaseFrameTemplate implements FrameTemplate {
      */
     public BaseFrameTemplate(String pathToMap) {
         this.pathToMap = pathToMap;
-    }
-
-    /**
-     * Gets the start position of frame to render
-     */
-    @Override
-    public Point getStartPosition() {
-        return new Point(0, 0);
     }
 
     /**

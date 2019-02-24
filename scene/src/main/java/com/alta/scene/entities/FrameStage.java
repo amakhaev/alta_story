@@ -1,6 +1,5 @@
 package com.alta.scene.entities;
 
-import lombok.Getter;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -14,16 +13,12 @@ public abstract class FrameStage {
     protected final FrameTemplate frameTemplate;
     protected final List<Actor> actors;
 
-    @Getter
-    protected FrameStageState stageState;
-
     /**
      * Initialize new instance of {@link FrameStage}
      */
     protected FrameStage(FrameTemplate frameTemplate, List<Actor> actors) {
         this.frameTemplate = frameTemplate;
         this.actors = actors;
-        this.stageState = FrameStageState.CREATED;
     }
 
     /**

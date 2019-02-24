@@ -2,6 +2,9 @@ package com.alta.mediator.sceneModule.entities;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.service.movement.StageComputator;
+import com.alta.mediator.sceneModule.inputManagement.ActionEventListener;
+import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
+import com.alta.mediator.sceneModule.inputManagement.SceneAction;
 import com.alta.scene.entities.Actor;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
@@ -19,8 +22,12 @@ import java.util.List;
 @Slf4j
 public class BaseFrameStage extends FrameStage {
 
+    private static final int THREAD_POOL_SIZE = 3;
+    private static final String THREAD_POOL_NAME = "base-frame-stage";
+
     private final ThreadPoolExecutor threadPoolExecutor;
     private final StageComputator stageComputator;
+    private final ActionProducer actionProducer;
 
     /**
      * Initialize new instance of {@link FrameStage}
@@ -28,10 +35,11 @@ public class BaseFrameStage extends FrameStage {
     public BaseFrameStage(BaseFrameTemplate frameTemplate,
                           List<Actor> actors,
                           StageComputator stageComputator,
-                          ThreadPoolExecutor threadPoolExecutor) {
+                          ActionProducer actionProducer) {
         super(frameTemplate, actors);
-        this.threadPoolExecutor = threadPoolExecutor;
+        this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
         this.stageComputator = stageComputator;
+        this.actionProducer = actionProducer;
     }
 
     /**
@@ -53,7 +61,6 @@ public class BaseFrameStage extends FrameStage {
      */
     @Override
     public void onRenderStage(GameContainer gameContainer, Graphics graphics) {
-        // this.frameTemplate.getTiledMap().render(this.frameTemplate.getStartPosition().x, this.frameTemplate.getStartPosition().y);
         this.renderFrame();
         this.renderFocusPoint(graphics);
     }
@@ -77,6 +84,10 @@ public class BaseFrameStage extends FrameStage {
                             )
                     );
                     log.debug("Completed initialization of computator");
+
+                    this.actionProducer.setListener(action -> {
+                        log.info("Actions: {}", action);
+                    });
                 }
         );
     }
