@@ -2,7 +2,7 @@ package com.alta.mediator.sceneModule.entities;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.service.movement.StageComputator;
-import com.alta.mediator.sceneModule.inputManagement.ActionEventListener;
+import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
 import com.alta.mediator.sceneModule.inputManagement.SceneAction;
 import com.alta.scene.entities.Actor;
@@ -27,7 +27,6 @@ public class BaseFrameStage extends FrameStage {
 
     private final ThreadPoolExecutor threadPoolExecutor;
     private final StageComputator stageComputator;
-    private final ActionProducer actionProducer;
 
     /**
      * Initialize new instance of {@link FrameStage}
@@ -39,7 +38,7 @@ public class BaseFrameStage extends FrameStage {
         super(frameTemplate, actors);
         this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
         this.stageComputator = stageComputator;
-        this.actionProducer = actionProducer;
+        actionProducer.setListener(this::handleAction);
     }
 
     /**
@@ -84,10 +83,6 @@ public class BaseFrameStage extends FrameStage {
                             )
                     );
                     log.debug("Completed initialization of computator");
-
-                    this.actionProducer.setListener(action -> {
-                        log.info("Actions: {}", action);
-                    });
                 }
         );
     }
@@ -117,5 +112,22 @@ public class BaseFrameStage extends FrameStage {
                 mapCoordinates.x,
                 mapCoordinates.y
         );
+    }
+
+    private void handleAction(SceneAction action) {
+        switch (action) {
+            case MOVE_UP:
+                this.stageComputator.tryToRunMovement(MovementDirection.UP);
+                break;
+            case MOVE_DOWN:
+                this.stageComputator.tryToRunMovement(MovementDirection.DOWN);
+                break;
+            case MOVE_LEFT:
+                this.stageComputator.tryToRunMovement(MovementDirection.LEFT);
+                break;
+            case MOVE_RIGHT:
+                this.stageComputator.tryToRunMovement(MovementDirection.RIGHT);
+                break;
+        }
     }
 }

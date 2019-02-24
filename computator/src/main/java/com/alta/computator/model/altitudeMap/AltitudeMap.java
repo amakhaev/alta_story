@@ -2,7 +2,6 @@ package com.alta.computator.model.altitudeMap;
 
 import com.alta.computator.computationExceptions.AltitudeMapException;
 import lombok.Getter;
-import lombok.Setter;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.HashMap;
@@ -37,6 +36,21 @@ public class AltitudeMap {
         this.createTileStates(tiledMap);
         this.tileWidth = tiledMap.getTileWidth();
         this.tileHeight = tiledMap.getTileHeight();
+    }
+
+    /**
+     * Gets the state of tile that indicates how to interpreter selected tile
+     *
+     * @param x - the x coordinates on map
+     * @param y - the y coordinates on map
+     * @return the {@link TileState} instance
+     */
+    public TileState getTileState(int x, int y) {
+        if (this.initialTileStates.length < x || this.initialTileStates[0].length < y) {
+            return null;
+        }
+
+        return this.initialTileStates[x][y];
     }
 
     private void createTileStates(TiledMap tiledMap) {

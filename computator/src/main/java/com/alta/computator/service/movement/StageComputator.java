@@ -3,6 +3,7 @@ package com.alta.computator.service.movement;
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.FocusPointParticipant;
 import com.alta.computator.model.participant.MapParticipant;
+import com.alta.computator.service.movement.strategy.MovementDirection;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +54,15 @@ public class StageComputator {
                 this.altitudeMap,
                 this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
         );
+    }
+
+    /**
+     * Tries to run movement process. If process successfully ran then coordinates will update after calling onTick method
+     *
+     * @param movementDirection - the direction of movement
+     */
+    public void tryToRunMovement(MovementDirection movementDirection) {
+        this.focusPointComputator.tryToRunMovement(movementDirection, this.altitudeMap);
     }
 
     /**
