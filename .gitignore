@@ -27,3 +27,8 @@ gradle.properties
 *.db3
 
 ### Internal project builds ###
+dao/out/
+scene/out/
+computator/out/
+shared/out/
+mediator/out/
