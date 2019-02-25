@@ -25,3 +25,5 @@ gradle.properties
 
 # database
 *.db3
+
+### Internal project builds ###

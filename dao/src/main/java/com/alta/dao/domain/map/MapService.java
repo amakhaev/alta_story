@@ -10,17 +10,10 @@ import java.util.List;
 public interface MapService {
 
     /**
-     * Gets the list of maps that available for usage
+     * Gets the map that available for usage
      *
-     * @return the {@link List} of map instance
+     * @param name - the name of map
+     * @return the {@link MapModel} instance
      */
-    List<MapModel> getAvailableMaps();
-
-    /**
-     * Gets the absolute path to map by relative path
-     *
-     * @param relativePath - the relative path of map
-     * @return the absolute path
-     */
-    String getAbsolutePathToMap(String relativePath);
+    MapModel getMap(String name);
 }

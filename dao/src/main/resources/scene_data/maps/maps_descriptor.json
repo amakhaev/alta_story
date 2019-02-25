@@ -1,14 +1,16 @@
 [
 	{
 		name: "test",
-		path: "scene_data/maps/test/map.tmx",
+		tiledMapPath: "scene_data/maps/test/map.tmx",
+		decoratorPath: "scene_data/maps/test/map.dcrtr",
 		jump: {
 			LEFT_UP: "test2"
 		}
 	},
 	{
 		name: "test2",
-		path: "scene_data/maps/test/map.tmx",
+		tiledMapPath: "scene_data/maps/test2/map.tmx",
+		decoratorPath: "scene_data/maps/test2/map.dcrtr",
 		jump: {
 			RIGHT_UP: "test"
 		}

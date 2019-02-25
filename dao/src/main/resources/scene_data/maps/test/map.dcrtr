@@ -1,9 +1,10 @@
 {
 	"facilities": [
 		{
-			"name": "cross1" 
+			"name": "cross1", 
+			"descriptorFileName": "facility1",
 			"startX": 2,
-			"startY": 2,
+			"startY": 2
 		}
 	]
 }

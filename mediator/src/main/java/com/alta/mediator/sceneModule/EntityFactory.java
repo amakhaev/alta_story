@@ -1,9 +1,9 @@
 package com.alta.mediator.sceneModule;
 
 import com.alta.computator.service.movement.StageComputator;
+import com.alta.dao.data.map.MapModel;
 import com.alta.dao.domain.facility.FacilityService;
 import com.alta.dao.domain.map.MapService;
-import com.alta.dao.domain.map.MapsContainer;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.mediator.sceneModule.entities.BaseFrameStage;
@@ -21,25 +21,20 @@ import java.util.*;
 @Singleton
 public class EntityFactory {
 
-    private final MapsContainer mapsContainer;
     private final PreservationService preservationService;
     private final MapService mapService;
     private final ActionProducer actionProducer;
-    private final FacilityService facilityService;
 
     /**
      * Initialize new instance of {@link EntityFactory}
      */
     @Inject
-    public EntityFactory(MapsContainer mapsContainer,
-                         PreservationService preservationService,
-                         MapService mapService, ActionProducer actionProducer,
-                         FacilityService facilityService) {
-        this.mapsContainer = mapsContainer;
+    public EntityFactory(PreservationService preservationService,
+                         MapService mapService,
+                         ActionProducer actionProducer) {
         this.preservationService = preservationService;
         this.mapService = mapService;
         this.actionProducer = actionProducer;
-        this.facilityService = facilityService;
     }
 
     /**
@@ -49,12 +44,10 @@ public class EntityFactory {
      */
     public BaseFrameStage createFrameStageFromPreservation() {
         PreservationModel preservation = this.preservationService.getPreservation();
-        String absolutePathToTiledMap = this.mapService.getAbsolutePathToMap(
-                this.mapsContainer.getMapByName(preservation.getMapName()).getPath()
-        );
+        MapModel mapFromPreservation = this.mapService.getMap(preservation.getMapName());
 
         return new BaseFrameStage(
-                new BaseFrameTemplate(absolutePathToTiledMap),
+                new BaseFrameTemplate(mapFromPreservation.getTiledMapAbsolutePath()),
                 Collections.emptyList(),
                 this.createStageComputator(new Point(preservation.getFocusX(), preservation.getFocusY())),
                 this.actionProducer

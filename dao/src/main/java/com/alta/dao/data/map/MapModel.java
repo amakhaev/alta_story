@@ -1,5 +1,6 @@
 package com.alta.dao.data.map;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +9,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class MapModel {
 
     private String name;
-    private String path;
+    private String tiledMapAbsolutePath;
+    private MapDecoratorModel decorator;
 
 }

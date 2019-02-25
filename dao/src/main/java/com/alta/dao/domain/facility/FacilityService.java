@@ -11,11 +11,12 @@ import java.util.Map;
 public interface FacilityService {
 
     /**
-     * Find the facilities by given names
+     * Find the facility by given name
      *
-     * @param names - the map of names for facilities. @param key is .dscr file name @param value is name of facility
-     * @return the {@link List< FacilityModel >} that were found
+     * @param facilityDescriptorName - is .dscr file name
+     * @param facilityName - the name of facility from descriptor
+     * @return the {@link FacilityModel} that will found
      */
-    List<FacilityModel> findFacilitiesByName(Map<String, List<String>> names);
+    FacilityModel findFacilityByName(String facilityDescriptorName, String facilityName);
 
 }

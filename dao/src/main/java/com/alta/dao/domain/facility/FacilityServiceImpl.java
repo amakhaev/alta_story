@@ -3,6 +3,7 @@ package com.alta.dao.domain.facility;
 import com.alta.dao.data.facility.FacilityList;
 import com.alta.dao.data.facility.FacilityModel;
 import com.alta.utils.JsonParser;
+import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -25,43 +26,39 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     /**
-     * Find the facilities by given names
+     * Find the facility by given name
      *
-     * @param names - the map of names for facilities. @param key is .dscr file name @param value is name of facility
-     * @return the {@link List <FacilityModel>} that were found
+     * @param facilityDescriptorName - is .dscr file name
+     * @param facilityName           - the name of facility from descriptor
+     * @return the {@link FacilityModel} that will found
      */
     @Override
-    public List<FacilityModel> findFacilitiesByName(Map<String, List<String>> names) {
-        if (names == null || names.size() == 0) {
-            return Collections.emptyList();
+    public FacilityModel findFacilityByName(String facilityDescriptorName, String facilityName) {
+        if (Strings.isNullOrEmpty(facilityDescriptorName) || Strings.isNullOrEmpty(facilityName)) {
+            log.warn("Invalid incoming arguments");
+            return null;
         }
 
         log.debug("Start finding of facilities");
-        List<FacilityModel> result = new ArrayList<>();
-        names.forEach((key, value) -> {
-            if (!this.availableFacilities.containsKey(key)) {
-                this.availableFacilities.put(key, this.loadFacilityList(key));
-            }
+        if (!this.availableFacilities.containsKey(facilityDescriptorName)) {
+            this.availableFacilities.put(facilityDescriptorName, this.loadFacilityList(facilityDescriptorName));
+        }
 
-            value.parallelStream().forEach(facilityName -> {
-                FacilityModel facilityModel = this.findFacilityByName(
-                        this.availableFacilities.get(key),
-                        facilityName
-                );
-                if (facilityModel == null) {
-                    log.debug(
-                            "Can't find facility {} in file {}.",
-                            facilityName,
-                            key
-                    );
-                    return;
-                }
-                result.add(facilityModel);
-            });
-        });
+        FacilityModel facilityModel = this.findFacilityByName(
+                this.availableFacilities.get(facilityDescriptorName),
+                facilityName
+        );
+        if (facilityModel == null) {
+            log.debug(
+                    "Can't find facility {} in file {}.",
+                    facilityName,
+                    facilityDescriptorName
+            );
+            return null;
+        }
 
         log.debug("Loading of facilities completed");
-        return result;
+        return facilityModel;
     }
 
     private FacilityList loadFacilityList(String name) {

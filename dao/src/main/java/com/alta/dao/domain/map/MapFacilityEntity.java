@@ -8,10 +8,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-class MapFacilityInternalModel {
+class MapFacilityEntity {
 
     private String name;
-    private String descriptorName;
+    private String descriptorFileName;
     private int startX;
     private int startY;
 
