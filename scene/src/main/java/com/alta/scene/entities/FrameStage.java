@@ -12,13 +12,15 @@ public abstract class FrameStage {
 
     protected final FrameTemplate frameTemplate;
     protected final List<Actor> actors;
+    protected final List<? extends Facility> facilities;
 
     /**
      * Initialize new instance of {@link FrameStage}
      */
-    protected FrameStage(FrameTemplate frameTemplate, List<Actor> actors) {
+    protected FrameStage(FrameTemplate frameTemplate, List<Actor> actors, List<? extends Facility> facilities) {
         this.frameTemplate = frameTemplate;
         this.actors = actors;
+        this.facilities = facilities;
     }
 
     /**
@@ -44,7 +46,11 @@ public abstract class FrameStage {
      */
     public void onInit(GameContainer gameContainer) {
         if (this.frameTemplate != null) {
-            this.frameTemplate.initializeFrame();
+            this.frameTemplate.initialize(gameContainer);
+        }
+
+        if (this.facilities != null) {
+            this.facilities.forEach(facility -> facility.initialize(gameContainer));
         }
 
         if (this.actors != null) {

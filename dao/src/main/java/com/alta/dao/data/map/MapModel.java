@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Provides the model that describes the map
  */
@@ -14,6 +16,6 @@ public class MapModel {
 
     private String name;
     private String tiledMapAbsolutePath;
-    private MapDecoratorModel decorator;
+    private List<MapFacilityModel> facilities;
 
 }

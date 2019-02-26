@@ -6,6 +6,7 @@ import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
 import com.alta.mediator.sceneModule.inputManagement.SceneAction;
 import com.alta.scene.entities.Actor;
+import com.alta.scene.entities.Facility;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +34,10 @@ public class BaseFrameStage extends FrameStage {
      */
     public BaseFrameStage(BaseFrameTemplate frameTemplate,
                           List<Actor> actors,
+                          List<BaseFacility> facilities,
                           StageComputator stageComputator,
                           ActionProducer actionProducer) {
-        super(frameTemplate, actors);
+        super(frameTemplate, actors, facilities);
         this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
         this.stageComputator = stageComputator;
         actionProducer.setListener(this::handleAction);
@@ -77,7 +79,8 @@ public class BaseFrameStage extends FrameStage {
                 "Initialize computator for scene",
                 () -> {
                     this.stageComputator.setAltitudeMap(
-                            new AltitudeMap(this.frameTemplate.getTiledMap(),
+                            new AltitudeMap(
+                                    this.frameTemplate.getTiledMap(),
                                     gameContainer.getWidth(),
                                     gameContainer.getHeight()
                             )
@@ -108,10 +111,7 @@ public class BaseFrameStage extends FrameStage {
             return;
         }
 
-        this.frameTemplate.getTiledMap().render(
-                mapCoordinates.x,
-                mapCoordinates.y
-        );
+        this.frameTemplate.render(mapCoordinates.x, mapCoordinates.y);
     }
 
     private void handleAction(SceneAction action) {

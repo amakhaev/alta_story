@@ -10,8 +10,6 @@ import lombok.Setter;
 @Setter
 public class FacilityPositionModel {
 
-    private int shiftX;
-    private int shiftY;
     private int x;
     private int y;
     private FacilityTileType tileType;

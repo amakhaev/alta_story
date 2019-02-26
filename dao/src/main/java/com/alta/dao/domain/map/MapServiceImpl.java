@@ -2,7 +2,6 @@ package com.alta.dao.domain.map;
 
 import com.alta.dao.ResourcesLocation;
 import com.alta.dao.data.map.MapFacilityModel;
-import com.alta.dao.data.map.MapDecoratorModel;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.domain.facility.FacilityService;
 import com.alta.utils.JsonParser;
@@ -64,7 +63,7 @@ public class MapServiceImpl implements MapService {
         MapModel mapModel = new MapModel(
                 matchedMapEntity.getName(),
                 this.getAbsolutePathToMap(matchedMapEntity.getTiledMapPath()),
-                this.getMapDecorator(matchedMapEntity.getDecoratorPath())
+                this.getFacilities(matchedMapEntity.getDecoratorPath())
         );
 
         this.mapsByName.put(matchedMapEntity.getName(), mapModel);
@@ -93,34 +92,30 @@ public class MapServiceImpl implements MapService {
         }
     }
 
-    private MapDecoratorModel getMapDecorator(String decoratorPath) {
+    private List<MapFacilityModel> getFacilities(String decoratorPath) {
         try {
             MapDecoratorEntity internalDecorator = JsonParser.parse(
                     this.getClass().getClassLoader().getResource(decoratorPath).getPath(),
                     MapDecoratorEntity.class
             );
 
-            return new MapDecoratorModel(this.getFacilities(internalDecorator.getFacilities()));
+            return internalDecorator.getFacilities()
+                    .parallelStream()
+                    .map(
+                            facilityEntity -> new MapFacilityModel(
+                                    facilityEntity.getName(),
+                                    facilityEntity.getStartX(),
+                                    facilityEntity.getStartY(),
+                                    this.facilityService.findFacilityByName(
+                                            facilityEntity.getDescriptorFileName(),
+                                            facilityEntity.getName()
+                                    )
+                            )
+                    )
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             log.error(e.getMessage());
             return null;
         }
-    }
-
-    private List<MapFacilityModel> getFacilities(List<MapFacilityEntity> mapFacilityEntities) {
-        return mapFacilityEntities
-                .parallelStream()
-                .map(
-                        facilityEntity -> new MapFacilityModel(
-                                facilityEntity.getName(),
-                                facilityEntity.getStartX(),
-                                facilityEntity.getStartY(),
-                                this.facilityService.findFacilityByName(
-                                        facilityEntity.getDescriptorFileName(),
-                                        facilityEntity.getName()
-                                )
-                        )
-                )
-                .collect(Collectors.toList());
     }
 }

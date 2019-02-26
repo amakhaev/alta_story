@@ -1,11 +1,12 @@
 package com.alta.mediator.sceneModule;
 
 import com.alta.computator.service.movement.StageComputator;
+import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
-import com.alta.dao.domain.facility.FacilityService;
-import com.alta.dao.domain.map.MapService;
 import com.alta.dao.data.preservation.PreservationModel;
+import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.preservation.PreservationService;
+import com.alta.mediator.sceneModule.entities.BaseFacility;
 import com.alta.mediator.sceneModule.entities.BaseFrameStage;
 import com.alta.mediator.sceneModule.entities.BaseFrameTemplate;
 import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
@@ -13,7 +14,9 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import java.awt.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Provides the factory to generate entities
@@ -49,6 +52,7 @@ public class EntityFactory {
         return new BaseFrameStage(
                 new BaseFrameTemplate(mapFromPreservation.getTiledMapAbsolutePath()),
                 Collections.emptyList(),
+                this.createFacilities(mapFromPreservation.getFacilities()),
                 this.createStageComputator(new Point(preservation.getFocusX(), preservation.getFocusY())),
                 this.actionProducer
         );
@@ -58,10 +62,20 @@ public class EntityFactory {
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
 
-        /*Map<String, List<String>> f = new HashMap<>();
-        f.put("facility1", Arrays.asList("cross2", "pedestal1", "statue3", "statue9", "statue24"));
-        this.facilityService.findFacilitiesByName(f);*/
-
         return stageComputator;
+    }
+
+    private List<BaseFacility> createFacilities(List<MapFacilityModel> facilityModels) {
+        if (facilityModels == null) {
+            return Collections.emptyList();
+        }
+
+        return facilityModels.parallelStream()
+                .map(facilityModel -> new BaseFacility(
+                        facilityModel.getPathToImageSet(),
+                        facilityModel.getTileWidth(),
+                        facilityModel.getTileHeight())
+                )
+                .collect(Collectors.toList());
     }
 }
