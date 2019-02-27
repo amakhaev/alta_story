@@ -26,11 +26,11 @@ public class BaseFacility implements Facility, UniqueObject {
      * Initialize new instance of {@link BaseFacility}
      */
     @Inject
-    public BaseFacility(String absolutePathToSpriteSheet, int tileWidth, int tileHeight) {
+    public BaseFacility(UUID uuid, String absolutePathToSpriteSheet, int tileWidth, int tileHeight) {
+        this.uuid = uuid;
         this.absolutePathToSpriteSheet = absolutePathToSpriteSheet;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
-        this.uuid = UUID.randomUUID();
     }
 
     /**

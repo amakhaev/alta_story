@@ -1,6 +1,7 @@
 package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.FocusPointParticipant;
 import com.alta.computator.model.participant.MapParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,6 +23,7 @@ public class StageComputator {
 
     private FocusPointComputator focusPointComputator;
     private MapComputator mapComputator;
+    private FacilityComputator facilityComputator;
 
     /**
      * Adds the participant that presented focus point
@@ -41,6 +44,20 @@ public class StageComputator {
     }
 
     /**
+     * Adds the coordinated participants for calculate coordinates of movement
+     *
+     * @param facilities - the list of facilities that should be computed
+     */
+    public void addFacilities(List<CoordinatedParticipant> facilities) {
+        if (facilities == null || facilities.isEmpty()) {
+            log.debug("No facilities for compute values");
+            return;
+        }
+
+        this.facilityComputator = new FacilityComputator(facilities);
+    }
+
+    /**
      * Handles the next tick in the stage
      */
     public void onTick() {
@@ -54,6 +71,13 @@ public class StageComputator {
                 this.altitudeMap,
                 this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
         );
+
+        if (this.facilityComputator != null) {
+            this.facilityComputator.onCompute(
+                    this.altitudeMap,
+                    this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
+            );
+        }
     }
 
     /**

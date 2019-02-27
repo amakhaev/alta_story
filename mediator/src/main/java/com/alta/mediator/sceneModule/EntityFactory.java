@@ -1,5 +1,6 @@
 package com.alta.mediator.sceneModule;
 
+import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.service.movement.StageComputator;
 import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
@@ -52,29 +53,49 @@ public class EntityFactory {
         return new BaseFrameStage(
                 new BaseFrameTemplate(mapFromPreservation.getTiledMapAbsolutePath()),
                 Collections.emptyList(),
-                this.createFacilities(mapFromPreservation.getFacilities()),
-                this.createStageComputator(new Point(preservation.getFocusX(), preservation.getFocusY())),
+                this.createSceneFacilities(mapFromPreservation.getFacilities()),
+                this.createStageComputator(
+                        new Point(preservation.getFocusX(), preservation.getFocusY()),
+                        mapFromPreservation.getFacilities()
+                ),
                 this.actionProducer
         );
     }
 
-    private StageComputator createStageComputator(Point focusPointStartPosition) {
+    private StageComputator createStageComputator(Point focusPointStartPosition, List<MapFacilityModel> facilityModels) {
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
+        stageComputator.addFacilities(this.createComputeFacilities(facilityModels));
 
         return stageComputator;
     }
 
-    private List<BaseFacility> createFacilities(List<MapFacilityModel> facilityModels) {
+    private List<BaseFacility> createSceneFacilities(List<MapFacilityModel> facilityModels) {
         if (facilityModels == null) {
             return Collections.emptyList();
         }
 
         return facilityModels.parallelStream()
                 .map(facilityModel -> new BaseFacility(
+                        facilityModel.getUuid(),
                         facilityModel.getPathToImageSet(),
                         facilityModel.getTileWidth(),
                         facilityModel.getTileHeight())
+                )
+                .collect(Collectors.toList());
+    }
+
+    private List<CoordinatedParticipant> createComputeFacilities(List<MapFacilityModel> facilityModels) {
+        if (facilityModels == null || facilityModels.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return facilityModels.parallelStream()
+                .map(facilityModel -> new CoordinatedParticipant(
+                        facilityModel.getUuid().toString(),
+                        new Point(facilityModel.getStartX(), facilityModel.getStartY()),
+                        0
+                        )
                 )
                 .collect(Collectors.toList());
     }

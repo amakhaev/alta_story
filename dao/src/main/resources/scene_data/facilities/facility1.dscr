@@ -1,5 +1,5 @@
 {
-  "imageName": "facility1.png",
+  "imageName": "static1",
   "tileWidth": 32,
   "tileHeight": 32,
   "details": [
@@ -9,6 +9,8 @@
         {
           "x": 1,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -20,6 +22,8 @@
         {
           "x": 0,
           "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -39,6 +43,8 @@
         {
           "x": 1,
           "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -58,6 +64,8 @@
         {
           "x": 2,
           "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -77,6 +85,8 @@
         {
           "x": 3,
           "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -96,6 +106,8 @@
         {
           "x": 2,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -107,6 +119,8 @@
         {
           "x": 3,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -118,6 +132,8 @@
         {
           "x": 2,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -137,6 +153,8 @@
         {
           "x": 4,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -148,6 +166,8 @@
         {
           "x": 5,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -159,6 +179,8 @@
         {
           "x": 6,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -170,6 +192,8 @@
         {
           "x": 7,
           "y": 0,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -181,6 +205,8 @@
         {
           "x": 0,
           "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -200,6 +226,8 @@
         {
           "x": 1,
           "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -219,6 +247,8 @@
         {
           "x": 2,
           "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -238,6 +268,8 @@
         {
           "x": 3,
           "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -257,6 +289,8 @@
         {
           "x": 4,
           "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -276,6 +310,8 @@
         {
           "x": 7,
           "y": 1,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -295,6 +331,8 @@
         {
           "x": 0,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -314,6 +352,8 @@
         {
           "x": 1,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -333,6 +373,8 @@
         {
           "x": 4,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -352,6 +394,8 @@
         {
           "x": 5,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -371,6 +415,8 @@
         {
           "x": 6,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -390,6 +436,8 @@
         {
           "x": 7,
           "y": 3,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -409,6 +457,8 @@
         {
           "x": 0,
           "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -444,6 +494,8 @@
         {
           "x": 2,
           "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -479,6 +531,8 @@
         {
           "x": 5,
           "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -498,6 +552,8 @@
         {
           "x": 6,
           "y": 5,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -517,6 +573,8 @@
         {
           "x": 4,
           "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -536,6 +594,8 @@
         {
           "x": 5,
           "y": 7,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -555,6 +615,8 @@
         {
           "x": 0,
           "y": 9,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -606,6 +668,8 @@
         {
           "x": 2,
           "y": 9,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -657,6 +721,8 @@
         {
           "x": 0,
           "y": 12,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -756,6 +822,8 @@
         {
           "x": 3,
           "y": 12,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
@@ -823,6 +891,8 @@
         {
           "x": 5,
           "y": 12,
+          "shiftX": 0,
+          "shiftY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },

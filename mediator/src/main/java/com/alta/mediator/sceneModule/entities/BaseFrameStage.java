@@ -114,6 +114,13 @@ public class BaseFrameStage extends FrameStage {
         this.frameTemplate.render(mapCoordinates.x, mapCoordinates.y);
     }
 
+    private void renderFacilities() {
+        this.facilities.parallelStream()
+                .forEach(facility -> {
+
+                });
+    }
+
     private void handleAction(SceneAction action) {
         switch (action) {
             case MOVE_UP:

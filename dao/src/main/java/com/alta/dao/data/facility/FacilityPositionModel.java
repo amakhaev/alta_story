@@ -12,6 +12,8 @@ public class FacilityPositionModel {
 
     private int x;
     private int y;
+    private int shiftX;
+    private int shiftY;
     private FacilityTileType tileType;
     private int zIndex;
 

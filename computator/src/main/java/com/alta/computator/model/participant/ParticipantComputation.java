@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * Provides the participant of computation. Contains helper information related to computation.
  */
-public abstract class ParticipantComputation {
+abstract class ParticipantComputation {
 
     @Getter
     private final String uuid;
@@ -15,7 +15,7 @@ public abstract class ParticipantComputation {
      *
      * @param uuid - the UUID of participant
      */
-    protected ParticipantComputation(String uuid) {
+    ParticipantComputation(String uuid) {
         this.uuid = uuid;
     }
 }

@@ -109,8 +109,8 @@ public class MapServiceImpl implements MapService {
                                     this.facilityService.findFacilityByName(
                                             facilityEntity.getDescriptorFileName(),
                                             facilityEntity.getName()
-                                    )
-                            )
+                                    ),
+                                    name1, startX1, startY1, facility1)
                     )
                     .collect(Collectors.toList());
         } catch (Exception e) {

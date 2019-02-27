@@ -2,21 +2,32 @@ package com.alta.dao.data.map;
 
 import com.alta.dao.data.facility.FacilityModel;
 import com.alta.dao.data.facility.FacilityPositionModel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Provides the facility model that related to decorators
  */
-@AllArgsConstructor
 public class MapFacilityModel {
 
-    @Getter private String name;
-    @Getter private int startX;
-    @Getter private int startY;
-    private FacilityModel facility;
+    @Getter private final String name;
+    @Getter private final int startX;
+    @Getter private final int startY;
+    @Getter private final UUID uuid;
+    private final FacilityModel facility;
+
+    /**
+     * Initialize new instance of {@link MapFacilityModel}
+     */
+    public MapFacilityModel(String name, int startX, int startY, FacilityModel facility) {
+        this.name = name;
+        this.startX = startX;
+        this.startY = startY;
+        this.facility = facility;
+        this.uuid = UUID.randomUUID();
+    }
 
     /**
      * Gets the path to image set (SpriteSheet)
