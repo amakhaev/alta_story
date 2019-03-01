@@ -1,12 +1,13 @@
 package com.alta.mediator.sceneModule.entities;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
-import com.alta.computator.service.movement.StageComputator;
+import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.stage.StageComputator;
 import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
 import com.alta.mediator.sceneModule.inputManagement.SceneAction;
 import com.alta.scene.entities.Actor;
-import com.alta.scene.entities.Facility;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,9 @@ import org.newdawn.slick.Graphics;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * Provides base implementation of frame stage
@@ -23,6 +27,7 @@ import java.util.List;
 @Slf4j
 public class BaseFrameStage extends FrameStage {
 
+    private final Map<String, BaseFacility> facilitiesByUuid;
     private static final int THREAD_POOL_SIZE = 3;
     private static final String THREAD_POOL_NAME = "base-frame-stage";
 
@@ -40,6 +45,8 @@ public class BaseFrameStage extends FrameStage {
         super(frameTemplate, actors, facilities);
         this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
         this.stageComputator = stageComputator;
+        this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
+
         actionProducer.setListener(this::handleAction);
     }
 
@@ -64,6 +71,7 @@ public class BaseFrameStage extends FrameStage {
     public void onRenderStage(GameContainer gameContainer, Graphics graphics) {
         this.renderFrame();
         this.renderFocusPoint(graphics);
+        this.renderAllParticipants();
     }
 
     /**
@@ -111,14 +119,24 @@ public class BaseFrameStage extends FrameStage {
             return;
         }
 
-        this.frameTemplate.render(mapCoordinates.x, mapCoordinates.y);
+        this.frameTemplate.render(mapCoordinates);
     }
 
-    private void renderFacilities() {
-        this.facilities.parallelStream()
-                .forEach(facility -> {
+    private void renderAllParticipants() {
+        List<CoordinatedParticipant> sortedParticipants = this.stageComputator.getSortedParticipants();
+        if (sortedParticipants == null || sortedParticipants.isEmpty()) {
+            log.debug("Not participants to render");
+            return;
+        }
 
-                });
+        sortedParticipants.forEach(participant -> {
+            switch (participant.getParticipantType()) {
+                case FACILITY_PART:
+                    if (this.facilitiesByUuid.containsKey(participant.getUuid())) {
+                        this.facilitiesByUuid.get(participant.getUuid()).render((FacilityPartParticipant)participant);
+                    }
+            }
+        });
     }
 
     private void handleAction(SceneAction action) {

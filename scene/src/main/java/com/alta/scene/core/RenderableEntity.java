@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer;
 /**
  * Provides the interface of object that can be rendered
  */
-public interface RenderableEntity {
+public interface RenderableEntity<T> {
 
     /**
      * Initializes the renderable object in GL context if needed.
@@ -17,9 +17,8 @@ public interface RenderableEntity {
     /**
      * Renders the object on given coordinates
      *
-     * @param x - start coordinate on X axis
-     * @param y - start coordinate on Y axis
+     * @param args - the arguments that used for renders
      */
-    void render(int x, int y);
+    void render(T args);
 
 }

@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import java.awt.*;
 import java.util.UUID;
 
 /**
@@ -56,12 +57,11 @@ public class BaseFrameTemplate implements FrameTemplate, UniqueObject {
     /**
      * Renders the object on given coordinates
      *
-     * @param x - start coordinate on X axis
-     * @param y - start coordinate on Y axis
+     * @param coordinates - the coordinates for render
      */
     @Override
-    public void render(int x, int y) {
-        this.map.render(x, y);
+    public void render(Point coordinates) {
+        this.map.render(coordinates.x, coordinates.y);
     }
 
     /**

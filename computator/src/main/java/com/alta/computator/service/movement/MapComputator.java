@@ -1,7 +1,7 @@
 package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
-import com.alta.computator.model.participant.MapParticipant;
+import com.alta.computator.model.participant.map.MapParticipant;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,7 +11,7 @@ import java.awt.*;
  * Provides the computations for the map participant
  */
 @Slf4j
-class MapComputator {
+public class MapComputator {
 
     @Getter
     private final MapParticipant mapParticipant;
@@ -19,7 +19,7 @@ class MapComputator {
     /**
      * Initialize new instance of {@link MapComputator}
      */
-    MapComputator(MapParticipant mapParticipant) {
+    public MapComputator(MapParticipant mapParticipant) {
         this.mapParticipant = mapParticipant;
     }
 
@@ -29,7 +29,7 @@ class MapComputator {
      * @param altitudeMap - the altitude map
      * @param focusPointGlobalCoordinates - the global coordinates of focus point
      */
-    void onCompute(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {
+    public void onCompute(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {
         if (this.mapParticipant == null || altitudeMap == null || focusPointGlobalCoordinates == null) {
             log.warn("One of participant of computation for mat ot found.");
             return;

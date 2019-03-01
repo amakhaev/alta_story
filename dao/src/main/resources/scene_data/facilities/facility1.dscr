@@ -1,5 +1,5 @@
 {
-  "imageName": "static1",
+  "imageName": "facility1.png",
   "tileWidth": 32,
   "tileHeight": 32,
   "details": [
@@ -9,8 +9,8 @@
         {
           "x": 1,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -22,16 +22,16 @@
         {
           "x": 0,
           "y": 5,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 6,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -43,16 +43,16 @@
         {
           "x": 1,
           "y": 5,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 6,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -64,16 +64,16 @@
         {
           "x": 2,
           "y": 5,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 6,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -85,16 +85,16 @@
         {
           "x": 3,
           "y": 5,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 6,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -106,8 +106,8 @@
         {
           "x": 2,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -119,8 +119,8 @@
         {
           "x": 3,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -132,16 +132,16 @@
         {
           "x": 2,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -153,8 +153,8 @@
         {
           "x": 4,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -166,8 +166,8 @@
         {
           "x": 5,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -179,8 +179,8 @@
         {
           "x": 6,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -192,8 +192,8 @@
         {
           "x": 7,
           "y": 0,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -205,16 +205,16 @@
         {
           "x": 0,
           "y": 1,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 2,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -226,16 +226,16 @@
         {
           "x": 1,
           "y": 1,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 2,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -247,16 +247,16 @@
         {
           "x": 2,
           "y": 1,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 2,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -268,16 +268,16 @@
         {
           "x": 3,
           "y": 1,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 2,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -289,16 +289,16 @@
         {
           "x": 4,
           "y": 1,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 2,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -310,16 +310,16 @@
         {
           "x": 7,
           "y": 1,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 7,
           "y": 2,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -331,16 +331,16 @@
         {
           "x": 0,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -352,16 +352,16 @@
         {
           "x": 1,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -373,16 +373,16 @@
         {
           "x": 4,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -394,16 +394,16 @@
         {
           "x": 5,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 5,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -415,16 +415,16 @@
         {
           "x": 6,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 6,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -436,16 +436,16 @@
         {
           "x": 7,
           "y": 3,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 7,
           "y": 4,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -457,32 +457,32 @@
         {
           "x": 0,
           "y": 7,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 7,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 8,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 8,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -494,32 +494,32 @@
         {
           "x": 2,
           "y": 7,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 7,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 8,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 8,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -531,16 +531,16 @@
         {
           "x": 5,
           "y": 5,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 5,
           "y": 6,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -552,16 +552,16 @@
         {
           "x": 6,
           "y": 5,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 6,
           "y": 6,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -573,16 +573,16 @@
         {
           "x": 4,
           "y": 7,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 8,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -594,16 +594,16 @@
         {
           "x": 5,
           "y": 7,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 5,
           "y": 8,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -615,48 +615,48 @@
         {
           "x": 0,
           "y": 9,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 9,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 10,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 10,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 11,
-          "shiftX": 0,
-          "shiftY": 2,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 11,
-          "shiftX": 1,
-          "shiftY": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -668,48 +668,48 @@
         {
           "x": 2,
           "y": 9,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 9,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 10,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 10,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 11,
-          "shiftX": 1,
-          "shiftY": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 11,
-          "shiftX": 1,
-          "shiftY": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -721,96 +721,96 @@
         {
           "x": 0,
           "y": 12,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 12,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 12,
-          "shiftX": 2,
-          "shiftY": 0,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 13,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 13,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 13,
-          "shiftX": 2,
-          "shiftY": 1,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 14,
-          "shiftX": 0,
-          "shiftY": 2,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 14,
-          "shiftX": 1,
-          "shiftY": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 14,
-          "shiftX": 2,
-          "shiftY": 2,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 0,
           "y": 15,
-          "shiftX": 0,
-          "shiftY": 3,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 1,
           "y": 15,
-          "shiftX": 1,
-          "shiftY": 3,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 2,
           "y": 15,
-          "shiftX": 2,
-          "shiftY": 3,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -822,64 +822,64 @@
         {
           "x": 3,
           "y": 12,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 12,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 13,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 13,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 14,
-          "shiftX": 0,
-          "shiftY": 2,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 14,
-          "shiftX": 1,
-          "shiftY": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 3,
           "y": 15,
-          "shiftX": 0,
-          "shiftY": 3,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 4,
           "y": 15,
-          "shiftX": 1,
-          "shiftY": 3,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         }
@@ -891,96 +891,96 @@
         {
           "x": 5,
           "y": 12,
-          "shiftX": 0,
-          "shiftY": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 6,
           "y": 12,
-          "shiftX": 1,
-          "shiftY": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 7,
           "y": 12,
-          "shiftX": 2,
-          "shiftY": 0,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 5,
           "y": 13,
-          "shiftX": 0,
-          "shiftY": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 6,
           "y": 13,
-          "shiftX": 1,
-          "shiftY": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 7,
           "y": 13,
-          "shiftX": 2,
-          "shiftY": 1,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
           "tileType": "FREE",
           "zIndex": 10
         },
         {
           "x": 5,
           "y": 14,
-          "shiftX": 0,
-          "shiftY": 2,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 6,
           "y": 14,
-          "shiftX": 1,
-          "shiftY": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 7,
           "y": 14,
-          "shiftX": 2,
-          "shiftY": 2,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 2,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 5,
           "y": 15,
-          "shiftX": 0,
-          "shiftY": 3,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 6,
           "y": 15,
-          "shiftX": 1,
-          "shiftY": 3,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         },
         {
           "x": 7,
           "y": 15,
-          "shiftX": 2,
-          "shiftY": 3,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 3,
           "tileType": "BARRIER",
           "zIndex": 10
         }

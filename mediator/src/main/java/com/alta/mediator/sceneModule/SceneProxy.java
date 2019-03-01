@@ -2,23 +2,16 @@ package com.alta.mediator.sceneModule;
 
 import com.alta.scene.Scene;
 import com.google.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Provides the proxy object for access to scene
  */
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class SceneProxy {
 
     private final Scene scene;
     private final EntityFactory entityFactory;
-
-    /**
-     * Initialize new instance of {@link SceneProxy}
-     */
-    @Inject
-    public SceneProxy(Scene scene, EntityFactory entityFactory) {
-        this.scene = scene;
-        this.entityFactory = entityFactory;
-    }
 
     /**
      * Starts the scene

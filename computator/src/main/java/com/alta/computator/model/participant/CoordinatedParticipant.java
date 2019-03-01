@@ -9,21 +9,29 @@ import java.awt.*;
  */
 public class CoordinatedParticipant extends ParticipantComputation {
 
-    @Getter private final Point startMapCoordinates;
-    @Getter private Point startGlobalCoordinates;
-    @Getter private final int zIndex;
+    @Getter
+    private final Point startMapCoordinates;
+    @Getter
+    private Point startGlobalCoordinates;
+    @Getter
+    private final int zIndex;
 
-    @Getter private Point currentMapCoordinates;
-    @Getter private Point currentGlobalCoordinates;
+    @Getter
+    private Point currentMapCoordinates;
+    @Getter
+    private Point currentGlobalCoordinates;
 
     /**
      * Initialize new instance of {@link CoordinatedParticipant}
      *
      * @param uuid - the UUID of participant
      */
-    public CoordinatedParticipant(String uuid, Point startMapCoordinates, int zIndex) {
-        super(uuid);
+    public CoordinatedParticipant(String uuid, Point startMapCoordinates, int zIndex, ParticipatType participatType) {
+        super(uuid, participatType);
         this.startMapCoordinates = startMapCoordinates;
+        this.currentMapCoordinates = new Point(startMapCoordinates.x, startMapCoordinates.y);
+        this.startGlobalCoordinates = new Point();
+        this.currentGlobalCoordinates = new Point();
         this.zIndex = zIndex;
     }
 

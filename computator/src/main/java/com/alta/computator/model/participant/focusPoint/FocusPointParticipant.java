@@ -1,5 +1,7 @@
-package com.alta.computator.model.participant;
+package com.alta.computator.model.participant.focusPoint;
 
+import com.alta.computator.model.participant.ParticipantComputation;
+import com.alta.computator.model.participant.ParticipatType;
 import lombok.Getter;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ public class FocusPointParticipant extends ParticipantComputation {
      * Initialize new instance of {@link FocusPointParticipant}
      */
     public FocusPointParticipant(Point startMapCoordinates, String uuid) {
-        super(uuid);
+        super(uuid, ParticipatType.FOCUS_POINT);
         this.startMapCoordinates = startMapCoordinates;
         this.currentMapCoordinates = new Point(0, 0);
         this.currentGlobalCoordinates = new Point(0, 0);

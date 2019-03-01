@@ -1,5 +1,7 @@
 package com.alta.mediator.sceneModule.entities;
 
+import com.alta.computator.model.participant.facility.FacilityPartParticipant;
+import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.scene.entities.Facility;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +15,7 @@ import java.util.UUID;
  * Provides the base implementation of facility scene object
  */
 @Slf4j
-public class BaseFacility implements Facility, UniqueObject {
+public class BaseFacility implements Facility<FacilityPartParticipant>, UniqueObject {
 
     private final UUID uuid;
     private final String absolutePathToSpriteSheet;
@@ -60,11 +62,16 @@ public class BaseFacility implements Facility, UniqueObject {
     /**
      * Renders the object on given coordinates
      *
-     * @param x - start coordinate on X axis
-     * @param y - start coordinate on Y axis
+     * @param facilityPartParticipant - the participant that contains information about participant
      */
     @Override
-    public void render(int x, int y) {
-
+    public void render(FacilityPartParticipant facilityPartParticipant) {
+        this.spriteSheet.getSubImage(
+                facilityPartParticipant.getSpriteSheetTileMapCoordinate().x,
+                facilityPartParticipant.getSpriteSheetTileMapCoordinate().y)
+                .draw(
+                        facilityPartParticipant.getCurrentGlobalCoordinates().x,
+                        facilityPartParticipant.getCurrentGlobalCoordinates().y
+                );
     }
 }

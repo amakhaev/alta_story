@@ -1,5 +1,7 @@
-package com.alta.computator.model.participant;
+package com.alta.computator.model.participant.map;
 
+import com.alta.computator.model.participant.ParticipantComputation;
+import com.alta.computator.model.participant.ParticipatType;
 import lombok.Getter;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ public class MapParticipant extends ParticipantComputation {
      * @param uuid - the UUID of participant
      */
     public MapParticipant(String uuid) {
-        super(uuid);
+        super(uuid, ParticipatType.MAP);
         this.currentGlobalCoordinates = new Point(0, 0);
     }
 

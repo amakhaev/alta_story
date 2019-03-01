@@ -1,7 +1,7 @@
 package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
-import com.alta.computator.model.participant.FocusPointParticipant;
+import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.movement.strategy.MovementStrategy;
 import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
@@ -15,7 +15,7 @@ import java.awt.*;
  * Provides the computator to calculate values for focus point participant
  */
 @Slf4j
-class FocusPointComputator {
+public class FocusPointComputator {
 
     private final MovementStrategy movementStrategy;
     private boolean isInitializedFirstTime;
@@ -26,7 +26,7 @@ class FocusPointComputator {
     /**
      * Initialize new instance of {@link FocusPointComputator}
      */
-    FocusPointComputator(FocusPointParticipant focusPointParticipant) {
+    public FocusPointComputator(FocusPointParticipant focusPointParticipant) {
         this.focusPointParticipant = focusPointParticipant;
         this.movementStrategy = MovementStrategyFactory.getStrategy(MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION);
         this.isInitializedFirstTime = false;
@@ -35,7 +35,7 @@ class FocusPointComputator {
     /**
      * Handles the computing of focus point participant
      */
-    void onCompute(AltitudeMap altitudeMap) {
+    public void onCompute(AltitudeMap altitudeMap) {
         if (this.focusPointParticipant == null) {
             log.warn("Focus point participant not found");
             return;
@@ -57,7 +57,7 @@ class FocusPointComputator {
      * @param movementDirection - the direction of movement
      * @param altitudeMap - the {@link AltitudeMap} instance
      */
-    void tryToRunMovement(MovementDirection movementDirection,
+    public void tryToRunMovement(MovementDirection movementDirection,
                                  AltitudeMap altitudeMap) {
         if (this.movementStrategy.isCurrentlyRunning() || movementDirection == null) {
             return;

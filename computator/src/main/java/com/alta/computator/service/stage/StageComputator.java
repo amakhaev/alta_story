@@ -1,10 +1,17 @@
-package com.alta.computator.service.movement;
+package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
-import com.alta.computator.model.participant.FocusPointParticipant;
-import com.alta.computator.model.participant.MapParticipant;
+import com.alta.computator.model.participant.facility.FacilityPartParticipant;
+import com.alta.computator.model.participant.facility.FacilityParticipant;
+import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
+import com.alta.computator.model.participant.map.MapParticipant;
+import com.alta.computator.service.layer.LayerComputator;
+import com.alta.computator.service.movement.FacilityComputator;
+import com.alta.computator.service.movement.FocusPointComputator;
+import com.alta.computator.service.movement.MapComputator;
 import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.google.common.base.Strings;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +31,15 @@ public class StageComputator {
     private FocusPointComputator focusPointComputator;
     private MapComputator mapComputator;
     private FacilityComputator facilityComputator;
+    private LayerComputator layerComputator;
+
+    /**
+     * Initialize new instance of {@link LayerComputator}
+     */
+    public StageComputator() {
+        this.layerComputator = new LayerComputator();
+        this.facilityComputator = new FacilityComputator();
+    }
 
     /**
      * Adds the participant that presented focus point
@@ -46,15 +62,19 @@ public class StageComputator {
     /**
      * Adds the coordinated participants for calculate coordinates of movement
      *
-     * @param facilities - the list of facilities that should be computed
+     * @param uuid - the uuid of facility
+     * @param facilityParts - the list of facility parts that should be computed
+     * @param startMapCoordinates - the start coordinates of facility on map
      */
-    public void addFacilities(List<CoordinatedParticipant> facilities) {
-        if (facilities == null || facilities.isEmpty()) {
-            log.debug("No facilities for compute values");
+    public void addFacilities(String uuid, List<FacilityPartParticipant> facilityParts, Point startMapCoordinates) {
+        if (Strings.isNullOrEmpty(uuid) || facilityParts == null || facilityParts.isEmpty() || startMapCoordinates == null) {
+            log.debug("One ore more required argument not found");
             return;
         }
 
-        this.facilityComputator = new FacilityComputator(facilities);
+        FacilityParticipant participant = new FacilityParticipant(uuid, startMapCoordinates, facilityParts);
+        this.facilityComputator.add(participant);
+        this.layerComputator.addParticipants(participant.getFacilityPartParticipants());
     }
 
     /**
@@ -108,6 +128,15 @@ public class StageComputator {
     public Point getMapGlobalCoordinates() {
         return this.mapComputator != null && this.mapComputator.getMapParticipant() != null ?
                 this.mapComputator.getMapParticipant().getCurrentGlobalCoordinates() : null;
+    }
+
+    /**
+     * Gets the list of participants in correct order for render. Order based on zIndex
+     *
+     * @return the {@link List} of participant.
+     */
+    public List<CoordinatedParticipant> getSortedParticipants() {
+        return this.layerComputator.getSortedParticipants();
     }
 
     private boolean isAllDataInitialized() {

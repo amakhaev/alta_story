@@ -1,7 +1,7 @@
 package com.alta.mediator.sceneModule;
 
-import com.alta.computator.model.participant.CoordinatedParticipant;
-import com.alta.computator.service.movement.StageComputator;
+import com.alta.computator.model.participant.facility.FacilityPartParticipant;
+import com.alta.computator.service.stage.StageComputator;
 import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.PreservationModel;
@@ -65,7 +65,16 @@ public class EntityFactory {
     private StageComputator createStageComputator(Point focusPointStartPosition, List<MapFacilityModel> facilityModels) {
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
-        stageComputator.addFacilities(this.createComputeFacilities(facilityModels));
+
+        if (facilityModels != null && !facilityModels.isEmpty()) {
+            facilityModels.forEach(facilityModel ->
+                    stageComputator.addFacilities(
+                            facilityModel.getUuid().toString(),
+                            this.createComputeFacilities(facilityModel),
+                            new Point(facilityModel.getStartX(), facilityModel.getStartY())
+                    )
+            );
+        }
 
         return stageComputator;
     }
@@ -85,17 +94,21 @@ public class EntityFactory {
                 .collect(Collectors.toList());
     }
 
-    private List<CoordinatedParticipant> createComputeFacilities(List<MapFacilityModel> facilityModels) {
-        if (facilityModels == null || facilityModels.isEmpty()) {
+    private List<FacilityPartParticipant> createComputeFacilities(MapFacilityModel facilityModel) {
+        if (facilityModel == null) {
             return Collections.emptyList();
         }
 
-        return facilityModels.parallelStream()
-                .map(facilityModel -> new CoordinatedParticipant(
-                        facilityModel.getUuid().toString(),
-                        new Point(facilityModel.getStartX(), facilityModel.getStartY()),
-                        0
-                        )
+        return facilityModel.getFacilityPositions()
+                .stream()
+                .map(facilityPartPosition ->
+                    new FacilityPartParticipant(
+                            facilityModel.getUuid().toString(),
+                            facilityPartPosition.getZIndex(),
+                            new Point(facilityModel.getStartX(), facilityModel.getStartY()),
+                            new Point(facilityPartPosition.getShiftFromStartX(), facilityPartPosition.getShiftFromStartY()),
+                            new Point(facilityPartPosition.getX(), facilityPartPosition.getY())
+                    )
                 )
                 .collect(Collectors.toList());
     }
