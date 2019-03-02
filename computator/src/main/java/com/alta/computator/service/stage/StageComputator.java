@@ -73,14 +73,14 @@ public class StageComputator {
         }
 
         FacilityParticipant participant = new FacilityParticipant(uuid, startMapCoordinates, facilityParts);
-        this.facilityComputator.add(participant);
+        this.facilityComputator.add(participant, this.altitudeMap);
         this.layerComputator.addParticipants(participant.getFacilityPartParticipants());
     }
 
     /**
      * Handles the next tick in the stage
      */
-    public void onTick() {
+    public synchronized void onTick() {
         if (!this.isAllDataInitialized()) {
             log.warn("One or more computator data wasn't initialized. No any action will be performed");
             return;

@@ -1,6 +1,7 @@
 package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
@@ -16,17 +17,16 @@ import java.util.List;
 @Slf4j
 public class FacilityComputator {
 
-    private boolean isInitializedFirstTime;
-
     @Getter
     private final List<FacilityParticipant> facilityParticipants;
+    private List<FacilityParticipant> notInitializedParticipants;
 
     /**
      * Initialize new instance of {@link FacilityComputator}
      */
     public FacilityComputator() {
         this.facilityParticipants = new ArrayList<>();
-        this.isInitializedFirstTime = false;
+        this.notInitializedParticipants = new ArrayList<>();
     }
 
     /**
@@ -34,8 +34,12 @@ public class FacilityComputator {
      *
      * @param facilityParticipant - the new participant of computation
      */
-    public void add(FacilityParticipant facilityParticipant) {
-        this.facilityParticipants.add(facilityParticipant);
+    public void add(FacilityParticipant facilityParticipant, AltitudeMap altitudeMap) {
+        if (facilityParticipant == null) {
+            log.error("Null reference to FacilityParticipant.");
+            return;
+        }
+        this.notInitializedParticipants.add(facilityParticipant);
     }
 
     /**
@@ -45,6 +49,7 @@ public class FacilityComputator {
      * @param focusPointGlobalCoordinates - the global coordinates of focus point
      */
     public void onCompute(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {
+        this.firstTimeInitialization(altitudeMap);
         if (this.facilityParticipants.isEmpty()) {
             return;
         }
@@ -58,11 +63,6 @@ public class FacilityComputator {
         if (facilityParticipant == null) {
             return;
         }
-
-        /*if (!this.isInitializedFirstTime) {
-            this.firstTimeUpdate(altitudeMap);
-            this.isInitializedFirstTime = true;
-        }*/
 
         facilityParticipant.getFacilityPartParticipants().parallelStream().forEach(participant -> {
             int x = (altitudeMap.getScreenWidth() / 2 - altitudeMap.getTileWidth() / 2) - focusPointGlobalCoordinates.x;
@@ -91,40 +91,20 @@ public class FacilityComputator {
         });
     }
 
-    private void firstTimeUpdate(AltitudeMap altitudeMap) {
-        /*this.facilityParticipant.updateStartGlobalCoordinates(
-                MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                        altitudeMap.getTileWidth(),
-                        this.facilityParticipant.getStartMapCoordinates().x
-                ),
-                MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                        altitudeMap.getTileHeight(),
-                        this.facilityParticipant.getStartMapCoordinates().y
-                )
-        );
+    private void firstTimeInitialization(AltitudeMap altitudeMap) {
+        if (this.notInitializedParticipants.isEmpty()) {
+            return;
+        }
 
-        this.facilityParticipant.getFacilityPartParticipants().forEach(participant -> {
-            participant.updateStartGlobalCoordinates(
-                    MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                            altitudeMap.getTileWidth(),
-                            participant.getStartMapCoordinates().x
-                    ),
-                    MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                            altitudeMap.getTileHeight(),
-                            participant.getStartMapCoordinates().y
-                    )
-            );
+        this.notInitializedParticipants.forEach(facilityParticipant ->
+                facilityParticipant.getFacilityPartParticipants().forEach(fp -> {
+                    int x = fp.getStartMapCoordinates().x + fp.getShiftTilePosition().x;
+                    int y = fp.getStartMapCoordinates().y + fp.getShiftTilePosition().y;
+                    altitudeMap.setTileState(x, y, fp.getTileState());
+                }
+        ));
+        this.facilityParticipants.addAll(this.notInitializedParticipants);
+        this.notInitializedParticipants.clear();
 
-            participant.updateCurrentGlobalCoordinates(
-                    MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                            altitudeMap.getTileWidth(),
-                            participant.getStartMapCoordinates().x
-                    ),
-                    MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                            altitudeMap.getTileHeight(),
-                            participant.getStartMapCoordinates().y
-                    )
-            );
-        });*/
     }
 }

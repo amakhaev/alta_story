@@ -37,9 +37,9 @@
 			"startY": 4
 		},
 		{
-			"name": "statue22", 
+			"name": "statue26", 
 			"descriptorFileName": "facility1",
-			"startX": 6,
+			"startX": 10,
 			"startY": 2
 		}
 	]

@@ -24,10 +24,8 @@ public class ThreadPoolExecutor {
      * Ran the action in new thread
      *
      * @param runnable - the action that should be performed
-     * @param taskName - the name of task for execution
      */
-    public void run(String taskName, Runnable runnable) {
-        log.debug("Start execution of '{}' task", taskName);
+    public void run(Runnable runnable) {
         this.executorService.execute(runnable);
     }
 }

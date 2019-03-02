@@ -18,7 +18,7 @@ import org.newdawn.slick.Graphics;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -27,12 +27,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BaseFrameStage extends FrameStage {
 
-    private final Map<String, BaseFacility> facilitiesByUuid;
     private static final int THREAD_POOL_SIZE = 3;
     private static final String THREAD_POOL_NAME = "base-frame-stage";
 
     private final ThreadPoolExecutor threadPoolExecutor;
     private final StageComputator stageComputator;
+    private final Map<String, BaseFacility> facilitiesByUuid;
+    private AtomicBoolean isUpdateInProgress;
 
     /**
      * Initialize new instance of {@link FrameStage}
@@ -46,6 +47,7 @@ public class BaseFrameStage extends FrameStage {
         this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
         this.stageComputator = stageComputator;
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
+        this.isUpdateInProgress = new AtomicBoolean(false);
 
         actionProducer.setListener(this::handleAction);
     }
@@ -58,7 +60,15 @@ public class BaseFrameStage extends FrameStage {
      */
     @Override
     public void onUpdateStage(GameContainer gameContainer, int delta) {
-        this.stageComputator.onTick();
+        if (this.isUpdateInProgress.get()) {
+            return;
+        }
+
+        this.threadPoolExecutor.run(() -> {
+            this.isUpdateInProgress.set(true);
+            this.stageComputator.onTick();
+            this.isUpdateInProgress.set(false);
+        });
     }
 
     /**
@@ -84,8 +94,8 @@ public class BaseFrameStage extends FrameStage {
         super.onInit(gameContainer);
 
         this.threadPoolExecutor.run(
-                "Initialize computator for scene",
                 () -> {
+                    log.info("Initialize computator for scene");
                     this.stageComputator.setAltitudeMap(
                             new AltitudeMap(
                                     this.frameTemplate.getTiledMap(),

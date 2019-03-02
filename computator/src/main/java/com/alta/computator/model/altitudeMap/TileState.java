@@ -5,6 +5,6 @@ package com.alta.computator.model.altitudeMap;
  */
 public enum TileState {
     FREE,
-    BLOCKED,
+    BARRIER,
     JUMP
 }

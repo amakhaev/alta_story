@@ -1,7 +1,9 @@
 package com.alta.mediator.sceneModule;
 
+import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
+import com.alta.dao.data.facility.FacilityTileType;
 import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.PreservationModel;
@@ -107,9 +109,21 @@ public class EntityFactory {
                             facilityPartPosition.getZIndex(),
                             new Point(facilityModel.getStartX(), facilityModel.getStartY()),
                             new Point(facilityPartPosition.getShiftFromStartX(), facilityPartPosition.getShiftFromStartY()),
-                            new Point(facilityPartPosition.getX(), facilityPartPosition.getY())
+                            new Point(facilityPartPosition.getX(), facilityPartPosition.getY()),
+                            this.convertTileTypeToTileState(facilityPartPosition.getTileType())
                     )
                 )
                 .collect(Collectors.toList());
+    }
+
+    private TileState convertTileTypeToTileState(FacilityTileType type) {
+        switch (type) {
+            case FREE:
+                return TileState.FREE;
+            case BARRIER:
+                return TileState.BARRIER;
+            default:
+                return TileState.FREE;
+        }
     }
 }

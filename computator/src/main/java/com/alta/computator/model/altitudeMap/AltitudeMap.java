@@ -2,6 +2,7 @@ package com.alta.computator.model.altitudeMap;
 
 import com.alta.computator.computationExceptions.AltitudeMapException;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * Provides the altitude map
  */
+@Slf4j
 public class AltitudeMap {
 
     private static final String BARRIER_LAYER_NAME = "barriers";
@@ -17,10 +19,10 @@ public class AltitudeMap {
 
     private final static Map<String, TileState> AVAILABLE_LAYERS = new HashMap<String, TileState>() {{
         put(FREE_LAYER_NAME, TileState.FREE);
-        put(BARRIER_LAYER_NAME, TileState.BLOCKED);
+        put(BARRIER_LAYER_NAME, TileState.BARRIER);
     }};
 
-    private TileState[][] initialTileStates;
+    private TileState[][] currentTileStates;
 
     @Getter private final int screenWidth;
     @Getter private final int screenHeight;
@@ -46,11 +48,38 @@ public class AltitudeMap {
      * @return the {@link TileState} instance
      */
     public TileState getTileState(int x, int y) {
-        if (this.initialTileStates.length < x || this.initialTileStates[0].length < y) {
+        if (this.currentTileStates.length < x || this.currentTileStates[0].length < y) {
             return null;
         }
 
-        return this.initialTileStates[x][y];
+        return this.currentTileStates[x][y];
+    }
+
+    /**
+     * Sets the tile state on specific position
+     *
+     * @param x - the coordinate of X axis
+     * @param y - the coordinate of Y axis
+     * @param tileState - the new state of tile
+     */
+    public void setTileState(int x, int y, TileState tileState) {
+        if (this.currentTileStates.length < x || this.currentTileStates[0].length < y) {
+            log.error(
+                    "Invalid x: {} and y: {} arguments. Length of array is [{},{}]",
+                    x,
+                    y,
+                    this.currentTileStates.length,
+                    this.currentTileStates[0].length
+            );
+            return;
+        }
+
+        if (tileState == null) {
+            log.error("Null tile state");
+            return;
+        }
+
+        this.currentTileStates[x][y] = tileState;
     }
 
     private void createTileStates(TiledMap tiledMap) {
@@ -58,10 +87,10 @@ public class AltitudeMap {
             throw new AltitudeMapException("Can't create tiled map states array because no given tiled map");
         }
 
-        this.initialTileStates = new TileState[tiledMap.getWidth()][tiledMap.getHeight()];
+        this.currentTileStates = new TileState[tiledMap.getWidth()][tiledMap.getHeight()];
         for (int x = 0; x < tiledMap.getWidth(); x++) {
             for (int y = 0; y < tiledMap.getHeight(); y++) {
-                this.initialTileStates[x][y] = this.getTileState(x, y, tiledMap);
+                this.currentTileStates[x][y] = this.getTileState(x, y, tiledMap);
             }
         }
     }
