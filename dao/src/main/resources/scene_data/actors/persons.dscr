@@ -1,0 +1,72 @@
+{
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "directionDown": [
+    {
+       "x": 0,
+       "y": 0,
+       "stopFrame": "false"
+    },
+    {
+       "x": 1,
+       "y": 0,
+       "stopFrame": "true"
+    },
+    {
+       "x": 2,
+       "y": 0,
+       "stopFrame": "false"
+    }
+  ],
+  "directionLeft": [
+    {
+       "x": 0,
+       "y": 1,
+       "stopFrame": "false"
+    },
+    {
+       "x": 1,
+       "y": 1,
+       "stopFrame": "true"
+    },
+    {
+       "x": 2,
+       "y": 1,
+       "stopFrame": "false"
+    }
+  ],
+  "directionRight": [
+    {
+       "x": 0,
+       "y": 2,
+       "stopFrame": "false"
+    },
+    {
+       "x": 1,
+       "y": 2,
+       "stopFrame": "true"
+    },
+    {
+       "x": 2,
+       "y": 2,
+       "stopFrame": "false"
+    }
+  ],
+  "directionUp": [
+    {
+       "x": 0,
+       "y": 3,
+       "stopFrame": "false"
+    },
+    {
+       "x": 1,
+       "y": 3,
+       "stopFrame": "true"
+    },
+    {
+       "x": 2,
+       "y": 3,
+       "stopFrame": "false"
+    }
+  ]
+}

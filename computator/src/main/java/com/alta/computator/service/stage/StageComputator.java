@@ -2,11 +2,13 @@ package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.model.participant.map.MapParticipant;
 import com.alta.computator.service.layer.LayerComputator;
+import com.alta.computator.service.movement.ActingCharacterComputator;
 import com.alta.computator.service.movement.FacilityComputator;
 import com.alta.computator.service.movement.FocusPointComputator;
 import com.alta.computator.service.movement.MapComputator;
@@ -26,11 +28,14 @@ import java.util.UUID;
 @Slf4j
 public class StageComputator {
 
-    @Setter @Getter private AltitudeMap altitudeMap;
+    @Setter
+    @Getter
+    private AltitudeMap altitudeMap;
 
     private FocusPointComputator focusPointComputator;
     private MapComputator mapComputator;
     private FacilityComputator facilityComputator;
+    private ActingCharacterComputator actingCharacterComputator;
     private LayerComputator layerComputator;
 
     /**
@@ -78,6 +83,25 @@ public class StageComputator {
     }
 
     /**
+     * Adds the acting character for computation
+     *
+     * @param uuid - the uuid of character
+     * @param mapStartPosition - the start coordinates of facility on character
+     * @param zIndex - the z-index of character
+     */
+    public void addActingCharacter(String uuid, Point mapStartPosition, int zIndex) {
+        if (this.focusPointComputator == null) {
+            log.error("The focus point is required for adding acting character");
+            return;
+        }
+
+        this.actingCharacterComputator = new ActingCharacterComputator(
+                new ActorParticipant(uuid, mapStartPosition, zIndex)
+        );
+        this.layerComputator.addParticipant(this.actingCharacterComputator.getActorParticipant());
+    }
+
+    /**
      * Handles the next tick in the stage
      */
     public synchronized void onTick() {
@@ -98,6 +122,13 @@ public class StageComputator {
                     this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
             );
         }
+
+        if (this.actingCharacterComputator != null) {
+            this.actingCharacterComputator.onCompute(
+                    this.focusPointComputator.getFocusPointParticipant().getCurrentMapCoordinates(),
+                    this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
+            );
+        }
     }
 
     /**
@@ -107,17 +138,6 @@ public class StageComputator {
      */
     public void tryToRunMovement(MovementDirection movementDirection) {
         this.focusPointComputator.tryToRunMovement(movementDirection, this.altitudeMap);
-    }
-
-    /**
-     * Gets the global coordinates of focus point participant
-     *
-     * @return the {@link Point} or null if not exists
-     */
-    public Point getFocusPointGlobalCoordinates() {
-        return this.focusPointComputator != null &&
-                this.focusPointComputator.getConstantGlobalStartCoordination() != null ?
-                this.focusPointComputator.getConstantGlobalStartCoordination() : null;
     }
 
     /**

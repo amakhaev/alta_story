@@ -54,7 +54,7 @@ public abstract class FrameStage {
         }
 
         if (this.actors != null) {
-            this.actors.forEach(Actor::initializeActor);
+            this.actors.forEach(a -> a.initialize(gameContainer));
         }
     }
 }

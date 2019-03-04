@@ -1,6 +1,8 @@
 package com.alta.dao;
 
 import com.alta.dao.di.DatabaseConnectionProvider;
+import com.alta.dao.domain.actor.ActorService;
+import com.alta.dao.domain.actor.ActorServiceImpl;
 import com.alta.dao.domain.facility.FacilityService;
 import com.alta.dao.domain.facility.FacilityServiceImpl;
 import com.alta.dao.domain.map.MapService;
@@ -18,6 +20,7 @@ public class DaoInjectorModule extends AbstractModule {
         bind(MapService.class).to(MapServiceImpl.class);
         bind(PreservationService.class).to(PreservationServiceImpl.class);
         bind(FacilityService.class).to(FacilityServiceImpl.class);
+        bind(ActorService.class).to(ActorServiceImpl.class);
 
         bind(ConnectionSource.class).toProvider(DatabaseConnectionProvider.class).in(Singleton.class);
     }

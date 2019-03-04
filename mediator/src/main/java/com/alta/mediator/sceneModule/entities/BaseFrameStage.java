@@ -80,7 +80,6 @@ public class BaseFrameStage extends FrameStage {
     @Override
     public void onRenderStage(GameContainer gameContainer, Graphics graphics) {
         this.renderFrame();
-        this.renderFocusPoint(graphics);
         this.renderAllParticipants();
     }
 
@@ -103,23 +102,8 @@ public class BaseFrameStage extends FrameStage {
                                     gameContainer.getHeight()
                             )
                     );
-                    log.debug("Completed initialization of computator");
+                    log.info("Completed initialization of computator");
                 }
-        );
-    }
-
-    private void renderFocusPoint(Graphics graphics) {
-        Point focusPointCoordinates = this.stageComputator.getFocusPointGlobalCoordinates();
-        if (focusPointCoordinates == null || this.stageComputator.getAltitudeMap() == null) {
-            return;
-        }
-
-        graphics.setColor(Color.red);
-        graphics.fillRect(
-                focusPointCoordinates.x,
-                focusPointCoordinates.y,
-                this.stageComputator.getAltitudeMap().getTileWidth(),
-                this.stageComputator.getAltitudeMap().getTileHeight()
         );
     }
 

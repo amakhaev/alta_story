@@ -15,6 +15,7 @@ import com.alta.mediator.sceneModule.entities.BaseFrameTemplate;
 import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import lombok.RequiredArgsConstructor;
 
 import java.awt.*;
 import java.util.Collections;
@@ -25,23 +26,12 @@ import java.util.stream.Collectors;
  * Provides the factory to generate entities
  */
 @Singleton
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class EntityFactory {
 
     private final PreservationService preservationService;
     private final MapService mapService;
     private final ActionProducer actionProducer;
-
-    /**
-     * Initialize new instance of {@link EntityFactory}
-     */
-    @Inject
-    public EntityFactory(PreservationService preservationService,
-                         MapService mapService,
-                         ActionProducer actionProducer) {
-        this.preservationService = preservationService;
-        this.mapService = mapService;
-        this.actionProducer = actionProducer;
-    }
 
     /**
      * Creates the frame stage from preservation

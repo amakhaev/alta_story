@@ -56,4 +56,15 @@ public class CoordinatedParticipant extends ParticipantComputation {
         this.currentGlobalCoordinates.x = x;
         this.currentGlobalCoordinates.y = y;
     }
+
+    /**
+     * Updates the value of current map coordinates
+     *
+     * @param x - the X coordinate
+     * @param y - the Y coordinate
+     */
+    public void updateCurrentMapCoordinates(int x, int y) {
+        this.currentMapCoordinates.x = x;
+        this.currentMapCoordinates.y = y;
+    }
 }

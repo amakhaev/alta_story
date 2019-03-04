@@ -38,6 +38,25 @@ public class LayerComputator {
         }
 
         this.sortedParticipants.addAll(participants);
+        this.resortParticipants();
+    }
+
+    /**
+     * Adds the participant to calculable position in the layer
+     *
+     * @param participant - the participant tha used in layer
+     */
+    public void addParticipant(CoordinatedParticipant participant) {
+        if (participant == null) {
+            log.warn("Participant is null");
+            return;
+        }
+
+        this.sortedParticipants.add(participant);
+        this.resortParticipants();
+    }
+
+    private void resortParticipants() {
         this.sortedParticipants = this.sortedParticipants.stream()
                 .sorted(Comparator.comparingInt(CoordinatedParticipant::getZIndex))
                 .collect(Collectors.toList());
