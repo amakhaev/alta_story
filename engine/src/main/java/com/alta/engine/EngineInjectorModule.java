@@ -1,4 +1,6 @@
 package com.alta.engine;
 
-public class EngineInjectorModule {
+import com.google.inject.AbstractModule;
+
+public class EngineInjectorModule extends AbstractModule {
 }

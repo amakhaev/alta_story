@@ -1,17 +1,16 @@
-package com.alta.mediator.sceneModule.entities;
+package com.alta.engine.entityProvision.entities;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.mediator.sceneModule.inputManagement.ActionProducer;
-import com.alta.mediator.sceneModule.inputManagement.SceneAction;
+import com.alta.engine.inputListener.ActionProducer;
+import com.alta.engine.inputListener.SceneAction;
 import com.alta.scene.entities.Actor;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -94,7 +93,7 @@ public class BaseFrameStage extends FrameStage {
 
         this.threadPoolExecutor.run(
                 () -> {
-                    log.info("Initialize computator for scene");
+                    log.info("Initialize computator for BaseFrameStage");
                     this.stageComputator.setAltitudeMap(
                             new AltitudeMap(
                                     this.frameTemplate.getTiledMap(),
@@ -102,7 +101,7 @@ public class BaseFrameStage extends FrameStage {
                                     gameContainer.getHeight()
                             )
                     );
-                    log.info("Completed initialization of computator");
+                    log.info("Completed initialization of computator for BaseFrameStage");
                 }
         );
     }

@@ -1,7 +1,6 @@
-package com.alta.mediator.sceneModule.entities;
+package com.alta.engine.entityProvision.entities;
 
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
-import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.scene.entities.Facility;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;

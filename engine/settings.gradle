@@ -1,4 +1,4 @@
 rootProject.name = 'engine'
 
-include ':shared', ':computator'
+include ':shared', ':computator', ':scene'
 

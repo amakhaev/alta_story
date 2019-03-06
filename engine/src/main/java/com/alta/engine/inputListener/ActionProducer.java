@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneModule.inputManagement;
+package com.alta.engine.inputListener;
 
 import com.google.inject.Singleton;
 import lombok.Setter;
@@ -34,7 +34,7 @@ public class ActionProducer {
      *
      * @param action - the action that should begin producing
      */
-    public void onActionStartProducing(SceneAction action) {
+    void onActionStartProducing(SceneAction action) {
         this.actionStates.put(action, ActionState.PRODUCING);
     }
 
@@ -43,7 +43,7 @@ public class ActionProducer {
      *
      * @param action - the action that should stop producing
      */
-    public void onActionStopProducing(SceneAction action) {
+    void onActionStopProducing(SceneAction action) {
         this.actionStates.put(action, ActionState.STOPPED);
     }
 

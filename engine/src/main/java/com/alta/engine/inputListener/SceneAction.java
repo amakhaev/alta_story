@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneModule.inputManagement;
+package com.alta.engine.inputListener;
 
 /**
  * Provides possible actions of scene

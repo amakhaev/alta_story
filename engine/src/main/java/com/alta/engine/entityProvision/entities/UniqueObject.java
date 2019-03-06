@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneModule.entities;
+package com.alta.engine.entityProvision.entities;
 
 import java.util.UUID;
 

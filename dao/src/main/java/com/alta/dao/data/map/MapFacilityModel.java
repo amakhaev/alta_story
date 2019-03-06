@@ -4,6 +4,7 @@ import com.alta.dao.data.facility.FacilityModel;
 import com.alta.dao.data.facility.FacilityPositionModel;
 import lombok.Getter;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,6 +55,6 @@ public class MapFacilityModel {
      * Gets the list of facility positions
      */
     public List<FacilityPositionModel> getFacilityPositions() {
-        return this.facility == null ? null : this.facility.getPositions();
+        return this.facility == null ? Collections.emptyList() : this.facility.getPositions();
     }
 }

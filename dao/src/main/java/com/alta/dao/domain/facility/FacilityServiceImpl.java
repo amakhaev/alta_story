@@ -39,7 +39,7 @@ public class FacilityServiceImpl implements FacilityService {
             return null;
         }
 
-        log.debug("Start finding of facilities");
+        log.debug("Start finding of facilities with given name '{}'", facilityName);
         if (!this.availableFacilities.containsKey(facilityDescriptorName)) {
             this.availableFacilities.put(facilityDescriptorName, this.loadFacilityList(facilityDescriptorName));
         }
@@ -57,7 +57,7 @@ public class FacilityServiceImpl implements FacilityService {
             return null;
         }
 
-        log.debug("Loading of facilities completed");
+        log.debug("Loading of facility with given name '{}' completed", facilityName);
         return facilityModel;
     }
 

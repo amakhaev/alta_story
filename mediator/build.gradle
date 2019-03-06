@@ -11,11 +11,13 @@ repositories {
     mavenCentral()
 }
 
+ext {
+}
+
 dependencies {
     compile project(':shared')
-    compile project(':scene')
     compile project(':dao')
-    compile project(':computator')
+    compile project(':engine')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

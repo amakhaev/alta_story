@@ -1,4 +1,4 @@
-package com.alta.mediator.sceneModule.inputManagement;
+package com.alta.engine.inputListener;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

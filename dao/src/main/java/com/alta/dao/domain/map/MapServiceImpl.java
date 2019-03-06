@@ -67,7 +67,7 @@ public class MapServiceImpl implements MapService {
         );
 
         this.mapsByName.put(matchedMapEntity.getName(), mapModel);
-        log.info("Map initialization completed successfully", name);
+        log.info("Initialization for map '{}' completed successfully", name);
         return mapModel;
     }
 
