@@ -1,5 +1,6 @@
 package com.alta.engine.entityProvision;
 
+import com.alta.engine.data.ActingCharacterModel;
 import com.alta.engine.data.FacilityEngineModel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,5 +31,10 @@ public class FrameStageData {
      */
     @Singular
     private List<FacilityEngineModel> facilities;
+
+    /**
+     * The model that describes the acting character on stage
+     */
+    private ActingCharacterModel actingCharacter;
 
 }

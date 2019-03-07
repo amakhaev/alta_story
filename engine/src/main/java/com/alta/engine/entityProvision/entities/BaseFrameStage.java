@@ -2,12 +2,13 @@ package com.alta.engine.entityProvision.entities;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
+import com.alta.engine.data.ActingCharacterModel;
 import com.alta.engine.inputListener.ActionProducer;
 import com.alta.engine.inputListener.SceneAction;
-import com.alta.scene.entities.Actor;
 import com.alta.scene.entities.FrameStage;
 import com.alta.utils.ThreadPoolExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -32,19 +34,21 @@ public class BaseFrameStage extends FrameStage {
     private final ThreadPoolExecutor threadPoolExecutor;
     private final StageComputator stageComputator;
     private final Map<String, BaseFacility> facilitiesByUuid;
+    private final BaseActingCharacter actingCharacter;
     private AtomicBoolean isUpdateInProgress;
 
     /**
      * Initialize new instance of {@link FrameStage}
      */
     public BaseFrameStage(BaseFrameTemplate frameTemplate,
-                          List<Actor> actors,
+                          BaseActingCharacter actingCharacter,
                           List<BaseFacility> facilities,
                           StageComputator stageComputator,
                           ActionProducer actionProducer) {
-        super(frameTemplate, actors, facilities);
+        super(frameTemplate, Collections.singletonList(actingCharacter), facilities);
         this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
         this.stageComputator = stageComputator;
+        this.actingCharacter = actingCharacter;
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
         this.isUpdateInProgress = new AtomicBoolean(false);
 
@@ -65,6 +69,7 @@ public class BaseFrameStage extends FrameStage {
 
         this.threadPoolExecutor.run(() -> {
             this.isUpdateInProgress.set(true);
+            this.actingCharacter.update(this.stageComputator.getActingCharacter(), delta);
             this.stageComputator.onTick();
             this.isUpdateInProgress.set(false);
         });
@@ -128,6 +133,9 @@ public class BaseFrameStage extends FrameStage {
                     if (this.facilitiesByUuid.containsKey(participant.getUuid())) {
                         this.facilitiesByUuid.get(participant.getUuid()).render((FacilityPartParticipant)participant);
                     }
+                    break;
+                case ACTING_CHARACTER:
+                    this.actingCharacter.render((ActorParticipant)participant);
             }
         });
     }

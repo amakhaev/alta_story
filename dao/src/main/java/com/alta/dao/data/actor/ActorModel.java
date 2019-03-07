@@ -2,15 +2,45 @@ package com.alta.dao.data.actor;
 
 import com.alta.dao.domain.actor.ActorEntity;
 import com.alta.dao.domain.actor.TileSetDescriptorEntity;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.awt.*;
+import java.util.UUID;
 
 /**
  * Provides the model that describes actor
  */
-@AllArgsConstructor
 public final class ActorModel {
 
     private final ActorEntity actorEntity;
-    private final String pathToImageSet;
+
+    @Getter
     private final TileSetDescriptorEntity descriptor;
+
+    @Getter
+    private final String pathToImageSet;
+
+    @Getter
+    private final Point startMapCoordinates;
+
+    @Getter
+    private final String uuid;
+
+    public ActorModel(ActorEntity actorEntity,
+                      String pathToImageSet,
+                      TileSetDescriptorEntity descriptor,
+                      Point startMapCoordinates) {
+        this.actorEntity = actorEntity;
+        this.pathToImageSet = pathToImageSet;
+        this.descriptor = descriptor;
+        this.startMapCoordinates = startMapCoordinates;
+        this.uuid = UUID.randomUUID().toString();
+    }
+
+    /**
+     * Gets the z-index of actor
+     */
+    public int getZIndex() {
+        return this.actorEntity.getZIndex();
+    }
 }

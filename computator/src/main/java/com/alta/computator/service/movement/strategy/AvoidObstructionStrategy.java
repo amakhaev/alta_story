@@ -27,7 +27,7 @@ public class AvoidObstructionStrategy extends BaseMovementStrategy {
     @Override
     public boolean isCanMoveTo(Point targetMapCoordinates, AltitudeMap altitudeMap) {
         TileState tileState = altitudeMap.getTileState(targetMapCoordinates.x, targetMapCoordinates.y);
-        // log.debug("Try to check move availability to {}. State is {}", targetMapCoordinates, tileState);
+        log.debug("Try to check move availability to {}. State is {}", targetMapCoordinates, tileState);
         return tileState == TileState.FREE;
     }
 }

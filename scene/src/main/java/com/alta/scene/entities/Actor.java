@@ -7,4 +7,12 @@ import com.alta.scene.core.RenderableEntity;
  */
 public interface Actor<T> extends RenderableEntity<T> {
 
+    /**
+     * Updates the actor state
+     *
+     * @param delta - the time between last and previous calls
+     * @param data  - provides the data to update
+     */
+    void update(T data, int delta);
+
 }

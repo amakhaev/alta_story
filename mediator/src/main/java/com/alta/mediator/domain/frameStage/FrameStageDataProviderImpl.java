@@ -3,8 +3,8 @@ package com.alta.mediator.domain.frameStage;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.map.MapService;
-import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.engine.entityProvision.FrameStageData;
+import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,22 +17,22 @@ import java.awt.*;
  */
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class FrameStageServiceImpl implements FrameStageService {
+public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
-    private final PreservationService preservationService;
     private final MapService mapService;
+    private final ActorDataProvider actorDataProvider;
     private final FacilityEngineModelMapper facilityEngineModelMapper;
 
     /**
      * Gets the data of frame stage that created from preservation
      *
+     * @param preservationModel - the preservation of game
      * @return the {@link FrameStageData} generated from preservation.
      */
     @Override
-    public FrameStageData getFromPreservation() {
+    public FrameStageData getFromPreservation(PreservationModel preservationModel) {
         log.debug("Start getting FrameStageData from preservation. Load preservation.");
 
-        PreservationModel preservationModel = this.preservationService.getPreservation();
         if (preservationModel == null) {
             log.error("Preservation model is null, but required for creating of FrameStageData");
             return null;
@@ -48,6 +48,7 @@ public class FrameStageServiceImpl implements FrameStageService {
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
                 .focusPointMapStartPosition(new Point(preservationModel.getFocusX(), preservationModel.getFocusY()))
                 .facilities(this.facilityEngineModelMapper.doMapppingForFacilities(mapModel.getFacilities()))
+                .actingCharacter(this.actorDataProvider.getActingCharacter(preservationModel.getMainCharaterSkin()))
                 .build();
     }
 }

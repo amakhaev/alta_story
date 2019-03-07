@@ -1,21 +1,28 @@
 package com.alta.dao.domain.actor;
 
 import com.alta.dao.data.actor.ActorModel;
+import com.alta.dao.data.preservation.PreservationModel;
+import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.utils.JsonParser;
 import com.google.common.base.Strings;
+import com.google.inject.Inject;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.awt.*;
 import java.net.URL;
 
 /**
  * Provides the implementation of {@link ActorService}
  */
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ActorServiceImpl implements ActorService {
 
     private static final String ACTORS_FOLDER = "scene_data/actors/";
     private static final String PERSONS_DESCRIPTOR_FILE_NAME = "persons.dscr";
 
+    private final PreservationService preservationService;
     private TileSetDescriptorEntity tileSetDescriptorEntity;
 
     /**
@@ -36,10 +43,13 @@ public class ActorServiceImpl implements ActorService {
         }
 
         ActorEntity actorEntity = this.loadActorEntity(descriptorFileName);
+        PreservationModel preservationModel = this.preservationService.getPreservation();
+
         return new ActorModel(
                 actorEntity,
                 this.getAbsolutePathToImageSet(actorEntity.getImageName()),
-                this.tileSetDescriptorEntity
+                this.tileSetDescriptorEntity,
+                new Point(preservationModel.getFocusX(), preservationModel.getFocusY())
         );
     }
 
@@ -51,8 +61,11 @@ public class ActorServiceImpl implements ActorService {
     }
 
     private ActorEntity loadActorEntity(String descriptorFileName) {
+        String fullPath = ACTORS_FOLDER + descriptorFileName;
+        fullPath += descriptorFileName.contains(".dscr") ? "" : ".dscr";
+
         return JsonParser.parse(
-                this.getClass().getClassLoader().getResource(ACTORS_FOLDER + descriptorFileName).getPath(),
+                this.getClass().getClassLoader().getResource(fullPath).getPath(),
                 ActorEntity.class
         );
     }

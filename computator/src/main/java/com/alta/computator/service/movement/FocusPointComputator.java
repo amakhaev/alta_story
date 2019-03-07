@@ -20,8 +20,14 @@ public class FocusPointComputator {
     private final MovementStrategy movementStrategy;
     private boolean isInitializedFirstTime;
 
-    @Getter private Point constantGlobalStartCoordination;
-    @Getter private final FocusPointParticipant focusPointParticipant;
+    @Getter
+    private Point constantGlobalStartCoordination;
+
+    @Getter
+    private final FocusPointParticipant focusPointParticipant;
+
+    @Getter
+    private MovementDirection lastMovementDirection;
 
     /**
      * Initialize new instance of {@link FocusPointComputator}
@@ -63,6 +69,7 @@ public class FocusPointComputator {
             return;
         }
 
+        this.lastMovementDirection = movementDirection;
         Point targetMapPoint = new Point(this.focusPointParticipant.getCurrentMapCoordinates());
         switch (movementDirection) {
             case UP:
@@ -98,6 +105,15 @@ public class FocusPointComputator {
                     targetGlobalCoordinates
             );
         }
+    }
+
+    /**
+     * Indicates when move process is running
+     *
+     * @return true if moving between two map coordinates is running now, false otherwise.
+     */
+    public boolean isMoving() {
+        return this.movementStrategy.isCurrentlyRunning();
     }
 
     private void updateRunningMovement(AltitudeMap altitudeMap) {

@@ -58,10 +58,10 @@ public class StageComputator {
         FocusPointParticipant focusPointParticipant = new FocusPointParticipant(mapStartPosition, UUID.randomUUID().toString());
         focusPointParticipant.updateCurrentMapCoordinates(mapStartPosition.x, mapStartPosition.y);
         this.focusPointComputator = new FocusPointComputator(focusPointParticipant);
-        log.debug("Added focus point to stage with UUID: {}", focusPointParticipant.getUuid());
+        log.info("Added focus point to stage with UUID: {}", focusPointParticipant.getUuid());
 
         this.mapComputator = new MapComputator(new MapParticipant(UUID.randomUUID().toString()));
-        log.debug("Added map participant to stage with UUID: {}", this.mapComputator.getMapParticipant().getUuid());
+        log.info("Added map participant to stage with UUID: {}", this.mapComputator.getMapParticipant().getUuid());
     }
 
     /**
@@ -99,6 +99,7 @@ public class StageComputator {
                 new ActorParticipant(uuid, mapStartPosition, zIndex)
         );
         this.layerComputator.addParticipant(this.actingCharacterComputator.getActorParticipant());
+        log.info("Added acting character to stage with UUID: {}", uuid);
     }
 
     /**
@@ -126,7 +127,9 @@ public class StageComputator {
         if (this.actingCharacterComputator != null) {
             this.actingCharacterComputator.onCompute(
                     this.focusPointComputator.getFocusPointParticipant().getCurrentMapCoordinates(),
-                    this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
+                    this.focusPointComputator.getConstantGlobalStartCoordination(),
+                    this.focusPointComputator.getLastMovementDirection(),
+                    this.focusPointComputator.isMoving()
             );
         }
     }
@@ -157,6 +160,15 @@ public class StageComputator {
      */
     public List<CoordinatedParticipant> getSortedParticipants() {
         return this.layerComputator.getSortedParticipants();
+    }
+
+    /**
+     * Gets the acting character participant
+     *
+     * @return the {@link ActorParticipant} instance.
+     */
+    public ActorParticipant getActingCharacter() {
+        return this.actingCharacterComputator.getActorParticipant();
     }
 
     private boolean isAllDataInitialized() {

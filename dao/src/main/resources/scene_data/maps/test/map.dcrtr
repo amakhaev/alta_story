@@ -41,6 +41,12 @@
 			"descriptorFileName": "facility1",
 			"startX": 10,
 			"startY": 2
+		},
+		{
+			"name": "statue4", 
+			"descriptorFileName": "facility1",
+			"startX": 3,
+			"startY": 5
 		}
 	]
 }

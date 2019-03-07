@@ -48,7 +48,7 @@ public class MapServiceImpl implements MapService {
             return this.mapsByName.get(name);
         }
 
-        log.debug("Map with given name {} not initialized. Try to initialize.", name);
+        log.info("Map with given name {} not initialized. Try to initialize.", name);
         MapEntity matchedMapEntity = this.availableMaps
                 .stream()
                 .filter(mapEntity -> mapEntity.getName().equalsIgnoreCase(name))

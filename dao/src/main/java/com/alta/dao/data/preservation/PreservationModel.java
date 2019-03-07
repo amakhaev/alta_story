@@ -31,6 +31,11 @@ public class PreservationModel {
      */
     public static final String FOCUS_Y_FIELD = "focus_y";
 
+    /**
+     * Provides the main character skin field name.
+     */
+    public static final String MAIN_CHARACTER_SKIN_FIELD = "main_character_skin";
+
     @DatabaseField(id = true, columnName = ID_FIELD)
     private int id;
 
@@ -42,4 +47,7 @@ public class PreservationModel {
 
     @DatabaseField(columnName = FOCUS_Y_FIELD)
     private Integer focusY;
+
+    @DatabaseField(columnName = MAIN_CHARACTER_SKIN_FIELD)
+    private String mainCharaterSkin;
 }

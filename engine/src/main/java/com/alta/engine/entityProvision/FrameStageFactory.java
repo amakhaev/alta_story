@@ -3,7 +3,9 @@ package com.alta.engine.entityProvision;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.customException.EngineException;
+import com.alta.engine.data.ActingCharacterModel;
 import com.alta.engine.data.FacilityEngineModel;
+import com.alta.engine.entityProvision.entities.BaseActingCharacter;
 import com.alta.engine.entityProvision.entities.BaseFacility;
 import com.alta.engine.entityProvision.entities.BaseFrameStage;
 import com.alta.engine.entityProvision.entities.BaseFrameTemplate;
@@ -37,24 +39,35 @@ public class FrameStageFactory {
     public BaseFrameStage createFrameStage(FrameStageData data) throws EngineException {
         this.validateFrameStageData(data);
 
+        StageComputator stageComputator = this.createStageComputator(
+                data.getFocusPointMapStartPosition(),
+                data.getActingCharacter(),
+                data.getFacilities()
+        );
+
         log.debug("Started creating BaseFrameStage with path to map: {}", data.getTiledMapAbsolutePath());
         BaseFrameStage baseFrameStage = new BaseFrameStage(
                 new BaseFrameTemplate(data.getTiledMapAbsolutePath()),
-                Collections.emptyList(),
+                new BaseActingCharacter(data.getActingCharacter().getAnimationDescriptors()),
                 this.createStageFacilities(data.getFacilities()),
-                this.createStageComputator(
-                        data.getFocusPointMapStartPosition(),
-                        data.getFacilities()
-                ),
+                stageComputator,
                 this.actionProducer
         );
         log.debug("Completed creating BaseFrameStage with map: {}", data.getTiledMapAbsolutePath());
         return baseFrameStage;
     }
 
-    private StageComputator createStageComputator(Point focusPointStartPosition, List<FacilityEngineModel> facilityModels) {
+    private StageComputator createStageComputator(Point focusPointStartPosition,
+                                                  ActingCharacterModel actingCharacter,
+                                                  List<FacilityEngineModel> facilityModels) {
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
+
+        stageComputator.addActingCharacter(
+                actingCharacter.getUuid(),
+                actingCharacter.getStartMapCoordinates(),
+                actingCharacter.getZIndex()
+        );
 
         if (facilityModels != null && !facilityModels.isEmpty()) {
             facilityModels.forEach(facilityModel ->
@@ -113,6 +126,15 @@ public class FrameStageFactory {
 
         if (data.getFocusPointMapStartPosition() == null) {
             throw new EngineException("The focus point is required for creating frame stage.");
+        }
+
+        if (data.getActingCharacter() == null) {
+            throw new EngineException("The acting character not present for stage with path");
+        }
+
+        if (data.getActingCharacter().getAnimationDescriptors() == null ||
+                data.getActingCharacter().getAnimationDescriptors().isEmpty()) {
+            throw new EngineException("The acting character doesn't contains descriptors for animation");
         }
     }
 }
