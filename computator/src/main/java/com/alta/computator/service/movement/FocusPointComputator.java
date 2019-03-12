@@ -87,22 +87,10 @@ public class FocusPointComputator {
         }
 
         if (this.movementStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
-            Point targetGlobalCoordinates = new Point(
-                    MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                            altitudeMap.getTileWidth(),
-                            targetMapPoint.x
-                    ),
-                    MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
-                            altitudeMap.getTileHeight(),
-                            targetMapPoint.y
-                    )
-            );
-
             this.movementStrategy.tryToRunMoveProcess(
                     altitudeMap,
-                    this.focusPointParticipant.getCurrentGlobalCoordinates(),
-                    targetMapPoint,
-                    targetGlobalCoordinates
+                    this.focusPointParticipant.getCurrentMapCoordinates(),
+                    targetMapPoint
             );
         }
     }
@@ -119,7 +107,7 @@ public class FocusPointComputator {
     private void updateRunningMovement(AltitudeMap altitudeMap) {
         this.movementStrategy.onUpdate();
 
-        // If last update completed movement then it should be cleared, otherwise just update coordinates
+        // If last update completing movement then it should be cleared, otherwise just update coordinates
         if (this.movementStrategy.isCurrentlyRunning()) {
             this.focusPointParticipant.updateCurrentGlobalCoordinates(
                     this.movementStrategy.getGlobalCurrentCoordinates().x,

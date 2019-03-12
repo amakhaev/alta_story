@@ -11,13 +11,13 @@ import java.util.List;
 public abstract class FrameStage {
 
     protected final FrameTemplate frameTemplate;
-    protected final List<Actor> actors;
+    protected final List<? extends Actor> actors;
     protected final List<? extends Facility> facilities;
 
     /**
      * Initialize new instance of {@link FrameStage}
      */
-    protected FrameStage(FrameTemplate frameTemplate, List<Actor> actors, List<? extends Facility> facilities) {
+    protected FrameStage(FrameTemplate frameTemplate, List<? extends Actor> actors, List<? extends Facility> facilities) {
         this.frameTemplate = frameTemplate;
         this.actors = actors;
         this.facilities = facilities;

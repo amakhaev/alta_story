@@ -2,16 +2,19 @@ package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
+import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.model.participant.map.MapParticipant;
 import com.alta.computator.service.layer.LayerComputator;
-import com.alta.computator.service.movement.ActingCharacterComputator;
+import com.alta.computator.service.movement.actor.ActingCharacterComputator;
 import com.alta.computator.service.movement.FacilityComputator;
 import com.alta.computator.service.movement.FocusPointComputator;
 import com.alta.computator.service.movement.MapComputator;
+import com.alta.computator.service.movement.actor.SimpleNpcListComputator;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.google.common.base.Strings;
 import lombok.Getter;
@@ -35,6 +38,7 @@ public class StageComputator {
     private FocusPointComputator focusPointComputator;
     private MapComputator mapComputator;
     private FacilityComputator facilityComputator;
+    private SimpleNpcListComputator simpleNpcListComputator;
     private ActingCharacterComputator actingCharacterComputator;
     private LayerComputator layerComputator;
 
@@ -44,6 +48,7 @@ public class StageComputator {
     public StageComputator() {
         this.layerComputator = new LayerComputator();
         this.facilityComputator = new FacilityComputator();
+        this.simpleNpcListComputator = new SimpleNpcListComputator();
     }
 
     /**
@@ -78,7 +83,7 @@ public class StageComputator {
         }
 
         FacilityParticipant participant = new FacilityParticipant(uuid, startMapCoordinates, facilityParts);
-        this.facilityComputator.add(participant, this.altitudeMap);
+        this.facilityComputator.add(participant);
         this.layerComputator.addParticipants(participant.getFacilityPartParticipants());
     }
 
@@ -86,7 +91,7 @@ public class StageComputator {
      * Adds the acting character for computation
      *
      * @param uuid - the uuid of character
-     * @param mapStartPosition - the start coordinates of facility on character
+     * @param mapStartPosition - the start coordinates of character on map
      * @param zIndex - the z-index of character
      */
     public void addActingCharacter(String uuid, Point mapStartPosition, int zIndex) {
@@ -96,16 +101,39 @@ public class StageComputator {
         }
 
         this.actingCharacterComputator = new ActingCharacterComputator(
-                new ActorParticipant(uuid, mapStartPosition, zIndex)
+                new ActingCharacterParticipant(uuid, mapStartPosition, zIndex)
         );
-        this.layerComputator.addParticipant(this.actingCharacterComputator.getActorParticipant());
+        this.layerComputator.addParticipant(this.actingCharacterComputator.getActingCharacterParticipant());
         log.info("Added acting character to stage with UUID: {}", uuid);
     }
 
     /**
-     * Handles the next tick in the stage
+     * Adds the simple npc to stage for computation
+     *
+     * @param uuid = the uuid of npc
+     * @param mapStartPosition - the start coordinates of npc on map
+     * @param zIndex - the z-index of character
+     * @param repeatingMovementDurationTime - the time interval between movements
      */
-    public synchronized void onTick() {
+    public void addSimpleNpcCharacter(String uuid, Point mapStartPosition, int zIndex, int repeatingMovementDurationTime) {
+        SimpleNpcParticipant npcParticipant = new SimpleNpcParticipant(
+                uuid,
+                mapStartPosition,
+                zIndex,
+                repeatingMovementDurationTime
+        );
+
+        this.simpleNpcListComputator.add(npcParticipant);
+        this.layerComputator.addParticipant(npcParticipant);
+        log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
+    }
+
+    /**
+     * Handles the next tick in the stage
+     *
+     * @param delta - the time between last and previous one calls
+     */
+    public synchronized void onTick(int delta) {
         if (!this.isAllDataInitialized()) {
             log.warn("One or more computator data wasn't initialized. No any action will be performed");
             return;
@@ -126,10 +154,19 @@ public class StageComputator {
 
         if (this.actingCharacterComputator != null) {
             this.actingCharacterComputator.onCompute(
+                    this.altitudeMap,
                     this.focusPointComputator.getFocusPointParticipant().getCurrentMapCoordinates(),
                     this.focusPointComputator.getConstantGlobalStartCoordination(),
                     this.focusPointComputator.getLastMovementDirection(),
                     this.focusPointComputator.isMoving()
+            );
+        }
+
+        if (this.simpleNpcListComputator != null) {
+            this.simpleNpcListComputator.onCompute(
+                    this.altitudeMap,
+                    this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
+                    delta
             );
         }
     }
@@ -163,12 +200,17 @@ public class StageComputator {
     }
 
     /**
-     * Gets the acting character participant
+     * Gets the actor participant by given UUID
      *
-     * @return the {@link ActorParticipant} instance.
+     * @param uuid - the UUID of participant
+     * @return the {@link SimpleNpcParticipant} instance of null if key not present
      */
-    public ActorParticipant getActingCharacter() {
-        return this.actingCharacterComputator.getActorParticipant();
+    public ActorParticipant getActorParticipant(String uuid) {
+        if (this.actingCharacterComputator.getActingCharacterParticipant().getUuid().equals(uuid)) {
+            return this.actingCharacterComputator.getActingCharacterParticipant();
+        }
+
+        return this.simpleNpcListComputator.getSimpleNpcParticipant(uuid);
     }
 
     private boolean isAllDataInitialized() {

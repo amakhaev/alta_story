@@ -3,13 +3,17 @@ package com.alta.mediator.domain.frameStage;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.map.MapService;
-import com.alta.engine.entityProvision.FrameStageData;
+import com.alta.engine.data.ActingCharacterEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.entityProvision.entityFactory.FrameStageData;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -44,11 +48,25 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
             return null;
         }
 
+        ActingCharacterEngineModel actingCharacterEngineModel = this.actorDataProvider.getActingCharacter(
+                preservationModel.getMainCharaterSkin(),
+                new Point(preservationModel.getFocusX(), preservationModel.getFocusY())
+        );
+
+        List<SimpleNpcEngineModel> simpleNpcEngineModels = mapModel.getSimpleNpcList().stream()
+                .map(simpleNpc ->
+                        this.actorDataProvider.getSimpleNpc(
+                                simpleNpc.getName(),
+                                new Point(simpleNpc.getStartX(), simpleNpc.getStartY())
+                        )
+                ).collect(Collectors.toList());
+
         return FrameStageData.builder()
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
                 .focusPointMapStartPosition(new Point(preservationModel.getFocusX(), preservationModel.getFocusY()))
                 .facilities(this.facilityEngineModelMapper.doMapppingForFacilities(mapModel.getFacilities()))
-                .actingCharacter(this.actorDataProvider.getActingCharacter(preservationModel.getMainCharaterSkin()))
+                .simpleNpc(simpleNpcEngineModels)
+                .actingCharacter(actingCharacterEngineModel)
                 .build();
     }
 }

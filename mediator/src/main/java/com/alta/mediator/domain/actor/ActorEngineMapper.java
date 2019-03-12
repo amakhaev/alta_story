@@ -3,7 +3,9 @@ package com.alta.mediator.domain.actor;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
-import com.alta.engine.data.ActingCharacterModel;
+import com.alta.dao.domain.map.SimpleNpcEntity;
+import com.alta.engine.data.ActingCharacterEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.google.inject.Singleton;
 
@@ -16,15 +18,15 @@ import java.util.List;
  * Provides the data mapper for actors
  */
 @Singleton
-public class ActorEngineMapper {
+class ActorEngineMapper {
 
     /**
      * Maps the DAO actors model to engine model
      *
-     * @param actorModel - the sore actor model
-     * @return the {@link ActingCharacterModel} instance.
+     * @param actorModel - the source actor model
+     * @return the {@link ActingCharacterEngineModel} instance.
      */
-    public ActingCharacterModel doMappingForActingCharacter(ActorModel actorModel) {
+    ActingCharacterEngineModel doMappingForActingCharacter(ActorModel actorModel) {
         if (actorModel == null) {
             return null;
         }
@@ -36,11 +38,38 @@ public class ActorEngineMapper {
                 this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionUp(), MovementDirection.UP)
         );
 
-        return ActingCharacterModel.builder()
+        return ActingCharacterEngineModel.builder()
                 .uuid(actorModel.getUuid())
                 .zIndex(actorModel.getZIndex())
                 .startMapCoordinates(actorModel.getStartMapCoordinates())
                 .animationDescriptors(actorAnimationDescriptors)
+                .build();
+    }
+
+    /**
+     * Maps the DAO actors model to engine model
+     *
+     * @param actorModel - the source actor model
+     * @return the {@link SimpleNpcEngineModel} instance.
+     */
+    SimpleNpcEngineModel doMappingForSimpleNpc(ActorModel actorModel) {
+        if (actorModel == null) {
+            return null;
+        }
+
+        List<ActorAnimationDescriptor<MovementDirection>> actorAnimationDescriptors = Arrays.asList(
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionDown(), MovementDirection.DOWN),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionLeft(), MovementDirection.LEFT),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionRight(), MovementDirection.RIGHT),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionUp(), MovementDirection.UP)
+        );
+
+        return SimpleNpcEngineModel.builder()
+                .uuid(actorModel.getUuid())
+                .zIndex(actorModel.getZIndex())
+                .startMapCoordinates(actorModel.getStartMapCoordinates())
+                .animationDescriptors(actorAnimationDescriptors)
+                .repeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime())
                 .build();
     }
 
@@ -62,7 +91,7 @@ public class ActorEngineMapper {
                 .tileWidth(actorModel.getDescriptor().getTileWidth())
                 .tileHeight(actorModel.getDescriptor().getTileHeight())
                 .identifier(direction)
-                .duration(200)
+                .duration(actorModel.getDurationTime())
                 .stopFrameIndex(stopFrameIndex)
                 .animatedTileCoordinates(positions)
                 .build();

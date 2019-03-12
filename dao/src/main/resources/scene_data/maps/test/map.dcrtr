@@ -48,5 +48,25 @@
 			"startX": 3,
 			"startY": 5
 		}
+	],
+	"simpleNpcList": [
+		{
+			"name": "person2",
+			"startX": 2,
+			"startY": 8,
+			"repeatingMovementDurationTime": 2000
+		},
+		{
+			"name": "person3",
+			"startX": 4,
+			"startY": 8,
+			"repeatingMovementDurationTime": 3000
+		},
+		{
+			"name": "person4",
+			"startX": 3,
+			"startY": 10,
+			"repeatingMovementDurationTime": 4000
+		}
 	]
 }

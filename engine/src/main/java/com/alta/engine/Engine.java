@@ -1,7 +1,7 @@
 package com.alta.engine;
 
-import com.alta.engine.entityProvision.FrameStageData;
-import com.alta.engine.entityProvision.FrameStageFactory;
+import com.alta.engine.entityProvision.entityFactory.FrameStageData;
+import com.alta.engine.entityProvision.entityFactory.FrameStageFactory;
 import com.alta.engine.entityProvision.entities.BaseFrameStage;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;

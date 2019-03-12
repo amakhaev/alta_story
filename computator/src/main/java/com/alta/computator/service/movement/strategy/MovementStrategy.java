@@ -29,14 +29,10 @@ public interface MovementStrategy {
      * Tries to run moving if it possible to given global coordinate
      *
      * @param altitudeMap - the altitude map instance
-     * @param globalCoordinatesFrom - the global coordinates of starting movement
+     * @param mapCoordinatesFrom - the map coordinates of starting movement
      * @param mapCoordinatesTarget - the map coordinates of target point
-     * @param globalCoordinatesTarget - the global coordinates of target point
      */
-    void tryToRunMoveProcess(AltitudeMap altitudeMap,
-                             Point globalCoordinatesFrom,
-                             Point mapCoordinatesTarget,
-                             Point globalCoordinatesTarget);
+    void tryToRunMoveProcess(AltitudeMap altitudeMap, Point mapCoordinatesFrom, Point mapCoordinatesTarget);
 
     /**
      * Updates the coordinates of movement

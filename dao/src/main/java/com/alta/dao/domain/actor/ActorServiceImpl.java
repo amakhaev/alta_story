@@ -22,17 +22,17 @@ public class ActorServiceImpl implements ActorService {
     private static final String ACTORS_FOLDER = "scene_data/actors/";
     private static final String PERSONS_DESCRIPTOR_FILE_NAME = "persons.dscr";
 
-    private final PreservationService preservationService;
     private TileSetDescriptorEntity tileSetDescriptorEntity;
 
     /**
      * Gets the actor model by given file name of tile sets.
      *
      * @param descriptorFileName - the full name of descriptor file like "file.dscr".
+     * @param startCoordinates   - the coordinates of start position for actor
      * @return the {@link ActorModel} instance.
      */
     @Override
-    public ActorModel getActorModel(String descriptorFileName) {
+    public ActorModel getActorModel(String descriptorFileName, Point startCoordinates) {
         if (Strings.isNullOrEmpty(descriptorFileName)) {
             log.error("Given descriptor name is null or empty");
             return null;
@@ -43,13 +43,12 @@ public class ActorServiceImpl implements ActorService {
         }
 
         ActorEntity actorEntity = this.loadActorEntity(descriptorFileName);
-        PreservationModel preservationModel = this.preservationService.getPreservation();
 
         return new ActorModel(
                 actorEntity,
                 this.getAbsolutePathToImageSet(actorEntity.getImageName()),
                 this.tileSetDescriptorEntity,
-                new Point(preservationModel.getFocusX(), preservationModel.getFocusY())
+                startCoordinates
         );
     }
 

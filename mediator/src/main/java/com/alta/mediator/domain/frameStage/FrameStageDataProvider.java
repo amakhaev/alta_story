@@ -1,7 +1,7 @@
 package com.alta.mediator.domain.frameStage;
 
 import com.alta.dao.data.preservation.PreservationModel;
-import com.alta.engine.entityProvision.FrameStageData;
+import com.alta.engine.entityProvision.entityFactory.FrameStageData;
 
 /**
  * Provides the service to manipulate data related to {@link FrameStageData}

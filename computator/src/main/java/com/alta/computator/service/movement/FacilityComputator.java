@@ -34,7 +34,7 @@ public class FacilityComputator {
      *
      * @param facilityParticipant - the new participant of computation
      */
-    public void add(FacilityParticipant facilityParticipant, AltitudeMap altitudeMap) {
+    public void add(FacilityParticipant facilityParticipant) {
         if (facilityParticipant == null) {
             log.error("Null reference to FacilityParticipant.");
             return;

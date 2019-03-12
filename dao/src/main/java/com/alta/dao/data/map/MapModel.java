@@ -1,5 +1,6 @@
 package com.alta.dao.data.map;
 
+import com.alta.dao.domain.map.SimpleNpcEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +18,8 @@ public class MapModel {
     private String name;
     private String tiledMapAbsolutePath;
     private List<MapFacilityModel> facilities;
+
+    @Getter
+    private List<SimpleNpcEntity> simpleNpcList;
 
 }

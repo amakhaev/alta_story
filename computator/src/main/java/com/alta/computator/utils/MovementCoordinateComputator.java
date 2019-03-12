@@ -30,4 +30,38 @@ public class MovementCoordinateComputator {
         return screenSize / 2 - objectSize / 2;
     }
 
+    /**
+     * Calculates global coordinates of object based on global coordinates of another object. Suggested that another
+     * object should be in center of screen.
+     *
+     * @param screenSize -the screen size
+     * @param objectSize - the object size
+     * @param currentObjectMapCoordinates - the map coordinates of current object
+     * @param anotherObjectGlobalCoordinate - the global coordinate of another object
+     * @return global coordinate of object
+     */
+    public int calculateGlobalCoordinatesDependsOnAnotherObject(int screenSize,
+                                                                int objectSize,
+                                                                int currentObjectMapCoordinates,
+                                                                int anotherObjectGlobalCoordinate) {
+        int value = calculateGlobalStartCoordinateOnCenterOfScreen(objectSize, screenSize) - anotherObjectGlobalCoordinate;
+        value += MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
+                objectSize,
+                currentObjectMapCoordinates
+        );
+
+        return value;
+    }
+
+    /**
+     * Calculates the global coordinate of starting map
+     *
+     * @param screenSize -the screen size
+     * @param objectSize - the object size
+     * @param objectGlobalCoordinates - the global coordinate of object
+     * @return global coordinate of map
+     */
+    public int calculateGlobalCoordinateOfMap(int screenSize, int objectSize, int objectGlobalCoordinates) {
+        return calculateGlobalStartCoordinateOnCenterOfScreen(objectSize, screenSize) - objectGlobalCoordinates;
+    }
 }

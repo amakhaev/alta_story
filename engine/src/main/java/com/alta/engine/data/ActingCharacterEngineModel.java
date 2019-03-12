@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Getter
 @Builder
-public class ActingCharacterModel {
+public class ActingCharacterEngineModel {
 
     @Singular
     private List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors;

@@ -5,16 +5,17 @@ import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimation;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.alta.scene.entities.Actor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
 
 import java.util.List;
 
 /**
- * Provides the acting character
+ * Provides the actor character
  */
 @Slf4j
-public class BaseActingCharacter implements Actor<ActorParticipant> {
+public class BaseActorCharacter implements Actor<ActorParticipant> {
 
     private static final MovementDirection DEFAULT_ANIMATION = MovementDirection.DOWN;
 
@@ -22,11 +23,15 @@ public class BaseActingCharacter implements Actor<ActorParticipant> {
     private final ActorAnimation<MovementDirection> actorAnimation;
     private int stopAnimationCounter;
 
+    @Getter
+    private final String uuid;
+
     /**
-     * Initialize new instance of BaseActingCharacter
+     * Initialize new instance of BaseSimpleNpc
      */
-    public BaseActingCharacter(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors) {
+    public BaseActorCharacter(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors, String uuid) {
         this.animationDescriptors = animationDescriptors;
+        this.uuid = uuid;
         this.actorAnimation = new ActorAnimation<>();
     }
 
@@ -39,24 +44,25 @@ public class BaseActingCharacter implements Actor<ActorParticipant> {
     public void initialize(GameContainer container) {
         if (this.animationDescriptors != null && !this.animationDescriptors.isEmpty()) {
             this.animationDescriptors.forEach(this.actorAnimation::addAnimation);
+            this.actorAnimation.setCurrentAnimation(DEFAULT_ANIMATION);
         }
     }
 
     /**
      * Renders the object on given coordinates
      *
-     * @param actorParticipant - the actor participant that stored data for rendering
+     * @param actingCharacterParticipant - the actor participant that stored data for rendering
      */
     @Override
-    public void render(ActorParticipant actorParticipant) {
+    public void render(ActorParticipant actingCharacterParticipant) {
         if (this.actorAnimation.getCurrentIdentifier() == null || this.actorAnimation.getCurrentAnimation() == null) {
-            log.error("No current animation for render acting character: {}", actorParticipant.getUuid());
+            log.error("No current animation for render actor character: {}", actingCharacterParticipant.getUuid());
             return;
         }
 
         this.actorAnimation.getCurrentAnimation().draw(
-                actorParticipant.getCurrentGlobalCoordinates().x,
-                actorParticipant.getCurrentGlobalCoordinates().y
+                actingCharacterParticipant.getCurrentGlobalCoordinates().x,
+                actingCharacterParticipant.getCurrentGlobalCoordinates().y
         );
     }
 

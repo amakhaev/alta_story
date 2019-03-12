@@ -14,5 +14,5 @@ public class ActorEntity {
 
     private String imageName;
     private int zIndex;
-
+    private int durationTime;
 }

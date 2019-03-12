@@ -1,7 +1,8 @@
-package com.alta.engine.entityProvision;
+package com.alta.engine.entityProvision.entityFactory;
 
-import com.alta.engine.data.ActingCharacterModel;
+import com.alta.engine.data.ActingCharacterEngineModel;
 import com.alta.engine.data.FacilityEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -35,6 +36,12 @@ public class FrameStageData {
     /**
      * The model that describes the acting character on stage
      */
-    private ActingCharacterModel actingCharacter;
+    private ActingCharacterEngineModel actingCharacter;
+
+    /**
+     * The available non player characters.
+     */
+    @Singular("simpleNpc")
+    private List<SimpleNpcEngineModel> simpleNpc;
 
 }

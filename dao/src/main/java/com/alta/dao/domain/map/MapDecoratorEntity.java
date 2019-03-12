@@ -12,4 +12,5 @@ import java.util.List;
 @Setter
 class MapDecoratorEntity {
     private List<MapFacilityEntity> facilities;
+    private List<SimpleNpcEntity> simpleNpcList;
 }

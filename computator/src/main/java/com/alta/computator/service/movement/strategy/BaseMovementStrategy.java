@@ -1,6 +1,7 @@
 package com.alta.computator.service.movement.strategy;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.awt.*;
 @Slf4j
 public abstract class BaseMovementStrategy implements MovementStrategy {
 
-    private static final int DEFAULT_MOVE_SPEED = 5;
+    private static final int DEFAULT_MOVE_SPEED = 4;
     private static final int DIRECTION_FORWARD = 1;
     private static final int DIRECTION_BACKWARD = -1;
     private static final int DIRECTION_NEUTRAL = 0;
@@ -19,8 +20,9 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
     private final int moveSpeed;
 
     private Point globalCurrentCoordinates;
-    private Point mapTargetCoordinates;
     private Point globalTargetCoordinates;
+    private Point mapTargetCoordinates;
+    private Point mapFromCoordinates;
     private int directionByX;
     private int directionByY;
     private boolean isRunning;
@@ -43,18 +45,15 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
         return this.isRunning;
     }
 
+    @Override
     /**
      * Tries to run moving if it possible to given global coordinate
      *
      * @param altitudeMap - the altitude map instance
-     * @param globalCoordinatesFrom - the global coordinates of starting movement
+     * @param mapCoordinatesFrom - the map coordinates of starting movement
      * @param mapCoordinatesTarget - the map coordinates of target point
-     * @param globalCoordinatesTarget - the global coordinates of target point
      */
-    public synchronized void tryToRunMoveProcess(AltitudeMap altitudeMap,
-                                                 Point globalCoordinatesFrom,
-                                                 Point mapCoordinatesTarget,
-                                                 Point globalCoordinatesTarget) {
+    public synchronized void tryToRunMoveProcess(AltitudeMap altitudeMap, Point mapCoordinatesFrom, Point mapCoordinatesTarget) {
         if (!this.isCanMoveTo(mapCoordinatesTarget, altitudeMap)) {
             log.warn("Can't run move process to map coordinates: {}", mapCoordinatesTarget);
             return;
@@ -64,13 +63,31 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
         }
 
         this.isRunning = true;
-        this.globalCurrentCoordinates = globalCoordinatesFrom;
-        this.globalTargetCoordinates = globalCoordinatesTarget;
+        this.mapFromCoordinates = mapCoordinatesFrom;
         this.mapTargetCoordinates = mapCoordinatesTarget;
+        this.globalCurrentCoordinates = new Point(
+                MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
+                        altitudeMap.getTileWidth(),
+                        mapCoordinatesFrom.x
+                ),
+                MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
+                        altitudeMap.getTileHeight(),
+                        mapCoordinatesFrom.y
+                )
+        );
+        this.globalTargetCoordinates = new Point(
+                MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
+                        altitudeMap.getTileWidth(),
+                        mapCoordinatesTarget.x
+                ),
+                MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
+                        altitudeMap.getTileHeight(),
+                        mapCoordinatesTarget.y
+                ));
 
-        this.directionByX = this.calculateDirectionValue(this.globalCurrentCoordinates.x, this.globalTargetCoordinates.x);
-        this.directionByY = this.calculateDirectionValue(this.globalCurrentCoordinates.y, this.globalTargetCoordinates.y);
-        log.debug("Started animation from {} to {}", globalCoordinatesFrom, globalTargetCoordinates);
+        this.directionByX = this.calculateDirectionValue(this.mapFromCoordinates.x, this.mapTargetCoordinates.x);
+        this.directionByY = this.calculateDirectionValue(this.mapFromCoordinates.y, this.mapTargetCoordinates.y);
+        log.debug("Started animation from {} to {}", mapCoordinatesFrom, mapCoordinatesTarget);
     }
 
     /**
@@ -147,7 +164,7 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
                 this.globalCurrentCoordinates.y != this.globalTargetCoordinates.y;
     }
 
-    private int calculateDirectionValue(int globalFromCoordinate, int globalTargetCoordinate) {
-        return Integer.compare(globalTargetCoordinate, globalFromCoordinate);
+    private int calculateDirectionValue(int mapFromCoordinate, int mapTargetCoordinate) {
+        return Integer.compare(mapTargetCoordinate, mapFromCoordinate);
     }
 }

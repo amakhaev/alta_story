@@ -3,6 +3,7 @@ package com.alta.dao.data.actor;
 import com.alta.dao.domain.actor.ActorEntity;
 import com.alta.dao.domain.actor.TileSetDescriptorEntity;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.UUID;
@@ -26,6 +27,10 @@ public final class ActorModel {
     @Getter
     private final String uuid;
 
+    @Getter
+    @Setter
+    private int repeatingMovementDurationTime;
+
     public ActorModel(ActorEntity actorEntity,
                       String pathToImageSet,
                       TileSetDescriptorEntity descriptor,
@@ -42,5 +47,12 @@ public final class ActorModel {
      */
     public int getZIndex() {
         return this.actorEntity.getZIndex();
+    }
+
+    /**
+     * Gets the duration time of animation
+     */
+    public int getDurationTime() {
+        return this.actorEntity.getDurationTime();
     }
 }

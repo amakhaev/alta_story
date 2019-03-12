@@ -9,9 +9,9 @@ import lombok.Setter;
 import java.awt.*;
 
 /**
- * Provides the actor participant
+ * Provides the participant that describes the actor
  */
-public class ActorParticipant extends CoordinatedParticipant {
+public abstract class ActorParticipant extends CoordinatedParticipant {
 
     @Getter
     @Setter
@@ -23,10 +23,8 @@ public class ActorParticipant extends CoordinatedParticipant {
 
     /**
      * Initialize new instance of {@link CoordinatedParticipant}
-     *
-     * @param uuid                - the UUID of participant
      */
-    public ActorParticipant(String uuid, Point startMapCoordinates, int zIndex) {
-        super(uuid, startMapCoordinates, zIndex, ParticipatType.ACTING_CHARACTER);
+    ActorParticipant(String uuid, Point startMapCoordinates, int zIndex, ParticipatType participatType) {
+        super(uuid, startMapCoordinates, zIndex, participatType);
     }
 }

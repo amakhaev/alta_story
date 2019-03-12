@@ -60,10 +60,16 @@ public class MapServiceImpl implements MapService {
             return null;
         }
 
+        MapDecoratorEntity internalDecorator = JsonParser.parse(
+                this.getClass().getClassLoader().getResource(matchedMapEntity.getDecoratorPath()).getPath(),
+                MapDecoratorEntity.class
+        );
+
         MapModel mapModel = new MapModel(
                 matchedMapEntity.getName(),
                 this.getAbsolutePathToMap(matchedMapEntity.getTiledMapPath()),
-                this.getFacilities(matchedMapEntity.getDecoratorPath())
+                this.getFacilities(internalDecorator),
+                internalDecorator.getSimpleNpcList()
         );
 
         this.mapsByName.put(matchedMapEntity.getName(), mapModel);
@@ -92,13 +98,8 @@ public class MapServiceImpl implements MapService {
         }
     }
 
-    private List<MapFacilityModel> getFacilities(String decoratorPath) {
+    private List<MapFacilityModel> getFacilities(MapDecoratorEntity internalDecorator) {
         try {
-            MapDecoratorEntity internalDecorator = JsonParser.parse(
-                    this.getClass().getClassLoader().getResource(decoratorPath).getPath(),
-                    MapDecoratorEntity.class
-            );
-
             return internalDecorator.getFacilities()
                     .parallelStream()
                     .map(

@@ -2,6 +2,7 @@ package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.map.MapParticipant;
+import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +37,16 @@ public class MapComputator {
         }
 
         this.mapParticipant.updateCurrentGlobalCoordinates(
-                (altitudeMap.getScreenWidth() / 2 - altitudeMap.getTileWidth() / 2) - focusPointGlobalCoordinates.x,
-                (altitudeMap.getScreenHeight() / 2 - altitudeMap.getTileHeight() / 2) - focusPointGlobalCoordinates.y
+                MovementCoordinateComputator.calculateGlobalCoordinateOfMap(
+                        altitudeMap.getScreenWidth(),
+                        altitudeMap.getTileWidth(),
+                        focusPointGlobalCoordinates.x
+                ),
+                MovementCoordinateComputator.calculateGlobalCoordinateOfMap(
+                        altitudeMap.getScreenHeight(),
+                        altitudeMap.getTileHeight(),
+                        focusPointGlobalCoordinates.y
+                )
         );
     }
 }
