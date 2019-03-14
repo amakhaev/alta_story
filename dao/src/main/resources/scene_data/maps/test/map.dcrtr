@@ -47,6 +47,18 @@
 			"descriptorFileName": "facility1",
 			"startX": 3,
 			"startY": 5
+		},
+		{
+			"name": "cornfield3", 
+			"descriptorFileName": "facility2",
+			"startX": 20,
+			"startY": 3
+		},
+		{
+			"name": "cornfield2", 
+			"descriptorFileName": "facility2",
+			"startX": 29,
+			"startY": 0
 		}
 	],
 	"simpleNpcList": [
@@ -54,19 +66,19 @@
 			"name": "person2",
 			"startX": 2,
 			"startY": 8,
-			"repeatingMovementDurationTime": 2000
+			"repeatingMovementDurationTime": 4000
 		},
 		{
 			"name": "person3",
-			"startX": 4,
-			"startY": 8,
-			"repeatingMovementDurationTime": 3000
+			"startX": 2,
+			"startY": 5,
+			"repeatingMovementDurationTime": 5000
 		},
 		{
 			"name": "person4",
-			"startX": 3,
-			"startY": 10,
-			"repeatingMovementDurationTime": 4000
+			"startX": 8,
+			"startY": 7,
+			"repeatingMovementDurationTime": 6000
 		}
 	]
 }

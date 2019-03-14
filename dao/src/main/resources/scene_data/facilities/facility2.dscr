@@ -1,0 +1,70 @@
+{
+  "imageName": "facility2.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "cornfield1",
+      "positions": [
+        {
+          "x": 0,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "cornfield2",
+      "positions": [
+        {
+          "x": 4,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "cornfield3",
+      "positions": [
+        {
+          "x": 6,
+          "y": 4,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 4,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 5,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    }
+  ]
+}

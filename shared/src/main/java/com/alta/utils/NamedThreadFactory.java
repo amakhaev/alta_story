@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadFactory;
 /**
  * Initialize new instance of thread factory
  */
-public class NamedThreadFactory implements java.util.concurrent.ThreadFactory {
+public class NamedThreadFactory implements ThreadFactory {
     private int counter = 0;
     private final String prefix;
 

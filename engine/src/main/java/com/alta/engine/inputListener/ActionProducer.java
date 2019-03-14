@@ -1,5 +1,7 @@
 package com.alta.engine.inputListener;
 
+import com.alta.engine.asyncTask.AsyncTaskManager;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,19 +16,20 @@ import java.util.Map;
 @Slf4j
 public class ActionProducer {
 
+    private static final long SCHEDULE_INTERVAL = 1000 / 60; // milliseconds
+
     private Map<SceneAction, ActionState> actionStates;
 
-    @Setter private ActionEventListener listener;
+    @Setter
+    private ActionEventListener listener;
 
     /**
      * Initialize new instance of {@link ActionEventListener}
      */
-    public ActionProducer() {
+    @Inject
+    public ActionProducer(AsyncTaskManager asyncTaskManager) {
         this.actionStates = new HashMap<>();
-        Thread daemonThreadProducer = new Thread(this.createRunnableProducer());
-        daemonThreadProducer.setDaemon(true);
-        daemonThreadProducer.setName("action-producer");
-        daemonThreadProducer.start();
+        asyncTaskManager.runScheduledTask(this::produce, SCHEDULE_INTERVAL);
     }
 
     /**
@@ -47,22 +50,13 @@ public class ActionProducer {
         this.actionStates.put(action, ActionState.STOPPED);
     }
 
-    private Runnable createRunnableProducer() {
-        return () -> {
-            while (true) {
-                if (this.listener != null) {
-                    this.actionStates.entrySet()
-                            .stream()
-                            .filter(es -> es.getValue() != ActionState.STOPPED)
-                            .forEach(es -> this.listener.onActionHandle(es.getKey()));
-                }
-                try {
-                    Thread.sleep(1000 / 60);
-                } catch (InterruptedException e) {
-                    log.error(e.getMessage());
-                }
-            }
-        };
+    private void produce() {
+        if (this.listener != null) {
+            this.actionStates.entrySet()
+                    .stream()
+                    .filter(es -> es.getValue() != ActionState.STOPPED)
+                    .forEach(es -> this.listener.onActionHandle(es.getKey()));
+        }
     }
 
     private enum ActionState {

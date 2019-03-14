@@ -65,6 +65,11 @@ public class BaseFacility implements Facility<FacilityPartParticipant>, UniqueOb
      */
     @Override
     public void render(FacilityPartParticipant facilityPartParticipant) {
+        if (this.spriteSheet == null) {
+            log.warn("Can't render facility {} because sprite sheet is null", this.uuid);
+            return;
+        }
+
         this.spriteSheet.getSubImage(
                 facilityPartParticipant.getSpriteSheetTileMapCoordinate().x,
                 facilityPartParticipant.getSpriteSheetTileMapCoordinate().y)

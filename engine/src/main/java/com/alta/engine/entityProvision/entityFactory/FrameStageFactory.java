@@ -1,6 +1,7 @@
 package com.alta.engine.entityProvision.entityFactory;
 
 import com.alta.computator.service.stage.StageComputator;
+import com.alta.engine.asyncTask.AsyncTaskManager;
 import com.alta.engine.customException.EngineException;
 import com.alta.engine.entityProvision.entities.BaseActorCharacter;
 import com.alta.engine.entityProvision.entities.BaseFrameStage;
@@ -23,6 +24,7 @@ public class FrameStageFactory {
     private final SceneFrameStageFactory sceneFrameStageFactory;
     private final ComputatorFrameStageFactory computatorFrameStageFactory;
     private final ActionProducer actionProducer;
+    private final AsyncTaskManager asyncTaskManager;
 
     /**
      * Creates the FrameStage instance by given data
@@ -54,7 +56,8 @@ public class FrameStageFactory {
                 actorCharacters,
                 this.sceneFrameStageFactory.createStageFacilities(data.getFacilities()),
                 stageComputator,
-                this.actionProducer
+                this.actionProducer,
+                this.asyncTaskManager
         );
         log.debug("Completed creating BaseFrameStage with map: {}", data.getTiledMapAbsolutePath());
         return baseFrameStage;

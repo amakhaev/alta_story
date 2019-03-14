@@ -61,6 +61,16 @@ public class BaseFrameTemplate implements FrameTemplate, UniqueObject {
      */
     @Override
     public void render(Point coordinates) {
+        if (this.map == null) {
+            log.warn("The map is null");
+            return;
+        }
+
+        if (coordinates == null) {
+            log.warn("Coordinates for rendering map is null");
+            return;
+        }
+
         this.map.render(coordinates.x, coordinates.y);
     }
 

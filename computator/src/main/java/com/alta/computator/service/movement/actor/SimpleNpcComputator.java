@@ -57,7 +57,7 @@ class SimpleNpcComputator {
         } else {
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
             this.repeatingMovementTime += delta;
-            if (this.repeatingMovementTime > 1500) {
+            if (this.repeatingMovementTime > simpleNpcParticipant.getRepeatingMovementDurationTime()) {
                 this.tryToRunMovement(altitudeMap);
             }
         }
@@ -92,6 +92,7 @@ class SimpleNpcComputator {
                     this.simpleNpcParticipant.getCurrentMapCoordinates(),
                     targetMapPoint
             );
+            altitudeMap.setTileState(targetMapPoint.x, targetMapPoint.y, TileState.BARRIER);
         } else {
             this.repeatingMovementTime = 0;
         }
@@ -130,12 +131,6 @@ class SimpleNpcComputator {
             );
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
             this.movementStrategy.clearLastMovement();
-
-            altitudeMap.setTileState(
-                    this.simpleNpcParticipant.getCurrentMapCoordinates().x,
-                    this.simpleNpcParticipant.getCurrentMapCoordinates().y,
-                    TileState.BARRIER
-            );
         }
     }
 

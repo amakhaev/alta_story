@@ -7,6 +7,7 @@ import com.alta.engine.data.ActingCharacterEngineModel;
 import com.alta.engine.data.SimpleNpcEngineModel;
 import com.alta.engine.entityProvision.entityFactory.FrameStageData;
 import com.alta.mediator.domain.actor.ActorDataProvider;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,35 +36,62 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
      */
     @Override
     public FrameStageData getFromPreservation(PreservationModel preservationModel) {
-        log.debug("Start getting FrameStageData from preservation. Load preservation.");
+        return this.getByParams(
+                preservationModel.getMapName(),
+                preservationModel.getMainCharaterSkin(),
+                new Point(preservationModel.getFocusX(), preservationModel.getFocusY())
+        );
+    }
 
-        if (preservationModel == null) {
-            log.error("Preservation model is null, but required for creating of FrameStageData");
+    /**
+     * Gets the data of frame stage that created by give params
+     *
+     * @param mapName - the name of map to be render
+     * @param skin    - the skin of acting character
+     * @param focus   - the coordinates of focus point on tiled map
+     * @return the {@link FrameStageData} instance.
+     */
+    @Override
+    public FrameStageData getByParams(String mapName, String skin, Point focus) {
+        log.debug(
+                "Start getting FrameStageData by params. Map name: {}, skin: {}, focus point: {}.",
+                mapName, skin, focus
+        );
+
+        if (Strings.isNullOrEmpty(mapName)) {
+            log.error("Name of map is null, but required for creating of FrameStageData");
+            return null;
+        } else  if (Strings.isNullOrEmpty(skin)) {
+            log.error("Skin of acting character is null, but required for creating of FrameStageData");
+            return null;
+        } else if (focus == null) {
+            log.error("The focus point of acting character is null, but required for creating of FrameStageData");
             return null;
         }
 
-        MapModel mapModel = this.mapService.getMap(preservationModel.getMapName());
+        MapModel mapModel = this.mapService.getMap(mapName);
         if (mapModel == null) {
             log.error("Map model is null, but required for creating of FrameStageData");
             return null;
         }
 
         ActingCharacterEngineModel actingCharacterEngineModel = this.actorDataProvider.getActingCharacter(
-                preservationModel.getMainCharaterSkin(),
-                new Point(preservationModel.getFocusX(), preservationModel.getFocusY())
+                skin,
+                focus
         );
 
         List<SimpleNpcEngineModel> simpleNpcEngineModels = mapModel.getSimpleNpcList().stream()
                 .map(simpleNpc ->
                         this.actorDataProvider.getSimpleNpc(
                                 simpleNpc.getName(),
-                                new Point(simpleNpc.getStartX(), simpleNpc.getStartY())
+                                new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
+                                simpleNpc.getRepeatingMovementDurationTime()
                         )
                 ).collect(Collectors.toList());
 
         return FrameStageData.builder()
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
-                .focusPointMapStartPosition(new Point(preservationModel.getFocusX(), preservationModel.getFocusY()))
+                .focusPointMapStartPosition(focus)
                 .facilities(this.facilityEngineModelMapper.doMapppingForFacilities(mapModel.getFacilities()))
                 .simpleNpc(simpleNpcEngineModels)
                 .actingCharacter(actingCharacterEngineModel)

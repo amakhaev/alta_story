@@ -1,5 +1,6 @@
 package com.alta.mediator.domain.actor;
 
+import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.domain.actor.ActorService;
 import com.alta.engine.data.ActingCharacterEngineModel;
 import com.alta.engine.data.SimpleNpcEngineModel;
@@ -36,14 +37,15 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     /**
      * Gets the simple npc by given skin name
      *
-     * @param skinName         - the name of skin for character
-     * @param startCoordinates - the coordinates of start position for actor
+     * @param skinName                      - the name of skin for character
+     * @param startCoordinates              - the coordinates of start position for actor
+     * @param repeatingMovementDurationTime - the time of repeating the movement of simple NPC
      * @return the {@link SimpleNpcEngineModel}
      */
     @Override
-    public SimpleNpcEngineModel getSimpleNpc(String skinName, Point startCoordinates) {
-        return this.actorEngineMapper.doMappingForSimpleNpc(
-                this.actorService.getActorModel(skinName, startCoordinates)
-        );
+    public SimpleNpcEngineModel getSimpleNpc(String skinName, Point startCoordinates, int repeatingMovementDurationTime) {
+        ActorModel actorModel = this.actorService.getActorModel(skinName, startCoordinates);
+        actorModel.setRepeatingMovementDurationTime(repeatingMovementDurationTime);
+        return this.actorEngineMapper.doMappingForSimpleNpc(actorModel);
     }
 }

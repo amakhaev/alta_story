@@ -6,10 +6,11 @@ import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
+import com.alta.engine.asyncTask.AsyncTaskManager;
 import com.alta.engine.inputListener.ActionProducer;
 import com.alta.engine.inputListener.SceneAction;
 import com.alta.scene.entities.FrameStage;
-import com.alta.utils.ThreadPoolExecutor;
+import com.alta.utils.ExecutorServiceFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,10 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BaseFrameStage extends FrameStage {
 
-    private static final int THREAD_POOL_SIZE = 3;
-    private static final String THREAD_POOL_NAME = "base-frame-stage";
-
-    private final ThreadPoolExecutor threadPoolExecutor;
+    private final AsyncTaskManager asyncTaskManager;
     private final StageComputator stageComputator;
 
     private final Map<String, BaseFacility> facilitiesByUuid;
@@ -44,10 +42,9 @@ public class BaseFrameStage extends FrameStage {
                           List<BaseActorCharacter> actorCharacters,
                           List<BaseFacility> facilities,
                           StageComputator stageComputator,
-                          ActionProducer actionProducer) {
+                          ActionProducer actionProducer, AsyncTaskManager asyncTaskManager) {
         super(frameTemplate, actorCharacters, facilities);
-
-        this.threadPoolExecutor = new ThreadPoolExecutor(THREAD_POOL_SIZE, THREAD_POOL_NAME);
+        this.asyncTaskManager = asyncTaskManager;
         this.stageComputator = stageComputator;
 
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
@@ -70,18 +67,7 @@ public class BaseFrameStage extends FrameStage {
             return;
         }
 
-        this.threadPoolExecutor.run(() -> {
-            this.isUpdateInProgress.set(true);
-            this.actorCharacters.forEach((uuid, baseSimpleNpc) -> {
-                ActorParticipant participant = this.stageComputator.getActorParticipant(uuid);
-                if (participant != null) {
-                    baseSimpleNpc.update(participant, delta);
-                }
-            });
-
-            this.stageComputator.onTick(delta);
-            this.isUpdateInProgress.set(false);
-        });
+        this.asyncTaskManager.executeTask("update-stage", () -> this.onUpdate(delta));
     }
 
     /**
@@ -105,7 +91,8 @@ public class BaseFrameStage extends FrameStage {
     public void onInit(GameContainer gameContainer) {
         super.onInit(gameContainer);
 
-        this.threadPoolExecutor.run(
+        this.asyncTaskManager.executeTask(
+                "init-base-frame",
                 () -> {
                     log.info("Initialize computator for BaseFrameStage");
                     this.stageComputator.setAltitudeMap(
@@ -168,5 +155,18 @@ public class BaseFrameStage extends FrameStage {
                 this.stageComputator.tryToRunMovement(MovementDirection.RIGHT);
                 break;
         }
+    }
+
+    private void onUpdate(int delta) {
+        this.isUpdateInProgress.set(true);
+        this.actorCharacters.forEach((uuid, baseSimpleNpc) -> {
+            ActorParticipant participant = this.stageComputator.getActorParticipant(uuid);
+            if (participant != null) {
+                baseSimpleNpc.update(participant, delta);
+            }
+        });
+
+        this.stageComputator.onTick(delta);
+        this.isUpdateInProgress.set(false);
     }
 }

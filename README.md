@@ -13,4 +13,4 @@
 
 ##### Run from Intellij IDEA
 1. Create configuration to use `Main.java` class as startup.
-2. Add VM options `-Djava.library.path=shared/libs/` 
+2. Add VM options `-Djava.library.path=shared/libs/ -XX:+UseG1GC -Xmx2g -Xms32m` 

@@ -1,9 +1,48 @@
 {
 	"facilities": [
 		{
-			"name": "cross1" 
+			"name": "statue26", 
+			"descriptorFileName": "facility1",
+			"startX": 10,
+			"startY": 2
+		},
+		{
+			"name": "statue4", 
+			"descriptorFileName": "facility1",
+			"startX": 3,
+			"startY": 5
+		},
+		{
+			"name": "cornfield3", 
+			"descriptorFileName": "facility2",
+			"startX": 20,
+			"startY": 3
+		},
+		{
+			"name": "cornfield2", 
+			"descriptorFileName": "facility2",
+			"startX": 29,
+			"startY": 0
+		}
+	],
+	"simpleNpcList": [
+		{
+			"name": "person2",
 			"startX": 2,
-			"startY": 2,
+			"startY": 8,
+			"repeatingMovementDurationTime": 4000
+		},
+		{
+			"name": "person3",
+			"startX": 2,
+			"startY": 5,
+			"repeatingMovementDurationTime": 5000
+		},
+		{
+			"name": "person4",
+			"startX": 8,
+			"startY": 7,
+			"repeatingMovementDurationTime": 6000
 		}
 	]
 }
