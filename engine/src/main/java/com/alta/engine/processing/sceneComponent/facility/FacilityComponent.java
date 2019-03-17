@@ -1,7 +1,7 @@
-package com.alta.engine.sceneComponent.facility;
+package com.alta.engine.processing.sceneComponent.facility;
 
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
-import com.alta.engine.sceneComponent.UniqueObject;
+import com.alta.engine.processing.sceneComponent.UniqueObject;
 import com.alta.scene.entities.Facility;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;

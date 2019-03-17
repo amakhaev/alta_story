@@ -1,18 +1,17 @@
-package com.alta.engine.dataFactory;
+package com.alta.engine.processing.dataBuilder;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.sceneComponent.facility.FacilityEngineModel;
-import com.alta.engine.sceneComponent.actor.SimpleNpcEngineModel;
-import com.alta.engine.sceneComponent.actor.ActorCharacterComponent;
-import com.alta.engine.sceneComponent.facility.FacilityComponent;
-import com.alta.engine.sceneComponent.frameStage.FrameStageComponent;
-import com.alta.engine.sceneComponent.frameTemplate.FrameTemplateComponent;
+import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
+import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
+import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
+import com.alta.engine.processing.sceneComponent.actor.ActorCharacterComponent;
+import com.alta.engine.processing.sceneComponent.facility.FacilityComponent;
+import com.alta.engine.processing.sceneComponent.frameStage.FrameStageComponent;
+import com.alta.engine.processing.sceneComponent.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
-import com.google.inject.Singleton;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 

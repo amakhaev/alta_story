@@ -1,13 +1,11 @@
-package com.alta.engine.dataFactory;
+package com.alta.engine.processing.dataBuilder;
 
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.engine.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.sceneComponent.facility.FacilityEngineModel;
-import com.alta.engine.sceneComponent.actor.SimpleNpcEngineModel;
-import com.google.inject.Singleton;
+import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
+import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
+import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
 import lombok.Builder;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;

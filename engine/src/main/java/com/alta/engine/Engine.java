@@ -2,8 +2,8 @@ package com.alta.engine;
 
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.inputListener.ActionProducer;
-import com.alta.engine.dataFactory.FrameStageData;
-import com.alta.engine.dispather.EngineUnit;
+import com.alta.engine.processing.dataBuilder.FrameStageData;
+import com.alta.engine.processing.EngineUnit;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 

@@ -1,8 +1,8 @@
-package com.alta.engine.dataFactory;
+package com.alta.engine.processing.dataBuilder;
 
-import com.alta.engine.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.sceneComponent.facility.FacilityEngineModel;
-import com.alta.engine.sceneComponent.actor.SimpleNpcEngineModel;
+import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
+import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
+import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;

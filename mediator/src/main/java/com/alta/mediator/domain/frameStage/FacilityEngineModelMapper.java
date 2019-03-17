@@ -4,7 +4,7 @@ import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.dao.data.facility.FacilityPositionModel;
 import com.alta.dao.data.facility.FacilityTileType;
 import com.alta.dao.data.map.MapFacilityModel;
-import com.alta.engine.sceneComponent.facility.FacilityEngineModel;
+import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
 import com.google.inject.Singleton;
 
 import java.util.Collections;

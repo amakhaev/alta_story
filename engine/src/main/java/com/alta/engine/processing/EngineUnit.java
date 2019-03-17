@@ -1,4 +1,4 @@
-package com.alta.engine.dispather;
+package com.alta.engine.processing;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
@@ -6,10 +6,10 @@ import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.core.inputListener.ActionProducer;
 import com.alta.engine.core.inputListener.SceneAction;
-import com.alta.engine.dataFactory.ComputatorFrameStageProvider;
-import com.alta.engine.dataFactory.FrameStageData;
-import com.alta.engine.dataFactory.SceneFrameStageProvider;
-import com.alta.engine.sceneComponent.frameStage.FrameStageComponent;
+import com.alta.engine.processing.dataBuilder.ComputatorFrameStageProvider;
+import com.alta.engine.processing.dataBuilder.FrameStageData;
+import com.alta.engine.processing.dataBuilder.SceneFrameStageProvider;
+import com.alta.engine.processing.sceneComponent.frameStage.FrameStageComponent;
 import lombok.Getter;
 
 /**

@@ -1,4 +1,4 @@
-package com.alta.engine.sceneComponent.facility;
+package com.alta.engine.processing.sceneComponent.facility;
 
 import com.alta.computator.model.altitudeMap.TileState;
 import lombok.Builder;
