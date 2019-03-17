@@ -2,8 +2,8 @@ package com.alta.mediator.domain.actor;
 
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.domain.actor.ActorService;
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.sceneComponent.actor.ActingCharacterEngineModel;
+import com.alta.engine.sceneComponent.actor.SimpleNpcEngineModel;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

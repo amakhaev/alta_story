@@ -1,4 +1,4 @@
-package com.alta.engine.inputListener;
+package com.alta.engine.core.inputListener;
 
 /**
  * Provides the action event listener

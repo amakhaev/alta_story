@@ -1,4 +1,4 @@
-package com.alta.engine.inputListener;
+package com.alta.engine.core.inputListener;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

@@ -1,6 +1,6 @@
 package com.alta.engine;
 
-import com.alta.engine.inputListener.SceneInputListener;
+import com.alta.engine.core.inputListener.SceneInputListener;
 import com.alta.scene.Scene;
 import com.alta.scene.entities.FrameStage;
 import com.google.inject.Inject;

@@ -1,6 +1,6 @@
-package com.alta.engine.inputListener;
+package com.alta.engine.core.inputListener;
 
-import com.alta.engine.asyncTask.AsyncTaskManager;
+import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Setter;
@@ -29,7 +29,7 @@ public class ActionProducer {
     @Inject
     public ActionProducer(AsyncTaskManager asyncTaskManager) {
         this.actionStates = new HashMap<>();
-        asyncTaskManager.runScheduledTask(this::produce, SCHEDULE_INTERVAL);
+        asyncTaskManager.runScheduledTask(this::produce, "action-event-produce", SCHEDULE_INTERVAL);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.alta.engine.entityProvision.entities;
+package com.alta.engine.sceneComponent.actor;
 
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
@@ -12,10 +12,10 @@ import org.newdawn.slick.GameContainer;
 import java.util.List;
 
 /**
- * Provides the actor character
+ * Provides the actor character component
  */
 @Slf4j
-public class BaseActorCharacter implements Actor<ActorParticipant> {
+public class ActorCharacterComponent implements Actor<ActorParticipant> {
 
     private static final MovementDirection DEFAULT_ANIMATION = MovementDirection.DOWN;
 
@@ -29,7 +29,7 @@ public class BaseActorCharacter implements Actor<ActorParticipant> {
     /**
      * Initialize new instance of BaseSimpleNpc
      */
-    public BaseActorCharacter(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors, String uuid) {
+    public ActorCharacterComponent(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors, String uuid) {
         this.animationDescriptors = animationDescriptors;
         this.uuid = uuid;
         this.actorAnimation = new ActorAnimation<>();

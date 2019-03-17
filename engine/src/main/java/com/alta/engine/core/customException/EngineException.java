@@ -1,4 +1,4 @@
-package com.alta.engine.customException;
+package com.alta.engine.core.customException;
 
 /**
  * Provides the exception that indicates about any problems in the engine project
@@ -12,6 +12,13 @@ public class EngineException extends RuntimeException {
      */
     public EngineException(String message) {
         super(message);
+    }
+
+    /**
+     * Initialize new instance of {@link EngineException}
+     */
+    public EngineException(Throwable e) {
+        super(e);
     }
 
 }

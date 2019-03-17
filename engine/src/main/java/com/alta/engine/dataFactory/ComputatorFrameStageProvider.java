@@ -1,12 +1,14 @@
-package com.alta.engine.entityProvision.entityFactory;
+package com.alta.engine.dataFactory;
 
-import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.FacilityEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.sceneComponent.actor.ActingCharacterEngineModel;
+import com.alta.engine.sceneComponent.facility.FacilityEngineModel;
+import com.alta.engine.sceneComponent.actor.SimpleNpcEngineModel;
 import com.google.inject.Singleton;
+import lombok.Builder;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.util.Collections;
@@ -16,8 +18,8 @@ import java.util.stream.Collectors;
 /**
  * Provides the factory for entities related to frame stage in computator
  */
-@Singleton
-class ComputatorFrameStageFactory {
+@Slf4j
+public class ComputatorFrameStageProvider {
 
     /**
      * Creates the frame stage computator
@@ -27,10 +29,12 @@ class ComputatorFrameStageFactory {
      * @param facilityModels - the facilities that available on map.
      * @return the {@link StageComputator} instance.
      */
-    StageComputator createStageComputator(Point focusPointStartPosition,
-                                          ActingCharacterEngineModel actingCharacter,
-                                          List<FacilityEngineModel> facilityModels,
-                                          List<SimpleNpcEngineModel> simpleNpc) {
+    @Builder
+    public static StageComputator createStageComputator(Point focusPointStartPosition,
+                                                        ActingCharacterEngineModel actingCharacter,
+                                                        List<FacilityEngineModel> facilityModels,
+                                                        List<SimpleNpcEngineModel> simpleNpc) {
+        log.debug("Started creating FrameStageComputator");
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
 
@@ -44,20 +48,21 @@ class ComputatorFrameStageFactory {
             facilityModels.forEach(facilityModel ->
                     stageComputator.addFacilities(
                             facilityModel.getUuid().toString(),
-                            this.createComputeFacilities(facilityModel),
+                            createComputeFacilities(facilityModel),
                             new Point(facilityModel.getStartX(), facilityModel.getStartY())
                     )
             );
         }
 
         if (simpleNpc != null && !simpleNpc.isEmpty()) {
-            this.addSimpleNpcInStageComputator(simpleNpc, stageComputator);
+            addSimpleNpcInStageComputator(simpleNpc, stageComputator);
         }
 
+        log.info("Creating of StageComputator completed.");
         return stageComputator;
     }
 
-    private List<FacilityPartParticipant> createComputeFacilities(FacilityEngineModel facilityEngineModel) {
+    private static List<FacilityPartParticipant> createComputeFacilities(FacilityEngineModel facilityEngineModel) {
         if (facilityEngineModel == null ||
                 facilityEngineModel.getPositions() == null ||
                 facilityEngineModel.getPositions().isEmpty()) {
@@ -79,7 +84,7 @@ class ComputatorFrameStageFactory {
                 .collect(Collectors.toList());
     }
 
-    private void addSimpleNpcInStageComputator(List<SimpleNpcEngineModel> engineModels, StageComputator stageComputator) {
+    private static void addSimpleNpcInStageComputator(List<SimpleNpcEngineModel> engineModels, StageComputator stageComputator) {
         if (engineModels == null || engineModels.isEmpty()) {
             return;
         }

@@ -1,5 +1,6 @@
-package com.alta.engine.entityProvision.entities;
+package com.alta.engine.sceneComponent.frameTemplate;
 
+import com.alta.engine.sceneComponent.UniqueObject;
 import com.alta.scene.entities.FrameTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
@@ -13,16 +14,16 @@ import java.util.UUID;
  * Provides the base implementation of frame template
  */
 @Slf4j
-public class BaseFrameTemplate implements FrameTemplate, UniqueObject {
+public class FrameTemplateComponent implements FrameTemplate, UniqueObject {
 
     private final UUID uuid;
     private final String pathToMap;
     private TiledMap map;
 
     /**
-     * Initialize new instance of {@link BaseFrameTemplate}
+     * Initialize new instance of {@link FrameTemplateComponent}
      */
-    public BaseFrameTemplate(String pathToMap) {
+    public FrameTemplateComponent(String pathToMap) {
         this.pathToMap = pathToMap;
         this.uuid = UUID.randomUUID();
     }

@@ -1,6 +1,7 @@
-package com.alta.engine.entityProvision.entities;
+package com.alta.engine.sceneComponent.facility;
 
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
+import com.alta.engine.sceneComponent.UniqueObject;
 import com.alta.scene.entities.Facility;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import java.util.UUID;
  * Provides the base implementation of facility scene object
  */
 @Slf4j
-public class BaseFacility implements Facility<FacilityPartParticipant>, UniqueObject {
+public class FacilityComponent implements Facility<FacilityPartParticipant>, UniqueObject {
 
     private final UUID uuid;
     private final String absolutePathToSpriteSheet;
@@ -24,10 +25,10 @@ public class BaseFacility implements Facility<FacilityPartParticipant>, UniqueOb
     private SpriteSheet spriteSheet;
 
     /**
-     * Initialize new instance of {@link BaseFacility}
+     * Initialize new instance of {@link FacilityComponent}
      */
     @Inject
-    public BaseFacility(UUID uuid, String absolutePathToSpriteSheet, int tileWidth, int tileHeight) {
+    public FacilityComponent(UUID uuid, String absolutePathToSpriteSheet, int tileWidth, int tileHeight) {
         this.uuid = uuid;
         this.absolutePathToSpriteSheet = absolutePathToSpriteSheet;
         this.tileWidth = tileWidth;

@@ -1,16 +1,15 @@
-package com.alta.engine.entityProvision.entities;
+package com.alta.engine.sceneComponent.frameStage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
-import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.engine.asyncTask.AsyncTaskManager;
-import com.alta.engine.inputListener.ActionProducer;
-import com.alta.engine.inputListener.SceneAction;
+import com.alta.engine.core.asyncTask.AsyncTaskManager;
+import com.alta.engine.sceneComponent.actor.ActorCharacterComponent;
+import com.alta.engine.sceneComponent.facility.FacilityComponent;
+import com.alta.engine.sceneComponent.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.entities.FrameStage;
-import com.alta.utils.ExecutorServiceFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,34 +24,32 @@ import java.util.stream.Collectors;
  * Provides base implementation of frame stage
  */
 @Slf4j
-public class BaseFrameStage extends FrameStage {
+public class FrameStageComponent extends FrameStage {
 
     private final AsyncTaskManager asyncTaskManager;
     private final StageComputator stageComputator;
 
-    private final Map<String, BaseFacility> facilitiesByUuid;
-    private final Map<String, BaseActorCharacter> actorCharacters;
+    private final Map<String, FacilityComponent> facilitiesByUuid;
+    private final Map<String, ActorCharacterComponent> actorCharacters;
 
     private AtomicBoolean isUpdateInProgress;
 
     /**
      * Initialize new instance of {@link FrameStage}
      */
-    public BaseFrameStage(BaseFrameTemplate frameTemplate,
-                          List<BaseActorCharacter> actorCharacters,
-                          List<BaseFacility> facilities,
-                          StageComputator stageComputator,
-                          ActionProducer actionProducer, AsyncTaskManager asyncTaskManager) {
+    public FrameStageComponent(FrameTemplateComponent frameTemplate,
+                               List<ActorCharacterComponent> actorCharacters,
+                               List<FacilityComponent> facilities,
+                               StageComputator stageComputator,
+                               AsyncTaskManager asyncTaskManager) {
         super(frameTemplate, actorCharacters, facilities);
         this.asyncTaskManager = asyncTaskManager;
         this.stageComputator = stageComputator;
 
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
-        this.actorCharacters = actorCharacters.stream().collect(Collectors.toMap(BaseActorCharacter::getUuid, npc -> npc));
+        this.actorCharacters = actorCharacters.stream().collect(Collectors.toMap(ActorCharacterComponent::getUuid, npc -> npc));
 
         this.isUpdateInProgress = new AtomicBoolean(false);
-
-        actionProducer.setListener(this::handleAction);
     }
 
     /**
@@ -94,7 +91,7 @@ public class BaseFrameStage extends FrameStage {
         this.asyncTaskManager.executeTask(
                 "init-base-frame",
                 () -> {
-                    log.info("Initialize computator for BaseFrameStage");
+                    log.info("Initialize computator for FrameStageComponent");
                     this.stageComputator.setAltitudeMap(
                             new AltitudeMap(
                                     this.frameTemplate.getTiledMap(),
@@ -102,7 +99,7 @@ public class BaseFrameStage extends FrameStage {
                                     gameContainer.getHeight()
                             )
                     );
-                    log.info("Completed initialization of computator for BaseFrameStage");
+                    log.info("Completed initialization of computator for FrameStageComponent");
                 }
         );
     }
@@ -138,23 +135,6 @@ public class BaseFrameStage extends FrameStage {
                     break;
             }
         });
-    }
-
-    private void handleAction(SceneAction action) {
-        switch (action) {
-            case MOVE_UP:
-                this.stageComputator.tryToRunMovement(MovementDirection.UP);
-                break;
-            case MOVE_DOWN:
-                this.stageComputator.tryToRunMovement(MovementDirection.DOWN);
-                break;
-            case MOVE_LEFT:
-                this.stageComputator.tryToRunMovement(MovementDirection.LEFT);
-                break;
-            case MOVE_RIGHT:
-                this.stageComputator.tryToRunMovement(MovementDirection.RIGHT);
-                break;
-        }
     }
 
     private void onUpdate(int delta) {

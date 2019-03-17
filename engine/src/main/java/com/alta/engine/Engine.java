@@ -1,8 +1,9 @@
 package com.alta.engine;
 
-import com.alta.engine.entityProvision.entityFactory.FrameStageData;
-import com.alta.engine.entityProvision.entityFactory.FrameStageFactory;
-import com.alta.engine.entityProvision.entities.BaseFrameStage;
+import com.alta.engine.core.asyncTask.AsyncTaskManager;
+import com.alta.engine.core.inputListener.ActionProducer;
+import com.alta.engine.dataFactory.FrameStageData;
+import com.alta.engine.dispather.EngineUnit;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
@@ -13,14 +14,15 @@ import lombok.RequiredArgsConstructor;
 public class Engine {
 
     private final SceneProxy sceneProxy;
-    private final FrameStageFactory frameStageFactory;
+    private final AsyncTaskManager asyncTaskManager;
+    private final ActionProducer actionProducer;
 
     /**
      * Loads scene state from preservation
      */
     public void tryToRenderFrameStage(FrameStageData data) {
-        BaseFrameStage frameStage = this.frameStageFactory.createFrameStage(data);
-        this.sceneProxy.renderFrameStage(frameStage);
+        EngineUnit engineUnit = new EngineUnit(data, this.actionProducer, this.asyncTaskManager);
+        this.sceneProxy.renderFrameStage(engineUnit.getFrameStage());
     }
 
     /**
