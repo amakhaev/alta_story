@@ -985,6 +985,112 @@
           "zIndex": 10
         }
       ]
+    },
+    {
+      "name": "gate1",
+      "positions": [
+        {
+          "x": 8,
+          "y": 6,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 8,
+          "y": 7,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 6,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 7,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 6,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 7,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "gate2",
+      "positions": [
+        {
+          "x": 11,
+          "y": 6,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 11,
+          "y": 7,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 12,
+          "y": 6,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 12,
+          "y": 7,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 13,
+          "y": 6,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 13,
+          "y": 7,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
     }
   ]
 }

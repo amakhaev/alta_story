@@ -1,5 +1,6 @@
-package com.alta.engine.core.inputListener;
+package com.alta.engine.processing.listener.sceneInput;
 
+import com.alta.engine.processing.eventProducer.inputAction.ActionProducer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.newdawn.slick.Input;

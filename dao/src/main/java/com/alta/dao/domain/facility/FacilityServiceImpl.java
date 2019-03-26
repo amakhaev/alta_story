@@ -26,10 +26,10 @@ public class FacilityServiceImpl implements FacilityService {
     }
 
     /**
-     * Find the facility by given name
+     * Find the map by given name
      *
      * @param facilityDescriptorName - is .dscr file name
-     * @param facilityName           - the name of facility from descriptor
+     * @param facilityName           - the name of map from descriptor
      * @return the {@link FacilityModel} that will found
      */
     @Override
@@ -50,14 +50,14 @@ public class FacilityServiceImpl implements FacilityService {
         );
         if (facilityModel == null) {
             log.debug(
-                    "Can't find facility {} in file {}.",
+                    "Can't find map {} in file {}.",
                     facilityName,
                     facilityDescriptorName
             );
             return null;
         }
 
-        log.debug("Loading of facility with given name '{}' completed", facilityName);
+        log.debug("Loading of map with given name '{}' completed", facilityName);
         return facilityModel;
     }
 

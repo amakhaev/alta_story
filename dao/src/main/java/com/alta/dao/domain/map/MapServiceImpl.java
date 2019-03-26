@@ -65,12 +65,13 @@ public class MapServiceImpl implements MapService {
                 MapDecoratorEntity.class
         );
 
-        MapModel mapModel = new MapModel(
-                matchedMapEntity.getName(),
-                this.getAbsolutePathToMap(matchedMapEntity.getTiledMapPath()),
-                this.getFacilities(internalDecorator),
-                internalDecorator.getSimpleNpcList()
-        );
+        MapModel mapModel = MapModel.builder()
+                .name(matchedMapEntity.getName())
+                .tiledMapAbsolutePath(this.getAbsolutePathToMap(matchedMapEntity.getTiledMapPath()))
+                .facilities(this.getFacilities(internalDecorator))
+                .simpleNpcList(internalDecorator.getSimpleNpcList())
+                .mapJumpings(internalDecorator.getJumping())
+                .build();
 
         this.mapsByName.put(matchedMapEntity.getName(), mapModel);
         log.info("Initialization for map '{}' completed successfully", name);
@@ -101,7 +102,7 @@ public class MapServiceImpl implements MapService {
     private List<MapFacilityModel> getFacilities(MapDecoratorEntity internalDecorator) {
         try {
             return internalDecorator.getFacilities()
-                    .parallelStream()
+                    .stream()
                     .map(
                             facilityEntity -> new MapFacilityModel(
                                     facilityEntity.getName(),

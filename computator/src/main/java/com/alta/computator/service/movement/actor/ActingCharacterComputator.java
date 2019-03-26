@@ -2,19 +2,29 @@ package com.alta.computator.service.movement.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
+import com.alta.computator.model.event.ActingCharacterJumpEvent;
+import com.alta.computator.model.event.ComputatorEvent;
+import com.alta.computator.model.event.ComputatorEventType;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.eventStream.EventStream;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 
 /**
  * Provides the computator for acting character
  */
+@Slf4j
 public class ActingCharacterComputator {
 
     @Getter
     private final ActingCharacterParticipant actingCharacterParticipant;
+
+    @Setter
+    private EventStream<ComputatorEvent> jumpEventProducer;
 
     /**
      * Initialize new instance of {@link ActingCharacterComputator}
@@ -25,7 +35,7 @@ public class ActingCharacterComputator {
     }
 
     /**
-     * Handles the computing of map facility objects
+     * Handles the computing of map map objects
      *
      * @param altitudeMap - the altitude map instance
      * @param focusPointMapCoordinates - the map coordinates of focus point
@@ -50,6 +60,7 @@ public class ActingCharacterComputator {
                     focusPointMapCoordinates.x,
                     focusPointMapCoordinates.y
             );
+            this.produceJumpEventIfNeeded(altitudeMap);
         }
 
         if (this.actingCharacterParticipant.getCurrentGlobalCoordinates() == null ||
@@ -70,5 +81,24 @@ public class ActingCharacterComputator {
     private void updateAltitudeMap(AltitudeMap altitudeMap, Point oldMapCoordinates, Point newMapCoordinates) {
         altitudeMap.setTileState(newMapCoordinates.x, newMapCoordinates.y, TileState.BARRIER);
         altitudeMap.setTileState(oldMapCoordinates.x, oldMapCoordinates.y, TileState.FREE);
+    }
+
+    private void produceJumpEventIfNeeded(AltitudeMap altitudeMap) {
+        if (this.jumpEventProducer == null ||
+                !altitudeMap.isJumpTileState(
+                        this.actingCharacterParticipant.getCurrentMapCoordinates().x,
+                        this.actingCharacterParticipant.getCurrentMapCoordinates().y
+                )) {
+            return;
+        }
+
+        log.info(
+                "The acting character {} moved to jump point {}",
+                this.actingCharacterParticipant.getUuid(),
+                this.actingCharacterParticipant.getCurrentMapCoordinates()
+        );
+        this.jumpEventProducer.publishEvent(new ActingCharacterJumpEvent(
+                ComputatorEventType.ACTING_CHARACTER_JUMP, this.actingCharacterParticipant.getCurrentMapCoordinates()
+        ));
     }
 }

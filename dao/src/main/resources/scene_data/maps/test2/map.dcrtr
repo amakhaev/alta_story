@@ -1,48 +1,32 @@
 {
 	"facilities": [
 		{
-			"name": "statue26", 
+			"name": "gate1", 
 			"descriptorFileName": "facility1",
-			"startX": 10,
-			"startY": 2
+			"startX": 5,
+			"startY": 11
 		},
 		{
-			"name": "statue4", 
+			"name": "gate2", 
 			"descriptorFileName": "facility1",
-			"startX": 3,
-			"startY": 5
+			"startX": 22,
+			"startY": 11
 		},
 		{
-			"name": "cornfield3", 
-			"descriptorFileName": "facility2",
-			"startX": 20,
-			"startY": 3
-		},
-		{
-			"name": "cornfield2", 
-			"descriptorFileName": "facility2",
-			"startX": 29,
-			"startY": 0
+			"name": "flooring1", 
+			"descriptorFileName": "facility3",
+			"startX": 14,
+			"startY": 39
 		}
 	],
-	"simpleNpcList": [
+	"simpleNpcList": [],
+	"jumping": [
 		{
-			"name": "person2",
-			"startX": 2,
-			"startY": 8,
-			"repeatingMovementDurationTime": 4000
-		},
-		{
-			"name": "person3",
-			"startX": 2,
-			"startY": 5,
-			"repeatingMovementDurationTime": 5000
-		},
-		{
-			"name": "person4",
-			"startX": 8,
-			"startY": 7,
-			"repeatingMovementDurationTime": 6000
+			"fromX": 14,
+			"fromY": 39,
+			"toX": 1,
+			"toY": 1,
+			"mapName": "test"
 		}
 	]
 }

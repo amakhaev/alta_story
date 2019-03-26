@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.awt.*;
 
 /**
- * Provides the participant that describes one part of facility
+ * Provides the participant that describes one part of map
  */
 public class FacilityPartParticipant extends CoordinatedParticipant {
 

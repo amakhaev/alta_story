@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the facility that related to map
+ * Provides the map that related to map
  */
 @Getter
 @Setter

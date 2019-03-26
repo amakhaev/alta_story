@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the position of facility
+ * Provides the position of map
  */
 @Getter
 @Setter

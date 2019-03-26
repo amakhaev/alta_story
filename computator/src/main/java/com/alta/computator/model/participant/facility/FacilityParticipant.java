@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * Provides the participant that provides calculations related to facility
+ * Provides the participant that provides calculations related to map
  */
 public class FacilityParticipant extends ParticipantComputation {
 

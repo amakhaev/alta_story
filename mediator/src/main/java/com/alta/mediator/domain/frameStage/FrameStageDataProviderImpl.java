@@ -3,10 +3,12 @@ package com.alta.mediator.domain.frameStage;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.map.MapService;
-import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
+import com.alta.engine.data.ActingCharacterEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
 import com.alta.engine.processing.dataBuilder.FrameStageData;
 import com.alta.mediator.domain.actor.ActorDataProvider;
+import com.alta.mediator.domain.map.FacilityEngineModelMapper;
+import com.alta.mediator.domain.map.JumpingEngineModelMapper;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     private final MapService mapService;
     private final ActorDataProvider actorDataProvider;
     private final FacilityEngineModelMapper facilityEngineModelMapper;
+    private final JumpingEngineModelMapper jumpingEngineModelMapper;
 
     /**
      * Gets the data of frame stage that created from preservation
@@ -95,6 +98,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                 .facilities(this.facilityEngineModelMapper.doMapppingForFacilities(mapModel.getFacilities()))
                 .simpleNpc(simpleNpcEngineModels)
                 .actingCharacter(actingCharacterEngineModel)
+                .jumpingPoints(this.jumpingEngineModelMapper.doMappingForJumpings(mapModel.getMapJumpings()))
                 .build();
     }
 }

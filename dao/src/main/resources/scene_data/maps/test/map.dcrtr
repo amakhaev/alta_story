@@ -80,5 +80,14 @@
 			"startY": 7,
 			"repeatingMovementDurationTime": 6000
 		}
+	],
+	"jumping": [
+		{
+			"fromX": 29,
+			"fromY": 0,
+			"toX": 4,
+			"toY": 1,
+			"mapName": "test2"
+		}
 	]
 }

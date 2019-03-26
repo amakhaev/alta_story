@@ -24,8 +24,8 @@
           "y": 0,
           "shiftFromStartX": 0,
           "shiftFromStartY": 0,
-          "tileType": "BARRIER",
-          "zIndex": 10
+          "tileType": "JUMP",
+          "zIndex": 0
         }
       ]
     },

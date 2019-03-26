@@ -30,7 +30,7 @@ public class FacilityComputator {
     }
 
     /**
-     * Adds the facility participant to list
+     * Adds the map participant to list
      *
      * @param facilityParticipant - the new participant of computation
      */
@@ -43,7 +43,7 @@ public class FacilityComputator {
     }
 
     /**
-     * Handles the computing of map facility objects
+     * Handles the computing of map map objects
      *
      * @param altitudeMap - the altitude map
      * @param focusPointGlobalCoordinates - the global coordinates of focus point

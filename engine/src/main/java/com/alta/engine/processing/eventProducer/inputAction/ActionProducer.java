@@ -1,6 +1,7 @@
-package com.alta.engine.core.inputListener;
+package com.alta.engine.processing.eventProducer.inputAction;
 
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
+import com.alta.engine.processing.listener.sceneInput.SceneAction;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Setter;
@@ -21,10 +22,10 @@ public class ActionProducer {
     private Map<SceneAction, ActionState> actionStates;
 
     @Setter
-    private ActionEventListener listener;
+    private ActionEventHandler listener;
 
     /**
-     * Initialize new instance of {@link ActionEventListener}
+     * Initialize new instance of {@link ActionEventHandler}
      */
     @Inject
     public ActionProducer(AsyncTaskManager asyncTaskManager) {
@@ -37,7 +38,7 @@ public class ActionProducer {
      *
      * @param action - the action that should begin producing
      */
-    void onActionStartProducing(SceneAction action) {
+    public void onActionStartProducing(SceneAction action) {
         this.actionStates.put(action, ActionState.PRODUCING);
     }
 
@@ -46,7 +47,7 @@ public class ActionProducer {
      *
      * @param action - the action that should stop producing
      */
-    void onActionStopProducing(SceneAction action) {
+    public void onActionStopProducing(SceneAction action) {
         this.actionStates.put(action, ActionState.STOPPED);
     }
 
@@ -55,7 +56,7 @@ public class ActionProducer {
             this.actionStates.entrySet()
                     .stream()
                     .filter(es -> es.getValue() != ActionState.STOPPED)
-                    .forEach(es -> this.listener.onActionHandle(es.getKey()));
+                    .forEach(es -> this.listener.handle(es.getKey()));
         }
     }
 

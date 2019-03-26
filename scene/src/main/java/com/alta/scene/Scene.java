@@ -52,7 +52,7 @@ public class Scene {
      * @param frameStage - the stage to render
      */
     public void renderStage(FrameStage frameStage) {
-        this.sceneContainer.setCurrentStage(frameStage);
+        this.sceneContainer.renderStage(frameStage);
     }
 
 }

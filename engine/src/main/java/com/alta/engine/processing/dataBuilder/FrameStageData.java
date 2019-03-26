@@ -1,8 +1,9 @@
 package com.alta.engine.processing.dataBuilder;
 
-import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
-import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
+import com.alta.engine.data.ActingCharacterEngineModel;
+import com.alta.engine.data.FacilityEngineModel;
+import com.alta.engine.data.JumpingEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -44,4 +45,9 @@ public class FrameStageData {
     @Singular("simpleNpc")
     private List<SimpleNpcEngineModel> simpleNpc;
 
+    /**
+     * The available jumping points on map.
+     */
+    @Singular("jumpingPoints")
+    private List<JumpingEngineModel> jumpingPoints;
 }

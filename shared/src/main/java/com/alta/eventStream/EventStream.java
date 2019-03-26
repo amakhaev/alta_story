@@ -6,11 +6,13 @@ import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.DaemonThreadFactory;
 
 import java.nio.ByteBuffer;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Provides the event stream class that included logic by creating message service and publishing events
  */
-public final class EventStream<T> {
+public abstract class EventStream<T> {
 
     private static final int BUFFER_SIZE = 1024;
 
@@ -21,7 +23,8 @@ public final class EventStream<T> {
      * Initialize ew instance of {@link EventStream}
      */
     public EventStream() {
-        this.disruptor = new Disruptor(new GenericEventFactory<T>(),
+        this.disruptor = new Disruptor<>(
+                new GenericEventFactory<>(),
                 BUFFER_SIZE,
                 DaemonThreadFactory.INSTANCE,
                 ProducerType.SINGLE,
@@ -31,14 +34,11 @@ public final class EventStream<T> {
     }
 
     /**
-     * Sets the event handlers
-     *
-     * @param handlers - the event handlers that will be called when event published
-     * @return current {@link EventStream} instance
+     * Starts the streaming of events
      */
-    public final EventStream<T> setHandleEvents(final EventHandler<GenericEvent<T>>... handlers) {
-        this.disruptor.handleEventsWith(handlers).then(new ClearingEventHandler<>());
-        return this;
+    public final void start() {
+        this.beforeStart();
+        this.disruptor.start();
     }
 
     /**
@@ -51,7 +51,20 @@ public final class EventStream<T> {
         this.ringBuffer.publishEvent((e, sequence, buffer) -> e.setData(eventData), bb);
     }
 
-    public final void start() {
-        this.disruptor.start();
+    /**
+     * Sets the event handlers
+     *
+     * @param handlers - the event handlers that will be called when event published
+     * @return current {@link EventStream} instance
+     */
+    protected final EventStream<T> setHandleEvents(final EventHandler<GenericEvent<T>>... handlers) {
+        this.disruptor.handleEventsWith(handlers).then(new ClearingEventHandler<>());
+        return this;
+    }
+
+    /**
+     * The method that will be called before start of event streaming.
+     */
+    protected void beforeStart() {
     }
 }

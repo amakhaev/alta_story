@@ -1,4 +1,4 @@
-package com.alta.engine.core.inputListener;
+package com.alta.engine.processing.listener.sceneInput;
 
 /**
  * Provides possible actions of scene

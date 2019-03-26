@@ -1,9 +1,9 @@
 package com.alta.dao.data.map;
 
+import com.alta.dao.domain.map.MapJumpingEntity;
+import com.alta.dao.domain.map.MapJumpingEntity;
 import com.alta.dao.domain.map.SimpleNpcEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,15 +11,19 @@ import java.util.List;
  * Provides the model that describes the map
  */
 @Getter
-@Setter
-@AllArgsConstructor
+@Builder
 public class MapModel {
 
     private String name;
     private String tiledMapAbsolutePath;
+
+    @Singular("facilities")
     private List<MapFacilityModel> facilities;
 
-    @Getter
+    @Singular("simpleNpcList")
     private List<SimpleNpcEntity> simpleNpcList;
+
+    @Singular("mapJumpings")
+    private List<MapJumpingEntity> mapJumpings;
 
 }

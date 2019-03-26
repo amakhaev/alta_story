@@ -15,14 +15,15 @@ import java.util.Map;
 public class AltitudeMap {
 
     private static final String BARRIER_LAYER_NAME = "barriers";
-    private static final String FREE_LAYER_NAME = "backgrounds";
+    private static final String BACKGROUND_LAYER_NAME = "backgrounds";
 
     private final static Map<String, TileState> AVAILABLE_LAYERS = new HashMap<String, TileState>() {{
-        put(FREE_LAYER_NAME, TileState.FREE);
+        put(BACKGROUND_LAYER_NAME, TileState.FREE);
         put(BARRIER_LAYER_NAME, TileState.BARRIER);
     }};
 
     private TileState[][] currentTileStates;
+    private TileState[][] jumpTileStates;
 
     @Getter private final int screenWidth;
     @Getter private final int screenHeight;
@@ -80,6 +81,20 @@ public class AltitudeMap {
         }
 
         this.currentTileStates[x][y] = tileState;
+        if (tileState == TileState.JUMP) {
+            this.jumpTileStates[x][y] = tileState;
+        }
+    }
+
+    /**
+     * Indicates when given map coordinates references to jump tile state
+     *
+     * @param x - the x coordinates on map
+     * @param y - the y coordinates on map
+     * @return true if point has jump tile state, false otherwise
+     */
+    public boolean isJumpTileState(int x, int y) {
+        return this.jumpTileStates[x][y] == TileState.JUMP;
     }
 
     private void createTileStates(TiledMap tiledMap) {
@@ -88,6 +103,7 @@ public class AltitudeMap {
         }
 
         this.currentTileStates = new TileState[tiledMap.getWidth()][tiledMap.getHeight()];
+        this.jumpTileStates = new TileState[tiledMap.getWidth()][tiledMap.getHeight()];
         for (int x = 0; x < tiledMap.getWidth(); x++) {
             for (int y = 0; y < tiledMap.getHeight(); y++) {
                 this.currentTileStates[x][y] = this.getTileState(x, y, tiledMap);
@@ -99,8 +115,12 @@ public class AltitudeMap {
         int layerIndex = 0;
         for (String key: AVAILABLE_LAYERS.keySet()) {
             layerIndex = tiledMap.getLayerIndex(key);
-            if (tiledMap.getTileId(x, y, layerIndex) != 0) {
-                return AVAILABLE_LAYERS.get(key);
+            try {
+                if (layerIndex != -1 && tiledMap.getTileId(x, y, layerIndex) != 0) {
+                    return AVAILABLE_LAYERS.get(key);
+                }
+            } catch (Exception e) {
+                log.error("Can't determinate tile state: {}:{}. {}", x, y, e.getMessage());
             }
         }
 

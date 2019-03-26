@@ -1,10 +1,12 @@
 package com.alta.engine.processing.dataBuilder;
 
+import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
-import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
+import com.alta.engine.core.engieEventStream.EngineEventStream;
+import com.alta.engine.data.ActingCharacterEngineModel;
+import com.alta.engine.data.FacilityEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,13 +27,15 @@ public class ComputatorFrameStageProvider {
      * @param focusPointStartPosition - the coordinates of focus point on map.
      * @param actingCharacter - the acting character model.
      * @param facilityModels - the facilities that available on map.
+     * @param eventStream - the event stream related to computator
      * @return the {@link StageComputator} instance.
      */
     @Builder
     public static StageComputator createStageComputator(Point focusPointStartPosition,
                                                         ActingCharacterEngineModel actingCharacter,
                                                         List<FacilityEngineModel> facilityModels,
-                                                        List<SimpleNpcEngineModel> simpleNpc) {
+                                                        List<SimpleNpcEngineModel> simpleNpc,
+                                                        EngineEventStream<ComputatorEvent> eventStream) {
         log.debug("Started creating FrameStageComputator");
         StageComputator stageComputator = new StageComputator();
         stageComputator.addFocusPointParticipant(focusPointStartPosition);
@@ -56,6 +60,7 @@ public class ComputatorFrameStageProvider {
             addSimpleNpcInStageComputator(simpleNpc, stageComputator);
         }
 
+        stageComputator.setComputatorEventProducer(eventStream);
         log.info("Creating of StageComputator completed.");
         return stageComputator;
     }

@@ -1,0 +1,20 @@
+{
+  "imageName": "facility3.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "flooring1",
+      "positions": [
+        {
+          "x": 5,
+          "y": 4,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package com.alta.engine.processing.sceneComponent.facility;
+package com.alta.engine.data;
 
 import com.alta.computator.model.altitudeMap.TileState;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Provides the model that describes facility
+ * Provides the model that describes map
  */
 @Data
 @Builder

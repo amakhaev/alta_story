@@ -13,4 +13,5 @@ import java.util.List;
 class MapDecoratorEntity {
     private List<MapFacilityEntity> facilities;
     private List<SimpleNpcEntity> simpleNpcList;
+    private List<MapJumpingEntity> jumping;
 }

@@ -2,6 +2,7 @@ package com.alta.dao.data.map;
 
 import com.alta.dao.data.facility.FacilityModel;
 import com.alta.dao.data.facility.FacilityPositionModel;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Collections;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Provides the facility model that related to decorators
+ * Provides the map model that related to decorators
  */
 public class MapFacilityModel {
 
@@ -52,7 +53,7 @@ public class MapFacilityModel {
     }
 
     /**
-     * Gets the list of facility positions
+     * Gets the list of map positions
      */
     public List<FacilityPositionModel> getFacilityPositions() {
         return this.facility == null ? Collections.emptyList() : this.facility.getPositions();

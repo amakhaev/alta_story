@@ -1,10 +1,10 @@
-package com.alta.mediator.domain.frameStage;
+package com.alta.mediator.domain.map;
 
 import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.dao.data.facility.FacilityPositionModel;
 import com.alta.dao.data.facility.FacilityTileType;
 import com.alta.dao.data.map.MapFacilityModel;
-import com.alta.engine.processing.sceneComponent.facility.FacilityEngineModel;
+import com.alta.engine.data.FacilityEngineModel;
 import com.google.inject.Singleton;
 
 import java.util.Collections;
@@ -68,6 +68,8 @@ public class FacilityEngineModelMapper {
                 return TileState.FREE;
             case BARRIER:
                 return TileState.BARRIER;
+            case JUMP:
+                return TileState.JUMP;
             default:
                 return TileState.FREE;
         }

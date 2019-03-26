@@ -1,6 +1,8 @@
 package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.model.event.ActingCharacterJumpEvent;
+import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
@@ -16,6 +18,7 @@ import com.alta.computator.service.movement.FocusPointComputator;
 import com.alta.computator.service.movement.MapComputator;
 import com.alta.computator.service.movement.actor.SimpleNpcListComputator;
 import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.eventStream.EventStream;
 import com.google.common.base.Strings;
 import lombok.Getter;
 import lombok.Setter;
@@ -72,9 +75,9 @@ public class StageComputator {
     /**
      * Adds the coordinated participants for calculate coordinates of movement
      *
-     * @param uuid - the uuid of facility
-     * @param facilityParts - the list of facility parts that should be computed
-     * @param startMapCoordinates - the start coordinates of facility on map
+     * @param uuid - the uuid of map
+     * @param facilityParts - the list of map parts that should be computed
+     * @param startMapCoordinates - the start coordinates of map on map
      */
     public void addFacilities(String uuid, List<FacilityPartParticipant> facilityParts, Point startMapCoordinates) {
         if (Strings.isNullOrEmpty(uuid) || facilityParts == null || facilityParts.isEmpty() || startMapCoordinates == null) {
@@ -126,6 +129,19 @@ public class StageComputator {
         this.simpleNpcListComputator.add(npcParticipant);
         this.layerComputator.addParticipant(npcParticipant);
         log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
+    }
+
+    /**
+     * Sets the event producer for computator
+     *
+     * @param eventProducer - the event producer of computed data
+     */
+    public void setComputatorEventProducer(EventStream<ComputatorEvent> eventProducer) {
+        if (this.actingCharacterComputator == null) {
+            log.warn("The acting character computator is empty. EventStream will not be set.");
+        }
+
+        this.actingCharacterComputator.setJumpEventProducer(eventProducer);
     }
 
     /**

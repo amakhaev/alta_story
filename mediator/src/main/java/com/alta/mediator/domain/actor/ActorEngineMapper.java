@@ -3,8 +3,8 @@ package com.alta.mediator.domain.actor;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
-import com.alta.engine.processing.sceneComponent.actor.ActingCharacterEngineModel;
-import com.alta.engine.processing.sceneComponent.actor.SimpleNpcEngineModel;
+import com.alta.engine.data.ActingCharacterEngineModel;
+import com.alta.engine.data.SimpleNpcEngineModel;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.google.inject.Singleton;
 

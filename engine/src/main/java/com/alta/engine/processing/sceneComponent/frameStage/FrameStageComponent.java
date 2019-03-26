@@ -17,7 +17,6 @@ import org.newdawn.slick.Graphics;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 /**
@@ -31,8 +30,6 @@ public class FrameStageComponent extends FrameStage {
 
     private final Map<String, FacilityComponent> facilitiesByUuid;
     private final Map<String, ActorCharacterComponent> actorCharacters;
-
-    private AtomicBoolean isUpdateInProgress;
 
     /**
      * Initialize new instance of {@link FrameStage}
@@ -48,8 +45,6 @@ public class FrameStageComponent extends FrameStage {
 
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
         this.actorCharacters = actorCharacters.stream().collect(Collectors.toMap(ActorCharacterComponent::getUuid, npc -> npc));
-
-        this.isUpdateInProgress = new AtomicBoolean(false);
     }
 
     /**
@@ -60,11 +55,7 @@ public class FrameStageComponent extends FrameStage {
      */
     @Override
     public void onUpdateStage(GameContainer gameContainer, int delta) {
-        if (this.isUpdateInProgress.get()) {
-            return;
-        }
-
-        this.asyncTaskManager.executeTask("update-stage", () -> this.onUpdate(delta));
+        this.onUpdate(delta);
     }
 
     /**
@@ -138,7 +129,6 @@ public class FrameStageComponent extends FrameStage {
     }
 
     private void onUpdate(int delta) {
-        this.isUpdateInProgress.set(true);
         this.actorCharacters.forEach((uuid, baseSimpleNpc) -> {
             ActorParticipant participant = this.stageComputator.getActorParticipant(uuid);
             if (participant != null) {
@@ -147,6 +137,5 @@ public class FrameStageComponent extends FrameStage {
         });
 
         this.stageComputator.onTick(delta);
-        this.isUpdateInProgress.set(false);
     }
 }

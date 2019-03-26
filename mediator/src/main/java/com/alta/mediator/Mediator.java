@@ -40,26 +40,10 @@ public class Mediator {
         this.frameStageDataProvider = injector.getInstance(FrameStageDataProvider.class);
 
         this.engine = injector.getInstance(Engine.class);
+        this.engine.setEngineListener(this::loadAndRender);
+
         this.engineMainThread = ExecutorServiceFactory.create(2, ENGINE_THREAD_POOL_NAME);
-
         this.preservationModel = injector.getInstance(PreservationService.class).getPreservation();
-
-        /*this.engineMainThread.execute(() -> {
-            try {
-                Thread.sleep(20000L);
-                log.info("!!! Change scene");
-
-                this.engine.tryToRenderFrameStage(
-                        this.frameStageDataProvider.getByParams(
-                                "test2",
-                                "person1",
-                                new Point(3, 3)
-                        )
-                );
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });*/
     }
 
     /**
@@ -70,5 +54,16 @@ public class Mediator {
             this.engine.tryToRenderFrameStage(this.frameStageDataProvider.getFromPreservation(this.preservationModel));
             this.engine.startScene();
         });
+    }
+
+    private void loadAndRender(String mapName, Point startCoordinates) {
+        log.info("Try to load and render map: {}", mapName);
+        this.engine.tryToRenderFrameStage(
+                this.frameStageDataProvider.getByParams(
+                        mapName,
+                        "person1",
+                        startCoordinates
+                )
+        );
     }
 }

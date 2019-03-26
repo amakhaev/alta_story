@@ -12,7 +12,7 @@ import org.newdawn.slick.SpriteSheet;
 import java.util.UUID;
 
 /**
- * Provides the base implementation of facility scene object
+ * Provides the base implementation of map scene object
  */
 @Slf4j
 public class FacilityComponent implements Facility<FacilityPartParticipant>, UniqueObject {
@@ -67,7 +67,7 @@ public class FacilityComponent implements Facility<FacilityPartParticipant>, Uni
     @Override
     public void render(FacilityPartParticipant facilityPartParticipant) {
         if (this.spriteSheet == null) {
-            log.warn("Can't render facility {} because sprite sheet is null", this.uuid);
+            log.warn("Can't render map {} because sprite sheet is null", this.uuid);
             return;
         }
 
