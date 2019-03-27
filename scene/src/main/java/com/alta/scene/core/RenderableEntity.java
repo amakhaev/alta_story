@@ -20,5 +20,4 @@ public interface RenderableEntity<T> {
      * @param args - the arguments that used for renders
      */
     void render(T args);
-
 }

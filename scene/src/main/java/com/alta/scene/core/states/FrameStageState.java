@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -16,7 +15,6 @@ import org.newdawn.slick.state.StateBasedGame;
 public class FrameStageState extends BasicGameState {
 
     private final int stateId;
-    private boolean isNeedToReinit;
 
     @Getter
     private FrameStage currentStage;
@@ -35,7 +33,6 @@ public class FrameStageState extends BasicGameState {
      */
     public void setCurrentStage(FrameStage frameStage) {
         this.currentStage = frameStage;
-        this.isNeedToReinit = true;
     }
 
     @Override
@@ -45,11 +42,6 @@ public class FrameStageState extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) {
-        if (this.currentStage != null) {
-            this.currentStage.onInit(gameContainer);
-        }
-
-        this.isNeedToReinit = false;
     }
 
     @Override
@@ -61,22 +53,20 @@ public class FrameStageState extends BasicGameState {
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) {
-        if (this.isNeedToReinit) {
-            try {
-                gameContainer.reinit();
-            } catch (SlickException e) {
-                log.error(e.getMessage());
-            }
-        }
-
         if (this.currentStage != null) {
             this.currentStage.onUpdateStage(gameContainer, delta);
         }
     }
 
     @Override
+    public void enter(GameContainer container, StateBasedGame game) {
+        if (this.currentStage != null) {
+            this.currentStage.onInit(container);
+        }
+    }
+
+    @Override
     public void leave(GameContainer container, StateBasedGame game) {
-        this.isNeedToReinit = true;
         this.currentStage = null;
     }
 }

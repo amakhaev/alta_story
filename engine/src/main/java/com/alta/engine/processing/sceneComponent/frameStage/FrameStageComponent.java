@@ -90,7 +90,11 @@ public class FrameStageComponent extends FrameStage {
                                     gameContainer.getHeight()
                             )
                     );
-                    log.info("Completed initialization of computator for FrameStageComponent");
+                    log.info("Completed initialization of computator for FrameStageComponent.");
+
+                    log.debug("Call update method (initial) to avoid incorrect rendering animation");
+                    this.onUpdate(0);
+                    log.debug("Initial update completed.");
                 }
         );
     }

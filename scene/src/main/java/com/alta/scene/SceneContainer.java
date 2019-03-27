@@ -7,9 +7,14 @@ import com.alta.scene.entities.FrameStage;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.KeyListener;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.Transition;
 
 import javax.inject.Named;
 
@@ -22,6 +27,8 @@ public class SceneContainer extends StateBasedGame {
     private KeyListener inputListener;
     private boolean isInputListenerChanged;
     private int currentStateId;
+    private Transition fadeOutTransition;
+    private Transition fadeInTransition;
 
     /**
      * Initialize new instance of {@link SceneContainer}.
@@ -39,16 +46,10 @@ public class SceneContainer extends StateBasedGame {
 
     @Override
     public void preUpdateState(GameContainer gameContainer, int delta) {
-        if (this.isInputListenerChanged) {
-            gameContainer.getInput().removeAllKeyListeners();
-            if (this.inputListener != null) {
-                gameContainer.getInput().addKeyListener(this.inputListener);
-            }
-            this.isInputListenerChanged = false;
-        }
+        this.updateInputListener(gameContainer.getInput());
 
-        if (this.getCurrentStateID() != this.currentStateId) {
-            this.enterState(this.currentStateId);
+        if (this.stateManager.getSelectedFrameStageState().getID() != this.currentStateId) {
+            this.enterState(this.currentStateId, this.fadeOutTransition, this.fadeInTransition);
             this.stateManager.setSelectedFrameStageState(this.currentStateId);
         }
     }
@@ -62,6 +63,8 @@ public class SceneContainer extends StateBasedGame {
         FrameStageState newState = this.stateManager.getFreeFrameStageState();
         newState.setCurrentStage(frameStage);
         this.currentStateId = newState.getID();
+        this.fadeInTransition = new FadeInTransition(Color.black, 300);
+        this.fadeOutTransition = new FadeOutTransition(Color.black, 300);
     }
 
     /**
@@ -72,5 +75,15 @@ public class SceneContainer extends StateBasedGame {
     public void setInputListener(KeyListener inputListener) {
         this.inputListener = inputListener;
         this.isInputListenerChanged = true;
+    }
+
+    private void updateInputListener(Input input) {
+        if (this.isInputListenerChanged) {
+            input.removeAllKeyListeners();
+            if (this.inputListener != null) {
+                input.addKeyListener(this.inputListener);
+            }
+            this.isInputListenerChanged = false;
+        }
     }
 }

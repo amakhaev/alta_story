@@ -42,7 +42,7 @@ public class Mediator {
         this.engine = injector.getInstance(Engine.class);
         this.engine.setEngineListener(this::loadAndRender);
 
-        this.engineMainThread = ExecutorServiceFactory.create(2, ENGINE_THREAD_POOL_NAME);
+        this.engineMainThread = ExecutorServiceFactory.create(1, ENGINE_THREAD_POOL_NAME);
         this.preservationModel = injector.getInstance(PreservationService.class).getPreservation();
     }
 

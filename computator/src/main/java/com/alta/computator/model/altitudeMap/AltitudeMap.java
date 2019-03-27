@@ -49,8 +49,8 @@ public class AltitudeMap {
      * @return the {@link TileState} instance
      */
     public TileState getTileState(int x, int y) {
-        if (this.currentTileStates.length < x || this.currentTileStates[0].length < y) {
-            return null;
+        if (this.currentTileStates.length - 1 < x || this.currentTileStates[x].length - 1 < y) {
+            return TileState.BARRIER;
         }
 
         return this.currentTileStates[x][y];

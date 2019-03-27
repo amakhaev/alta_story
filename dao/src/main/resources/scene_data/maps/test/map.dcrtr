@@ -85,8 +85,8 @@
 		{
 			"fromX": 29,
 			"fromY": 0,
-			"toX": 4,
-			"toY": 1,
+			"toX": 14,
+			"toY": 38,
 			"mapName": "test2"
 		}
 	]

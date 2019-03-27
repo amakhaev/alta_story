@@ -18,6 +18,8 @@ import java.util.Map;
 public class ActionProducer {
 
     private static final long SCHEDULE_INTERVAL = 1000 / 60; // milliseconds
+    private static final String SCHEDULED_TASK_NAME = "action-event-produce";
+
 
     private Map<SceneAction, ActionState> actionStates;
 
@@ -30,7 +32,7 @@ public class ActionProducer {
     @Inject
     public ActionProducer(AsyncTaskManager asyncTaskManager) {
         this.actionStates = new HashMap<>();
-        asyncTaskManager.runScheduledTask(this::produce, "action-event-produce", SCHEDULE_INTERVAL);
+        asyncTaskManager.runScheduledTask(this::produce, SCHEDULED_TASK_NAME, SCHEDULE_INTERVAL);
     }
 
     /**
