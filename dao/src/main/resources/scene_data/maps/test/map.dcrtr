@@ -59,6 +59,12 @@
 			"descriptorFileName": "facility2",
 			"startX": 29,
 			"startY": 0
+		},
+		{
+			"name": "cornfield2", 
+			"descriptorFileName": "facility2",
+			"startX": 0,
+			"startY": 13
 		}
 	],
 	"simpleNpcList": [
@@ -88,6 +94,13 @@
 			"toX": 14,
 			"toY": 38,
 			"mapName": "test2"
+		},
+		{
+			"fromX": 0,
+			"fromY": 13,
+			"toX": 18,
+			"toY": 13,
+			"mapName": "test3"
 		}
 	]
 }

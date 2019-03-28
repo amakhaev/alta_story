@@ -1,0 +1,88 @@
+{
+	"facilities": [
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 0,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 2,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 4,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 6,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 12,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 14,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 16,
+			"startY": 4
+		},
+		{
+			"name": "roof1", 
+			"descriptorFileName": "facility4",
+			"startX": 18,
+			"startY": 4
+		},
+		{
+			"name": "cornfield1", 
+			"descriptorFileName": "facility5",
+			"startX": 19,
+			"startY": 13
+		},
+		{
+			"name": "cornfield2", 
+			"descriptorFileName": "facility5",
+			"startX": 19,
+			"startY": 14
+		}
+	],
+	"simpleNpcList": [
+		{
+			"name": "person4",
+			"startX": 9,
+			"startY": 14,
+			"repeatingMovementDurationTime": 1500
+		}
+	],
+	"jumping": [
+		{
+			"fromX": 19,
+			"fromY": 13,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test"
+		},
+		{
+			"fromX": 19,
+			"fromY": 14,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test"
+		}
+	]
+}
