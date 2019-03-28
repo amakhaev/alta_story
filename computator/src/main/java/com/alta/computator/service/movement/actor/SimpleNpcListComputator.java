@@ -62,4 +62,17 @@ public class SimpleNpcListComputator {
         return this.simpleNpcComputators.containsKey(uuid) ?
                 this.simpleNpcComputators.get(uuid).getSimpleNpcParticipant() : null;
     }
+
+    /**
+     * Sets the pause on movement process of NPC.
+     *
+     * @param isPause - indicates when calculation should be paused.
+     */
+    public void setPause(boolean isPause) {
+        if (this.simpleNpcComputators != null) {
+            this.simpleNpcComputators.values().forEach(
+                    (simpleNpcComputator) -> simpleNpcComputator.setComputationPause(isPause)
+            );
+        }
+    }
 }

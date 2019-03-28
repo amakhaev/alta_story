@@ -1,7 +1,6 @@
 package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
-import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
@@ -12,10 +11,10 @@ import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.model.participant.map.MapParticipant;
 import com.alta.computator.service.layer.LayerComputator;
-import com.alta.computator.service.movement.actor.ActingCharacterComputator;
 import com.alta.computator.service.movement.FacilityComputator;
 import com.alta.computator.service.movement.FocusPointComputator;
 import com.alta.computator.service.movement.MapComputator;
+import com.alta.computator.service.movement.actor.ActingCharacterComputator;
 import com.alta.computator.service.movement.actor.SimpleNpcListComputator;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.eventStream.EventStream;
@@ -184,6 +183,21 @@ public class StageComputator {
                     this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
                     delta
             );
+        }
+    }
+
+    /**
+     * Sets the pause on calculations process.
+     *
+     * @param isPause - indicates when calculation should be paused.
+     */
+    public void setPause(boolean isPause) {
+        if (this.focusPointComputator != null) {
+            this.focusPointComputator.setComputationPause(isPause);
+        }
+
+        if (this.simpleNpcListComputator != null) {
+            this.simpleNpcListComputator.setPause(isPause);
         }
     }
 

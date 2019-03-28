@@ -7,6 +7,7 @@ import com.alta.computator.service.movement.strategy.MovementStrategy;
 import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -19,6 +20,9 @@ public class FocusPointComputator {
 
     private final MovementStrategy movementStrategy;
     private boolean isInitializedFirstTime;
+
+    @Setter
+    private boolean isComputationPause;
 
     @Getter
     private Point constantGlobalStartCoordination;
@@ -36,6 +40,7 @@ public class FocusPointComputator {
         this.focusPointParticipant = focusPointParticipant;
         this.movementStrategy = MovementStrategyFactory.getStrategy(MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION);
         this.isInitializedFirstTime = false;
+        this.isComputationPause = false;
     }
 
     /**
@@ -65,7 +70,7 @@ public class FocusPointComputator {
      */
     public void tryToRunMovement(MovementDirection movementDirection,
                                  AltitudeMap altitudeMap) {
-        if (this.movementStrategy.isCurrentlyRunning() || movementDirection == null) {
+        if (this.movementStrategy.isCurrentlyRunning() || movementDirection == null || this.isComputationPause) {
             return;
         }
 

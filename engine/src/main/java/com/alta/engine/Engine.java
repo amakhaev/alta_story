@@ -37,9 +37,11 @@ public class Engine {
                   AsyncTaskManager asyncTaskManager,
                   ActionProducer actionProducer,
                   EngineEventStream<ComputatorEvent> computatorEventStream) {
-        this.sceneProxy = sceneProxy;
         this.asyncTaskManager = asyncTaskManager;
         this.actionProducer = actionProducer;
+
+        this.sceneProxy = sceneProxy;
+        this.sceneProxy.setStateListener(this::onSceneFocusChanged);
 
         this.computatorEventStream = computatorEventStream;
         this.computatorEventStream.setListener(this::handleComputatorEvent);
@@ -90,5 +92,12 @@ public class Engine {
             default:
                 return;
         }
+    }
+
+    private void onSceneFocusChanged(boolean sceneHasFocus) {
+        if (this.currentUnit == null) {
+            return;
+        }
+        this.currentUnit.setPauseComputation(!sceneHasFocus);
     }
 }

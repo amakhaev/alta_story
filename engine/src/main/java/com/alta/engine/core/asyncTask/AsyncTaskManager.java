@@ -23,7 +23,7 @@ public class AsyncTaskManager {
     private static final byte THREAD_COUNT = 10;
 
     private static final String SCHEDULED_THREAD_POOL_NAME = "scheduled-engine-main-thread";
-    private static final byte SCHEDULED_THREAD_COUNT = 1;
+    private static final byte SCHEDULED_THREAD_COUNT = 2;
 
     private final ExecutorService executorService;
     private final ScheduledExecutorService scheduledExecutorService;

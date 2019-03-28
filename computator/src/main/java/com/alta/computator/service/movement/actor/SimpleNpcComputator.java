@@ -8,6 +8,7 @@ import com.alta.computator.service.movement.strategy.MovementStrategy;
 import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -18,11 +19,15 @@ import java.awt.*;
 @Slf4j
 class SimpleNpcComputator {
 
-    @Getter
-    private final SimpleNpcParticipant simpleNpcParticipant;
     private final MovementStrategy movementStrategy;
     private boolean isInitializedFirstTime;
     private int repeatingMovementTime;
+
+    @Setter
+    private boolean isComputationPause;
+
+    @Getter
+    private final SimpleNpcParticipant simpleNpcParticipant;
 
     /**
      * Initialize new instance of {@link SimpleNpcComputator}
@@ -32,6 +37,7 @@ class SimpleNpcComputator {
         this.movementStrategy = MovementStrategyFactory.getStrategy(MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION);
         this.isInitializedFirstTime = false;
         this.repeatingMovementTime = 0;
+        this.isComputationPause = false;
     }
 
     /**
@@ -59,13 +65,14 @@ class SimpleNpcComputator {
             this.repeatingMovementTime += delta;
             if (this.repeatingMovementTime > simpleNpcParticipant.getRepeatingMovementDurationTime()) {
                 this.tryToRunMovement(altitudeMap);
+                this.repeatingMovementTime = 0;
             }
         }
     }
 
 
     private void tryToRunMovement(AltitudeMap altitudeMap) {
-        if (this.movementStrategy.isCurrentlyRunning()) {
+        if (this.movementStrategy.isCurrentlyRunning() || this.isComputationPause) {
             return;
         }
 

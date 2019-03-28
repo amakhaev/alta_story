@@ -79,6 +79,15 @@ public class EngineUnit {
     }
 
     /**
+     * Sets the pause for computator
+     *
+     * @param isPause - indicates when pause is enabled.
+     */
+    public void setPauseComputation(boolean isPause) {
+        this.stageComputator.setPause(isPause);
+    }
+
+    /**
      * Finds the jumping point from existing one.
      *
      * @param mapCoordinates - the jump point to be find.
