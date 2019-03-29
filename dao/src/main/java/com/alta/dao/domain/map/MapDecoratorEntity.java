@@ -11,6 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 class MapDecoratorEntity {
+
+    private String displayName;
     private List<MapFacilityEntity> facilities;
     private List<SimpleNpcEntity> simpleNpcList;
     private List<MapJumpingEntity> jumping;

@@ -5,7 +5,6 @@ import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.actor.ActorDataProviderImpl;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
 import com.alta.mediator.domain.frameStage.FrameStageDataProviderImpl;
-import com.alta.utils.ExecutorServiceFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 

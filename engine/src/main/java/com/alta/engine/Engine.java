@@ -55,6 +55,7 @@ public class Engine {
         this.currentUnit = new EngineUnit(data, this.asyncTaskManager, this.computatorEventStream);
         this.actionProducer.setListener(this.currentUnit::onActionPerform);
         this.sceneProxy.renderFrameStage(this.currentUnit.getFrameStage());
+        this.sceneProxy.showTitle(data.getMapDisplayName());
     }
 
     /**

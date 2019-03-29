@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class SceneProxy {
 
+    private static final int HIDE_TITLE_MESSAGE_BOX_TIMEOUT = 5000;
     private static final String SCENE_LISTENING_TASK_NAME = "scene-listener";
     private static final long SCENE_LISTENING_TASK_INTERVAL = 200;
 
@@ -32,6 +33,7 @@ class SceneProxy {
     SceneProxy(Scene scene, SceneInputListener inputListener, AsyncTaskManager asyncTaskManager) {
         this.scene = scene;
         this.inputListener = inputListener;
+
         asyncTaskManager.runScheduledTask(
                 this::checkSceneState, SCENE_LISTENING_TASK_NAME, SCENE_LISTENING_TASK_INTERVAL
         );
@@ -53,6 +55,15 @@ class SceneProxy {
      */
     void renderFrameStage(FrameStage frameStage) {
         this.scene.renderStage(frameStage);
+    }
+
+    /**
+     * Shows the title message on the top of scene.
+     *
+     * @param title - the title that should be shown.
+     */
+    void showTitle(String title) {
+        this.scene.getMessageBox().drawTitle(title, HIDE_TITLE_MESSAGE_BOX_TIMEOUT);
     }
 
     private void checkSceneState() {

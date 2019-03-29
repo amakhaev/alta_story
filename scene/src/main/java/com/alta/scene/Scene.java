@@ -1,6 +1,8 @@
 package com.alta.scene;
 
 import com.alta.scene.entities.FrameStage;
+import com.alta.scene.messageBox.MessageBox;
+import com.alta.scene.messageBox.MessageBoxManager;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import lombok.Getter;
@@ -15,8 +17,9 @@ import org.newdawn.slick.SlickException;
 @Slf4j
 public class Scene {
 
-    private AppGameContainer gameContainer;
-    private SceneContainer sceneContainer;
+    private final AppGameContainer gameContainer;
+    private final SceneContainer sceneContainer;
+    private final MessageBoxManager messageBoxManager;
 
     @Getter
     private boolean isSceneInitialized;
@@ -29,6 +32,7 @@ public class Scene {
         this.gameContainer = injector.getInstance(AppGameContainer.class);
         // this.gameContainer.setMouseGrabbed(true);
         this.sceneContainer = injector.getInstance(SceneContainer.class);
+        this.messageBoxManager = injector.getInstance(MessageBoxManager.class);
         this.isSceneInitialized = false;
     }
 
@@ -69,5 +73,12 @@ public class Scene {
      */
     public boolean hasFocus() {
         return this.gameContainer.hasFocus();
+    }
+
+    /**
+     * Gets the message box instance.
+     */
+    public MessageBox getMessageBox() {
+        return this.messageBoxManager;
     }
 }

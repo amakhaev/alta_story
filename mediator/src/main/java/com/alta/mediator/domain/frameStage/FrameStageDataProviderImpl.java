@@ -93,6 +93,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                 ).collect(Collectors.toList());
 
         return FrameStageData.builder()
+                .mapDisplayName(mapModel.getDisplayName())
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
                 .focusPointMapStartPosition(focus)
                 .facilities(this.facilityEngineModelMapper.doMapppingForFacilities(mapModel.getFacilities()))

@@ -67,6 +67,7 @@ public class MapServiceImpl implements MapService {
 
         MapModel mapModel = MapModel.builder()
                 .name(matchedMapEntity.getName())
+                .displayName(internalDecorator.getDisplayName())
                 .tiledMapAbsolutePath(this.getAbsolutePathToMap(matchedMapEntity.getTiledMapPath()))
                 .facilities(this.getFacilities(internalDecorator))
                 .simpleNpcList(internalDecorator.getSimpleNpcList())

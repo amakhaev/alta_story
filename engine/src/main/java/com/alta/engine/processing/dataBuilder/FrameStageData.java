@@ -19,6 +19,11 @@ import java.util.List;
 public class FrameStageData {
 
     /**
+     * The display name of map
+     */
+    private final String mapDisplayName;
+
+    /**
      * The absolute path to file that described {@link org.newdawn.slick.tiled.TiledMap} instance
      */
     private final String tiledMapAbsolutePath;

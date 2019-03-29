@@ -22,7 +22,7 @@ public class FrameStageState extends BasicGameState {
     /**
      * Initialize ew instance of {@link FrameStageState}
      */
-    public FrameStageState(int stateId) {
+    FrameStageState(int stateId) {
         this.stateId = stateId;
     }
 

@@ -3,6 +3,8 @@ package com.alta.scene;
 import com.alta.scene.configuration.SceneConfig;
 import com.alta.scene.di.AppGameContainerProvider;
 import com.alta.scene.di.SceneYamlProvider;
+import com.alta.scene.messageBox.MessageBoxManager;
+import com.alta.scene.messageBox.MessageBoxManagerImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
@@ -23,5 +25,6 @@ class SceneInjectorModule extends AbstractModule {
                 .in(Singleton.class);
 
         bind(AppGameContainer.class).toProvider(AppGameContainerProvider.class).in(Singleton.class);
+        bind(MessageBoxManager.class).to(MessageBoxManagerImpl.class);
     }
 }

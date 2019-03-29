@@ -16,6 +16,7 @@ public class MapModel {
 
     private String name;
     private String tiledMapAbsolutePath;
+    private String displayName;
 
     @Singular("facilities")
     private List<MapFacilityModel> facilities;
