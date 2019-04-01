@@ -3,10 +3,10 @@ package com.alta.engine.processing.dataBuilder;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.engine.core.engieEventStream.EngineEventStream;
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.FacilityEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.core.engineEventStream.EngineEventStream;
+import com.alta.engine.model.ActingCharacterEngineModel;
+import com.alta.engine.model.FacilityEngineModel;
+import com.alta.engine.model.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 

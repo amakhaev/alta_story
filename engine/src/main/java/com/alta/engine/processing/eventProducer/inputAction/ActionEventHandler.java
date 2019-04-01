@@ -1,6 +1,6 @@
 package com.alta.engine.processing.eventProducer.inputAction;
 
-import com.alta.engine.processing.listener.sceneInput.SceneAction;
+import com.alta.engine.processing.sceneProxy.sceneInput.SceneAction;
 
 /**
  * Provides the action event listener

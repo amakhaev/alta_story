@@ -1,7 +1,7 @@
 package com.alta.engine.processing.eventProducer.inputAction;
 
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
-import com.alta.engine.processing.listener.sceneInput.SceneAction;
+import com.alta.engine.processing.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Setter;

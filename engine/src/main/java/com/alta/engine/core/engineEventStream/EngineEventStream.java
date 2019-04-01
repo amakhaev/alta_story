@@ -1,4 +1,4 @@
-package com.alta.engine.core.engieEventStream;
+package com.alta.engine.core.engineEventStream;
 
 import com.alta.eventStream.EventStream;
 import com.alta.eventStream.GenericEvent;

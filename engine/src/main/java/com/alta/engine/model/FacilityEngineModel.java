@@ -1,4 +1,4 @@
-package com.alta.engine.data;
+package com.alta.engine.model;
 
 import com.alta.computator.model.altitudeMap.TileState;
 import lombok.Builder;

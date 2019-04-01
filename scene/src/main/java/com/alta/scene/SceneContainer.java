@@ -59,11 +59,13 @@ public class SceneContainer extends StateBasedGame {
     @Override
     protected void postUpdateState(GameContainer container, int delta) {
         this.messageBoxManager.getTopMessageBoxEntity().onUpdateMessageBox(container, delta);
+        this.messageBoxManager.getBottomMessageBoxEntity().onUpdateMessageBox(container, delta);
     }
 
     @Override
     protected void postRenderState(GameContainer container, Graphics g) {
         this.messageBoxManager.getTopMessageBoxEntity().render(g);
+        this.messageBoxManager.getBottomMessageBoxEntity().render(g);
     }
 
     /**

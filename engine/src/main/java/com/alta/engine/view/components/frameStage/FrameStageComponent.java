@@ -1,4 +1,4 @@
-package com.alta.engine.processing.sceneComponent.frameStage;
+package com.alta.engine.view.components.frameStage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
@@ -6,9 +6,9 @@ import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
-import com.alta.engine.processing.sceneComponent.actor.ActorCharacterComponent;
-import com.alta.engine.processing.sceneComponent.facility.FacilityComponent;
-import com.alta.engine.processing.sceneComponent.frameTemplate.FrameTemplateComponent;
+import com.alta.engine.view.components.actor.ActorCharacterComponent;
+import com.alta.engine.view.components.facility.FacilityComponent;
+import com.alta.engine.view.components.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.entities.FrameStage;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;

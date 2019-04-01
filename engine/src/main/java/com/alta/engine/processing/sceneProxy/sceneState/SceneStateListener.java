@@ -1,4 +1,4 @@
-package com.alta.engine.processing.listener.sceneState;
+package com.alta.engine.processing.sceneProxy.sceneState;
 
 /**
  * Provides the listener of scene.

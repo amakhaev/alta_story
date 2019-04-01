@@ -4,13 +4,13 @@ import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.FacilityEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
-import com.alta.engine.processing.sceneComponent.actor.ActorCharacterComponent;
-import com.alta.engine.processing.sceneComponent.facility.FacilityComponent;
-import com.alta.engine.processing.sceneComponent.frameStage.FrameStageComponent;
-import com.alta.engine.processing.sceneComponent.frameTemplate.FrameTemplateComponent;
+import com.alta.engine.model.ActingCharacterEngineModel;
+import com.alta.engine.model.FacilityEngineModel;
+import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.view.components.actor.ActorCharacterComponent;
+import com.alta.engine.view.components.facility.FacilityComponent;
+import com.alta.engine.view.components.frameStage.FrameStageComponent;
+import com.alta.engine.view.components.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 public class SceneFrameStageProvider {
 
     /**
-     * Creates the FrameStage instance by given data
+     * Creates the FrameStage instance by given model
      *
-     * @param data - the data that full describes the frame stage
+     * @param data - the model that full describes the frame stage
      * @param stageComputator - the computator of frame stage
      * @param asyncTaskManager - the manager of async tasks
-     * @return created {@link FrameStageComponent} instance based of @param data
+     * @return created {@link FrameStageComponent} instance based of @param model
      */
     @Builder
     public static FrameStageComponent createFrameStage(FrameStageData data,

@@ -6,6 +6,7 @@ import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.engine.Engine;
 import com.alta.engine.EngineInjectorModule;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
+import com.alta.scene.SceneInjectorModule;
 import com.alta.utils.ExecutorServiceFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -34,7 +35,8 @@ public class Mediator {
         Injector injector = Guice.createInjector(
                 new MediatorInjectorModule(),
                 new DaoInjectorModule(),
-                new EngineInjectorModule()
+                new EngineInjectorModule(),
+                new SceneInjectorModule()
         );
 
         this.frameStageDataProvider = injector.getInstance(FrameStageDataProvider.class);

@@ -1,4 +1,4 @@
-package com.alta.engine.data;
+package com.alta.engine.model;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -15,6 +15,7 @@ import java.awt.*;
 public class MessageBoxManagerImpl implements MessageBoxManager {
 
     private final MessageBoxEntityImpl topMessageBox;
+    private final MessageBoxEntityImpl bottomMessageBox;
 
     /**
      * Initialize new instance of {@link MessageBoxManagerImpl}
@@ -30,6 +31,14 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
                 .marginTop(5)
                 .textAlignment(MessageBoxEntityImpl.TextAlignment.CENTER)
                 .build();
+
+        this.bottomMessageBox = MessageBoxEntityImpl.builder()
+                .startCoordinates(new Point(0, config.getUiContainer().getHeight() - 200))
+                .width(config.getUiContainer().getWidth())
+                .height(200)
+                .marginLeft(5)
+                .marginRight(5)
+                .build();
     }
 
     /**
@@ -41,14 +50,11 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
     }
 
     /**
-     * Draws the message on scene that will shown as title on the top of screen.
-     *
-     * @param titleMessage - the text that will be shown.
+     * Gets the message box that shown on bottom of the scene.
      */
     @Override
-    public void drawTitle(String titleMessage) {
-        this.topMessageBox.setText(titleMessage);
-        this.topMessageBox.show();
+    public MessageBoxEntity getBottomMessageBoxEntity() {
+        return this.bottomMessageBox;
     }
 
     /**
@@ -61,5 +67,16 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
     public void drawTitle(String titleMessage, int hideTimeout) {
         this.topMessageBox.setText(titleMessage);
         this.topMessageBox.show(hideTimeout);
+    }
+
+    /**
+     * Draws the simple message on the bottom of screen.
+     *
+     * @param message - the message the should be shown.
+     */
+    @Override
+    public void drawSimpleMessage(String message) {
+        this.bottomMessageBox.setText(message);
+        this.bottomMessageBox.show();
     }
 }

@@ -1,4 +1,4 @@
-package com.alta.engine.processing.listener.sceneInput;
+package com.alta.engine.processing.sceneProxy.sceneInput;
 
 import com.alta.engine.processing.eventProducer.inputAction.ActionProducer;
 import com.google.inject.Inject;
@@ -20,6 +20,7 @@ public class SceneInputListener implements KeyListener {
         put(Input.KEY_LEFT, SceneAction.MOVE_LEFT);
         put(Input.KEY_UP, SceneAction.MOVE_UP);
         put(Input.KEY_DOWN, SceneAction.MOVE_DOWN);
+        put(Input.KEY_F, SceneAction.INTERACTION);
     }};
 
     private final ActionProducer actionProducer;

@@ -1,17 +1,17 @@
-package com.alta.engine.processing;
+package com.alta.engine.view;
 
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.core.engieEventStream.EngineEventStream;
-import com.alta.engine.data.JumpingEngineModel;
-import com.alta.engine.processing.listener.sceneInput.SceneAction;
+import com.alta.engine.core.engineEventStream.EngineEventStream;
+import com.alta.engine.model.JumpingEngineModel;
+import com.alta.engine.processing.sceneProxy.sceneInput.SceneAction;
 import com.alta.engine.processing.dataBuilder.ComputatorFrameStageProvider;
 import com.alta.engine.processing.dataBuilder.FrameStageData;
 import com.alta.engine.processing.dataBuilder.SceneFrameStageProvider;
-import com.alta.engine.processing.sceneComponent.frameStage.FrameStageComponent;
+import com.alta.engine.view.components.frameStage.FrameStageComponent;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +22,7 @@ import java.util.List;
  * Provides the dispatcher of computator
  */
 @Slf4j
-public class EngineUnit {
+public class FrameStageView {
 
     private final StageComputator stageComputator;
     private final List<JumpingEngineModel> jumpigPoints;
@@ -31,11 +31,11 @@ public class EngineUnit {
     private final FrameStageComponent frameStage;
 
     /**
-     * Initialize new instance of {@link EngineUnit}
+     * Initialize new instance of {@link FrameStageView}
      */
-    public EngineUnit(FrameStageData data,
-                      AsyncTaskManager asyncTaskManager,
-                      EngineEventStream<ComputatorEvent> computatorEventStream) {
+    public FrameStageView(FrameStageData data,
+                          AsyncTaskManager asyncTaskManager,
+                          EngineEventStream<ComputatorEvent> computatorEventStream) {
         try {
             this.stageComputator = ComputatorFrameStageProvider.builder()
                     .focusPointStartPosition(data.getFocusPointMapStartPosition())
@@ -57,25 +57,12 @@ public class EngineUnit {
     }
 
     /**
-     * Performs the action on scene
+     * Performs the movement on scene
      *
-     * @param action - the action that should be performed
+     * @param movementDirection - the movement that should be performed
      */
-    public void onActionPerform(SceneAction action) {
-        switch (action) {
-            case MOVE_UP:
-                this.stageComputator.tryToRunMovement(MovementDirection.UP);
-                break;
-            case MOVE_DOWN:
-                this.stageComputator.tryToRunMovement(MovementDirection.DOWN);
-                break;
-            case MOVE_LEFT:
-                this.stageComputator.tryToRunMovement(MovementDirection.LEFT);
-                break;
-            case MOVE_RIGHT:
-                this.stageComputator.tryToRunMovement(MovementDirection.RIGHT);
-                break;
-        }
+    public void onMovementPerform(MovementDirection movementDirection) {
+        this.stageComputator.tryToRunMovement(movementDirection);
     }
 
     /**

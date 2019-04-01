@@ -13,6 +13,7 @@ import org.newdawn.slick.geom.RoundedRectangle;
 
 import java.awt.Font;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Provides the implementation of {@link MessageBoxEntity}
@@ -117,7 +118,7 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         );
 
 
-        this.unicodeFont = new UnicodeFont(new Font("Verdana", Font.ITALIC, 18));
+        this.unicodeFont = new UnicodeFont(new Font("Verdana", Font.ITALIC, 16));
         this.unicodeFont.addGlyphs(32, 1200);
 
         this.unicodeFont.getEffects().add(new ColorEffect(java.awt.Color.white));
@@ -130,6 +131,9 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         } catch (SlickException e) {
             log.error(e.getMessage());
         }
+
+        // for correct formatting of text message
+        this.setText(this.text);
     }
 
     /**
@@ -193,7 +197,7 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
      * Sets the text to be shown.
      */
     void setText(String text) {
-        this.text = text;
+        this.text = this.doFormatText(text);
         this.currentText = "";
     }
 
@@ -215,12 +219,29 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         this.show(0);
     }
 
+    /**
+     * Force hides the message box.
+     */
     void hide() {
         this.visible = false;
         this.currentText = null;
         this.text = null;
         this.hideTimeout = -1;
         this.currentHideTimeout = -1;
+    }
+
+    /**
+     * Completes the animation of text rendering.
+     */
+    void completeDrawingImmediatelly() {
+        this.currentText = this.text;
+    }
+
+    /**
+     * Indicates when drawing of text is in progress.
+     */
+    boolean isDrawingInProgress() {
+        return !this.currentText.equals(this.text);
     }
 
     private void updateTextCoordinates() {
@@ -233,14 +254,43 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         final int defaultTextMargin = 10;
         if (this.textAlignment == TextAlignment.LEFT) {
             this.currentTextCoordinates.x = this.startCoordinates.x + this.marginLeft + defaultTextMargin;
-            this.currentTextCoordinates.y = (this.height - this.startCoordinates.y) / 2 -
-                    this.unicodeFont.getHeight(this.currentText) / 2;
+            this.currentTextCoordinates.y = this.startCoordinates.y + this.marginTop + defaultTextMargin;
         } else if (this.textAlignment == TextAlignment.CENTER) {
             this.currentTextCoordinates.x = (this.width - this.startCoordinates.x) / 2 -
                     this.unicodeFont.getWidth(this.text) / 2;
-            this.currentTextCoordinates.y = (this.height - this.startCoordinates.y) / 2 -
-                    this.unicodeFont.getHeight(this.currentText) / 2;
+            this.currentTextCoordinates.y = this.height / 2 - this.unicodeFont.getHeight(this.currentText) / 2;
         }
+    }
+
+    private String doFormatText(String text) {
+        if (this.unicodeFont == null || Strings.isNullOrEmpty(text)) {
+            return text;
+        }
+
+        String[] words = text.split(" ");
+        StringBuilder currentLine = new StringBuilder();
+        StringBuilder formatStringBuilder = new StringBuilder();
+        java.util.List<String> result = new ArrayList<>();
+
+        for (String word: words) {
+            if (this.unicodeFont.getWidth(currentLine + word) > this.width - this.marginLeft - this.marginRight) {
+                formatStringBuilder.append(currentLine);
+                formatStringBuilder.append("\n");
+                currentLine = new StringBuilder();
+            }
+
+            if (this.unicodeFont.getHeight(formatStringBuilder.toString()) > this.height - this.marginTop) {
+                result.add(formatStringBuilder.toString());
+                formatStringBuilder.setLength(0);
+            }
+
+            currentLine.append(word).append(" ");
+        }
+        formatStringBuilder.append(currentLine);
+        result.add(formatStringBuilder.toString());
+
+        formatStringBuilder.setLength(0);
+        return String.join(" ", result);
     }
 
     enum TextAlignment {

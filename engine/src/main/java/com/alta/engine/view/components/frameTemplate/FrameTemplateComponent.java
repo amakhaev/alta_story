@@ -1,6 +1,6 @@
-package com.alta.engine.processing.sceneComponent.frameTemplate;
+package com.alta.engine.view.components.frameTemplate;
 
-import com.alta.engine.processing.sceneComponent.UniqueObject;
+import com.alta.engine.view.components.UniqueObject;
 import com.alta.scene.entities.FrameTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;

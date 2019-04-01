@@ -12,4 +12,9 @@ public interface MessageBoxManager extends MessageBox {
      */
     MessageBoxEntity getTopMessageBoxEntity();
 
+    /**
+     * Gets the message box that shown on bottom of the scene.
+     */
+    MessageBoxEntity getBottomMessageBoxEntity();
+
 }

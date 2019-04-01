@@ -3,8 +3,8 @@ package com.alta.mediator.domain.actor;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.model.ActingCharacterEngineModel;
+import com.alta.engine.model.SimpleNpcEngineModel;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.google.inject.Singleton;
 
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Provides the data mapper for actors
+ * Provides the model mapper for actors
  */
 @Singleton
 class ActorEngineMapper {

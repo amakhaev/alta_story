@@ -1,8 +1,8 @@
-package com.alta.engine;
+package com.alta.engine.processing.sceneProxy;
 
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
-import com.alta.engine.processing.listener.sceneInput.SceneInputListener;
-import com.alta.engine.processing.listener.sceneState.SceneStateListener;
+import com.alta.engine.processing.sceneProxy.sceneInput.SceneInputListener;
+import com.alta.engine.processing.sceneProxy.sceneState.SceneStateListener;
 import com.alta.scene.Scene;
 import com.alta.scene.entities.FrameStage;
 import com.google.inject.Inject;
@@ -10,12 +10,11 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Provides the proxy object for access to scene
+ * Provides the sceneProxy of scene.
  */
 @Slf4j
-class SceneProxy {
+public class SceneProxy {
 
-    private static final int HIDE_TITLE_MESSAGE_BOX_TIMEOUT = 5000;
     private static final String SCENE_LISTENING_TASK_NAME = "scene-listener";
     private static final long SCENE_LISTENING_TASK_INTERVAL = 200;
 
@@ -30,7 +29,7 @@ class SceneProxy {
      * Initialize new instance of {@link SceneProxy}
      */
     @Inject
-    SceneProxy(Scene scene, SceneInputListener inputListener, AsyncTaskManager asyncTaskManager) {
+    public SceneProxy(Scene scene, SceneInputListener inputListener, AsyncTaskManager asyncTaskManager) {
         this.scene = scene;
         this.inputListener = inputListener;
 
@@ -43,7 +42,7 @@ class SceneProxy {
     /**
      * Starts the scene
      */
-    void sceneStart() {
+    public void sceneStart() {
         this.scene.setInputListener(this.inputListener);
         this.scene.start();
     }
@@ -53,17 +52,8 @@ class SceneProxy {
      *
      * @param frameStage - the frame stage to render
      */
-    void renderFrameStage(FrameStage frameStage) {
+    public void renderFrameStage(FrameStage frameStage) {
         this.scene.renderStage(frameStage);
-    }
-
-    /**
-     * Shows the title message on the top of scene.
-     *
-     * @param title - the title that should be shown.
-     */
-    void showTitle(String title) {
-        this.scene.getMessageBox().drawTitle(title, HIDE_TITLE_MESSAGE_BOX_TIMEOUT);
     }
 
     private void checkSceneState() {

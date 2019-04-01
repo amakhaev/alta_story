@@ -1,4 +1,4 @@
-package com.alta.engine.processing.listener.sceneInput;
+package com.alta.engine.processing.sceneProxy.sceneInput;
 
 /**
  * Provides possible actions of scene
@@ -8,6 +8,7 @@ public enum SceneAction {
     MOVE_RIGHT,
     MOVE_DOWN,
     MOVE_LEFT,
-    MOVE_UP
+    MOVE_UP,
+    INTERACTION
 
 }

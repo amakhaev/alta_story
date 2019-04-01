@@ -3,8 +3,8 @@ package com.alta.mediator.domain.frameStage;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.map.MapService;
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.model.ActingCharacterEngineModel;
+import com.alta.engine.model.SimpleNpcEngineModel;
 import com.alta.engine.processing.dataBuilder.FrameStageData;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.map.FacilityEngineModelMapper;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Provides the service to manipulate data related to {@link FrameStageData}
+ * Provides the service to manipulate model related to {@link FrameStageData}
  */
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -32,7 +32,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     private final JumpingEngineModelMapper jumpingEngineModelMapper;
 
     /**
-     * Gets the data of frame stage that created from preservation
+     * Gets the model of frame stage that created from preservation
      *
      * @param preservationModel - the preservation of game
      * @return the {@link FrameStageData} generated from preservation.
@@ -47,7 +47,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     }
 
     /**
-     * Gets the data of frame stage that created by give params
+     * Gets the model of frame stage that created by give params
      *
      * @param mapName - the name of map to be render
      * @param skin    - the skin of acting character

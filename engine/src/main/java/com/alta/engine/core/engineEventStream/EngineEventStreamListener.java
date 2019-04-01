@@ -1,4 +1,4 @@
-package com.alta.engine.core.engieEventStream;
+package com.alta.engine.core.engineEventStream;
 
 /**
  * Provides the listener of {@link EngineEventStream}
@@ -7,9 +7,9 @@ package com.alta.engine.core.engieEventStream;
 public interface EngineEventStreamListener<T> {
 
     /**
-     * Handles the getting of stream data
+     * Handles the getting of stream model
      *
-     * @param data - the data that received from event stream
+     * @param data - the model that received from event stream
      */
     void handle(T data);
 

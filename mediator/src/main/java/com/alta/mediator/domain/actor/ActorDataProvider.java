@@ -1,12 +1,12 @@
 package com.alta.mediator.domain.actor;
 
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.model.ActingCharacterEngineModel;
+import com.alta.engine.model.SimpleNpcEngineModel;
 
 import java.awt.*;
 
 /**
- * Provides the service that manipulated data related to {@link com.alta.scene.entities.Actor}
+ * Provides the service that manipulated model related to {@link com.alta.scene.entities.Actor}
  */
 public interface ActorDataProvider {
 

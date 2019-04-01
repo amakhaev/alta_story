@@ -1,9 +1,9 @@
 package com.alta.engine.processing.dataBuilder;
 
-import com.alta.engine.data.ActingCharacterEngineModel;
-import com.alta.engine.data.FacilityEngineModel;
-import com.alta.engine.data.JumpingEngineModel;
-import com.alta.engine.data.SimpleNpcEngineModel;
+import com.alta.engine.model.ActingCharacterEngineModel;
+import com.alta.engine.model.FacilityEngineModel;
+import com.alta.engine.model.JumpingEngineModel;
+import com.alta.engine.model.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the builder that builds data for creating scene
+ * Provides the builder that builds model for creating scene
  */
 @Getter
 @Builder(toBuilder = true)
