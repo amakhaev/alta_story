@@ -1,4 +1,4 @@
-package com.alta.engine.processing.sceneProxy.sceneInput;
+package com.alta.engine.presenter.sceneProxy.sceneInput;
 
 /**
  * Provides possible actions of scene

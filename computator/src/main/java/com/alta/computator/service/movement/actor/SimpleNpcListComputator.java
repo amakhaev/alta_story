@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Provides the calculations for list of simple NPC
@@ -74,5 +75,34 @@ public class SimpleNpcListComputator {
                     (simpleNpcComputator) -> simpleNpcComputator.setComputationPause(isPause)
             );
         }
+    }
+
+    /**
+     * Sets the pause on movement process for specific NPC.
+     *
+     * @param isPause   - indicates when calculation should be paused.
+     * @param uuid      - the uuid of NPC to be paused
+     */
+    public void setPause(boolean isPause, String uuid) {
+        if (this.simpleNpcComputators != null) {
+            SimpleNpcComputator computator = this.simpleNpcComputators.values().stream()
+                    .filter(npc -> npc.getSimpleNpcParticipant().getUuid().equals(uuid))
+                    .findFirst()
+                    .orElse(null);
+            if (computator != null) {
+                computator.setComputationPause(isPause);
+            }
+        }
+    }
+
+    /**
+     * Gets the list of simple npc participats.
+     *
+     * @return the {@link java.util.List} of {@link SimpleNpcParticipant}.
+     */
+    public java.util.List<SimpleNpcParticipant> getSimpleNpcList() {
+        return this.simpleNpcComputators.values().stream()
+                .map(SimpleNpcComputator::getSimpleNpcParticipant)
+                .collect(Collectors.toList());
     }
 }

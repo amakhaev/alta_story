@@ -1,6 +1,5 @@
-package com.alta.engine.processing.sceneProxy.sceneInput;
+package com.alta.engine.presenter.sceneProxy.sceneInput;
 
-import com.alta.engine.processing.eventProducer.inputAction.ActionProducer;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.newdawn.slick.Input;
@@ -23,27 +22,27 @@ public class SceneInputListener implements KeyListener {
         put(Input.KEY_F, SceneAction.INTERACTION);
     }};
 
-    private final ActionProducer actionProducer;
+    private final KeyActionProducer keyActionProducer;
 
     /**
      * Initialize new instance of {@link SceneInputListener}
      */
     @Inject
-    public SceneInputListener(ActionProducer producer) {
-        this.actionProducer = producer;
+    public SceneInputListener(KeyActionProducer producer) {
+        this.keyActionProducer = producer;
     }
 
     @Override
     public void keyPressed(int i, char c) {
         if (INPUT_TO_ACTIONS.containsKey(i)) {
-            this.actionProducer.onActionStartProducing(INPUT_TO_ACTIONS.get(i));
+            this.keyActionProducer.onActionStarted(INPUT_TO_ACTIONS.get(i));
         }
     }
 
     @Override
     public void keyReleased(int i, char c) {
         if (INPUT_TO_ACTIONS.containsKey(i)) {
-            this.actionProducer.onActionStopProducing(INPUT_TO_ACTIONS.get(i));
+            this.keyActionProducer.onActionReleased(INPUT_TO_ACTIONS.get(i));
         }
     }
 

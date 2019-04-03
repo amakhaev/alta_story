@@ -1,4 +1,4 @@
-package com.alta.engine.processing.dataBuilder;
+package com.alta.engine.utils.dataBuilder;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;

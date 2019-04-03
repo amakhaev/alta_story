@@ -1,7 +1,6 @@
-package com.alta.engine.processing.eventProducer.inputAction;
+package com.alta.engine.presenter.sceneProxy.sceneInput;
 
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
-import com.alta.engine.processing.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Setter;
@@ -15,7 +14,7 @@ import java.util.Map;
  */
 @Singleton
 @Slf4j
-public class ActionProducer {
+public class KeyActionProducer {
 
     private static final long SCHEDULE_INTERVAL = 1000 / 60; // milliseconds
     private static final String SCHEDULED_TASK_NAME = "action-event-produce";
@@ -24,23 +23,23 @@ public class ActionProducer {
     private Map<SceneAction, ActionState> actionStates;
 
     @Setter
-    private ActionEventHandler listener;
+    private ActionEventListener listener;
 
     /**
-     * Initialize new instance of {@link ActionEventHandler}
+     * Initialize new instance of {@link ActionEventListener}
      */
     @Inject
-    public ActionProducer(AsyncTaskManager asyncTaskManager) {
+    public KeyActionProducer(AsyncTaskManager asyncTaskManager) {
         this.actionStates = new HashMap<>();
         asyncTaskManager.runScheduledTask(this::produce, SCHEDULED_TASK_NAME, SCHEDULE_INTERVAL);
     }
 
     /**
-     * Handles start producing of action
+     * Handles the starting of actions.
      *
-     * @param action - the action that should begin producing
+     * @param action - the action that will be started.
      */
-    public void onActionStartProducing(SceneAction action) {
+    void onActionStarted(SceneAction action) {
         this.actionStates.put(action, ActionState.PRODUCING);
     }
 
@@ -49,8 +48,11 @@ public class ActionProducer {
      *
      * @param action - the action that should stop producing
      */
-    public void onActionStopProducing(SceneAction action) {
+    void onActionReleased(SceneAction action) {
         this.actionStates.put(action, ActionState.STOPPED);
+        if (this.listener != null) {
+            this.listener.onActionReleased(action);
+        }
     }
 
     private void produce() {
@@ -58,7 +60,7 @@ public class ActionProducer {
             this.actionStates.entrySet()
                     .stream()
                     .filter(es -> es.getValue() != ActionState.STOPPED)
-                    .forEach(es -> this.listener.handle(es.getKey()));
+                    .forEach(es -> this.listener.onPerformAction(es.getKey()));
         }
     }
 

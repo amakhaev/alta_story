@@ -131,19 +131,6 @@ public class StageComputator {
     }
 
     /**
-     * Sets the event producer for computator
-     *
-     * @param eventProducer - the event producer of computed model
-     */
-    public void setComputatorEventProducer(EventStream<ComputatorEvent> eventProducer) {
-        if (this.actingCharacterComputator == null) {
-            log.warn("The acting character computator is empty. EventStream will not be set.");
-        }
-
-        this.actingCharacterComputator.setJumpEventProducer(eventProducer);
-    }
-
-    /**
      * Handles the next tick in the stage
      *
      * @param delta - the time between last and previous one calls
@@ -187,6 +174,19 @@ public class StageComputator {
     }
 
     /**
+     * Sets the event producer for computator
+     *
+     * @param eventProducer - the event producer of computed model
+     */
+    public void setComputatorEventProducer(EventStream<ComputatorEvent> eventProducer) {
+        if (this.actingCharacterComputator == null) {
+            log.warn("The acting character computator is empty. EventStream will not be set.");
+        }
+
+        this.actingCharacterComputator.setJumpEventProducer(eventProducer);
+    }
+
+    /**
      * Sets the pause on calculations process.
      *
      * @param isPause - indicates when calculation should be paused.
@@ -198,6 +198,18 @@ public class StageComputator {
 
         if (this.simpleNpcListComputator != null) {
             this.simpleNpcListComputator.setPause(isPause);
+        }
+    }
+
+    /**
+     * Sets the pause on movement process for specific NPC.
+     *
+     * @param isPause   - indicates when calculation should be paused.
+     * @param uuid      - the uuid of NPC to be paused
+     */
+    public void setPause(boolean isPause, String uuid) {
+        if (this.simpleNpcListComputator != null) {
+            this.simpleNpcListComputator.setPause(isPause, uuid);
         }
     }
 
@@ -218,6 +230,16 @@ public class StageComputator {
     public Point getMapGlobalCoordinates() {
         return this.mapComputator != null && this.mapComputator.getMapParticipant() != null ?
                 this.mapComputator.getMapParticipant().getCurrentGlobalCoordinates() : null;
+    }
+
+    /**
+     * Finds the character on map by given map position.
+     *
+     * @param mapCoordinates - the map coordinates of character.
+     * @return the uuid of character or null if not found.
+     */
+    public String findCharacterIdByPosition(Point mapCoordinates) {
+        return this.layerComputator.findCharacterByPosition(mapCoordinates);
     }
 
     /**

@@ -40,12 +40,17 @@ public class ActorDataProviderImpl implements ActorDataProvider {
      * @param skinName                      - the name of skin for character
      * @param startCoordinates              - the coordinates of start position for actor
      * @param repeatingMovementDurationTime - the time of repeating the movement of simple NPC
+     * @param dialogueText                  - the time of repeating the movement of simple NPC
      * @return the {@link SimpleNpcEngineModel}
      */
     @Override
-    public SimpleNpcEngineModel getSimpleNpc(String skinName, Point startCoordinates, int repeatingMovementDurationTime) {
+    public SimpleNpcEngineModel getSimpleNpc(String skinName,
+                                             Point startCoordinates,
+                                             int repeatingMovementDurationTime,
+                                             String dialogueText) {
         ActorModel actorModel = this.actorService.getActorModel(skinName, startCoordinates);
+        actorModel.setRepeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime());
         actorModel.setRepeatingMovementDurationTime(repeatingMovementDurationTime);
-        return this.actorEngineMapper.doMappingForSimpleNpc(actorModel);
+        return this.actorEngineMapper.doMappingForSimpleNpc(actorModel, dialogueText);
     }
 }

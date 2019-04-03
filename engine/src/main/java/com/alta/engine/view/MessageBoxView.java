@@ -26,10 +26,30 @@ public class MessageBoxView {
     /**
      * Shown the message on the bottom of scene.
      *
-     * @param message - the message to be shown.
+     * @param text - the text to be shown.
      */
-    public void showMessage(String message) {
-        this.messageBox.drawSimpleMessage(message);
+    public void showMessage(String text) {
+        this.messageBox.drawAnimatedMessage(text);
     }
 
+    /**
+     * Completes the animation of current message immediately.
+     */
+    public void completeAnimationImmediately() {
+        this.messageBox.completeCurrentAnimatedMessage();
+    }
+
+    /**
+     * Hides the message box.
+     */
+    public void hide() {
+        this.messageBox.hideMessageBox();
+    }
+
+    /**
+     * Indicates when animation related to text drawing in progress now.
+     */
+    public boolean isCurrentMessageDrawing() {
+        return this.messageBox.isAnimationInProgress();
+    }
 }

@@ -20,6 +20,7 @@ public class SimpleNpcEngineModel {
     private final String uuid;
     private final Point startMapCoordinates;
     private final int zIndex;
+    private final String dialogue;
 
     @Setter
     private int repeatingMovementDurationTime;

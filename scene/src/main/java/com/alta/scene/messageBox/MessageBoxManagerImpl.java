@@ -75,8 +75,46 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
      * @param message - the message the should be shown.
      */
     @Override
-    public void drawSimpleMessage(String message) {
+    public void drawAnimatedMessage(String message) {
         this.bottomMessageBox.setText(message);
         this.bottomMessageBox.show();
+    }
+
+    /**
+     * Draws the simple message on the bottom of screen.
+     *
+     * @param message - the message the should be shown.
+     */
+    @Override
+    public void drawMessage(String message) {
+        this.bottomMessageBox.setText(message);
+        this.bottomMessageBox.completeDrawingImmediately();
+        this.bottomMessageBox.show();
+    }
+
+    /**
+     * Completes the animation of current message immediately.
+     */
+    @Override
+    public void completeCurrentAnimatedMessage() {
+        if (this.bottomMessageBox.isDrawingInProgress()) {
+            this.bottomMessageBox.completeDrawingImmediately();
+        }
+    }
+
+    /**
+     * Hides the message box.
+     */
+    @Override
+    public void hideMessageBox() {
+        this.bottomMessageBox.hide();
+    }
+
+    /**
+     * Indicates when animation related to text drawing in progress now.
+     */
+    @Override
+    public boolean isAnimationInProgress() {
+        return this.bottomMessageBox.isDrawingInProgress();
     }
 }

@@ -1,7 +1,7 @@
 package com.alta.mediator.domain.frameStage;
 
 import com.alta.dao.data.preservation.PreservationModel;
-import com.alta.engine.processing.dataBuilder.FrameStageData;
+import com.alta.engine.utils.dataBuilder.FrameStageData;
 
 import java.awt.*;
 

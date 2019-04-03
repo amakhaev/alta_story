@@ -51,7 +51,7 @@ class ActorEngineMapper {
      * @param actorModel - the source actor model
      * @return the {@link SimpleNpcEngineModel} instance.
      */
-    SimpleNpcEngineModel doMappingForSimpleNpc(ActorModel actorModel) {
+    SimpleNpcEngineModel doMappingForSimpleNpc(ActorModel actorModel, String dialogue) {
         if (actorModel == null) {
             return null;
         }
@@ -69,6 +69,7 @@ class ActorEngineMapper {
                 .startMapCoordinates(actorModel.getStartMapCoordinates())
                 .animationDescriptors(actorAnimationDescriptors)
                 .repeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime())
+                .dialogue(dialogue)
                 .build();
     }
 

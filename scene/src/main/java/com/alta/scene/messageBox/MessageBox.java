@@ -14,9 +14,31 @@ public interface MessageBox {
     void drawTitle(String titleMessage, int hideTimeout);
 
     /**
-     * Draws the simple message on the bottom of screen.
+     * Draws the message using animation on the bottom of screen.
      *
      * @param message - the message the should be shown.
      */
-    void drawSimpleMessage(String message);
+    void drawAnimatedMessage(String message);
+
+    /**
+     * Draws the message on the bottom of screen.
+     *
+     * @param message - the message the should be shown.
+     */
+    void drawMessage(String message);
+
+    /**
+     * Completes the animation of current message immediately.
+     */
+    void completeCurrentAnimatedMessage();
+
+    /**
+     * Hides the message box.
+     */
+    void hideMessageBox();
+
+    /**
+     * Indicates when animation related to text drawing in progress now.
+     */
+    boolean isAnimationInProgress();
 }

@@ -52,9 +52,9 @@ public abstract class EventStream<T> {
     }
 
     /**
-     * Sets the event handlers
+     * Sets the event actionHandler
      *
-     * @param handlers - the event handlers that will be called when event published
+     * @param handlers - the event actionHandler that will be called when event published
      * @return current {@link EventStream} instance
      */
     protected final EventStream<T> setHandleEvents(final EventHandler<GenericEvent<T>>... handlers) {

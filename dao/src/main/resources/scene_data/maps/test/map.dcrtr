@@ -73,19 +73,22 @@
 			"name": "person2",
 			"startX": 2,
 			"startY": 8,
-			"repeatingMovementDurationTime": 4000
+			"repeatingMovementDurationTime": 4000,
+			"dialogue": "Я слишком стар для всего этого."
 		},
 		{
 			"name": "person3",
 			"startX": 2,
 			"startY": 5,
-			"repeatingMovementDurationTime": 5000
+			"repeatingMovementDurationTime": 5000,
+			"dialogue": "Это место настолько огромно."
 		},
 		{
 			"name": "person4",
 			"startX": 8,
 			"startY": 7,
-			"repeatingMovementDurationTime": 6000
+			"repeatingMovementDurationTime": 6000,
+			"dialogue": "Статуя богини такая классная."
 		}
 	],
 	"jumping": [

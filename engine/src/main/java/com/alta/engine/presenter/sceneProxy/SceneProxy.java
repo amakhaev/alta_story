@@ -1,8 +1,8 @@
-package com.alta.engine.processing.sceneProxy;
+package com.alta.engine.presenter.sceneProxy;
 
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
-import com.alta.engine.processing.sceneProxy.sceneInput.SceneInputListener;
-import com.alta.engine.processing.sceneProxy.sceneState.SceneStateListener;
+import com.alta.engine.presenter.sceneProxy.sceneInput.SceneInputListener;
+import com.alta.engine.presenter.sceneProxy.sceneState.SceneStateListener;
 import com.alta.scene.Scene;
 import com.alta.scene.entities.FrameStage;
 import com.google.inject.Inject;

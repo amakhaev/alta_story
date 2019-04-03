@@ -233,7 +233,7 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
     /**
      * Completes the animation of text rendering.
      */
-    void completeDrawingImmediatelly() {
+    void completeDrawingImmediately() {
         this.currentText = this.text;
     }
 

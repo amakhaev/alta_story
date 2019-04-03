@@ -14,5 +14,6 @@ public class SimpleNpcEntity {
     private int startX;
     private int startY;
     private int repeatingMovementDurationTime;
+    private String dialogue;
 
 }

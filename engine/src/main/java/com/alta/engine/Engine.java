@@ -1,12 +1,13 @@
 package com.alta.engine;
 
-import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
-import com.alta.engine.processing.dataBuilder.FrameStageData;
-import com.alta.engine.processing.eventProducer.inputAction.ActionProducer;
-import com.alta.engine.processing.listener.engineEvent.EngineListener;
-import com.alta.engine.processing.sceneProxy.sceneInput.SceneAction;
+import com.alta.engine.presenter.actionDispatcher.InputActionDispatcher;
+import com.alta.engine.presenter.sceneProxy.sceneInput.ActionEventListener;
+import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
+import com.alta.engine.utils.dataBuilder.FrameStageData;
+import com.alta.engine.presenter.sceneProxy.sceneInput.KeyActionProducer;
+import com.alta.engine.utils.listener.engineEvent.EngineListener;
 import com.google.inject.Inject;
 
 /**
@@ -23,11 +24,22 @@ public class Engine {
     @Inject
     public Engine(FrameStagePresenter frameStagePresenter,
                   MessageBoxPresenter messageBoxPresenter,
-                  ActionProducer actionProducer) {
+                  KeyActionProducer keyActionProducer,
+                  InputActionDispatcher actionDispatcher) {
         this.frameStagePresenter = frameStagePresenter;
         this.messageBoxPresenter = messageBoxPresenter;
 
-        actionProducer.setListener(this::dispatchInputActionEvent);
+        keyActionProducer.setListener(new ActionEventListener() {
+            @Override
+            public void onPerformAction(SceneAction action) {
+                actionDispatcher.dispatchConstantlyAction(action);
+            }
+
+            @Override
+            public void onActionReleased(SceneAction action) {
+                actionDispatcher.dispatchReleaseAction(action);
+            }
+        });
     }
 
     /**
@@ -52,25 +64,5 @@ public class Engine {
      */
     public void setEngineListener(EngineListener engineListener) {
         this.frameStagePresenter.setEngineListener(engineListener);
-    }
-
-    private void dispatchInputActionEvent(SceneAction action) {
-        switch (action) {
-            case MOVE_UP:
-                this.frameStagePresenter.movementPerform(MovementDirection.UP);
-                break;
-            case MOVE_DOWN:
-                this.frameStagePresenter.movementPerform(MovementDirection.DOWN);
-                break;
-            case MOVE_LEFT:
-                this.frameStagePresenter.movementPerform(MovementDirection.LEFT);
-                break;
-            case MOVE_RIGHT:
-                this.frameStagePresenter.movementPerform(MovementDirection.RIGHT);
-                break;
-            case INTERACTION:
-                this.messageBoxPresenter.showMessage("My simple message");
-                break;
-        }
     }
 }

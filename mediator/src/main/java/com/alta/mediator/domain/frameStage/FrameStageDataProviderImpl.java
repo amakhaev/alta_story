@@ -5,7 +5,7 @@ import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.map.MapService;
 import com.alta.engine.model.ActingCharacterEngineModel;
 import com.alta.engine.model.SimpleNpcEngineModel;
-import com.alta.engine.processing.dataBuilder.FrameStageData;
+import com.alta.engine.utils.dataBuilder.FrameStageData;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.map.FacilityEngineModelMapper;
 import com.alta.mediator.domain.map.JumpingEngineModelMapper;
@@ -88,7 +88,8 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                         this.actorDataProvider.getSimpleNpc(
                                 simpleNpc.getName(),
                                 new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
-                                simpleNpc.getRepeatingMovementDurationTime()
+                                simpleNpc.getRepeatingMovementDurationTime(),
+                                simpleNpc.getDialogue()
                         )
                 ).collect(Collectors.toList());
 

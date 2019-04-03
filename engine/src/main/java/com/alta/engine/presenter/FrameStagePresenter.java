@@ -6,13 +6,13 @@ import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.engineEventStream.EngineEventStream;
 import com.alta.engine.model.JumpingEngineModel;
-import com.alta.engine.processing.dataBuilder.FrameStageData;
-import com.alta.engine.processing.eventProducer.inputAction.ActionProducer;
-import com.alta.engine.processing.listener.engineEvent.EngineListener;
-import com.alta.engine.processing.sceneProxy.SceneProxy;
-import com.alta.engine.processing.sceneProxy.sceneInput.SceneAction;
+import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.utils.dataBuilder.FrameStageData;
+import com.alta.engine.utils.listener.engineEvent.EngineListener;
+import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * Provides the presenter of view.
  */
 @Slf4j
+@Singleton
 public class FrameStagePresenter {
 
     private final SceneProxy sceneProxy;
@@ -71,6 +72,27 @@ public class FrameStagePresenter {
     public void movementPerform(MovementDirection movementDirection) {
         if (this.currentView != null) {
             this.currentView.onMovementPerform(movementDirection);
+        }
+    }
+
+    /**
+     * Finds the simple npc that targeted by acting character.
+     *
+     * @return the {@link SimpleNpcEngineModel} instance of ull if not found.
+     */
+    public SimpleNpcEngineModel findSimpleNpcTargetedByActingCharacter() {
+        return this.currentView == null ? null : this.currentView.findSimpleNpcTargetedByActingCharacter();
+    }
+
+    /**
+     * Sets the pause for computator
+     *
+     * @param isPause - indicates when pause is enabled.
+     * @param uuid - the uuid of NPC to be paused
+     */
+    public void setPauseComputationForSimpleNpc(boolean isPause, String uuid) {
+        if (this.currentView != null) {
+            this.currentView.setPauseComputationForSimpleNpc(isPause, uuid);
         }
     }
 

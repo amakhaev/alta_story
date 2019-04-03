@@ -22,10 +22,14 @@ public interface ActorDataProvider {
     /**
      * Gets the simple npc by given skin name
      *
-     * @param skinName - the name of skin for character
-     * @param startCoordinates - the coordinates of start position for actor
+     * @param skinName          - the name of skin for character
+     * @param startCoordinates  - the coordinates of start position for actor
      * @param repeatingMovementDurationTime - the time of repeating the movement of simple NPC
+     * @param dialogueText      - the time of repeating the movement of simple NPC
      * @return the {@link SimpleNpcEngineModel}
      */
-    SimpleNpcEngineModel getSimpleNpc(String skinName, Point startCoordinates, int repeatingMovementDurationTime);
+    SimpleNpcEngineModel getSimpleNpc(String skinName,
+                                      Point startCoordinates,
+                                      int repeatingMovementDurationTime,
+                                      String dialogueText);
 }
