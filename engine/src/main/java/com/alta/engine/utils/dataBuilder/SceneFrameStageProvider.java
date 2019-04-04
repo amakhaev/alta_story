@@ -2,6 +2,7 @@ package com.alta.engine.utils.dataBuilder;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
+import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.model.ActingCharacterEngineModel;
@@ -36,8 +37,8 @@ public class SceneFrameStageProvider {
      */
     @Builder
     public static FrameStageComponent createFrameStage(FrameStageData data,
-                                                StageComputator stageComputator,
-                                                AsyncTaskManager asyncTaskManager) {
+                                                       StageComputator stageComputator,
+                                                       AsyncTaskManager asyncTaskManager) {
         validateFrameStageData(data);
 
         List<ActorCharacterComponent> actorCharacters = createActors(data.getActingCharacter(), data.getSimpleNpc());

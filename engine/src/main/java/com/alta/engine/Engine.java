@@ -1,12 +1,9 @@
 package com.alta.engine;
 
+import com.alta.engine.configuration.EngineConfiguration;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
-import com.alta.engine.presenter.actionDispatcher.InputActionDispatcher;
-import com.alta.engine.presenter.sceneProxy.sceneInput.ActionEventListener;
-import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.alta.engine.utils.dataBuilder.FrameStageData;
-import com.alta.engine.presenter.sceneProxy.sceneInput.KeyActionProducer;
 import com.alta.engine.utils.listener.engineEvent.EngineListener;
 import com.google.inject.Inject;
 
@@ -24,22 +21,10 @@ public class Engine {
     @Inject
     public Engine(FrameStagePresenter frameStagePresenter,
                   MessageBoxPresenter messageBoxPresenter,
-                  KeyActionProducer keyActionProducer,
-                  InputActionDispatcher actionDispatcher) {
+                  EngineConfiguration engineConfiguration) {
+        engineConfiguration.configure();
         this.frameStagePresenter = frameStagePresenter;
         this.messageBoxPresenter = messageBoxPresenter;
-
-        keyActionProducer.setListener(new ActionEventListener() {
-            @Override
-            public void onPerformAction(SceneAction action) {
-                actionDispatcher.dispatchConstantlyAction(action);
-            }
-
-            @Override
-            public void onActionReleased(SceneAction action) {
-                actionDispatcher.dispatchReleaseAction(action);
-            }
-        });
     }
 
     /**

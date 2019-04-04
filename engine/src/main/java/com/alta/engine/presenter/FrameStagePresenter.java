@@ -3,18 +3,21 @@ package com.alta.engine.presenter;
 import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.engineEventStream.EngineEventStream;
 import com.alta.engine.model.JumpingEngineModel;
 import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.utils.dataBuilder.FrameStageData;
 import com.alta.engine.utils.listener.engineEvent.EngineListener;
-import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
+import com.alta.engine.view.ViewFactory;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.inject.Named;
 
 /**
  * Provides the presenter of view.
@@ -24,8 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FrameStagePresenter {
 
     private final SceneProxy sceneProxy;
-    private final AsyncTaskManager asyncTaskManager;
-    private final EngineEventStream<ComputatorEvent> computatorEventStream;
+    private final ViewFactory viewFactory;
 
     private FrameStageView currentView;
 
@@ -36,24 +38,23 @@ public class FrameStagePresenter {
      * Initialize new instance of {@link FrameStagePresenter}
      */
     @Inject
-    public FrameStagePresenter(SceneProxy sceneProxy,
-                               AsyncTaskManager asyncTaskManager,
-                               EngineEventStream<ComputatorEvent> computatorEventStream) {
-        this.asyncTaskManager = asyncTaskManager;
+    public FrameStagePresenter(@Named("computatorEventStream") EngineEventStream<ComputatorEvent> computatorEventStream,
+                               SceneProxy sceneProxy,
+                               ViewFactory viewFactory) {
 
         this.sceneProxy = sceneProxy;
+        this.viewFactory = viewFactory;
         this.sceneProxy.setStateListener(this::onSceneFocusChanged);
 
-        this.computatorEventStream = computatorEventStream;
-        this.computatorEventStream.setListener(this::handleComputatorEvent);
-        this.computatorEventStream.start();
+        computatorEventStream.setListener(this::handleComputatorEvent);
+        computatorEventStream.start();
     }
 
     /**
      * Loads scene state from preservation
      */
     public void tryToRenderFrameStageView(FrameStageData data) {
-        this.currentView = new FrameStageView(data, this.asyncTaskManager, this.computatorEventStream);
+        this.currentView = this.viewFactory.createFrameStageView(data);
         this.sceneProxy.renderFrameStage(this.currentView.getFrameStage());
     }
 
@@ -85,14 +86,33 @@ public class FrameStagePresenter {
     }
 
     /**
-     * Sets the pause for computator
+     * Starts the interaction with NPC.
      *
-     * @param isPause - indicates when pause is enabled.
-     * @param uuid - the uuid of NPC to be paused
+     * @param uuid - the UUID of simple NPC to be interacted.
      */
-    public void setPauseComputationForSimpleNpc(boolean isPause, String uuid) {
+    public void startInteractionWithNpc(String uuid) {
+        if (Strings.isNullOrEmpty(uuid)) {
+            return;
+        }
+
         if (this.currentView != null) {
-            this.currentView.setPauseComputationForSimpleNpc(isPause, uuid);
+            this.currentView.setPauseComputationForSimpleNpc(true, uuid);
+            this.currentView.setNpcDirectionTargetedToActingCharacter(uuid);
+        }
+    }
+
+    /**
+     * Stops the interaction with simple NPC.
+     *
+     * @param uuid - the UUID of simple NPC to be interacted.
+     */
+    public void stopInteractionWithNpc(String uuid) {
+        if (Strings.isNullOrEmpty(uuid)) {
+            return;
+        }
+
+        if (this.currentView != null) {
+            this.currentView.setPauseComputationForSimpleNpc(false, uuid);
         }
     }
 

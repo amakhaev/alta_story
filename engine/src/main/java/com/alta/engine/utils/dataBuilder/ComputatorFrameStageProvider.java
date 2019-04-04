@@ -2,7 +2,7 @@ package com.alta.engine.utils.dataBuilder;
 
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
-import com.alta.computator.service.stage.StageComputator;
+import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.engineEventStream.EngineEventStream;
 import com.alta.engine.model.ActingCharacterEngineModel;
 import com.alta.engine.model.FacilityEngineModel;
@@ -28,19 +28,19 @@ public class ComputatorFrameStageProvider {
      * @param actingCharacter - the acting character model.
      * @param facilityModels - the facilities that available on map.
      * @param eventStream - the event stream related to computator
-     * @return the {@link StageComputator} instance.
+     * @return the {@link StageComputatorImpl} instance.
      */
     @Builder
-    public static StageComputator createStageComputator(Point focusPointStartPosition,
-                                                        ActingCharacterEngineModel actingCharacter,
-                                                        List<FacilityEngineModel> facilityModels,
-                                                        List<SimpleNpcEngineModel> simpleNpc,
-                                                        EngineEventStream<ComputatorEvent> eventStream) {
+    public static StageComputatorImpl createStageComputator(Point focusPointStartPosition,
+                                                            ActingCharacterEngineModel actingCharacter,
+                                                            List<FacilityEngineModel> facilityModels,
+                                                            List<SimpleNpcEngineModel> simpleNpc,
+                                                            EngineEventStream<ComputatorEvent> eventStream) {
         log.debug("Started creating FrameStageComputator");
-        StageComputator stageComputator = new StageComputator();
-        stageComputator.addFocusPointParticipant(focusPointStartPosition);
+        StageComputatorImpl stageComputatorImpl = new StageComputatorImpl();
+        stageComputatorImpl.addFocusPointParticipant(focusPointStartPosition);
 
-        stageComputator.addActingCharacter(
+        stageComputatorImpl.addActingCharacter(
                 actingCharacter.getUuid(),
                 actingCharacter.getStartMapCoordinates(),
                 actingCharacter.getZIndex()
@@ -48,7 +48,7 @@ public class ComputatorFrameStageProvider {
 
         if (facilityModels != null && !facilityModels.isEmpty()) {
             facilityModels.forEach(facilityModel ->
-                    stageComputator.addFacilities(
+                    stageComputatorImpl.addFacilities(
                             facilityModel.getUuid().toString(),
                             createComputeFacilities(facilityModel),
                             new Point(facilityModel.getStartX(), facilityModel.getStartY())
@@ -57,12 +57,12 @@ public class ComputatorFrameStageProvider {
         }
 
         if (simpleNpc != null && !simpleNpc.isEmpty()) {
-            addSimpleNpcInStageComputator(simpleNpc, stageComputator);
+            addSimpleNpcInStageComputator(simpleNpc, stageComputatorImpl);
         }
 
-        stageComputator.setComputatorEventProducer(eventStream);
-        log.info("Creating of StageComputator completed.");
-        return stageComputator;
+        stageComputatorImpl.setComputatorEventProducer(eventStream);
+        log.info("Creating of StageComputatorImpl completed.");
+        return stageComputatorImpl;
     }
 
     private static List<FacilityPartParticipant> createComputeFacilities(FacilityEngineModel facilityEngineModel) {
@@ -87,14 +87,14 @@ public class ComputatorFrameStageProvider {
                 .collect(Collectors.toList());
     }
 
-    private static void addSimpleNpcInStageComputator(List<SimpleNpcEngineModel> engineModels, StageComputator stageComputator) {
+    private static void addSimpleNpcInStageComputator(List<SimpleNpcEngineModel> engineModels, StageComputatorImpl stageComputatorImpl) {
         if (engineModels == null || engineModels.isEmpty()) {
             return;
         }
 
         engineModels.forEach(
                 engineModel -> {
-                    stageComputator.addSimpleNpcCharacter(
+                    stageComputatorImpl.addSimpleNpcCharacter(
                             engineModel.getUuid(),
                             engineModel.getStartMapCoordinates(),
                             engineModel.getZIndex(),

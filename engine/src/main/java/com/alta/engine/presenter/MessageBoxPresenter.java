@@ -23,6 +23,7 @@ public class MessageBoxPresenter {
     private final MessageBoxView messageBoxView;
 
     private Queue<String> subMessages;
+
     @Getter
     private boolean isDialogueBoxOpen;
 

@@ -17,6 +17,6 @@ public interface ActionEventListener {
      *
      * @param action - the action that should be performed.
      */
-    void onActionReleased(SceneAction action);
+    void onPerformActionReleased(SceneAction action);
 
 }

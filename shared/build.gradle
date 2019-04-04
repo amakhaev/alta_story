@@ -13,6 +13,7 @@ repositories {
 
 ext {
     googleGuiceVersion = '4.2.2'
+    googleGuiceAssistVersion = '4.2.2'
     gsonVersion = '2.8.5'
     disruptorVersion = '3.4.2'
     lombokVersion = "1.18.4"
@@ -24,6 +25,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     compile "com.google.inject:guice:${googleGuiceVersion}"
+    compile "com.google.inject.extensions:guice-assistedinject:${googleGuiceAssistVersion}"
+
     compile "com.lmax:disruptor:${disruptorVersion}"
     compile "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"

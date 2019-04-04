@@ -6,28 +6,20 @@ import com.alta.engine.presenter.MessageBoxPresenter;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Provides the actionHandler that executes interaction between components (actor, facility etc.) on stage.
  */
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class InteractionActionHandler implements ActionHandler {
 
     private final FrameStagePresenter frameStagePresenter;
     private final MessageBoxPresenter messageBoxPresenter;
 
     private String interactionTargetUuid;
-
-    /**
-     * Initialize new instance of {@link InteractionActionHandler}
-     */
-    @Inject
-    public InteractionActionHandler(FrameStagePresenter frameStagePresenter,
-                                    MessageBoxPresenter messageBoxPresenter) {
-        this.frameStagePresenter = frameStagePresenter;
-        this.messageBoxPresenter = messageBoxPresenter;
-    }
 
     /**
      * Handles the constantly action from scene.
@@ -62,7 +54,7 @@ public class InteractionActionHandler implements ActionHandler {
 
         if (!this.messageBoxPresenter.isDialogueBoxOpen()) {
             log.info("Completed interaction with NPC {}", this.interactionTargetUuid);
-            this.frameStagePresenter.setPauseComputationForSimpleNpc(false, this.interactionTargetUuid);
+            this.frameStagePresenter.stopInteractionWithNpc(this.interactionTargetUuid);
             this.interactionTargetUuid = null;
         }
     }
@@ -76,6 +68,6 @@ public class InteractionActionHandler implements ActionHandler {
         log.info("Perform the interaction. Target NPC was found with uuid {}.", simpleNpcEngineModel.getUuid());
         this.interactionTargetUuid = simpleNpcEngineModel.getUuid();
         this.messageBoxPresenter.showDialogueMessage(simpleNpcEngineModel.getDialogue());
-        this.frameStagePresenter.setPauseComputationForSimpleNpc(true, simpleNpcEngineModel.getUuid());
+        this.frameStagePresenter.startInteractionWithNpc(this.interactionTargetUuid);
     }
 }

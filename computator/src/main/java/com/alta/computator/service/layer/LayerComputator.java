@@ -2,13 +2,13 @@ package com.alta.computator.service.layer;
 
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.ParticipatType;
+import com.google.common.base.Strings;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,14 +62,14 @@ public class LayerComputator {
      * Finds the character on map by given map position.
      *
      * @param mapCoordinates - the map coordinates of character.
-     * @return the uuid of character or null if not found.
+     * @return the {@link CoordinatedParticipant} instance or null if not found.
      */
-    public String findCharacterByPosition(Point mapCoordinates) {
+    public CoordinatedParticipant findCharacterByPosition(Point mapCoordinates) {
         if (mapCoordinates == null || this.sortedParticipants == null) {
             return null;
         }
 
-        CoordinatedParticipant coordinatedParticipant = this.sortedParticipants.stream()
+        return this.sortedParticipants.stream()
                 .filter(
                         participant -> participant.getCurrentMapCoordinates().equals(mapCoordinates) &&
                                 (
@@ -79,7 +79,6 @@ public class LayerComputator {
                 )
                 .findFirst()
                 .orElse(null);
-        return coordinatedParticipant == null ? null : coordinatedParticipant.getUuid();
     }
 
     private void resortParticipants() {

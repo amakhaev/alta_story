@@ -51,7 +51,7 @@ public class KeyActionProducer {
     void onActionReleased(SceneAction action) {
         this.actionStates.put(action, ActionState.STOPPED);
         if (this.listener != null) {
-            this.listener.onActionReleased(action);
+            this.listener.onPerformActionReleased(action);
         }
     }
 
