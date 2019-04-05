@@ -4,7 +4,6 @@ import com.alta.engine.configuration.EngineConfiguration;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.alta.engine.utils.dataBuilder.FrameStageData;
-import com.alta.engine.utils.listener.engineEvent.EngineListener;
 import com.google.inject.Inject;
 
 /**
@@ -28,10 +27,11 @@ public class Engine {
     }
 
     /**
-     * Loads scene state from preservation
+     * Loads scene state from characterPreservation
      */
     public void tryToRenderFrameStage(FrameStageData data) {
         this.frameStagePresenter.tryToRenderFrameStageView(data);
+        this.messageBoxPresenter.forceHideMessageBox();
         this.messageBoxPresenter.showTitle(data.getMapDisplayName());
     }
 
@@ -40,14 +40,5 @@ public class Engine {
      */
     public void startScene() {
         this.frameStagePresenter.startScene();
-    }
-
-    /**
-     * Sets the listener of events from engine.
-     *
-     * @param engineListener - the listener of engine events.
-     */
-    public void setEngineListener(EngineListener engineListener) {
-        this.frameStagePresenter.setEngineListener(engineListener);
     }
 }

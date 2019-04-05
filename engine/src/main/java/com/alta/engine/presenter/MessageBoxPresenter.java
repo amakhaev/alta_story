@@ -80,4 +80,12 @@ public class MessageBoxPresenter {
             this.messageBoxView.hide();
         }
     }
+
+    /**
+     * Hides the message box force.
+     */
+    public void forceHideMessageBox() {
+        this.subMessages.clear();
+        this.messageBoxView.hide();
+    }
 }

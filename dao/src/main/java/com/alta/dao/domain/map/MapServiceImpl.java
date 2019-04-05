@@ -44,11 +44,11 @@ public class MapServiceImpl implements MapService {
     @Override
     public MapModel getMap(String name) {
         if (this.mapsByName.containsKey(name)) {
-            log.debug("Map with given name {} already initialized. Return it.", name);
+            log.info("Map with given name '{}' already initialized. Return it.", name);
             return this.mapsByName.get(name);
         }
 
-        log.info("Map with given name {} not initialized. Try to initialize.", name);
+        log.info("Map with given name '{}' not initialized. Try to initialize.", name);
         MapEntity matchedMapEntity = this.availableMaps
                 .stream()
                 .filter(mapEntity -> mapEntity.getName().equalsIgnoreCase(name))
@@ -56,7 +56,7 @@ public class MapServiceImpl implements MapService {
                 .orElse(null);
 
         if (matchedMapEntity == null) {
-            log.error("Map with given name {} not found", name);
+            log.error("Map with given name '{}' not found", name);
             return null;
         }
 

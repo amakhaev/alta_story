@@ -30,9 +30,9 @@ public class DatabaseConnectionProvider implements Provider<ConnectionSource> {
 
     private void connect() {
         try {
-            String url = "jdbc:sqlite:" + this.getClass().getClassLoader().getResource(ResourcesLocation.DATABASE_NAME);
+            String url = "jdbc:sqlite:" + ResourcesLocation.DATABASE_NAME;
             this.connectionSource = new JdbcConnectionSource(url);
-            System.out.println("Connection to SQLite has been established.");
+            log.info("Connection to SQLite has been established.");
 
         } catch (SQLException e) {
             log.error(e.getMessage());

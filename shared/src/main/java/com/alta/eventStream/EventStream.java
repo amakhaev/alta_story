@@ -1,28 +1,30 @@
 package com.alta.eventStream;
 
-import com.lmax.disruptor.*;
+import com.lmax.disruptor.BlockingWaitStrategy;
+import com.lmax.disruptor.EventHandler;
+import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.lmax.disruptor.util.DaemonThreadFactory;
 
 import java.nio.ByteBuffer;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Provides the event stream class that included logic by creating message service and publishing events
  */
-public abstract class EventStream<T> {
+abstract class EventStream<T> {
 
     private static final int BUFFER_SIZE = 1024;
 
     private final Disruptor<GenericEvent<T>> disruptor;
     private final RingBuffer<GenericEvent<T>> ringBuffer;
 
+    protected boolean isStarted;
+
     /**
      * Initialize ew instance of {@link EventStream}
      */
-    public EventStream() {
+    EventStream() {
         this.disruptor = new Disruptor<>(
                 new GenericEventFactory<>(),
                 BUFFER_SIZE,
@@ -31,6 +33,7 @@ public abstract class EventStream<T> {
                 new BlockingWaitStrategy()
         );
         this.ringBuffer = this.disruptor.getRingBuffer();
+        this.isStarted = false;
     }
 
     /**
@@ -39,6 +42,7 @@ public abstract class EventStream<T> {
     public final void start() {
         this.beforeStart();
         this.disruptor.start();
+        this.isStarted = true;
     }
 
     /**

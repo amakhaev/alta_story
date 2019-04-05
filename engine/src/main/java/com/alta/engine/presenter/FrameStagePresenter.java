@@ -3,18 +3,19 @@ package com.alta.engine.presenter;
 import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.engine.core.engineEventStream.EngineEventStream;
+import com.alta.engine.eventProducer.EngineEvent;
+import com.alta.engine.eventProducer.EngineEventType;
+import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.engine.model.JumpingEngineModel;
 import com.alta.engine.model.SimpleNpcEngineModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.utils.dataBuilder.FrameStageData;
-import com.alta.engine.utils.listener.engineEvent.EngineListener;
 import com.alta.engine.view.FrameStageView;
 import com.alta.engine.view.ViewFactory;
+import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
@@ -28,30 +29,30 @@ public class FrameStagePresenter {
 
     private final SceneProxy sceneProxy;
     private final ViewFactory viewFactory;
+    private final EventProducer<EngineEvent> engineEventProducer;
 
     private FrameStageView currentView;
-
-    @Setter
-    private EngineListener engineListener;
 
     /**
      * Initialize new instance of {@link FrameStagePresenter}
      */
     @Inject
-    public FrameStagePresenter(@Named("computatorEventStream") EngineEventStream<ComputatorEvent> computatorEventStream,
+    public FrameStagePresenter(@Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorActionProducer,
+                               @Named("engineEventProducer") EventProducer<EngineEvent> engineEventProducer,
                                SceneProxy sceneProxy,
                                ViewFactory viewFactory) {
 
         this.sceneProxy = sceneProxy;
         this.viewFactory = viewFactory;
+        this.engineEventProducer = engineEventProducer;
         this.sceneProxy.setStateListener(this::onSceneFocusChanged);
 
-        computatorEventStream.setListener(this::handleComputatorEvent);
-        computatorEventStream.start();
+        computatorActionProducer.subscribe(this::handleComputatorEvent);
+        computatorActionProducer.start();
     }
 
     /**
-     * Loads scene state from preservation
+     * Loads scene state from characterPreservation
      */
     public void tryToRenderFrameStageView(FrameStageData data) {
         this.currentView = this.viewFactory.createFrameStageView(data);
@@ -122,8 +123,8 @@ public class FrameStagePresenter {
             return;
         }
 
-        if (this.engineListener == null) {
-            log.info("No listener for engine. No event will be handled.");
+        if (this.engineEventProducer == null) {
+            log.info("No rpoducer of engine event. No event will be handled.");
             return;
         }
 
@@ -138,7 +139,10 @@ public class FrameStagePresenter {
                         ((ActingCharacterJumpEvent) event).getMapCoordinates()
                 );
                 if (jumpingEngineModel != null) {
-                    this.engineListener.onJumping(jumpingEngineModel.getMapName(), jumpingEngineModel.getTo());
+                    this.engineEventProducer.publishEvent(new EngineEvent(
+                            EngineEventType.JUMPING,
+                            new JumpingEventPayload(jumpingEngineModel.getMapName(), jumpingEngineModel.getTo())
+                    ));
                 }
             default:
                 return;

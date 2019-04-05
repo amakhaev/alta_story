@@ -1,7 +1,7 @@
 package com.alta.mediator.domain.frameStage;
 
 import com.alta.dao.data.map.MapModel;
-import com.alta.dao.data.preservation.PreservationModel;
+import com.alta.dao.data.characterPreservation.CharacterPreservationModel;
 import com.alta.dao.domain.map.MapService;
 import com.alta.engine.model.ActingCharacterEngineModel;
 import com.alta.engine.model.SimpleNpcEngineModel;
@@ -32,17 +32,17 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     private final JumpingEngineModelMapper jumpingEngineModelMapper;
 
     /**
-     * Gets the model of frame stage that created from preservation
+     * Gets the model of frame stage that created from characterPreservation
      *
-     * @param preservationModel - the preservation of game
-     * @return the {@link FrameStageData} generated from preservation.
+     * @param characterPreservationModel - the characterPreservation of game
+     * @return the {@link FrameStageData} generated from characterPreservation.
      */
     @Override
-    public FrameStageData getFromPreservation(PreservationModel preservationModel) {
+    public FrameStageData getFromPreservation(CharacterPreservationModel characterPreservationModel) {
         return this.getByParams(
-                preservationModel.getMapName(),
-                preservationModel.getMainCharaterSkin(),
-                new Point(preservationModel.getFocusX(), preservationModel.getFocusY())
+                characterPreservationModel.getMapName(),
+                characterPreservationModel.getMainCharaterSkin(),
+                new Point(characterPreservationModel.getFocusX(), characterPreservationModel.getFocusY())
         );
     }
 

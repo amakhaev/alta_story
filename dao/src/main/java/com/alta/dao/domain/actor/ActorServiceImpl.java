@@ -1,8 +1,6 @@
 package com.alta.dao.domain.actor;
 
 import com.alta.dao.data.actor.ActorModel;
-import com.alta.dao.data.preservation.PreservationModel;
-import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.utils.JsonParser;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;

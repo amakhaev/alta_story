@@ -17,7 +17,7 @@ import com.alta.computator.service.movement.MapComputator;
 import com.alta.computator.service.movement.actor.ActingCharacterComputator;
 import com.alta.computator.service.movement.actor.SimpleNpcListComputator;
 import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.eventStream.EventStream;
+import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +31,6 @@ import java.util.UUID;
  * Provides the computations that help with movement on stage e.g. frame, actors
  */
 @Slf4j
-// @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class StageComputatorImpl implements StageComputator {
 
     private final LayerComputator layerComputator;
@@ -46,6 +45,9 @@ public class StageComputatorImpl implements StageComputator {
     @Getter
     private AltitudeMap altitudeMap;
 
+    /**
+     * Initialize new instance of {@link StageComputatorImpl}
+     */
     public StageComputatorImpl() {
         this.layerComputator = new LayerComputator();
         this.facilityComputator = new FacilityComputator();
@@ -106,12 +108,10 @@ public class StageComputatorImpl implements StageComputator {
                 this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
         );
 
-        if (this.facilityComputator != null) {
-            this.facilityComputator.onCompute(
-                    this.altitudeMap,
-                    this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
-            );
-        }
+        this.facilityComputator.onCompute(
+                this.altitudeMap,
+                this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
+        );
 
         if (this.actingCharacterComputator != null) {
             this.actingCharacterComputator.onCompute(
@@ -123,13 +123,11 @@ public class StageComputatorImpl implements StageComputator {
             );
         }
 
-        if (this.simpleNpcListComputator != null) {
-            this.simpleNpcListComputator.onCompute(
-                    this.altitudeMap,
-                    this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
-                    delta
-            );
-        }
+        this.simpleNpcListComputator.onCompute(
+                this.altitudeMap,
+                this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
+                delta
+        );
     }
 
     /**
@@ -214,7 +212,7 @@ public class StageComputatorImpl implements StageComputator {
      *
      * @param eventProducer - the event producer of computed model
      */
-    public void setComputatorEventProducer(EventStream<ComputatorEvent> eventProducer) {
+    public void setComputatorEventProducer(EventProducer<ComputatorEvent> eventProducer) {
         if (this.actingCharacterComputator == null) {
             log.warn("The acting character computator is empty. EventStream will not be set.");
         }
@@ -232,21 +230,17 @@ public class StageComputatorImpl implements StageComputator {
             this.focusPointComputator.setComputationPause(isPause);
         }
 
-        if (this.simpleNpcListComputator != null) {
-            this.simpleNpcListComputator.setPause(isPause);
-        }
+        this.simpleNpcListComputator.setPause(isPause);
     }
 
     /**
-     * Sets the pause on movement process for specific NPC.
+     * Sets the pause on movement process for character.
      *
      * @param isPause   - indicates when calculation should be paused.
      * @param uuid      - the uuid of NPC to be paused
      */
     public void setPause(boolean isPause, String uuid) {
-        if (this.simpleNpcListComputator != null) {
-            this.simpleNpcListComputator.setPause(isPause, uuid);
-        }
+        this.simpleNpcListComputator.setPause(isPause, uuid);
     }
 
     /**

@@ -3,18 +3,17 @@ package com.alta.engine.view;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
-import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.core.engineEventStream.EngineEventStream;
 import com.alta.engine.model.JumpingEngineModel;
 import com.alta.engine.model.SimpleNpcEngineModel;
 import com.alta.engine.utils.dataBuilder.ComputatorFrameStageProvider;
 import com.alta.engine.utils.dataBuilder.FrameStageData;
 import com.alta.engine.utils.dataBuilder.SceneFrameStageProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
+import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -42,7 +41,7 @@ public class FrameStageView {
     @AssistedInject
     public FrameStageView(@Assisted FrameStageData data,
                           AsyncTaskManager asyncTaskManager,
-                          @Named("computatorEventStream") EngineEventStream<ComputatorEvent> computatorEventStream) {
+                          @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer) {
         try {
             this.frameStageData = data;
             this.stageComputatorImpl = ComputatorFrameStageProvider.builder()
@@ -50,7 +49,7 @@ public class FrameStageView {
                     .actingCharacter(data.getActingCharacter())
                     .facilityModels(data.getFacilities())
                     .simpleNpc(data.getSimpleNpc())
-                    .eventStream(computatorEventStream)
+                    .eventProducer(computatorEventProducer)
                     .build();
 
             this.frameStage = SceneFrameStageProvider.builder()

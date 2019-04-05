@@ -1,7 +1,7 @@
-package com.alta.engine.presenter.actionDispatcher;
+package com.alta.engine.actionDispatcher;
 
-import com.alta.engine.presenter.actionDispatcher.actionHandler.InteractionActionHandler;
-import com.alta.engine.presenter.actionDispatcher.actionHandler.MoveActionHandler;
+import com.alta.engine.actionDispatcher.actionHandler.InteractionActionHandler;
+import com.alta.engine.actionDispatcher.actionHandler.MoveActionHandler;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
 

@@ -1,15 +1,15 @@
-package com.alta.dao.data.preservation;
+package com.alta.dao.data.characterPreservation;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 
 /**
- * Provides the preservation model
+ * Provides the characterPreservation model
  */
 @Getter
-@DatabaseTable(tableName = "preservation")
-public class PreservationModel {
+@DatabaseTable(tableName = "character_preservations")
+public class CharacterPreservationModel {
 
     /**
      * Provides the ID field name.

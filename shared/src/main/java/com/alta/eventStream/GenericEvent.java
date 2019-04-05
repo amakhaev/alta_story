@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class GenericEvent<T> {
+class GenericEvent<T> {
 
     private T data;
 

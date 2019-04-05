@@ -1,6 +1,6 @@
 package com.alta.engine.configuration;
 
-import com.alta.engine.presenter.actionDispatcher.InputActionDispatcher;
+import com.alta.engine.actionDispatcher.InputActionDispatcher;
 import com.alta.engine.presenter.sceneProxy.sceneInput.ActionEventListener;
 import com.alta.engine.presenter.sceneProxy.sceneInput.KeyActionProducer;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;

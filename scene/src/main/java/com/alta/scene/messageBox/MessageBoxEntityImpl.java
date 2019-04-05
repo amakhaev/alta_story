@@ -241,7 +241,7 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
      * Indicates when drawing of text is in progress.
      */
     boolean isDrawingInProgress() {
-        return !this.currentText.equals(this.text);
+        return this.text != null && !this.currentText.equals(this.text);
     }
 
     private void updateTextCoordinates() {

@@ -7,7 +7,7 @@ import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.event.ComputatorEventType;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.eventStream.EventStream;
+import com.alta.eventStream.EventProducer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class ActingCharacterComputator {
     private final ActingCharacterParticipant actingCharacterParticipant;
 
     @Setter
-    private EventStream<ComputatorEvent> jumpEventProducer;
+    private EventProducer<ComputatorEvent> jumpEventProducer;
 
     /**
      * Initialize new instance of {@link ActingCharacterComputator}

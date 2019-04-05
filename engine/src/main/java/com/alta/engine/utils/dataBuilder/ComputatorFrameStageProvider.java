@@ -3,10 +3,10 @@ package com.alta.engine.utils.dataBuilder;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.service.stage.StageComputatorImpl;
-import com.alta.engine.core.engineEventStream.EngineEventStream;
 import com.alta.engine.model.ActingCharacterEngineModel;
 import com.alta.engine.model.FacilityEngineModel;
 import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.eventStream.EventProducer;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ public class ComputatorFrameStageProvider {
      * @param focusPointStartPosition - the coordinates of focus point on map.
      * @param actingCharacter - the acting character model.
      * @param facilityModels - the facilities that available on map.
-     * @param eventStream - the event stream related to computator
+     * @param eventProducer - the event stream related to computator
      * @return the {@link StageComputatorImpl} instance.
      */
     @Builder
@@ -35,7 +35,7 @@ public class ComputatorFrameStageProvider {
                                                             ActingCharacterEngineModel actingCharacter,
                                                             List<FacilityEngineModel> facilityModels,
                                                             List<SimpleNpcEngineModel> simpleNpc,
-                                                            EngineEventStream<ComputatorEvent> eventStream) {
+                                                            EventProducer<ComputatorEvent> eventProducer) {
         log.debug("Started creating FrameStageComputator");
         StageComputatorImpl stageComputatorImpl = new StageComputatorImpl();
         stageComputatorImpl.addFocusPointParticipant(focusPointStartPosition);
@@ -60,7 +60,7 @@ public class ComputatorFrameStageProvider {
             addSimpleNpcInStageComputator(simpleNpc, stageComputatorImpl);
         }
 
-        stageComputatorImpl.setComputatorEventProducer(eventStream);
+        stageComputatorImpl.setComputatorEventProducer(eventProducer);
         log.info("Creating of StageComputatorImpl completed.");
         return stageComputatorImpl;
     }
