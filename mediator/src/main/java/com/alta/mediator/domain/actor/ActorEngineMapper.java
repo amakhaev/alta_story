@@ -42,6 +42,7 @@ class ActorEngineMapper {
                 .zIndex(actorModel.getZIndex())
                 .startMapCoordinates(actorModel.getStartMapCoordinates())
                 .animationDescriptors(actorAnimationDescriptors)
+                .skinName(actorModel.getSkinName())
                 .build();
     }
 

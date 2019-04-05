@@ -55,4 +55,11 @@ public final class ActorModel {
     public int getDurationTime() {
         return this.actorEntity.getDurationTime();
     }
+
+    /**
+     * Gets the name of skin.
+     */
+    public String getSkinName() {
+        return this.actorEntity.getImageName();
+    }
 }

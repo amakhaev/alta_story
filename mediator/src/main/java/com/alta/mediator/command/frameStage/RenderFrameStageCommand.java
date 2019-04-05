@@ -35,8 +35,8 @@ public class RenderFrameStageCommand implements Command {
             return;
         }
 
-        log.info("Try to render map: '{}'", this.frameStageData.getMapDisplayName());
+        log.info("Try to render map: '{}'", this.frameStageData.getMapName());
         this.engine.tryToRenderFrameStage(this.frameStageData);
-        log.info("Rendering of map: '{}' completed", this.frameStageData.getMapDisplayName());
+        log.info("Rendering of map: '{}' completed", this.frameStageData.getMapName());
     }
 }

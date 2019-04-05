@@ -21,5 +21,6 @@ public class ActingCharacterEngineModel {
     private Point startMapCoordinates;
     private String uuid;
     private int zIndex;
+    private String skinName;
 
 }
