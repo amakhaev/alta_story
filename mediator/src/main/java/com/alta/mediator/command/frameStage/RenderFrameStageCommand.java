@@ -1,8 +1,8 @@
-package com.alta.mediator.command;
+package com.alta.mediator.command.frameStage;
 
 import com.alta.engine.Engine;
 import com.alta.engine.utils.dataBuilder.FrameStageData;
-import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
+import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.extern.slf4j.Slf4j;

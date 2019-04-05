@@ -4,14 +4,11 @@ import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.CommandFactory;
-import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.awt.*;
 
 /**
  * Provides the dispatcher of events from {@link com.alta.engine.Engine}
@@ -21,7 +18,6 @@ import java.awt.*;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class EngineEventDispatcher {
 
-    private final FrameStageDataProvider frameStageDataProvider;
     private final CommandFactory commandFactory;
     private final CommandExecutor commandExecutor;
 
@@ -48,25 +44,11 @@ public class EngineEventDispatcher {
 
     private void executeRenderCommand(JumpingEventPayload payload) {
         this.commandExecutor.executeCommand(
-                this.commandFactory.createRenderFrameStageCommand(
-                        this.frameStageDataProvider.getByParams(
-                                payload.getMapName(),
-                                "person1",
-                                payload.getMapStartCoordinates()
-                        )
+                this.commandFactory.createRenderFrameStageByParametersCommand(
+                        payload.getMapName(),
+                        "person1",
+                        payload.getMapStartCoordinates()
                 )
         );
     }
-
-    private void loadAndRender(String mapName, Point startCoordinates) {
-        /*log.info("Try to load and render map: {}", mapName);
-        this.engine.tryToRenderFrameStage(
-                this.frameStageDataProvider.getByParams(
-                        mapName,
-                        "person1",
-                        startCoordinates
-                )
-        );*/
-    }
-
 }

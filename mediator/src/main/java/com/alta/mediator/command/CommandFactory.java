@@ -1,6 +1,12 @@
 package com.alta.mediator.command;
 
 import com.alta.engine.utils.dataBuilder.FrameStageData;
+import com.alta.mediator.command.frameStage.RenderFrameStageByParametersCommand;
+import com.alta.mediator.command.frameStage.RenderFrameStageCommand;
+import com.alta.mediator.command.frameStage.RenderFrameStageFromPreservationCommand;
+import com.google.inject.assistedinject.Assisted;
+
+import java.awt.*;
 
 /**
  * Provides the factory to create commands.
@@ -14,5 +20,22 @@ public interface CommandFactory {
      * @return the {@link RenderFrameStageCommand} instance.
      */
     RenderFrameStageCommand createRenderFrameStageCommand(FrameStageData data);
+
+    /**
+     * Creates the {@link RenderFrameStageFromPreservationCommand} instance.
+     */
+    RenderFrameStageFromPreservationCommand createRenderFrameStageFromPreservationCommand();
+
+    /**
+     * Creates the {@link RenderFrameStageByParametersCommand} instance.
+     *
+     * @param mapName - the name of map that will be rendered.
+     * @param skinName - the name of skin that will be used for acting character.
+     * @param startPosition - the start position of acting character.
+     * @return the {@link RenderFrameStageByParametersCommand} instance.
+     */
+    RenderFrameStageByParametersCommand createRenderFrameStageByParametersCommand(@Assisted("mapName") String mapName,
+                                                                                  @Assisted("skinName") String skinName,
+                                                                                  Point startPosition);
 
 }

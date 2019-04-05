@@ -82,7 +82,7 @@ public class FrameStageComponent extends FrameStage {
         this.asyncTaskManager.executeTask(
                 "init-base-frame",
                 () -> {
-                    log.info("Initialize computator for FrameStageComponent");
+                    log.debug("Initialize computator for FrameStageComponent");
                     this.stageComputator.setAltitudeMap(
                             new AltitudeMap(
                                     this.frameTemplate.getTiledMap(),
@@ -90,7 +90,7 @@ public class FrameStageComponent extends FrameStage {
                                     gameContainer.getHeight()
                             )
                     );
-                    log.info("Completed initialization of computator for FrameStageComponent.");
+                    log.debug("Completed initialization of computator for FrameStageComponent.");
 
                     log.debug("Call update method (initial) to avoid incorrect rendering animation");
                     this.onUpdate(0);

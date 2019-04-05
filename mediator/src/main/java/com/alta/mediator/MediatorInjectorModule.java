@@ -3,7 +3,7 @@ package com.alta.mediator;
 import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.eventStream.EventProducer;
 import com.alta.mediator.command.CommandFactory;
-import com.alta.mediator.command.RenderFrameStageCommand;
+import com.alta.mediator.command.frameStage.RenderFrameStageCommand;
 import com.alta.mediator.di.ThreadPoolProvider;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.actor.ActorDataProviderImpl;
