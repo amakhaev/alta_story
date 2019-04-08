@@ -2,18 +2,21 @@
 	"displayName": "Карта test2",
 	"facilities": [
 		{
+			"uuid": "52e073a1-c6d0-4542-b285-bea648074d52",
 			"name": "gate1", 
 			"descriptorFileName": "facility1",
 			"startX": 5,
 			"startY": 11
 		},
 		{
+			"uuid": "68d48dbf-9058-4889-b8ae-dab8559cb830",
 			"name": "gate2", 
 			"descriptorFileName": "facility1",
 			"startX": 22,
 			"startY": 11
 		},
 		{
+			"uuid": "7c9b0094-c364-4926-9dec-8dc5966dd960",
 			"name": "flooring1", 
 			"descriptorFileName": "facility3",
 			"startX": 14,

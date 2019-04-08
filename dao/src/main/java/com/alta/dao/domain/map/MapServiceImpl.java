@@ -106,6 +106,7 @@ public class MapServiceImpl implements MapService {
                     .stream()
                     .map(
                             facilityEntity -> new MapFacilityModel(
+                                    facilityEntity.getUuid(),
                                     facilityEntity.getName(),
                                     facilityEntity.getStartX(),
                                     facilityEntity.getStartY(),

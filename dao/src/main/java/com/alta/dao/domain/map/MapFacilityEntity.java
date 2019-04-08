@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 class MapFacilityEntity {
 
+    private String uuid;
     private String name;
     private String descriptorFileName;
     private int startX;

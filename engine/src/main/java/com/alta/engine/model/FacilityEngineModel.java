@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 public class FacilityEngineModel {
 
-    private UUID uuid;
+    private String uuid;
     private String pathToImageSet;
     private int startX;
     private int startY;

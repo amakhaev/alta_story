@@ -2,60 +2,70 @@
 	"displayName": "Карта test3",
 	"facilities": [
 		{
+			"uuid": "03f746d2-e5a8-4dd5-82d9-a4ba33342cf2",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 0,
 			"startY": 4
 		},
 		{
+			"uuid": "5c5b7305-02eb-4ae4-8066-60b8f335b6da",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 2,
 			"startY": 4
 		},
 		{
+			"uuid": "1c32368a-a8f2-4adb-8bef-550b176e539c",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 4,
 			"startY": 4
 		},
 		{
+			"uuid": "d7ddfc9a-e3af-4b3d-8eee-6ce0896659db",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 6,
 			"startY": 4
 		},
 		{
+			"uuid": "4fc8e508-ec7a-4d7b-b1c2-80eff5b06df5",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 12,
 			"startY": 4
 		},
 		{
+			"uuid": "80a7d3e5-e3e2-4641-8ba1-acbdb5a9cc7f",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 14,
 			"startY": 4
 		},
 		{
+			"uuid": "e4572264-9f72-400d-9767-db0c27850844",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 16,
 			"startY": 4
 		},
 		{
+			"uuid": "fa0dfaed-9862-4ae9-9eba-97831ca2a8e7",
 			"name": "roof1", 
 			"descriptorFileName": "facility4",
 			"startX": 18,
 			"startY": 4
 		},
 		{
+			"uuid": "9fe6360f-2dd8-4f1e-90a3-39e5de1f4460",
 			"name": "cornfield1", 
 			"descriptorFileName": "facility5",
 			"startX": 19,
 			"startY": 13
 		},
 		{
+			"uuid": "e1c33c56-0904-4d4c-9ab2-a6aee0fcfa95",
 			"name": "cornfield2", 
 			"descriptorFileName": "facility5",
 			"startX": 19,
@@ -64,6 +74,7 @@
 	],
 	"simpleNpcList": [
 		{
+			"uuid": "dc6c5f8f-1e0c-4c63-bc8c-9d8fbee98f95",
 			"name": "person4",
 			"startX": 9,
 			"startY": 14,

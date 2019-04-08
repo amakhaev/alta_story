@@ -14,21 +14,30 @@ import java.util.UUID;
  */
 public class MapFacilityModel {
 
-    @Getter private final String name;
-    @Getter private final int startX;
-    @Getter private final int startY;
-    @Getter private final UUID uuid;
+
+    @Getter
+    private final String name;
+
+    @Getter
+    private final int startX;
+
+    @Getter
+    private final int startY;
+
+    @Getter
+    private final String uuid;
+
     private final FacilityModel facility;
 
     /**
      * Initialize new instance of {@link MapFacilityModel}
      */
-    public MapFacilityModel(String name, int startX, int startY, FacilityModel facility) {
+    public MapFacilityModel(String uuid, String name, int startX, int startY, FacilityModel facility) {
         this.name = name;
         this.startX = startX;
         this.startY = startY;
         this.facility = facility;
-        this.uuid = UUID.randomUUID();
+        this.uuid = uuid;
     }
 
     /**

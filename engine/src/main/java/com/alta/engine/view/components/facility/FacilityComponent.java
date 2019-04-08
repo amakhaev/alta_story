@@ -4,6 +4,7 @@ import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.engine.view.components.UniqueObject;
 import com.alta.scene.entities.Facility;
 import com.google.inject.Inject;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -15,9 +16,10 @@ import java.util.UUID;
  * Provides the base implementation of map scene object
  */
 @Slf4j
-public class FacilityComponent implements Facility<FacilityPartParticipant>, UniqueObject {
+public class FacilityComponent implements Facility<FacilityPartParticipant> {
 
-    private final UUID uuid;
+    @Getter
+    private final String uuid;
     private final String absolutePathToSpriteSheet;
     private final int tileWidth;
     private final int tileHeight;
@@ -28,21 +30,11 @@ public class FacilityComponent implements Facility<FacilityPartParticipant>, Uni
      * Initialize new instance of {@link FacilityComponent}
      */
     @Inject
-    public FacilityComponent(UUID uuid, String absolutePathToSpriteSheet, int tileWidth, int tileHeight) {
+    public FacilityComponent(String uuid, String absolutePathToSpriteSheet, int tileWidth, int tileHeight) {
         this.uuid = uuid;
         this.absolutePathToSpriteSheet = absolutePathToSpriteSheet;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
-    }
-
-    /**
-     * Gets the unique identifier of object
-     *
-     * @return the {@link UUID} instance
-     */
-    @Override
-    public UUID getUuid() {
-        return this.uuid;
     }
 
     /**

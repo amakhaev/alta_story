@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class SimpleNpcEntity {
 
+    private String uuid;
     private String name;
     private int startX;
     private int startY;
