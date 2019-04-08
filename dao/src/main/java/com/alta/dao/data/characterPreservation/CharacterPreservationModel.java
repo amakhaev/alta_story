@@ -2,7 +2,9 @@ package com.alta.dao.data.characterPreservation;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Provides the characterPreservation model
@@ -10,6 +12,17 @@ import lombok.Getter;
 @Getter
 @DatabaseTable(tableName = "character_preservations")
 public class CharacterPreservationModel {
+
+    @Builder
+    public static CharacterPreservationModel create(Long id, String mapName, Integer focusX, Integer focusY, String skin) {
+        CharacterPreservationModel model = new CharacterPreservationModel();
+        model.id = id;
+        model.mapName = mapName;
+        model.focusX = focusX;
+        model.focusY = focusY;
+        model.mainCharaterSkin = skin;
+        return model;
+    }
 
     /**
      * Provides the ID field name.
@@ -37,7 +50,7 @@ public class CharacterPreservationModel {
     public static final String MAIN_CHARACTER_SKIN_FIELD = "main_character_skin";
 
     @DatabaseField(id = true, columnName = ID_FIELD)
-    private int id;
+    private Long id;
 
     @DatabaseField(columnName = MAP_NAME_FIELD)
     private String mapName;

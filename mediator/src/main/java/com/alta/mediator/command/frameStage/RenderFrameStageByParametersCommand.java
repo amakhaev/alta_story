@@ -1,7 +1,6 @@
 package com.alta.mediator.command.frameStage;
 
 import com.alta.mediator.command.Command;
-import com.alta.mediator.command.CommandFactory;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -14,7 +13,7 @@ import java.awt.*;
 public class RenderFrameStageByParametersCommand implements Command {
 
     private final FrameStageDataProvider frameStageDataProvider;
-    private final CommandFactory commandFactory;
+    private final FrameStageCommandFactory frameStageCommandFactory;
     private final String mapName;
     private final String skinName;
     private final Point startPosition;
@@ -24,12 +23,12 @@ public class RenderFrameStageByParametersCommand implements Command {
      */
     @AssistedInject
     public RenderFrameStageByParametersCommand(FrameStageDataProvider frameStageDataProvider,
-                                               CommandFactory commandFactory,
+                                               FrameStageCommandFactory frameStageCommandFactory,
                                                @Assisted("mapName") String mapName,
                                                @Assisted("skinName") String skinName,
                                                @Assisted Point startPosition) {
         this.frameStageDataProvider = frameStageDataProvider;
-        this.commandFactory = commandFactory;
+        this.frameStageCommandFactory = frameStageCommandFactory;
         this.mapName = mapName;
         this.skinName = skinName;
         this.startPosition = startPosition;
@@ -40,7 +39,7 @@ public class RenderFrameStageByParametersCommand implements Command {
      */
     @Override
     public void execute() {
-        Command command = this.commandFactory.createRenderFrameStageCommand(
+        Command command = this.frameStageCommandFactory.createRenderFrameStageCommand(
                 this.frameStageDataProvider.getByParams(this.mapName, this.skinName, this.startPosition)
         );
         command.execute();

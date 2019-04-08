@@ -1,9 +1,6 @@
-package com.alta.mediator.command;
+package com.alta.mediator.command.frameStage;
 
 import com.alta.engine.utils.dataBuilder.FrameStageData;
-import com.alta.mediator.command.frameStage.RenderFrameStageByParametersCommand;
-import com.alta.mediator.command.frameStage.RenderFrameStageCommand;
-import com.alta.mediator.command.frameStage.RenderFrameStageFromPreservationCommand;
 import com.google.inject.assistedinject.Assisted;
 
 import java.awt.*;
@@ -11,7 +8,7 @@ import java.awt.*;
 /**
  * Provides the factory to create commands.
  */
-public interface CommandFactory {
+public interface FrameStageCommandFactory {
 
     /**
      * Creates the {@link RenderFrameStageCommand} instance.

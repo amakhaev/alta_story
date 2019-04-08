@@ -4,7 +4,7 @@ import com.alta.dao.DaoInjectorModule;
 import com.alta.engine.Engine;
 import com.alta.engine.EngineInjectorModule;
 import com.alta.mediator.command.CommandExecutor;
-import com.alta.mediator.command.CommandFactory;
+import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.configuration.MediatorConfiguration;
 import com.alta.scene.SceneInjectorModule;
 import com.alta.utils.ExecutorServiceFactory;
@@ -24,7 +24,7 @@ public class Mediator {
 
     private final ExecutorService engineMainThread;
     private final Engine engine;
-    private final CommandFactory commandFactory;
+    private final FrameStageCommandFactory frameStageCommandFactory;
     private final CommandExecutor commandExecutor;
 
     /**
@@ -40,7 +40,7 @@ public class Mediator {
 
         this.engine = injector.getInstance(Engine.class);
         this.commandExecutor = injector.getInstance(CommandExecutor.class);
-        this.commandFactory = injector.getInstance(CommandFactory.class);
+        this.frameStageCommandFactory = injector.getInstance(FrameStageCommandFactory.class);
 
         this.engineMainThread = ExecutorServiceFactory.create(1, ENGINE_THREAD_POOL_NAME);
 
@@ -52,7 +52,7 @@ public class Mediator {
      */
     public void loadSavedGameAndStart() {
         this.engineMainThread.execute(() -> {
-            this.commandExecutor.executeCommand(this.commandFactory.createRenderFrameStageFromPreservationCommand());
+            this.commandExecutor.executeCommand(this.frameStageCommandFactory.createRenderFrameStageFromPreservationCommand());
             this.engine.startScene();
         });
     }

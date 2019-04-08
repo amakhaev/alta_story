@@ -2,26 +2,20 @@ package com.alta.engine.actionDispatcher;
 
 import com.alta.engine.actionDispatcher.actionHandler.InteractionActionHandler;
 import com.alta.engine.actionDispatcher.actionHandler.MoveActionHandler;
+import com.alta.engine.actionDispatcher.actionHandler.SaveActionHandler;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Provides the dispatcher of actions that comes from keyboard.
  */
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class InputActionDispatcher {
 
     private final InteractionActionHandler interactionActionHandler;
     private final MoveActionHandler moveActionHandler;
-
-    /**
-     * Initialize new instance of {@link InputActionDispatcher}.
-     */
-    @Inject
-    public InputActionDispatcher(InteractionActionHandler interactionActionHandler,
-                                 MoveActionHandler moveActionHandler) {
-        this.interactionActionHandler = interactionActionHandler;
-        this.moveActionHandler = moveActionHandler;
-    }
+    private final SaveActionHandler saveActionHandler;
 
     /**
      * Dispatches the constant action to be handler.
@@ -47,6 +41,8 @@ public class InputActionDispatcher {
     public void dispatchReleaseAction(SceneAction sceneAction) {
         if (sceneAction == SceneAction.INTERACTION) {
             this.interactionActionHandler.onHandleReleaseAction(sceneAction);
+        } else if (sceneAction == SceneAction.TEMP_SAVE) {
+            this.saveActionHandler.onHandleReleaseAction(sceneAction);
         }
     }
 }

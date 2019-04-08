@@ -33,13 +33,35 @@ public class CharacterPreservationServiceImpl implements CharacterPreservationSe
     /**
      * Gets the preservation related to character
      *
-     * @param id - the identifier of character.
+     * @param id - the identifier preservation of character.
      * @return the {@link CharacterPreservationModel} instance.
      */
     @Override
-    public CharacterPreservationModel getCharacterPreservation(int id) {
+    public CharacterPreservationModel getCharacterPreservation(Long id) {
         try {
             return this.dao.queryBuilder().where().eq(CharacterPreservationModel.ID_FIELD, id).queryForFirst();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Updates the preservation that related to character.
+     *
+     * @param characterPreservationModel - the model to be updated.
+     * @return updated {@link CharacterPreservationModel} instance.
+     */
+    @Override
+    public CharacterPreservationModel updateCharacterPreservation(CharacterPreservationModel characterPreservationModel) {
+        if (characterPreservationModel == null || characterPreservationModel.getId() == null) {
+            log.error("The model to update is null or has null identifier.");
+            throw new IllegalArgumentException("The model to has invalid value.");
+        }
+
+        try {
+            this.dao.update(characterPreservationModel);
+            return this.getCharacterPreservation(characterPreservationModel.getId());
         } catch (SQLException e) {
             log.error(e.getMessage());
             return null;

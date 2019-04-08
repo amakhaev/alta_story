@@ -1,9 +1,13 @@
 package com.alta.mediator;
 
+import com.alta.dao.data.characterPreservation.CharacterPreservationModel;
 import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
+import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
+import com.alta.mediator.command.Command;
 import com.alta.mediator.command.CommandExecutor;
-import com.alta.mediator.command.CommandFactory;
+import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
+import com.alta.mediator.command.preservation.PreservationCommandFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.NonNull;
@@ -18,7 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class EngineEventDispatcher {
 
-    private final CommandFactory commandFactory;
+    private final FrameStageCommandFactory frameStageCommandFactory;
+    private final PreservationCommandFactory preservationCommandFactory;
     private final CommandExecutor commandExecutor;
 
     /**
@@ -34,6 +39,9 @@ public class EngineEventDispatcher {
                 case JUMPING:
                     this.executeRenderCommand(event.tryToCastPayload(JumpingEventPayload.class));
                     break;
+                case SAVE_STATE:
+                    this.executeUpdateCharacterPreservationCommand(event.tryToCastPayload(SaveStateEventPayload.class));
+                    break;
                 default:
                     log.error("Unknown type of payload {}", event.getType());
             }
@@ -44,11 +52,26 @@ public class EngineEventDispatcher {
 
     private void executeRenderCommand(JumpingEventPayload payload) {
         this.commandExecutor.executeCommand(
-                this.commandFactory.createRenderFrameStageByParametersCommand(
+                this.frameStageCommandFactory.createRenderFrameStageByParametersCommand(
                         payload.getMapName(),
                         "person1",
                         payload.getMapStartCoordinates()
                 )
         );
+    }
+
+    private void executeUpdateCharacterPreservationCommand(@NonNull SaveStateEventPayload payload) {
+        Command command = this.preservationCommandFactory.createUpdateCharacterPreservationCommand(
+                CharacterPreservationModel.builder()
+                        .id(1L)
+                        .focusX(payload.getMapCoordinates().x)
+                        .focusY(payload.getMapCoordinates().y)
+                        .skin(payload.getSkinName())
+                        .mapName(payload.getMapName())
+                        .build()
+        );
+
+        this.commandExecutor.executeCommand(command);
+        log.info("Updating the character preservation with id {} completed.", 1L);
     }
 }

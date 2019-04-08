@@ -30,7 +30,7 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     @Override
     public ActingCharacterEngineModel getActingCharacter(String skinName, Point startCoordinates) {
         return this.actorEngineMapper.doMappingForActingCharacter(
-                this.actorService.getActorModel(skinName, startCoordinates)
+                this.actorService.getActorModel(skinName, startCoordinates), skinName
         );
     }
 

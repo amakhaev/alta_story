@@ -10,9 +10,16 @@ public interface CharacterPreservationService {
     /**
      * Gets the preservation related to character
      *
-     * @param id - the identifier of character.
+     * @param id - the identifier preservation of character.
      * @return the {@link CharacterPreservationModel} instance.
      */
-    CharacterPreservationModel getCharacterPreservation(int id);
+    CharacterPreservationModel getCharacterPreservation(Long id);
 
+    /**
+     * Updates the preservation that related to character.
+     *
+     * @param characterPreservationModel - the model to be updated.
+     * @return updated {@link CharacterPreservationModel} instance.
+     */
+    CharacterPreservationModel updateCharacterPreservation(CharacterPreservationModel characterPreservationModel);
 }

@@ -25,7 +25,7 @@ class ActorEngineMapper {
      * @param actorModel - the source actor model
      * @return the {@link ActingCharacterEngineModel} instance.
      */
-    ActingCharacterEngineModel doMappingForActingCharacter(ActorModel actorModel) {
+    ActingCharacterEngineModel doMappingForActingCharacter(ActorModel actorModel, String skinName) {
         if (actorModel == null) {
             return null;
         }
@@ -42,7 +42,7 @@ class ActorEngineMapper {
                 .zIndex(actorModel.getZIndex())
                 .startMapCoordinates(actorModel.getStartMapCoordinates())
                 .animationDescriptors(actorAnimationDescriptors)
-                .skinName(actorModel.getSkinName())
+                .skinName(skinName)
                 .build();
     }
 

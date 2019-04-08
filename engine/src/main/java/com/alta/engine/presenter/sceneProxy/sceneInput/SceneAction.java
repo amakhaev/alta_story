@@ -9,6 +9,8 @@ public enum SceneAction {
     MOVE_DOWN,
     MOVE_LEFT,
     MOVE_UP,
-    INTERACTION
+    INTERACTION,
+
+    TEMP_SAVE
 
 }

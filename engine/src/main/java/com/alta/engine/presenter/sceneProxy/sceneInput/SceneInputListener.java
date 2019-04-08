@@ -20,6 +20,7 @@ public class SceneInputListener implements KeyListener {
         put(Input.KEY_UP, SceneAction.MOVE_UP);
         put(Input.KEY_DOWN, SceneAction.MOVE_DOWN);
         put(Input.KEY_F, SceneAction.INTERACTION);
+        put(Input.KEY_S, SceneAction.TEMP_SAVE);
     }};
 
     private final KeyActionProducer keyActionProducer;

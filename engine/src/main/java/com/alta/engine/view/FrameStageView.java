@@ -30,6 +30,8 @@ import java.awt.*;
 public class FrameStageView {
 
     private final StageComputatorImpl stageComputatorImpl;
+
+    @Getter
     private final FrameStageData frameStageData;
 
     @Getter
@@ -69,6 +71,15 @@ public class FrameStageView {
      */
     public void onMovementPerform(MovementDirection movementDirection) {
         this.stageComputatorImpl.tryToRunMovement(movementDirection);
+    }
+
+    /**
+     * Gets the map coordinates of acting character.
+     */
+    public Point getActingCharacterMapCoordinate() {
+        return this.stageComputatorImpl.getActorParticipant(
+                this.frameStageData.getActingCharacter().getUuid()
+        ).getCurrentMapCoordinates();
     }
 
     /**

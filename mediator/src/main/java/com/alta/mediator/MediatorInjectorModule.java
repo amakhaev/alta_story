@@ -2,8 +2,10 @@ package com.alta.mediator;
 
 import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.eventStream.EventProducer;
-import com.alta.mediator.command.CommandFactory;
+import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.frameStage.RenderFrameStageCommand;
+import com.alta.mediator.command.preservation.PreservationCommandFactory;
+import com.alta.mediator.command.preservation.UpdateCharacterPreservationCommand;
 import com.alta.mediator.di.ThreadPoolProvider;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.actor.ActorDataProviderImpl;
@@ -27,7 +29,11 @@ public class MediatorInjectorModule extends AbstractModule {
 
         install(new FactoryModuleBuilder()
                 .implement(RenderFrameStageCommand.class, RenderFrameStageCommand.class)
-                .build(CommandFactory.class));
+                .build(FrameStageCommandFactory.class));
+
+        install(new FactoryModuleBuilder()
+                .implement(UpdateCharacterPreservationCommand.class, UpdateCharacterPreservationCommand.class)
+                .build(PreservationCommandFactory.class));
 
         bind(new TypeLiteral<EventProducer<EngineEvent>>(){})
                 .annotatedWith(Names.named("engineEventProducer"))

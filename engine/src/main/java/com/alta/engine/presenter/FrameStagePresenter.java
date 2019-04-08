@@ -19,6 +19,7 @@ import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
+import java.awt.*;
 
 /**
  * Provides the presenter of view.
@@ -75,6 +76,20 @@ public class FrameStagePresenter {
         if (this.currentView != null) {
             this.currentView.onMovementPerform(movementDirection);
         }
+    }
+
+    /**
+     * Gets the frame stage data that rendered now.
+     */
+    public FrameStageData getCurrentFrameStage() {
+        return this.currentView == null ? null : this.currentView.getFrameStageData();
+    }
+
+    /**
+     * Gets the map coordinates of acting character.
+     */
+    public Point getActingCharacterMapCoordinate() {
+        return this.currentView == null ? null : this.currentView.getActingCharacterMapCoordinate();
     }
 
     /**
