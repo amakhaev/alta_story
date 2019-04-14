@@ -1,22 +1,22 @@
 package com.alta.mediator.domain.frameStage;
 
-import com.alta.dao.data.characterPreservation.CharacterPreservationModel;
-import com.alta.engine.utils.dataBuilder.FrameStageData;
+import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.engine.model.FrameStageDataModel;
 
 import java.awt.*;
 
 /**
- * Provides the service to manipulate model related to {@link FrameStageData}
+ * Provides the service to manipulate model related to {@link FrameStageDataModel}
  */
 public interface FrameStageDataProvider {
 
     /**
-     * Gets the model of frame stage that created from characterPreservation
+     * Gets the model of frame stage that created from preservation
      *
-     * @param characterPreservationModel - the characterPreservation of game
-     * @return the {@link FrameStageData} generated from characterPreservation.
+     * @param characterPreservationModel - the preservation of game
+     * @return the {@link FrameStageDataModel} generated from preservation.
      */
-    FrameStageData getFromPreservation(CharacterPreservationModel characterPreservationModel);
+    FrameStageDataModel getFromPreservation(CharacterPreservationModel characterPreservationModel);
 
     /**
      * Gets the model of frame stage that created by give params
@@ -24,8 +24,8 @@ public interface FrameStageDataProvider {
      * @param mapName - the name of map to be render
      * @param skin - the skin of acting character
      * @param focus - the coordinates of focus point on tiled map
-     * @return the {@link FrameStageData} instance.
+     * @return the {@link FrameStageDataModel} instance.
      */
-    FrameStageData getByParams(String mapName, String skin, Point focus);
+    FrameStageDataModel getByParams(String mapName, String skin, Point focus);
 
 }

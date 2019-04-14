@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Provides the manager that is manipulating of states.
+ * Provides the facade that is manipulating of states.
  */
 @Slf4j
 public class StateManager {

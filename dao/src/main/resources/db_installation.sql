@@ -1,9 +1,10 @@
 CREATE TABLE IF NOT EXISTS preservations (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  chapter_indicator INTEGER NOT NULL
 );
 
-INSERT INTO preservations (id) SELECT 1 WHERE (SELECT count(*) FROM preservations) = 0;
+INSERT INTO preservations (id, chapter_indicator) SELECT 1, 1 WHERE (SELECT count(*) FROM preservations) = 0;
 
 
 CREATE TABLE IF NOT EXISTS character_preservations (

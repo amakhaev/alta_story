@@ -1,7 +1,7 @@
 package com.alta.mediator.command.preservation;
 
-import com.alta.dao.data.characterPreservation.CharacterPreservationModel;
-import com.alta.dao.domain.characterPreservation.CharacterPreservationService;
+import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -11,16 +11,16 @@ import com.google.inject.assistedinject.AssistedInject;
  */
 public class UpdateCharacterPreservationCommand implements Command {
 
-    private final CharacterPreservationService characterPreservationService;
+    private final PreservationService preservationService;
     private final CharacterPreservationModel characterPreservationModel;
 
     /**
      * Initialize new instance of {@link UpdateCharacterPreservationCommand}.
      */
     @AssistedInject
-    public UpdateCharacterPreservationCommand(CharacterPreservationService characterPreservationService,
+    public UpdateCharacterPreservationCommand(PreservationService preservationService,
                                               @Assisted CharacterPreservationModel characterPreservationModel) {
-        this.characterPreservationService = characterPreservationService;
+        this.preservationService = preservationService;
         this.characterPreservationModel = characterPreservationModel;
     }
 
@@ -29,6 +29,6 @@ public class UpdateCharacterPreservationCommand implements Command {
      */
     @Override
     public void execute() {
-        this.characterPreservationService.updateCharacterPreservation(this.characterPreservationModel);
+        this.preservationService.updateCharacterPreservation(this.characterPreservationModel);
     }
 }

@@ -1,4 +1,4 @@
-package com.alta.engine.model;
+package com.alta.engine.model.frameStage;
 
 import com.alta.computator.model.altitudeMap.TileState;
 import lombok.Builder;

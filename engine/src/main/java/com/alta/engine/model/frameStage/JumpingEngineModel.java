@@ -1,4 +1,4 @@
-package com.alta.engine.model;
+package com.alta.engine.model.frameStage;
 
 import lombok.Builder;
 import lombok.Getter;

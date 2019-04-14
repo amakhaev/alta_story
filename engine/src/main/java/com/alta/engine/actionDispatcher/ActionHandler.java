@@ -1,4 +1,4 @@
-package com.alta.engine.actionDispatcher.actionHandler;
+package com.alta.engine.actionDispatcher;
 
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 

@@ -1,7 +1,6 @@
 package com.alta.engine;
 
 import com.alta.computator.model.event.ComputatorEvent;
-import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.engine.view.FrameStageView;
 import com.alta.engine.view.ViewFactory;
 import com.alta.eventStream.EventProducer;

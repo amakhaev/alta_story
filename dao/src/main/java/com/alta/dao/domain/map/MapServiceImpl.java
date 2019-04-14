@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class MapServiceImpl implements MapService {
 
     private final FacilityService facilityService;
-    private Map<String, MapModel> mapsByName;
     private List<MapEntity> availableMaps;
 
     /**
@@ -31,7 +30,6 @@ public class MapServiceImpl implements MapService {
     @Inject
     public MapServiceImpl(FacilityService facilityService) {
         this.facilityService = facilityService;
-        this.mapsByName = new HashMap<>();
         this.loadAvailableMaps();
     }
 
@@ -43,12 +41,7 @@ public class MapServiceImpl implements MapService {
      */
     @Override
     public MapModel getMap(String name) {
-        if (this.mapsByName.containsKey(name)) {
-            log.info("Map with given name '{}' already initialized. Return it.", name);
-            return this.mapsByName.get(name);
-        }
-
-        log.info("Map with given name '{}' not initialized. Try to initialize.", name);
+        log.info("Try to initialize map with given name '{}'", name);
         MapEntity matchedMapEntity = this.availableMaps
                 .stream()
                 .filter(mapEntity -> mapEntity.getName().equalsIgnoreCase(name))
@@ -74,8 +67,7 @@ public class MapServiceImpl implements MapService {
                 .mapJumpings(internalDecorator.getJumping())
                 .build();
 
-        this.mapsByName.put(matchedMapEntity.getName(), mapModel);
-        log.info("Initialization for map '{}' completed successfully", name);
+        log.info("Initialization for map '{}' completed", name);
         return mapModel;
     }
 

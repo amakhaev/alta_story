@@ -2,12 +2,12 @@ package com.alta.engine.utils.dataBuilder;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
-import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.model.ActingCharacterEngineModel;
-import com.alta.engine.model.FacilityEngineModel;
-import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.model.frameStage.FacilityEngineModel;
+import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.engine.view.components.actor.ActorCharacterComponent;
 import com.alta.engine.view.components.facility.FacilityComponent;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
@@ -32,11 +32,11 @@ public class SceneFrameStageProvider {
      *
      * @param data - the model that full describes the frame stage
      * @param stageComputator - the computator of frame stage
-     * @param asyncTaskManager - the manager of async tasks
+     * @param asyncTaskManager - the facade of async tasks
      * @return created {@link FrameStageComponent} instance based of @param model
      */
     @Builder
-    public static FrameStageComponent createFrameStage(FrameStageData data,
+    public static FrameStageComponent createFrameStage(FrameStageDataModel data,
                                                        StageComputator stageComputator,
                                                        AsyncTaskManager asyncTaskManager) {
         validateFrameStageData(data);
@@ -138,9 +138,9 @@ public class SceneFrameStageProvider {
         return new ActorCharacterComponent(animationDescriptors, uuid);
     }
 
-    private static void validateFrameStageData(FrameStageData data) throws EngineException {
+    private static void validateFrameStageData(FrameStageDataModel data) throws EngineException {
         if (data == null) {
-            throw new EngineException("The FrameStageData is null. It required for creating frame stage.");
+            throw new EngineException("The FrameStageDataModel is null. It required for creating frame stage.");
         }
 
         if (data.getFocusPointMapStartPosition() == null) {

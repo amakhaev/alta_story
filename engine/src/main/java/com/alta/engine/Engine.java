@@ -1,9 +1,9 @@
 package com.alta.engine;
 
 import com.alta.engine.configuration.EngineConfiguration;
-import com.alta.engine.presenter.FrameStagePresenter;
-import com.alta.engine.presenter.MessageBoxPresenter;
-import com.alta.engine.utils.dataBuilder.FrameStageData;
+import com.alta.engine.facade.FrameStageFacade;
+import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.InteractionDataModel;
 import com.google.inject.Inject;
 
 /**
@@ -11,34 +11,28 @@ import com.google.inject.Inject;
  */
 public class Engine {
 
-    private final FrameStagePresenter frameStagePresenter;
-    private final MessageBoxPresenter messageBoxPresenter;
+    private final FrameStageFacade frameStageFacade;
 
     /**
      * Initialize new instance of {@link Engine}
      */
     @Inject
-    public Engine(FrameStagePresenter frameStagePresenter,
-                  MessageBoxPresenter messageBoxPresenter,
-                  EngineConfiguration engineConfiguration) {
+    public Engine(FrameStageFacade frameStageFacade, EngineConfiguration engineConfiguration) {
         engineConfiguration.configure();
-        this.frameStagePresenter = frameStagePresenter;
-        this.messageBoxPresenter = messageBoxPresenter;
+        this.frameStageFacade = frameStageFacade;
     }
 
     /**
-     * Loads scene state from characterPreservation
+     * Loads scene state from preservation
      */
-    public void tryToRenderFrameStage(FrameStageData data) {
-        this.frameStagePresenter.tryToRenderFrameStageView(data);
-        this.messageBoxPresenter.forceHideMessageBox();
-        this.messageBoxPresenter.showTitle(data.getMapDisplayName());
+    public void tryToRenderFrameStage(FrameStageDataModel data, InteractionDataModel interactionDataModel) {
+        this.frameStageFacade.tryToRenderFrameStageView(data);
     }
 
     /**
      * Start the rendering of scene
      */
     public void startScene() {
-        this.frameStagePresenter.startScene();
+        this.frameStageFacade.startScene();
     }
 }

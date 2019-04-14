@@ -1,6 +1,6 @@
 package com.alta.mediator;
 
-import com.alta.dao.data.characterPreservation.CharacterPreservationModel;
+import com.alta.dao.data.preservation.CharacterPreservationModel;
 import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;

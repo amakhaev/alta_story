@@ -1,6 +1,7 @@
-package com.alta.engine.actionDispatcher.actionHandler;
+package com.alta.engine.actionDispatcher.interaction;
 
-import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.actionDispatcher.ActionHandler;
+import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Provides the actionHandler that executes interaction between components (actor, facility etc.) on stage.
+ * Provides the interaction that executes interaction between components (actor, facility etc.) on stage.
  */
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))

@@ -1,7 +1,7 @@
 package com.alta.mediator.domain.actor;
 
-import com.alta.engine.model.ActingCharacterEngineModel;
-import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 
 import java.awt.*;
 

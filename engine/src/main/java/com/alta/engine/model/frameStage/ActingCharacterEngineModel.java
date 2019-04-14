@@ -1,4 +1,4 @@
-package com.alta.engine.model;
+package com.alta.engine.model.frameStage;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;

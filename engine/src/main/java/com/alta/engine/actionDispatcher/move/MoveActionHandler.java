@@ -1,7 +1,8 @@
-package com.alta.engine.actionDispatcher.actionHandler;
+package com.alta.engine.actionDispatcher.move;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.engine.presenter.FrameStagePresenter;
+import com.alta.engine.actionDispatcher.ActionHandler;
+import com.alta.engine.facade.FrameStageFacade;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class MoveActionHandler implements ActionHandler {
 
-    private final FrameStagePresenter frameStagePresenter;
+    private final FrameStageFacade frameStageFacade;
 
     /**
      * Handles the constantly action from scene.
@@ -25,16 +26,16 @@ public class MoveActionHandler implements ActionHandler {
     public void onHandleConstantlyAction(SceneAction action) {
         switch (action) {
             case MOVE_UP:
-                this.frameStagePresenter.movementPerform(MovementDirection.UP);
+                this.frameStageFacade.movementPerform(MovementDirection.UP);
                 break;
             case MOVE_DOWN:
-                this.frameStagePresenter.movementPerform(MovementDirection.DOWN);
+                this.frameStageFacade.movementPerform(MovementDirection.DOWN);
                 break;
             case MOVE_LEFT:
-                this.frameStagePresenter.movementPerform(MovementDirection.LEFT);
+                this.frameStageFacade.movementPerform(MovementDirection.LEFT);
                 break;
             case MOVE_RIGHT:
-                this.frameStagePresenter.movementPerform(MovementDirection.RIGHT);
+                this.frameStageFacade.movementPerform(MovementDirection.RIGHT);
                 break;
         }
     }

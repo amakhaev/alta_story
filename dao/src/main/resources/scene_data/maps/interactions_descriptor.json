@@ -1,0 +1,14 @@
+[
+	{
+		name: "test",
+		decoratorPath: "scene_data/maps/test/interactions.dcrtr"
+	},
+	{
+		name: "test2",
+		decoratorPath: "scene_data/maps/test2/interactions.dcrtr"
+	},
+	{
+		name: "test3",
+		decoratorPath: "scene_data/maps/test3/interactions.dcrtr"
+	}
+]

@@ -1,13 +1,12 @@
-package com.alta.dao.data.characterPreservation;
+package com.alta.dao.data.preservation;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
- * Provides the characterPreservation model
+ * Provides the preservation model
  */
 @Getter
 @DatabaseTable(tableName = "character_preservations")

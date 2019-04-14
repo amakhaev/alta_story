@@ -1,9 +1,9 @@
-package com.alta.engine.utils.dataBuilder;
+package com.alta.engine.model;
 
-import com.alta.engine.model.ActingCharacterEngineModel;
-import com.alta.engine.model.FacilityEngineModel;
-import com.alta.engine.model.JumpingEngineModel;
-import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.model.frameStage.FacilityEngineModel;
+import com.alta.engine.model.frameStage.JumpingEngineModel;
+import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Getter
 @Builder(toBuilder = true)
-public class FrameStageData {
+public class FrameStageDataModel {
 
     /**
      * The display name of map.

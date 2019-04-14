@@ -1,6 +1,6 @@
 package com.alta.mediator.command.preservation;
 
-import com.alta.dao.data.characterPreservation.CharacterPreservationModel;
+import com.alta.dao.data.preservation.CharacterPreservationModel;
 
 /**
  * Provides the factory for commands related to preservation

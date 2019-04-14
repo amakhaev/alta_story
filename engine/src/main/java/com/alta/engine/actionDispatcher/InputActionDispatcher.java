@@ -1,8 +1,8 @@
 package com.alta.engine.actionDispatcher;
 
-import com.alta.engine.actionDispatcher.actionHandler.InteractionActionHandler;
-import com.alta.engine.actionDispatcher.actionHandler.MoveActionHandler;
-import com.alta.engine.actionDispatcher.actionHandler.SaveActionHandler;
+import com.alta.engine.actionDispatcher.interaction.InteractionActionHandler;
+import com.alta.engine.actionDispatcher.move.MoveActionHandler;
+import com.alta.engine.actionDispatcher.save.SaveActionHandler;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;

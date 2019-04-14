@@ -1,0 +1,31 @@
+[
+	{
+		"uuid": "98d08cbc-c411-4b43-a9bb-11f1a14db16f",
+		"targetUuid": "dc6c5f8f-1e0c-4c63-bc8c-9d8fbee98f95",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 3,
+		"nextInteractionUuid": "7ba75148-58bc-4067-8b84-0bb4d1e0909c",
+		"showOnce": "true",
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Меня зовут Кид. #sub# Каждый день я прихожу сюда в надежде попасть в город мечты, но меня не пускают. #sub# Однажды сражник отвернулся и мне почти удалось пробраться, однако меня всё же поймали и... Ухх как я зол!"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Охрана ослабила свою бдительность."
+			}
+		]
+	},
+	{
+		"uuid": "7ba75148-58bc-4067-8b84-0bb4d1e0909c",
+		"targetUuid": "dc6c5f8f-1e0c-4c63-bc8c-9d8fbee98f95",
+		"showOnce": "false",
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "У меня есть план."
+			}
+		]
+	}
+]

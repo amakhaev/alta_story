@@ -13,7 +13,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Provides the manager that do balancing of async tasks
+ * Provides the facade that do balancing of async tasks
  */
 @Slf4j
 @Singleton

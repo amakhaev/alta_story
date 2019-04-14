@@ -56,9 +56,9 @@ abstract class EventStream<T> {
     }
 
     /**
-     * Sets the event actionHandler
+     * Sets the event interaction
      *
-     * @param handlers - the event actionHandler that will be called when event published
+     * @param handlers - the event interaction that will be called when event published
      * @return current {@link EventStream} instance
      */
     protected final EventStream<T> setHandleEvents(final EventHandler<GenericEvent<T>>... handlers) {

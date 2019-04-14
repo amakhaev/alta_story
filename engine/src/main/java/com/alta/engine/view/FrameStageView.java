@@ -7,10 +7,9 @@ import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.model.JumpingEngineModel;
-import com.alta.engine.model.SimpleNpcEngineModel;
+import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.engine.utils.dataBuilder.ComputatorFrameStageProvider;
-import com.alta.engine.utils.dataBuilder.FrameStageData;
 import com.alta.engine.utils.dataBuilder.SceneFrameStageProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
 import com.alta.eventStream.EventProducer;
@@ -30,9 +29,7 @@ import java.awt.*;
 public class FrameStageView {
 
     private final StageComputatorImpl stageComputatorImpl;
-
-    @Getter
-    private final FrameStageData frameStageData;
+    private final FrameStageDataModel frameStageDataModel;
 
     @Getter
     private final FrameStageComponent frameStage;
@@ -41,11 +38,11 @@ public class FrameStageView {
      * Initialize new instance of {@link FrameStageView}
      */
     @AssistedInject
-    public FrameStageView(@Assisted FrameStageData data,
+    public FrameStageView(@Assisted FrameStageDataModel data,
                           AsyncTaskManager asyncTaskManager,
                           @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer) {
         try {
-            this.frameStageData = data;
+            this.frameStageDataModel = data;
             this.stageComputatorImpl = ComputatorFrameStageProvider.builder()
                     .focusPointStartPosition(data.getFocusPointMapStartPosition())
                     .actingCharacter(data.getActingCharacter())
@@ -78,7 +75,7 @@ public class FrameStageView {
      */
     public Point getActingCharacterMapCoordinate() {
         return this.stageComputatorImpl.getActorParticipant(
-                this.frameStageData.getActingCharacter().getUuid()
+                this.frameStageDataModel.getActingCharacter().getUuid()
         ).getCurrentMapCoordinates();
     }
 
@@ -114,7 +111,7 @@ public class FrameStageView {
 
         ActorParticipant npcCharacter = this.stageComputatorImpl.getActorParticipant(uuid);
         ActorParticipant actingCharacter = this.stageComputatorImpl.getActorParticipant(
-                this.frameStageData.getActingCharacter().getUuid()
+                this.frameStageDataModel.getActingCharacter().getUuid()
         );
 
         if (actingCharacter == null || npcCharacter == null) {
@@ -133,43 +130,17 @@ public class FrameStageView {
     }
 
     /**
-     * Finds the jumping point from existing one.
-     *
-     * @param mapCoordinates - the jump point to be find.
-     * @return found {@link JumpingEngineModel} point.
-     */
-    public JumpingEngineModel findJumpingPoint(Point mapCoordinates) {
-        if (mapCoordinates == null) {
-            log.error("The coordinates of map to be jumped is null");
-            return null;
-        }
-
-        JumpingEngineModel jumpingPoint = this.frameStageData.getJumpingPoints().stream()
-                .filter(jp -> jp.getFrom().x == mapCoordinates.x && jp.getFrom().y == mapCoordinates.y)
-                .findAny()
-                .orElse(null);
-
-        if (jumpingPoint == null) {
-            log.warn("Jump point for {} not found.", mapCoordinates);
-        } else {
-            log.info("Jump point for given coordinates {} found, map name: {}.", mapCoordinates, jumpingPoint.getMapName());
-        }
-
-        return jumpingPoint;
-    }
-
-    /**
      * Finds the simple npc that targeted by acting character.
      *
      * @return the {@link SimpleNpcEngineModel} instance of ull if not found.
      */
     public SimpleNpcEngineModel findSimpleNpcTargetedByActingCharacter() {
-        if (this.stageComputatorImpl == null || this.frameStageData == null) {
+        if (this.stageComputatorImpl == null || this.frameStageDataModel == null) {
             return null;
         }
 
         ActorParticipant actingCharacter = this.stageComputatorImpl.getActorParticipant(
-                this.frameStageData.getActingCharacter().getUuid()
+                this.frameStageDataModel.getActingCharacter().getUuid()
         );
 
         if (actingCharacter == null || actingCharacter.getCurrentMapCoordinates() == null) {
@@ -197,7 +168,7 @@ public class FrameStageView {
             return null;
         }
 
-        return this.frameStageData.getSimpleNpc().stream()
+        return this.frameStageDataModel.getSimpleNpc().stream()
                 .filter(npcModel -> npcModel.getUuid().equals(character.getUuid()))
                 .findFirst()
                 .orElse(null);
