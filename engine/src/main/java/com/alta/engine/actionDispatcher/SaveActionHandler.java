@@ -1,6 +1,5 @@
-package com.alta.engine.actionDispatcher.save;
+package com.alta.engine.actionDispatcher;
 
-import com.alta.engine.actionDispatcher.ActionHandler;
 import com.alta.engine.facade.FrameStageListener;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
@@ -42,20 +41,5 @@ public class SaveActionHandler implements ActionHandler {
         if (action == SceneAction.TEMP_SAVE) {
             this.frameStageListener.handleSaveEvent();
         }
-
-        /*FrameStageDataModel frameStageDataModel = this.frameStagePresenter.getCurrentFrameStage();
-        Point actionCharacterMapCoordinates = this.frameStagePresenter.getActingCharacterMapCoordinate();
-
-        if (frameStageDataModel == null || actionCharacterMapCoordinates == null) {
-            return;
-        }
-
-        this.engineEventProducer.publishEvent(
-                new EngineEvent(EngineEventType.SAVE_STATE, new SaveStateEventPayload(
-                        frameStageDataModel.getMapName(),
-                        frameStageDataModel.getActingCharacter().getSkinName(),
-                        actionCharacterMapCoordinates
-                ))
-        );*/
     }
 }

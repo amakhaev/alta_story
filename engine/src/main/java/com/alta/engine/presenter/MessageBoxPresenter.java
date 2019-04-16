@@ -17,7 +17,6 @@ import java.util.Queue;
  * Provides the presenter relate to {@link com.alta.engine.view.MessageBoxView}
  */
 @Slf4j
-@Singleton
 public class MessageBoxPresenter {
 
     private final MessageBoxView messageBoxView;

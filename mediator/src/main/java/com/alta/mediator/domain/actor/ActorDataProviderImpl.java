@@ -28,10 +28,12 @@ public class ActorDataProviderImpl implements ActorDataProvider {
      * @return the {@link ActingCharacterEngineModel}
      */
     @Override
-    public ActingCharacterEngineModel getActingCharacter(String skinName, Point startCoordinates) {
-        return this.actorEngineMapper.doMappingForActingCharacter(
-                this.actorService.getActorModel(skinName, startCoordinates), skinName
-        );
+    public ActingCharacterEngineModel getActingCharacter(String skinName, Point startCoordinates, String uuid) {
+        ActorModel actorModel = this.actorService.getActorModel(skinName);
+        actorModel.setStartMapCoordinates(startCoordinates);
+        actorModel.setUuid(uuid);
+
+        return this.actorEngineMapper.doMappingForActingCharacter(actorModel, skinName);
     }
 
     /**
@@ -40,17 +42,19 @@ public class ActorDataProviderImpl implements ActorDataProvider {
      * @param skinName                      - the name of skin for character
      * @param startCoordinates              - the coordinates of start position for actor
      * @param repeatingMovementDurationTime - the time of repeating the movement of simple NPC
-     * @param dialogueText                  - the time of repeating the movement of simple NPC
      * @return the {@link SimpleNpcEngineModel}
      */
     @Override
     public SimpleNpcEngineModel getSimpleNpc(String skinName,
                                              Point startCoordinates,
                                              int repeatingMovementDurationTime,
-                                             String dialogueText) {
-        ActorModel actorModel = this.actorService.getActorModel(skinName, startCoordinates);
+                                             String uuid) {
+        ActorModel actorModel = this.actorService.getActorModel(skinName);
         actorModel.setRepeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime());
         actorModel.setRepeatingMovementDurationTime(repeatingMovementDurationTime);
-        return this.actorEngineMapper.doMappingForSimpleNpc(actorModel, dialogueText);
+        actorModel.setStartMapCoordinates(startCoordinates);
+        actorModel.setUuid(uuid);
+
+        return this.actorEngineMapper.doMappingForSimpleNpc(actorModel);
     }
 }

@@ -1,11 +1,7 @@
-package com.alta.engine.actionDispatcher.interaction;
+package com.alta.engine.actionDispatcher;
 
-import com.alta.engine.actionDispatcher.ActionHandler;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
-import com.alta.engine.presenter.FrameStagePresenter;
-import com.alta.engine.presenter.MessageBoxPresenter;
+import com.alta.engine.facade.InteractionFacade;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class InteractionActionHandler implements ActionHandler {
 
-    private final FrameStagePresenter frameStagePresenter;
-    private final MessageBoxPresenter messageBoxPresenter;
-
-    private String interactionTargetUuid;
+    private final InteractionFacade interactionFacade;
 
     /**
      * Handles the constantly action from scene.
@@ -43,14 +36,16 @@ public class InteractionActionHandler implements ActionHandler {
             return;
         }
 
-        if (this.messageBoxPresenter.isDialogueBoxOpen()) {
+        this.interactionFacade.triggerInteraction();
+
+        /*if (this.messageBoxPresenter.isDialogueBoxOpen()) {
             this.tryToHideMessageBox();
         } else {
             this.tryToStartInteraction();
-        }
+        }*/
     }
 
-    private void tryToHideMessageBox() {
+    /*private void tryToHideMessageBox() {
         this.messageBoxPresenter.tryToHideMessageBox();
 
         if (!this.messageBoxPresenter.isDialogueBoxOpen()) {
@@ -70,5 +65,5 @@ public class InteractionActionHandler implements ActionHandler {
         this.interactionTargetUuid = simpleNpcEngineModel.getUuid();
         this.messageBoxPresenter.showDialogueMessage(simpleNpcEngineModel.getDialogue());
         this.frameStagePresenter.startInteractionWithNpc(this.interactionTargetUuid);
-    }
+    }*/
 }

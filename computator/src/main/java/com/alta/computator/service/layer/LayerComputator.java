@@ -70,13 +70,7 @@ public class LayerComputator {
         }
 
         return this.sortedParticipants.stream()
-                .filter(
-                        participant -> participant.getCurrentMapCoordinates().equals(mapCoordinates) &&
-                                (
-                                        participant.getParticipantType() == ParticipatType.SIMPLE_NPC ||
-                                        participant.getParticipantType() == ParticipatType.ACTING_CHARACTER
-                                )
-                )
+                .filter(participant -> participant.getCurrentMapCoordinates().equals(mapCoordinates))
                 .findFirst()
                 .orElse(null);
     }

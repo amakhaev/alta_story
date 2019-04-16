@@ -130,11 +130,11 @@ public class FrameStageView {
     }
 
     /**
-     * Finds the simple npc that targeted by acting character.
+     * Finds the participant that targeted by acting character.
      *
-     * @return the {@link SimpleNpcEngineModel} instance of ull if not found.
+     * @return the uuid or null if not found.
      */
-    public SimpleNpcEngineModel findSimpleNpcTargetedByActingCharacter() {
+    public String findParticipantTargetedByActingCharacter() {
         if (this.stageComputatorImpl == null || this.frameStageDataModel == null) {
             return null;
         }
@@ -164,14 +164,7 @@ public class FrameStageView {
         }
 
         CoordinatedParticipant character = this.stageComputatorImpl.findCharacterByPosition(targetCharacterMapCoordinate);
-        if (character == null || Strings.isNullOrEmpty(character.getUuid())) {
-            return null;
-        }
-
-        return this.frameStageDataModel.getSimpleNpc().stream()
-                .filter(npcModel -> npcModel.getUuid().equals(character.getUuid()))
-                .findFirst()
-                .orElse(null);
+        return character == null ? null : character.getUuid();
     }
 
 }

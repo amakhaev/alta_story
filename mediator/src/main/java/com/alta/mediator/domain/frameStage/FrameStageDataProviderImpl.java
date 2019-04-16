@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -80,7 +81,8 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
         ActingCharacterEngineModel actingCharacterEngineModel = this.actorDataProvider.getActingCharacter(
                 skin,
-                focus
+                focus,
+                UUID.randomUUID().toString()
         );
 
         List<SimpleNpcEngineModel> simpleNpcEngineModels = mapModel.getSimpleNpcList().stream()
@@ -89,7 +91,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                                 simpleNpc.getName(),
                                 new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
                                 simpleNpc.getRepeatingMovementDurationTime(),
-                                simpleNpc.getDialogue()
+                                simpleNpc.getUuid()
                         )
                 ).collect(Collectors.toList());
 

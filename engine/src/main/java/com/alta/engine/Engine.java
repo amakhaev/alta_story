@@ -2,6 +2,7 @@ package com.alta.engine;
 
 import com.alta.engine.configuration.EngineConfiguration;
 import com.alta.engine.facade.FrameStageFacade;
+import com.alta.engine.facade.InteractionFacade;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.model.InteractionDataModel;
 import com.google.inject.Inject;
@@ -12,14 +13,18 @@ import com.google.inject.Inject;
 public class Engine {
 
     private final FrameStageFacade frameStageFacade;
+    private final InteractionFacade interactionFacade;
 
     /**
      * Initialize new instance of {@link Engine}
      */
     @Inject
-    public Engine(FrameStageFacade frameStageFacade, EngineConfiguration engineConfiguration) {
-        engineConfiguration.configure();
+    public Engine(FrameStageFacade frameStageFacade,
+                  EngineConfiguration engineConfiguration,
+                  InteractionFacade interactionFacade) {
+        this.interactionFacade = interactionFacade;
         this.frameStageFacade = frameStageFacade;
+        engineConfiguration.configure();
     }
 
     /**
@@ -27,6 +32,7 @@ public class Engine {
      */
     public void tryToRenderFrameStage(FrameStageDataModel data, InteractionDataModel interactionDataModel) {
         this.frameStageFacade.tryToRenderFrameStageView(data);
+        this.interactionFacade.setInteractionData(interactionDataModel);
     }
 
     /**

@@ -13,10 +13,9 @@ public interface ActorService {
      * Gets the actor model by given file name of tile sets.
      *
      * @param descriptorFileName - the full name of descriptor file like "file.dscr".
-     * @param startCoordinates - the coordinates of start position for actor
      *
      * @return the {@link ActorModel} instance.
      */
-    ActorModel getActorModel(String descriptorFileName, Point startCoordinates);
+    ActorModel getActorModel(String descriptorFileName);
 
 }

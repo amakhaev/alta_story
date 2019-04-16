@@ -60,7 +60,7 @@ public class RenderFrameStageByParametersCommand implements Command {
         Command command = this.frameStageCommandFactory.createRenderFrameStageCommand(
                 this.frameStageDataProvider.getByParams(this.mapName, this.skinName, this.startPosition),
                 this.interactionDataProvider.getInteractionByRelatedMapName(
-                        currentPreservation.getCharacterPreservation().getMapName(),
+                        this.mapName,
                         currentPreservation.getChapterIndicator()
                 )
         );

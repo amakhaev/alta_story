@@ -78,8 +78,7 @@
 			"name": "person4",
 			"startX": 9,
 			"startY": 14,
-			"repeatingMovementDurationTime": 1500,
-			"dialogue": "Меня зовут Кид. #sub# Каждый день я прихожу сюда в надежде попасть в город мечты, но меня не пускают. #sub# Однажды сражник отвернулся и мне почти удалось пробраться, однако меня всё же поймали и... Ухх как я зол!"
+			"repeatingMovementDurationTime": 2000
 		}
 	],
 	"jumping": [

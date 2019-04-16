@@ -1,4 +1,4 @@
-package com.alta.engine.actionDispatcher.move;
+package com.alta.engine.actionDispatcher;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.engine.actionDispatcher.ActionHandler;

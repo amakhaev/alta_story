@@ -6,7 +6,6 @@ import com.alta.engine.model.frameStage.JumpingEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +16,6 @@ import java.awt.*;
  * Provides the high level facade to cooperation with frame stage
  */
 @Slf4j
-@Singleton
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class FrameStageFacade {
 

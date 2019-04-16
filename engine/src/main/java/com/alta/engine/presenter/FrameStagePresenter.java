@@ -2,13 +2,11 @@ package com.alta.engine.presenter;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.engine.model.FrameStageDataModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
 import com.alta.engine.view.ViewFactory;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -17,7 +15,6 @@ import java.awt.*;
  * Provides the presenter of view.
  */
 @Slf4j
-@Singleton
 public class FrameStagePresenter {
 
     private final SceneProxy sceneProxy;
@@ -70,12 +67,12 @@ public class FrameStagePresenter {
     }
 
     /**
-     * Finds the simple npc that targeted by acting character.
+     * Finds the uuid of participant that targeted by acting character.
      *
-     * @return the {@link SimpleNpcEngineModel} instance of ull if not found.
+     * @return the uuid null if not found.
      */
-    public SimpleNpcEngineModel findSimpleNpcTargetedByActingCharacter() {
-        return this.currentView == null ? null : this.currentView.findSimpleNpcTargetedByActingCharacter();
+    public String findSimpleNpcTargetedByActingCharacter() {
+        return this.currentView == null ? null : this.currentView.findParticipantTargetedByActingCharacter();
     }
 
     /**

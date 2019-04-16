@@ -1,3 +1,41 @@
 [
-	
+	{
+		"uuid": "d78a9c8c-76d9-43ce-b9e8-88bbb3a8ce27",
+		"targetUuid": "36fa9616-37bd-4edc-b564-81dba3352cf0",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 3,
+		"showOnce": "true",
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Я слишком стар для всего этого."
+			}
+		]
+	},
+	{
+		"uuid": "2c2aee18-1b02-49a9-9528-e1fe9fa9d42e",
+		"targetUuid": "6892fee0-9930-4751-879c-291595ba0148",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 3,
+		"showOnce": "true",
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Это место настолько огромно."
+			}
+		]
+	},
+	{
+		"uuid": "48355a1d-e4ec-4a4e-b30b-9bc3d265621e",
+		"targetUuid": "eb15a241-550e-49ce-827c-d004c19b2f2c",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 3,
+		"showOnce": "true",
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Статуя богини такая классная."
+			}
+		]
+	}
 ]

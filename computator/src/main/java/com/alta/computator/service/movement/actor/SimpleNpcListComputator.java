@@ -84,14 +84,8 @@ public class SimpleNpcListComputator {
      * @param uuid      - the uuid of NPC to be paused
      */
     public void setPause(boolean isPause, String uuid) {
-        if (this.simpleNpcComputators != null) {
-            SimpleNpcComputator computator = this.simpleNpcComputators.values().stream()
-                    .filter(npc -> npc.getSimpleNpcParticipant().getUuid().equals(uuid))
-                    .findFirst()
-                    .orElse(null);
-            if (computator != null) {
-                computator.setComputationPause(isPause);
-            }
+        if (this.simpleNpcComputators != null && this.simpleNpcComputators.containsKey(uuid)) {
+            this.simpleNpcComputators.get(uuid).setComputationPause(isPause);
         }
     }
 

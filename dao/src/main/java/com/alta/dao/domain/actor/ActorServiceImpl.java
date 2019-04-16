@@ -26,11 +26,10 @@ public class ActorServiceImpl implements ActorService {
      * Gets the actor model by given file name of tile sets.
      *
      * @param descriptorFileName - the full name of descriptor file like "file.dscr".
-     * @param startCoordinates   - the coordinates of start position for actor
      * @return the {@link ActorModel} instance.
      */
     @Override
-    public ActorModel getActorModel(String descriptorFileName, Point startCoordinates) {
+    public ActorModel getActorModel(String descriptorFileName) {
         if (Strings.isNullOrEmpty(descriptorFileName)) {
             log.error("Given descriptor name is null or empty");
             return null;
@@ -42,12 +41,12 @@ public class ActorServiceImpl implements ActorService {
 
         ActorEntity actorEntity = this.loadActorEntity(descriptorFileName);
 
-        return new ActorModel(
-                actorEntity,
-                this.getAbsolutePathToImageSet(actorEntity.getImageName()),
-                this.tileSetDescriptorEntity,
-                startCoordinates
-        );
+        return ActorModel.builder()
+                .descriptor(this.tileSetDescriptorEntity)
+                .durationTime(actorEntity.getDurationTime())
+                .zIndex(actorEntity.getZIndex())
+                .pathToImageSet(this.getAbsolutePathToImageSet(actorEntity.getImageName()))
+                .build();
     }
 
     private TileSetDescriptorEntity loadTileSetDescriptor() {

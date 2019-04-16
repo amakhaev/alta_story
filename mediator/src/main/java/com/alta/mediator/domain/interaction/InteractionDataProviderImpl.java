@@ -39,7 +39,7 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
         List<InteractionModel> interactions = this.interactionService.getInteractions(relatedMapName);
         if (interactions == null || interactions.size() == 0) {
             log.debug("Interactions for given map '{}' not found", relatedMapName);
-            return null;
+            return InteractionDataModel.builder().interactions(Collections.emptyList()).build();
         }
 
         log.debug("{} interactions found for '{}' map", interactions.size(), relatedMapName);
