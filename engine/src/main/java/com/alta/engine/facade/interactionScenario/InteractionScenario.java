@@ -1,8 +1,8 @@
 package com.alta.engine.facade.interactionScenario;
 
 import com.alta.engine.model.interaction.InteractionEffectEngineModel;
-import com.google.inject.Inject;
-import lombok.Getter;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,21 +17,20 @@ import java.util.Queue;
 public class InteractionScenario {
 
     private final InteractionFactory interactionFactory;
+    private final Runnable completeCallback;
 
     private Queue<InteractionEffectEngineModel> currentScenario;
     private Interaction currentInteraction;
     private String targetedParticipantUuid;
 
-    @Getter
-    private boolean isInProgress;
-
     /**
      * Initialize new instance of {@link InteractionScenario}.
      */
-    @Inject
-    public InteractionScenario(InteractionFactory interactionFactory) {
+    @AssistedInject
+    public InteractionScenario(InteractionFactory interactionFactory, @Assisted Runnable completeCallback) {
         this.currentScenario = new ArrayDeque<>();
         this.interactionFactory = interactionFactory;
+        this.completeCallback = completeCallback;
     }
 
     /**
@@ -74,7 +73,8 @@ public class InteractionScenario {
 
         if (this.currentScenario.peek() == null) {
             log.debug("The scenario interaction completed. Target uuid: {}", this.targetedParticipantUuid);
-            this.isInProgress = false;
+            this.targetedParticipantUuid = null;
+            this.completeCallback.run();
             return;
         }
 
@@ -95,7 +95,6 @@ public class InteractionScenario {
             this.determinateInteractionAndStart();
         });
         this.currentInteraction.start(interaction);
-        this.isInProgress = true;
     }
 
 }

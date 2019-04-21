@@ -14,7 +14,7 @@ public class CommandExecutor {
      *
      * @param command - the command to be executed.
      */
-    public void executeCommand(@NonNull Command command) {
+    public synchronized void executeCommand(@NonNull Command command) {
         log.debug("Start the execution of command {}", command.getClass().getSimpleName());
         command.execute();
         log.debug("Finish the execution of command {}", command.getClass().getSimpleName());

@@ -23,7 +23,6 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
     private static final String CHAPTER_INDICATOR_FROM_FIELD_NAME = "chapterIndicatorFrom";
     private static final String CHAPTER_INDICATOR_TO_FIELD_NAME = "chapterIndicatorTo";
     private static final String NEXT_INTERACTION_UUID_FIELD_NAME = "nextInteractionUuid";
-    private static final String SHOWN_ONCE_FIELD_NAME = "showOnce";
 
     private static final String EFFECTS_FIELD_NAME = "effects";
     private static final String TYPE_FIELD_NAME = "type";
@@ -55,7 +54,6 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
             InteractionModel interactionModel = InteractionModel.builder()
                     .uuid(item.get(UUID_FIELD_NAME).getAsString())
                     .targetUuid(item.get(TARGET_UUID_FIELD_NAME).getAsString())
-                    .showOnce(item.get(SHOWN_ONCE_FIELD_NAME).getAsBoolean())
                     .chapterIndicatorFrom(item.has(CHAPTER_INDICATOR_FROM_FIELD_NAME) ?
                             item.get(CHAPTER_INDICATOR_FROM_FIELD_NAME).getAsInt() : null
                     )

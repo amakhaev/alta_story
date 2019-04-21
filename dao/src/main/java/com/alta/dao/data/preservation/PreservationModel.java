@@ -3,6 +3,7 @@ package com.alta.dao.data.preservation;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Provides the model that described the preservation.
@@ -26,6 +27,7 @@ public class PreservationModel {
      */
     public static final String CHAPTER_INDICATOR_FIELD = "chapter_indicator";
 
+    @Setter
     @DatabaseField(id = true, columnName = ID_FIELD)
     private Long id;
 

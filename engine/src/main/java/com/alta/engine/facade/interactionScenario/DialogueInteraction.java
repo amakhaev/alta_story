@@ -75,7 +75,7 @@ public class DialogueInteraction implements Interaction {
         this.messageBoxPresenter.tryToHideMessageBox();
 
         if (!this.messageBoxPresenter.isDialogueBoxOpen()) {
-            log.info("Completed dialogue interaction with NPC {}", this.targetUuid);
+            log.debug("Completed dialogue interaction with NPC {}", this.targetUuid);
             this.frameStagePresenter.stopInteractionWithNpc(this.targetUuid);
 
             if (this.completeCallback != null) {
@@ -85,10 +85,10 @@ public class DialogueInteraction implements Interaction {
     }
 
     private void tryToStartInteraction() {
-        log.info("Perform the dialogue interaction. Target participant was found with uuid {}.", this.targetUuid);
+        log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", this.targetUuid);
         this.messageBoxPresenter.showDialogueMessage(this.dialogueEffect.getText());
 
-        // The participant with targetedUuid is unknown. For case when it NPC then will be performed some actions
+        // The participant with targetedUuid is unknown. For case when it is NPC then will be performed some actions
         // otherwise nothing do.
         this.frameStagePresenter.startInteractionWithNpc(this.targetUuid);
     }

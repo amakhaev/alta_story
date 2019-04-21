@@ -4,13 +4,14 @@ import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.engine.eventProducer.EngineEvent;
 import com.alta.engine.eventProducer.EngineEventType;
+import com.alta.engine.eventProducer.eventPayload.InteractionCompletedEventPayload;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
 import com.alta.eventStream.EventProducer;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
@@ -20,7 +21,6 @@ import java.awt.*;
  * Provides the listener of events that happens on frame stage
  */
 @Slf4j
-@Singleton
 public class FrameStageListener {
 
     private final EventProducer<EngineEvent> engineEventProducer;
@@ -54,6 +54,22 @@ public class FrameStageListener {
                         actionCharacterMapCoordinates
                 ))
         );
+    }
+
+    /**
+     * Handles the completing of interaction.
+     *
+     * @param interactionUuid   - the uuid of interaction that was completed.
+     */
+    public void handleInteractionCompleteEvent(@NonNull String interactionUuid) {
+        if (interactionUuid.isEmpty()) {
+            throw new IllegalArgumentException("Uuid of interaction is required for complete event.");
+        }
+
+        this.engineEventProducer.publishEvent(new EngineEvent(
+                EngineEventType.INTERACTION_COMPLETED,
+                new InteractionCompletedEventPayload(interactionUuid, this.frameStageFacade.getFrameStageDataModel().getMapName())
+        ));
     }
 
     /**

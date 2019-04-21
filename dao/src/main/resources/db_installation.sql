@@ -18,3 +18,14 @@ CREATE TABLE IF NOT EXISTS character_preservations (
 
 INSERT INTO character_preservations (map_name, focus_x, focus_y, main_character_skin)
     SELECT 'test', 1, 1, 'person1.dscr' WHERE (SELECT count(*) FROM character_preservations) = 0;
+
+CREATE TABLE IF NOT EXISTS interaction_preservations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  preservation_id INTEGER NOT NULL,
+  uuid VARCHAR(32) NOT NULL,
+  map_name VARCHAR(32) NOT NULL,
+  is_completed BOOLEAN DEFAULT false,
+  is_temporary BOOLEAN NOT NULL,
+  UNIQUE (preservation_id, uuid, map_name, is_temporary),
+  FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
+);

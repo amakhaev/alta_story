@@ -1,7 +1,9 @@
 package com.alta.mediator.command.frameStage;
 
+import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
+import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
@@ -9,6 +11,7 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
+import java.util.List;
 
 /**
  * Provides the commands that renders the frame stage from preservation.
@@ -19,6 +22,7 @@ public class RenderFrameStageFromPreservationCommand implements Command {
     private final FrameStageDataProvider frameStageDataProvider;
     private final InteractionDataProvider interactionDataProvider;
     private final PreservationService preservationService;
+    private final TemporaryDataPreservationService temporaryDataPreservationService;
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final Long currentPreservationId;
 
@@ -29,11 +33,13 @@ public class RenderFrameStageFromPreservationCommand implements Command {
     public RenderFrameStageFromPreservationCommand(FrameStageDataProvider frameStageDataProvider,
                                                    InteractionDataProvider interactionDataProvider,
                                                    PreservationService preservationService,
+                                                   TemporaryDataPreservationService temporaryDataPreservationService,
                                                    FrameStageCommandFactory frameStageCommandFactory,
                                                    @Named("currentPreservationId") Long currentPreservationId) {
         this.frameStageDataProvider = frameStageDataProvider;
         this.interactionDataProvider = interactionDataProvider;
         this.preservationService = preservationService;
+        this.temporaryDataPreservationService = temporaryDataPreservationService;
         this.frameStageCommandFactory = frameStageCommandFactory;
         this.currentPreservationId = currentPreservationId;
     }
@@ -49,10 +55,25 @@ public class RenderFrameStageFromPreservationCommand implements Command {
             throw new NullPointerException("Preservation model with given Id not found.");
         }
 
+        // Add saved interactions.
+        List<InteractionPreservationModel> interactionPreservations = this.preservationService.getInteractionsPreservation(
+                this.currentPreservationId,
+                preservationModel.getCharacterPreservation().getMapName()
+        );
+
+        // Add temporary saved interactions.
+        interactionPreservations.addAll(
+                this.temporaryDataPreservationService.getTemporaryInteractionsPreservation(
+                        this.currentPreservationId,
+                        preservationModel.getCharacterPreservation().getMapName()
+                )
+        );
+
         Command command = this.frameStageCommandFactory.createRenderFrameStageCommand(
                 this.frameStageDataProvider.getFromPreservation(preservationModel.getCharacterPreservation()),
                 this.interactionDataProvider.getInteractionByRelatedMapName(
                         preservationModel.getCharacterPreservation().getMapName(),
+                        interactionPreservations,
                         preservationModel.getChapterIndicator()
                 )
         );

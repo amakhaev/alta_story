@@ -5,5 +5,6 @@ package com.alta.engine.eventProducer;
  */
 public enum  EngineEventType {
     JUMPING,
-    SAVE_STATE
+    SAVE_STATE,
+    INTERACTION_COMPLETED
 }

@@ -13,6 +13,9 @@ import java.util.List;
 @Builder
 public class InteractionDataModel {
 
+    /**
+     * Provides the list of interaction between participants.
+     */
     private final List<InteractionEngineModel> interactions;
 
 }

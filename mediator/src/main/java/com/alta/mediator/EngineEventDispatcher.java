@@ -1,7 +1,11 @@
 package com.alta.mediator;
 
 import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.dao.data.preservation.InteractionPreservationModel;
+import com.alta.dao.domain.preservation.PreservationService;
+import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.engine.eventProducer.EngineEvent;
+import com.alta.engine.eventProducer.eventPayload.InteractionCompletedEventPayload;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
 import com.alta.mediator.command.Command;
@@ -11,20 +15,38 @@ import com.alta.mediator.command.preservation.PreservationCommandFactory;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.inject.Named;
 
 /**
  * Provides the dispatcher of events from {@link com.alta.engine.Engine}
  */
 @Slf4j
 @Singleton
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class EngineEventDispatcher {
 
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final PreservationCommandFactory preservationCommandFactory;
     private final CommandExecutor commandExecutor;
+    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final Long currentPreservationId;
+
+    /**
+     * Initialize new instance of {@link EngineEventDispatcher}.
+     */
+    @Inject
+    public EngineEventDispatcher(FrameStageCommandFactory frameStageCommandFactory,
+                                 PreservationCommandFactory preservationCommandFactory,
+                                 CommandExecutor commandExecutor,
+                                 TemporaryDataPreservationService temporaryDataPreservationService,
+                                 @Named("currentPreservationId") Long currentPreservationId) {
+        this.frameStageCommandFactory = frameStageCommandFactory;
+        this.preservationCommandFactory = preservationCommandFactory;
+        this.commandExecutor = commandExecutor;
+        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.currentPreservationId = currentPreservationId;
+    }
 
     /**
      * Dispatches the event from Engine.
@@ -40,7 +62,10 @@ public class EngineEventDispatcher {
                     this.executeRenderCommand(event.tryToCastPayload(JumpingEventPayload.class));
                     break;
                 case SAVE_STATE:
-                    this.executeUpdateCharacterPreservationCommand(event.tryToCastPayload(SaveStateEventPayload.class));
+                    this.executeSaving(event.tryToCastPayload(SaveStateEventPayload.class));
+                    break;
+                case INTERACTION_COMPLETED:
+                    this.executeUpdateInteractionPreservationCommand(event.tryToCastPayload(InteractionCompletedEventPayload.class));
                     break;
                 default:
                     log.error("Unknown type of payload {}", event.getType());
@@ -60,18 +85,43 @@ public class EngineEventDispatcher {
         );
     }
 
-    private void executeUpdateCharacterPreservationCommand(@NonNull SaveStateEventPayload payload) {
-        Command command = this.preservationCommandFactory.createUpdateCharacterPreservationCommand(
-                CharacterPreservationModel.builder()
-                        .id(1L)
-                        .focusX(payload.getMapCoordinates().x)
-                        .focusY(payload.getMapCoordinates().y)
-                        .skin(payload.getSkinName())
-                        .mapName(payload.getMapName())
-                        .build()
+    private void executeUpdateInteractionPreservationCommand(@NonNull InteractionCompletedEventPayload payload) {
+        InteractionPreservationModel interactionPreservationToUpdate;
+        interactionPreservationToUpdate = this.temporaryDataPreservationService.getTemporaryInteractionPreservation(
+                this.currentPreservationId, payload.getInteractionUuid()
+        );
+
+        if (interactionPreservationToUpdate == null) {
+            interactionPreservationToUpdate = InteractionPreservationModel
+                    .builder()
+                    .preservationId(this.currentPreservationId)
+                    .uuid(payload.getInteractionUuid())
+                    .isComplete(true)
+                    .isTemporary(true)
+                    .mapName(payload.getMapName())
+                    .build();
+        } else {
+            interactionPreservationToUpdate.setCompleted(true);
+        }
+
+        Command command = this.preservationCommandFactory.createUpdateInteractionPreservationCommand(
+                interactionPreservationToUpdate
         );
 
         this.commandExecutor.executeCommand(command);
-        log.info("Updating the character preservation with id {} completed.", 1L);
+    }
+
+    private void executeSaving(@NonNull SaveStateEventPayload payload) {
+        CharacterPreservationModel characterPreservationModel = CharacterPreservationModel.builder()
+                .id(this.currentPreservationId)
+                .focusX(payload.getMapCoordinates().x)
+                .focusY(payload.getMapCoordinates().y)
+                .skin(payload.getSkinName())
+                .mapName(payload.getMapName())
+                .build();
+
+        Command command = this.preservationCommandFactory.createSavePreservationCommand(characterPreservationModel);
+        this.commandExecutor.executeCommand(command);
+        log.info("Saving of preservation completed to preservation {}", this.currentPreservationId);
     }
 }

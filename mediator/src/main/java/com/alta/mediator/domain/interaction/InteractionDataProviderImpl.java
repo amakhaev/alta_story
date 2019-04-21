@@ -3,6 +3,8 @@ package com.alta.mediator.domain.interaction;
 import com.alta.dao.data.interaction.DialogueEffectModel;
 import com.alta.dao.data.interaction.InteractionEffectModel;
 import com.alta.dao.data.interaction.InteractionModel;
+import com.alta.dao.data.preservation.InteractionPreservationModel;
+import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
 import com.alta.engine.model.InteractionDataModel;
 import com.alta.engine.model.interaction.DialogueEffectEngineModel;
@@ -30,12 +32,15 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
     /**
      * Gets the interaction engine model by given related map name.
      *
-     * @param relatedMapName          - the name of map where interaction should be happens.
-     * @param currentChapterIndicator - the indicator of current chapter.
+     * @param relatedMapName           - the name of map where interaction should be happens.
+     * @param interactionPreservations - the current preservation model.
+     * @param currentChapterIndicator  - the indicator of current chapter.
      * @return the {@link InteractionDataModel} instance.
      */
     @Override
-    public InteractionDataModel getInteractionByRelatedMapName(@NonNull String relatedMapName, int currentChapterIndicator) {
+    public InteractionDataModel getInteractionByRelatedMapName(@NonNull String relatedMapName,
+                                                               @NonNull List<InteractionPreservationModel> interactionPreservations,
+                                                               int currentChapterIndicator) {
         List<InteractionModel> interactions = this.interactionService.getInteractions(relatedMapName);
         if (interactions == null || interactions.size() == 0) {
             log.debug("Interactions for given map '{}' not found", relatedMapName);
@@ -45,14 +50,13 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
         log.debug("{} interactions found for '{}' map", interactions.size(), relatedMapName);
 
         List<InteractionEngineModel> interactionEngineModels = interactions.stream()
-                .filter(interactionModel ->
-                        interactionModel.getChapterIndicatorFrom() != null && interactionModel.getChapterIndicatorTo() != null
-                )
-                .filter(interactionModel ->
-                        currentChapterIndicator >= interactionModel.getChapterIndicatorFrom() &&
-                        currentChapterIndicator <= interactionModel.getChapterIndicatorTo()
-                )
-                .map(interactionModel -> this.createInteractionModelWithChildren(interactionModel, interactions))
+                .filter(interactionModel -> interactionModel.getChapterIndicatorFrom() != null)
+                .filter(interactionModel -> interactionModel.getChapterIndicatorTo() != null)
+                .filter(interactionModel -> currentChapterIndicator >= interactionModel.getChapterIndicatorFrom())
+                .filter(interactionModel -> currentChapterIndicator <= interactionModel.getChapterIndicatorTo())
+                .map(interactionModel -> this.createInteractionModelWithChildren(
+                        interactionModel, interactions, interactionPreservations
+                ))
                 .collect(Collectors.toList());
 
         log.info("{} interactions found for '{}' map.", interactions.size(), relatedMapName);
@@ -60,7 +64,9 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
         return InteractionDataModel.builder().interactions(interactionEngineModels).build();
     }
 
-    private InteractionEngineModel createInteractionModelWithChildren(InteractionModel parent, List<InteractionModel> sources) {
+    private InteractionEngineModel createInteractionModelWithChildren(InteractionModel parent,
+                                                                      List<InteractionModel> sources,
+                                                                      @NonNull List<InteractionPreservationModel> interactionPreservations) {
         InteractionEngineModel childInteraction = null;
         if (!Strings.isNullOrEmpty(parent.getNextInteractionUuid())) {
             InteractionModel child = sources.stream()
@@ -69,15 +75,21 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                     .orElse(null);
 
             if (child != null) {
-                childInteraction = this.createInteractionModelWithChildren(child, sources);
+                childInteraction = this.createInteractionModelWithChildren(child, sources, interactionPreservations);
             }
         }
+
+        InteractionPreservationModel interactionPreservationModel = interactionPreservations
+                .stream()
+                .filter(interaction -> interaction.getUuid().equals(parent.getUuid()))
+                .findFirst()
+                .orElse(null);
 
         return InteractionEngineModel.builder()
                 .uuid(parent.getUuid())
                 .targetUuid(parent.getTargetUuid())
-                .showOnce(parent.isShowOnce())
                 .interactionEffects(this.createEffects(parent.getEffects()))
+                .isCompleted(interactionPreservationModel != null)
                 .next(childInteraction)
                 .build();
     }
