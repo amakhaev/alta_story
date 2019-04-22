@@ -2,6 +2,7 @@ package com.alta.engine.view;
 
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
@@ -132,39 +133,10 @@ public class FrameStageView {
     /**
      * Finds the participant that targeted by acting character.
      *
-     * @return the uuid or null if not found.
+     * @return the {@link TargetedParticipantSummary} instance or null if not found.
      */
-    public String findParticipantTargetedByActingCharacter() {
-        if (this.stageComputatorImpl == null || this.frameStageDataModel == null) {
-            return null;
-        }
-
-        ActorParticipant actingCharacter = this.stageComputatorImpl.getActorParticipant(
-                this.frameStageDataModel.getActingCharacter().getUuid()
-        );
-
-        if (actingCharacter == null || actingCharacter.getCurrentMapCoordinates() == null) {
-            return null;
-        }
-
-        Point targetCharacterMapCoordinate = new Point(actingCharacter.getCurrentMapCoordinates());
-        switch (actingCharacter.getCurrentDirection()) {
-            case UP:
-                targetCharacterMapCoordinate.y--;
-                break;
-            case DOWN:
-                targetCharacterMapCoordinate.y++;
-                break;
-            case LEFT:
-                targetCharacterMapCoordinate.x--;
-                break;
-            case RIGHT:
-                targetCharacterMapCoordinate.x++;
-                break;
-        }
-
-        CoordinatedParticipant character = this.stageComputatorImpl.findCharacterByPosition(targetCharacterMapCoordinate);
-        return character == null ? null : character.getUuid();
+    public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
+        return this.stageComputatorImpl.findParticipantTargetedByActingCharacter();
     }
 
 }

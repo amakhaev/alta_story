@@ -3,6 +3,7 @@ package com.alta.computator.service.stage;
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
@@ -88,6 +89,26 @@ public class StageComputatorImpl implements StageComputator {
         }
 
         return this.simpleNpcListComputator.getSimpleNpcParticipant(uuid);
+    }
+
+    /**
+     * Finds the participant to which acting character is aimed now.
+     *
+     * @return the {@link TargetedParticipantSummary} instance or null.
+     */
+    @Override
+    public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
+        if (this.actingCharacterComputator == null || this.actingCharacterComputator.getActingCharacterParticipant() == null) {
+            throw new RuntimeException("Acting character not set.");
+        }
+
+        Point targetParticipantMapCoordinates = this.actingCharacterComputator.getMapCoordinatesOfTargetParticipant();
+        TargetedParticipantSummary summary = this.simpleNpcListComputator.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
+        if (summary != null) {
+            return summary;
+        }
+
+        return this.facilityComputator.findFacilityTargetByMapCoordinates(targetParticipantMapCoordinates);
     }
 
     /**
@@ -250,16 +271,6 @@ public class StageComputatorImpl implements StageComputator {
      */
     public void tryToRunMovement(MovementDirection movementDirection) {
         this.focusPointComputator.tryToRunMovement(movementDirection, this.altitudeMap);
-    }
-
-    /**
-     * Finds the character on map by given map position.
-     *
-     * @param mapCoordinates - the map coordinates of character.
-     * @return the uuid of character or null if not found.
-     */
-    public CoordinatedParticipant findCharacterByPosition(Point mapCoordinates) {
-        return this.layerComputator.findCharacterByPosition(mapCoordinates);
     }
 
     private boolean isAllDataInitialized() {

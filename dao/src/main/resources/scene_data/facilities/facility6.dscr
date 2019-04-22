@@ -1,0 +1,28 @@
+{
+  "imageName": "facility6.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "box1",
+      "positions": [
+        {
+          "x": 0,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 0
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 0
+        }
+      ]
+    }
+  ]
+}

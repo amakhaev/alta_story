@@ -2,6 +2,7 @@ package com.alta.computator.service.movement.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.movement.strategy.MovementStrategy;

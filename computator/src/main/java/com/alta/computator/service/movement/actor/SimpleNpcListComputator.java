@@ -1,7 +1,9 @@
 package com.alta.computator.service.movement.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -87,6 +89,28 @@ public class SimpleNpcListComputator {
         if (this.simpleNpcComputators != null && this.simpleNpcComputators.containsKey(uuid)) {
             this.simpleNpcComputators.get(uuid).setComputationPause(isPause);
         }
+    }
+
+    /**
+     * Finds the NPC that has given map coordinates.
+     *
+     * @param mapCoordinates - the map coordinates for searching.
+     * @return the {@link TargetedParticipantSummary} instance of null if not found.
+     */
+    public TargetedParticipantSummary findNpcTargetByMapCoordinates(@NonNull Point mapCoordinates) {
+        if (this.simpleNpcComputators.size() == 0) {
+            return null;
+        }
+
+        return this.simpleNpcComputators.values().stream()
+                .filter(c -> c.getSimpleNpcParticipant().getCurrentMapCoordinates().equals(mapCoordinates))
+                .findFirst()
+                .map(c -> new TargetedParticipantSummary(
+                        c.getSimpleNpcParticipant().getUuid(),
+                        c.getSimpleNpcParticipant().getCurrentMapCoordinates(),
+                        c.getSimpleNpcParticipant().getParticipantType()
+                ))
+                .orElse(null);
     }
 
     /**

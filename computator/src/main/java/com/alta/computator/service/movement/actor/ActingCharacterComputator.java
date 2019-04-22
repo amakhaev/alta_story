@@ -78,6 +78,33 @@ public class ActingCharacterComputator {
         this.actingCharacterParticipant.setMoving(isMoving);
     }
 
+    /**
+     * Finds the coordinates of target participant to which acting character is aimed
+     *
+     * @return the coordinates of target participant.
+     */
+    public Point getMapCoordinatesOfTargetParticipant() {
+        Point actingCharacterMapCoordinates = actingCharacterParticipant.getCurrentMapCoordinates();
+
+        Point targetCharacterMapCoordinate = new Point(actingCharacterMapCoordinates);
+        switch (this.actingCharacterParticipant.getCurrentDirection()) {
+            case UP:
+                targetCharacterMapCoordinate.y--;
+                break;
+            case DOWN:
+                targetCharacterMapCoordinate.y++;
+                break;
+            case LEFT:
+                targetCharacterMapCoordinate.x--;
+                break;
+            case RIGHT:
+                targetCharacterMapCoordinate.x++;
+                break;
+        }
+
+        return targetCharacterMapCoordinate;
+    }
+
     private void updateAltitudeMap(AltitudeMap altitudeMap, Point oldMapCoordinates, Point newMapCoordinates) {
         altitudeMap.setTileState(newMapCoordinates.x, newMapCoordinates.y, TileState.BARRIER);
         altitudeMap.setTileState(oldMapCoordinates.x, oldMapCoordinates.y, TileState.FREE);

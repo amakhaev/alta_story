@@ -2,9 +2,11 @@ package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -57,6 +59,25 @@ public class FacilityComputator {
         this.facilityParticipants.forEach(
                 participant -> this.calculate(participant, altitudeMap, focusPointGlobalCoordinates)
         );
+    }
+
+    /**
+     * Finds the facility that has given map coordinates.
+     *
+     * @param mapCoordinates - the map coordinates for searching.
+     * @return the {@link TargetedParticipantSummary} instance of null if not found.
+     */
+    public TargetedParticipantSummary findFacilityTargetByMapCoordinates(@NonNull Point mapCoordinates) {
+        return this.facilityParticipants.stream()
+                .filter(facilityParticipant -> facilityParticipant.getShiftCoordinatesByMapCoordinates(mapCoordinates) != null)
+                .findFirst()
+                .map(facilityParticipant -> new TargetedParticipantSummary(
+                        facilityParticipant.getUuid(),
+                        mapCoordinates,
+                        facilityParticipant.getParticipantType(),
+                        facilityParticipant.getShiftCoordinatesByMapCoordinates(mapCoordinates)
+                ))
+                .orElse(null);
     }
 
     private void calculate(FacilityParticipant facilityParticipant, AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {

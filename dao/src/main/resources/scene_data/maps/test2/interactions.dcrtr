@@ -1,2 +1,16 @@
 [
+	{
+		"uuid": "c5a5c2d7-d01e-4552-b22d-53e3e471ca36",
+		"targetUuid": "68d48dbf-9058-4889-b8ae-dab8559cb830",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTileX": 1,
+        "shiftTileY": 1,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Портал закрыт."
+			}
+		]
+	}
 ]

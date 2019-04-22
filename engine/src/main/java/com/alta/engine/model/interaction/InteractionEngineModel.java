@@ -17,6 +17,8 @@ public class InteractionEngineModel {
     private final String targetUuid;
     private final InteractionEngineModel next;
     private final List<InteractionEffectEngineModel> interactionEffects;
+    private Integer shiftTileX;
+    private Integer shiftTileY;
 
     @Setter
     private boolean isCompleted;

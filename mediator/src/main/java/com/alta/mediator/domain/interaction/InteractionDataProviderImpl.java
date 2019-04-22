@@ -89,6 +89,8 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                 .uuid(parent.getUuid())
                 .targetUuid(parent.getTargetUuid())
                 .interactionEffects(this.createEffects(parent.getEffects()))
+                .shiftTileX(parent.getShiftTileX())
+                .shiftTileY(parent.getShiftTileY())
                 .isCompleted(interactionPreservationModel != null)
                 .next(childInteraction)
                 .build();

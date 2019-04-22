@@ -1,15 +1,18 @@
 package com.alta.engine.facade;
 
+import com.alta.computator.model.participant.ParticipatType;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.engine.facade.interactionScenario.InteractionScenario;
 import com.alta.engine.facade.interactionScenario.InteractionScenarioFactory;
 import com.alta.engine.model.InteractionDataModel;
 import com.alta.engine.model.interaction.InteractionEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.awt.*;
 
 /**
  * Provides the facade to cooperation interaction in engine.
@@ -47,34 +50,37 @@ public class InteractionFacade {
         }
 
         if (this.currentInteraction != null) {
-            this.triggerNextStepOnScenario();
+            this.interactionScenario.onNext();
         } else {
             this.startInteraction();
         }
     }
 
     private void startInteraction() {
-        String targetedUuid = this.frameStagePresenter.findSimpleNpcTargetedByActingCharacter();
-        if (Strings.isNullOrEmpty(targetedUuid)) {
-            log.info("Participant for interaction not found.");
+        TargetedParticipantSummary targetedParticipant = this.frameStagePresenter.findParticipantTargetedByActingCharacter();
+        if (targetedParticipant == null) {
+            log.debug("Participant for interaction not found.");
             return;
         }
 
-        InteractionEngineModel interaction = this.findInteractionByTargetUuid(targetedUuid);
+        InteractionEngineModel interaction = null;
+        if (targetedParticipant.getParticipatType() == ParticipatType.SIMPLE_NPC) {
+            interaction = this.findInteractionForNpc(targetedParticipant.getUuid());
+        } else if (targetedParticipant.getParticipatType() == ParticipatType.FACILITY) {
+            interaction = this.findInteractionForFacility(targetedParticipant.getUuid(), targetedParticipant.getRelatedMapCoordinates());
+        }
+
+
         if (interaction == null) {
-            log.error("Interaction not found for target uuid {}", targetedUuid);
+            log.debug("Interaction not found for target uuid {}", targetedParticipant.getUuid());
             return;
         }
 
         this.currentInteraction = interaction;
-        this.interactionScenario.performScenario(interaction.getTargetUuid(), interaction.getInteractionEffects());
+        this.interactionScenario.performScenario(targetedParticipant, interaction.getInteractionEffects());
     }
 
-    private void triggerNextStepOnScenario() {
-        this.interactionScenario.onNext();
-    }
-
-    private InteractionEngineModel findInteractionByTargetUuid(@NonNull String targetUuid) {
+    private InteractionEngineModel findInteractionForNpc(@NonNull String targetUuid) {
         InteractionEngineModel interaction = this.interactionData.getInteractions()
                 .stream()
                 .filter(interactionModel -> interactionModel.getTargetUuid().equals(targetUuid))
@@ -82,6 +88,28 @@ public class InteractionFacade {
                 .orElse(null);
 
         if (interaction == null) {
+            return null;
+        }
+
+        InteractionEngineModel incompletedInteraction = interaction.findIncompletedInteraction();
+        return incompletedInteraction == null ? interaction.findLastInteraction() : incompletedInteraction;
+    }
+
+    private InteractionEngineModel findInteractionForFacility(@NonNull String targetUuid,
+                                                              @NonNull Point shiftTileMapCoordinate) {
+        InteractionEngineModel interaction = this.interactionData.getInteractions()
+                .stream()
+                .filter(interactionModel -> interactionModel.getTargetUuid().equals(targetUuid))
+                .findFirst()
+                .orElse(null);
+
+        if (interaction == null) {
+            return null;
+        }
+
+        // Need to run interaction for facility only if select specific targeted tile, not all facility.
+        if (interaction.getShiftTileX() != shiftTileMapCoordinate.x ||
+                interaction.getShiftTileY() != shiftTileMapCoordinate.y) {
             return null;
         }
 

@@ -2,6 +2,7 @@ package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 
@@ -41,6 +42,13 @@ public interface StageComputator {
      * @return the {@link SimpleNpcParticipant} instance of null if key not present
      */
     ActorParticipant getActorParticipant(String uuid);
+
+    /**
+     * Finds the participant to which acting character is aimed now.
+     *
+     * @return the {@link TargetedParticipantSummary} instance or null.
+     */
+    TargetedParticipantSummary findParticipantTargetedByActingCharacter();
 
     /**
      * Handles the next tick in the stage

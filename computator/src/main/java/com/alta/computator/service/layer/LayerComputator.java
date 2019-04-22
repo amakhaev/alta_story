@@ -1,12 +1,9 @@
 package com.alta.computator.service.layer;
 
 import com.alta.computator.model.participant.CoordinatedParticipant;
-import com.alta.computator.model.participant.ParticipatType;
-import com.google.common.base.Strings;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -56,23 +53,6 @@ public class LayerComputator {
 
         this.sortedParticipants.add(participant);
         this.resortParticipants();
-    }
-
-    /**
-     * Finds the character on map by given map position.
-     *
-     * @param mapCoordinates - the map coordinates of character.
-     * @return the {@link CoordinatedParticipant} instance or null if not found.
-     */
-    public CoordinatedParticipant findCharacterByPosition(Point mapCoordinates) {
-        if (mapCoordinates == null || this.sortedParticipants == null) {
-            return null;
-        }
-
-        return this.sortedParticipants.stream()
-                .filter(participant -> participant.getCurrentMapCoordinates().equals(mapCoordinates))
-                .findFirst()
-                .orElse(null);
     }
 
     private void resortParticipants() {

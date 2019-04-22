@@ -37,33 +37,5 @@ public class InteractionActionHandler implements ActionHandler {
         }
 
         this.interactionFacade.triggerInteraction();
-
-        /*if (this.messageBoxPresenter.isDialogueBoxOpen()) {
-            this.tryToHideMessageBox();
-        } else {
-            this.tryToStartInteraction();
-        }*/
     }
-
-    /*private void tryToHideMessageBox() {
-        this.messageBoxPresenter.tryToHideMessageBox();
-
-        if (!this.messageBoxPresenter.isDialogueBoxOpen()) {
-            log.info("Completed interaction with NPC {}", this.interactionTargetUuid);
-            this.frameStagePresenter.stopInteractionWithNpc(this.interactionTargetUuid);
-            this.interactionTargetUuid = null;
-        }
-    }
-
-    private void tryToStartInteraction() {
-        SimpleNpcEngineModel simpleNpcEngineModel = this.frameStagePresenter.findSimpleNpcTargetedByActingCharacter();
-        if (simpleNpcEngineModel == null || Strings.isNullOrEmpty(simpleNpcEngineModel.getDialogue())) {
-            return;
-        }
-
-        log.info("Perform the interaction. Target NPC was found with uuid {}.", simpleNpcEngineModel.getUuid());
-        this.interactionTargetUuid = simpleNpcEngineModel.getUuid();
-        this.messageBoxPresenter.showDialogueMessage(simpleNpcEngineModel.getDialogue());
-        this.frameStagePresenter.startInteractionWithNpc(this.interactionTargetUuid);
-    }*/
 }

@@ -1,5 +1,7 @@
 package com.alta.engine.facade.interactionScenario;
 
+import com.alta.computator.model.participant.ParticipatType;
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.engine.model.interaction.DialogueEffectEngineModel;
 import com.alta.engine.model.interaction.InteractionEffectEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
@@ -18,7 +20,7 @@ public class DialogueInteraction implements Interaction {
 
     private final FrameStagePresenter frameStagePresenter;
     private final MessageBoxPresenter messageBoxPresenter;
-    private final String targetUuid;
+    private final TargetedParticipantSummary targetedParticipant;
 
     private DialogueEffectEngineModel dialogueEffect;
 
@@ -31,10 +33,10 @@ public class DialogueInteraction implements Interaction {
     @AssistedInject
     public DialogueInteraction(FrameStagePresenter frameStagePresenter,
                                MessageBoxPresenter messageBoxPresenter,
-                               @Assisted @NonNull String targetUuid) {
+                               @Assisted @NonNull TargetedParticipantSummary targetedParticipant) {
         this.frameStagePresenter = frameStagePresenter;
         this.messageBoxPresenter = messageBoxPresenter;
-        this.targetUuid = targetUuid;
+        this.targetedParticipant = targetedParticipant;
     }
 
     /**
@@ -75,8 +77,8 @@ public class DialogueInteraction implements Interaction {
         this.messageBoxPresenter.tryToHideMessageBox();
 
         if (!this.messageBoxPresenter.isDialogueBoxOpen()) {
-            log.debug("Completed dialogue interaction with NPC {}", this.targetUuid);
-            this.frameStagePresenter.stopInteractionWithNpc(this.targetUuid);
+            log.debug("Completed dialogue interaction with NPC {}", this.targetedParticipant.getUuid());
+            this.frameStagePresenter.stopInteractionWithNpc(this.targetedParticipant.getUuid());
 
             if (this.completeCallback != null) {
                 this.completeCallback.run();
@@ -85,11 +87,11 @@ public class DialogueInteraction implements Interaction {
     }
 
     private void tryToStartInteraction() {
-        log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", this.targetUuid);
+        log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", this.targetedParticipant.getUuid());
         this.messageBoxPresenter.showDialogueMessage(this.dialogueEffect.getText());
 
-        // The participant with targetedUuid is unknown. For case when it is NPC then will be performed some actions
-        // otherwise nothing do.
-        this.frameStagePresenter.startInteractionWithNpc(this.targetUuid);
+        if (this.targetedParticipant.getParticipatType() == ParticipatType.SIMPLE_NPC) {
+            this.frameStagePresenter.startInteractionWithNpc(this.targetedParticipant.getUuid());
+        }
     }
 }

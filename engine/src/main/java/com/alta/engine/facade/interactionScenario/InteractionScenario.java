@@ -1,5 +1,6 @@
 package com.alta.engine.facade.interactionScenario;
 
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.engine.model.interaction.InteractionEffectEngineModel;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -21,7 +22,7 @@ public class InteractionScenario {
 
     private Queue<InteractionEffectEngineModel> currentScenario;
     private Interaction currentInteraction;
-    private String targetedParticipantUuid;
+    private TargetedParticipantSummary targetedParticipantSummary;
 
     /**
      * Initialize new instance of {@link InteractionScenario}.
@@ -36,10 +37,11 @@ public class InteractionScenario {
     /**
      * Performs the scenario related to interaction.
      *
-     * @param targetedParticipantUuid   - the uuid of participant that selected for interaction.
-     * @param effects                   - the effects of interaction that should be shown.
+     * @param targetedParticipantSummary    - the summery of participant that selected for interaction.
+     * @param effects                       - the effects of interaction that should be shown.
      */
-    public void performScenario(@NonNull String targetedParticipantUuid, @NonNull List<InteractionEffectEngineModel> effects) {
+    public void performScenario(@NonNull TargetedParticipantSummary targetedParticipantSummary,
+                                @NonNull List<InteractionEffectEngineModel> effects) {
         if (effects.size() == 0) {
             return;
         }
@@ -48,7 +50,7 @@ public class InteractionScenario {
             throw new RuntimeException("Scenario already in progress. Can't add another effects.");
         }
 
-        this.targetedParticipantUuid = targetedParticipantUuid;
+        this.targetedParticipantSummary = targetedParticipantSummary;
         this.currentScenario.addAll(effects);
         this.determinateInteractionAndStart();
     }
@@ -72,8 +74,12 @@ public class InteractionScenario {
         }
 
         if (this.currentScenario.peek() == null) {
-            log.debug("The scenario interaction completed. Target uuid: {}", this.targetedParticipantUuid);
-            this.targetedParticipantUuid = null;
+            log.debug(
+                    "The scenario interaction completed. Target type: {}, uuid: {}",
+                    this.targetedParticipantSummary.getParticipatType(),
+                    this.targetedParticipantSummary.getUuid()
+            );
+            this.targetedParticipantSummary = null;
             this.completeCallback.run();
             return;
         }
@@ -89,7 +95,7 @@ public class InteractionScenario {
     }
 
     private void startDialogueInteraction(InteractionEffectEngineModel interaction) {
-        this.currentInteraction = this.interactionFactory.createDialogueInteraction(this.targetedParticipantUuid);
+        this.currentInteraction = this.interactionFactory.createDialogueInteraction(this.targetedParticipantSummary);
         this.currentInteraction.setCompleteCallback(() -> {
             this.currentInteraction = null;
             this.determinateInteractionAndStart();

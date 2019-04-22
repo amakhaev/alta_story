@@ -1,5 +1,6 @@
 package com.alta.engine.presenter;
 
+import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
@@ -69,9 +70,9 @@ public class FrameStagePresenter {
     /**
      * Finds the uuid of participant that targeted by acting character.
      *
-     * @return the uuid null if not found.
+     * @return the {@link TargetedParticipantSummary} instance or null if not found.
      */
-    public String findSimpleNpcTargetedByActingCharacter() {
+    public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
         return this.currentView == null ? null : this.currentView.findParticipantTargetedByActingCharacter();
     }
 

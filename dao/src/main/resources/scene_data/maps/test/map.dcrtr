@@ -77,6 +77,13 @@
 			"descriptorFileName": "facility2",
 			"startX": 0,
 			"startY": 13
+		},
+		{
+			"uuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38",
+			"name": "box1", 
+			"descriptorFileName": "facility6",
+			"startX": 7,
+			"startY": 3
 		}
 	],
 	"simpleNpcList": [

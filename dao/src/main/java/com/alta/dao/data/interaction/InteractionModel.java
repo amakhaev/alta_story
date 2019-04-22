@@ -18,6 +18,8 @@ public class InteractionModel {
     private String nextInteractionUuid;
     private Integer chapterIndicatorFrom;
     private Integer chapterIndicatorTo;
+    private Integer shiftTileX;
+    private Integer shiftTileY;
 
     @Singular
     private List<InteractionEffectModel> effects;

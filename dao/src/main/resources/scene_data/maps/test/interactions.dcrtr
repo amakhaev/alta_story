@@ -58,5 +58,19 @@
 				"text": "Статуя богини такая классная."
 			}
 		]
+	},
+	{
+		"uuid": "c0eeebd8-8047-4288-8c22-ec6547cd4edc",
+		"targetUuid": "6803c153-4e02-4c6b-af08-148da29d7509",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTileX": 1,
+        "shiftTileY": 3,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Статуя богини воздвигнута в честь сотворения мира."
+			}
+		]
 	}
 ]

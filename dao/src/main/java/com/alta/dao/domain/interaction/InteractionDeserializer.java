@@ -23,6 +23,8 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
     private static final String CHAPTER_INDICATOR_FROM_FIELD_NAME = "chapterIndicatorFrom";
     private static final String CHAPTER_INDICATOR_TO_FIELD_NAME = "chapterIndicatorTo";
     private static final String NEXT_INTERACTION_UUID_FIELD_NAME = "nextInteractionUuid";
+    private static final String SHIFT_TILE_X_FIELD_NAME = "shiftTileX";
+    private static final String SHIFT_TILE_Y_FIELD_NAME = "shiftTileY";
 
     private static final String EFFECTS_FIELD_NAME = "effects";
     private static final String TYPE_FIELD_NAME = "type";
@@ -59,6 +61,12 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                     )
                     .chapterIndicatorTo(item.has(CHAPTER_INDICATOR_TO_FIELD_NAME) ?
                             item.get(CHAPTER_INDICATOR_TO_FIELD_NAME).getAsInt() : null
+                    )
+                    .shiftTileX(item.has(SHIFT_TILE_X_FIELD_NAME) ?
+                            item.get(SHIFT_TILE_X_FIELD_NAME).getAsInt() : null
+                    )
+                    .shiftTileY(item.has(SHIFT_TILE_Y_FIELD_NAME) ?
+                            item.get(SHIFT_TILE_Y_FIELD_NAME).getAsInt() : null
                     )
                     .nextInteractionUuid(item.has(NEXT_INTERACTION_UUID_FIELD_NAME) ?
                             item.get(NEXT_INTERACTION_UUID_FIELD_NAME).getAsString() : null

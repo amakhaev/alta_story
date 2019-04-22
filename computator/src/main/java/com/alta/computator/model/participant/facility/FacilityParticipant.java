@@ -3,6 +3,7 @@ package com.alta.computator.model.participant.facility;
 import com.alta.computator.model.participant.ParticipantComputation;
 import com.alta.computator.model.participant.ParticipatType;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.awt.*;
 import java.util.List;
@@ -34,13 +35,22 @@ public class FacilityParticipant extends ParticipantComputation {
     }
 
     /**
-     * Updates the value of start global coordinates
+     * Gets the shift coordinates by given map coordinates.
      *
-     * @param x - the X coordinate
-     * @param y - the Y coordinate
+     * @param mapCoordinate - the map coordinates.
+     * @return the {@link Point} instance that describes shift or null if not found.
      */
-    public void updateStartGlobalCoordinates(int x, int y) {
-        this.startGlobalCoordinates.x = x;
-        this.startGlobalCoordinates.y = y;
+    public Point getShiftCoordinatesByMapCoordinates(@NonNull Point mapCoordinate) {
+        Point temp = new Point();
+        return this.facilityPartParticipants.stream()
+                .filter(part -> {
+                            temp.x = part.getStartMapCoordinates().x + part.getShiftTilePosition().x;
+                            temp.y = part.getStartMapCoordinates().y + part.getShiftTilePosition().y;
+                            return temp.equals(mapCoordinate);
+                        }
+                )
+                .findFirst()
+                .map(FacilityPartParticipant::getShiftTilePosition)
+                .orElse(null);
     }
 }
