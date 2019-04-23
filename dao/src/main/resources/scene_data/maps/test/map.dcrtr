@@ -6,84 +6,104 @@
 			"name": "cross1", 
 			"descriptorFileName": "facility1",
 			"startX": 2,
-			"startY": 2
+			"startY": 2,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "09a80fbc-df0a-4cdd-ae23-1227c39dca08",
 			"name": "cross1", 
 			"descriptorFileName": "facility1",
 			"startX": 3,
-			"startY": 2
+			"startY": 2,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "c9703cf5-3115-4413-b55d-2e21075c7b27",
 			"name": "cross1", 
 			"descriptorFileName": "facility1",
 			"startX": 4,
-			"startY": 2
+			"startY": 2,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "34e656e2-7d89-4344-bf45-88240acd4dde",
 			"name": "cross1", 
 			"descriptorFileName": "facility1",
 			"startX": 2,
-			"startY": 4
+			"startY": 4,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "48785ccf-aaa4-4dc3-a4cf-af38fde7d3e0",
 			"name": "cross1", 
 			"descriptorFileName": "facility1",
 			"startX": 3,
-			"startY": 4
+			"startY": 4,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "c5de357a-fd0c-42a7-97dc-754211f8584f",
 			"name": "cross1", 
 			"descriptorFileName": "facility1",
 			"startX": 4,
-			"startY": 4
+			"startY": 4,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "6803c153-4e02-4c6b-af08-148da29d7509",
 			"name": "statue26", 
 			"descriptorFileName": "facility1",
 			"startX": 10,
-			"startY": 2
+			"startY": 2,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "0966d70b-57fb-442d-9b4e-2ff242b86373",
 			"name": "statue4", 
 			"descriptorFileName": "facility1",
 			"startX": 3,
-			"startY": 5
+			"startY": 5,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "e02f10eb-131f-4d45-bcd6-67cfd7a83dee",
 			"name": "cornfield3", 
 			"descriptorFileName": "facility2",
 			"startX": 20,
-			"startY": 3
+			"startY": 3,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "0fdb777a-1a31-496b-89a2-2aa01524d1f2",
 			"name": "cornfield2", 
 			"descriptorFileName": "facility2",
 			"startX": 29,
-			"startY": 0
+			"startY": 0,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "ea365456-0669-4d6f-8e5a-d768110dddcf",
 			"name": "cornfield2", 
 			"descriptorFileName": "facility2",
 			"startX": 0,
-			"startY": 13
+			"startY": 13,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38",
 			"name": "box1", 
 			"descriptorFileName": "facility6",
 			"startX": 7,
-			"startY": 3
+			"startY": 3,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "28f24976-0bdb-4fc8-ac73-eb785caa790a",
+			"name": "box2", 
+			"descriptorFileName": "facility6",
+			"startX": 8,
+			"startY": 3,
+			"defaultVisible": "false"
 		}
 	],
 	"simpleNpcList": [

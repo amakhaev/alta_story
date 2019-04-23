@@ -21,6 +21,7 @@ import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -172,60 +173,57 @@ public class StageComputatorImpl implements StageComputator {
     /**
      * Adds the coordinated participants for calculate coordinates of movement
      *
-     * @param uuid - the uuid of map
-     * @param facilityParts - the list of map parts that should be computed
-     * @param startMapCoordinates - the start coordinates of map on map
+     * @param facilityParticipants - the list of facility participants.
      */
-    public void addFacilities(String uuid, List<FacilityPartParticipant> facilityParts, Point startMapCoordinates) {
-        if (Strings.isNullOrEmpty(uuid) || facilityParts == null || facilityParts.isEmpty() || startMapCoordinates == null) {
-            log.debug("One ore more required argument not found");
+    public void addFacilities(List<FacilityParticipant> facilityParticipants) {
+        if (facilityParticipants == null || facilityParticipants.isEmpty()) {
+            log.warn("Attempt to add empty facility list.");
             return;
         }
 
-        FacilityParticipant participant = new FacilityParticipant(uuid, startMapCoordinates, facilityParts);
-        this.facilityComputator.add(participant);
-        this.layerComputator.addParticipants(participant.getFacilityPartParticipants());
+        facilityParticipants.forEach(participant -> {
+            this.facilityComputator.add(participant);
+            this.layerComputator.addParticipants(participant.getFacilityPartParticipants());
+        });
     }
 
     /**
      * Adds the acting character for computation
      *
-     * @param uuid - the uuid of character
-     * @param mapStartPosition - the start coordinates of character on map
-     * @param zIndex - the z-index of character
+     * @param actingCharacterParticipant - the acting haracter participant.
      */
-    public void addActingCharacter(String uuid, Point mapStartPosition, int zIndex) {
+    public void addActingCharacter(ActingCharacterParticipant actingCharacterParticipant) {
+        if (actingCharacterParticipant == null) {
+            log.warn("Attempt to add empty acting character.");
+            return;
+        }
+
         if (this.focusPointComputator == null) {
             log.error("The focus point is required for adding acting character");
             return;
         }
 
-        this.actingCharacterComputator = new ActingCharacterComputator(
-                new ActingCharacterParticipant(uuid, mapStartPosition, zIndex)
-        );
+        this.actingCharacterComputator = new ActingCharacterComputator(actingCharacterParticipant);
         this.layerComputator.addParticipant(this.actingCharacterComputator.getActingCharacterParticipant());
-        log.info("Added acting character to stage with UUID: {}", uuid);
+        log.info("Added acting character to stage with UUID: {}", actingCharacterParticipant.getUuid());
     }
 
     /**
      * Adds the simple npc to stage for computation
      *
-     * @param uuid = the uuid of npc
-     * @param mapStartPosition - the start coordinates of npc on map
-     * @param zIndex - the z-index of character
-     * @param repeatingMovementDurationTime - the time interval between movements
+     * @param npcParticipants - the simple npc participants to be added for computation.
      */
-    public void addSimpleNpcCharacter(String uuid, Point mapStartPosition, int zIndex, int repeatingMovementDurationTime) {
-        SimpleNpcParticipant npcParticipant = new SimpleNpcParticipant(
-                uuid,
-                mapStartPosition,
-                zIndex,
-                repeatingMovementDurationTime
-        );
+    public void addSimpleNpcCharacters(List<SimpleNpcParticipant> npcParticipants) {
+        if (npcParticipants == null || npcParticipants.isEmpty()) {
+            log.warn("Attempt to add empty NPC character.");
+            return;
+        }
 
-        this.simpleNpcListComputator.add(npcParticipant);
-        this.layerComputator.addParticipant(npcParticipant);
-        log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
+        npcParticipants.forEach(npcParticipant -> {
+            this.simpleNpcListComputator.add(npcParticipant);
+            this.layerComputator.addParticipant(npcParticipant);
+            log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
+        });
     }
 
     /**

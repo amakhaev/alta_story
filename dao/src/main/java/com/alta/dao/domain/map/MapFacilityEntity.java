@@ -15,5 +15,6 @@ class MapFacilityEntity {
     private String descriptorFileName;
     private int startX;
     private int startY;
+    private boolean defaultVisible;
 
 }

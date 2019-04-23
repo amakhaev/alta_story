@@ -47,6 +47,7 @@ public class FacilityEngineModelMapper {
                 .tileHeight(facilityModel.getTileHeight())
                 .startX(facilityModel.getStartX())
                 .startY(facilityModel.getStartY())
+                .visible(facilityModel.isDefaultVisible())
                 .positions(this.doMappingForPositions(facilityModel.getFacilityPositions()))
                 .build();
     }

@@ -72,5 +72,20 @@
 				"text": "Статуя богини воздвигнута в честь сотворения мира."
 			}
 		]
+	},
+	{
+		"uuid": "d18f9361-a77e-47cf-ada1-00c24e6c58fa",
+		"targetUuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTileX": 0,
+        "shiftTileY": 0,
+		"effects": [
+			{
+				"type": "HIDE_FACILITY",
+				"failityUuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38",
+				"textFail": "Закрыто."
+			}
+		]
 	}
 ]

@@ -43,7 +43,7 @@ public class FrameStageComponent extends FrameStage {
         this.asyncTaskManager = asyncTaskManager;
         this.stageComputator = stageComputator;
 
-        this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(f -> f.getUuid().toString(), f -> f));
+        this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(FacilityComponent::getUuid, f -> f));
         this.actorCharacters = actorCharacters.stream().collect(Collectors.toMap(ActorCharacterComponent::getUuid, npc -> npc));
     }
 

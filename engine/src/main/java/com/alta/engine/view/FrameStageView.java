@@ -1,7 +1,6 @@
 package com.alta.engine.view;
 
 import com.alta.computator.model.event.ComputatorEvent;
-import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
@@ -9,9 +8,9 @@ import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.model.FrameStageDataModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
-import com.alta.engine.utils.dataBuilder.ComputatorFrameStageProvider;
-import com.alta.engine.utils.dataBuilder.SceneFrameStageProvider;
+import com.alta.engine.model.frameStage.FacilityEngineModel;
+import com.alta.engine.view.componentProvider.ComputatorFrameStageProvider;
+import com.alta.engine.view.componentProvider.FrameStageComponentProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
@@ -22,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import java.awt.*;
+import java.util.stream.Collectors;
 
 /**
  * Provides the dispatcher of computator
@@ -44,19 +44,15 @@ public class FrameStageView {
                           @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer) {
         try {
             this.frameStageDataModel = data;
-            this.stageComputatorImpl = ComputatorFrameStageProvider.builder()
-                    .focusPointStartPosition(data.getFocusPointMapStartPosition())
-                    .actingCharacter(data.getActingCharacter())
-                    .facilityModels(data.getFacilities())
-                    .simpleNpc(data.getSimpleNpc())
-                    .eventProducer(computatorEventProducer)
-                    .build();
+            this.stageComputatorImpl = ComputatorFrameStageProvider.createStageComputator(
+                    data.getFocusPointMapStartPosition(),
+                    data.getActingCharacter(),
+                    data.getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList()),
+                    data.getSimpleNpc(),
+                    computatorEventProducer
+            );
 
-            this.frameStage = SceneFrameStageProvider.builder()
-                    .data(data)
-                    .stageComputator(this.stageComputatorImpl)
-                    .asyncTaskManager(asyncTaskManager)
-                    .build();
+            this.frameStage = FrameStageComponentProvider.createFrameStage(data, this.stageComputatorImpl, asyncTaskManager);
         } catch (Exception e) {
             throw new EngineException(e);
         }

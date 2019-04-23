@@ -16,13 +16,14 @@ import java.util.UUID;
 @Builder
 public class FacilityEngineModel {
 
-    private String uuid;
-    private String pathToImageSet;
-    private int startX;
-    private int startY;
-    private int tileWidth;
-    private int tileHeight;
-    private List<Position> positions;
+    private final String uuid;
+    private final String pathToImageSet;
+    private final int startX;
+    private final int startY;
+    private final int tileWidth;
+    private final int tileHeight;
+    private final boolean visible;
+    private final List<Position> positions;
 
     @Getter
     @Setter

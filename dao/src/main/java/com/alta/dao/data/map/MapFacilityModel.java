@@ -2,12 +2,10 @@ package com.alta.dao.data.map;
 
 import com.alta.dao.data.facility.FacilityModel;
 import com.alta.dao.data.facility.FacilityPositionModel;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Provides the map model that related to decorators
@@ -27,15 +25,19 @@ public class MapFacilityModel {
     @Getter
     private final String uuid;
 
+    @Getter
+    private final boolean defaultVisible;
+
     private final FacilityModel facility;
 
     /**
      * Initialize new instance of {@link MapFacilityModel}
      */
-    public MapFacilityModel(String uuid, String name, int startX, int startY, FacilityModel facility) {
+    public MapFacilityModel(String uuid, String name, int startX, int startY, boolean defaultVisible, FacilityModel facility) {
         this.name = name;
         this.startX = startX;
         this.startY = startY;
+        this.defaultVisible = defaultVisible;
         this.facility = facility;
         this.uuid = uuid;
     }

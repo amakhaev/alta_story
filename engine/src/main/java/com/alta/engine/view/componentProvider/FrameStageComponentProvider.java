@@ -1,4 +1,4 @@
-package com.alta.engine.utils.dataBuilder;
+package com.alta.engine.view.componentProvider;
 
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
@@ -13,7 +13,7 @@ import com.alta.engine.view.components.facility.FacilityComponent;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
 import com.alta.engine.view.components.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
-import lombok.Builder;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
  * Provides the factory that creates the entities related to scene
  */
 @Slf4j
-public class SceneFrameStageProvider {
+@UtilityClass
+public class FrameStageComponentProvider {
 
     /**
      * Creates the FrameStage instance by given model
@@ -35,7 +36,6 @@ public class SceneFrameStageProvider {
      * @param asyncTaskManager - the facade of async tasks
      * @return created {@link FrameStageComponent} instance based of @param model
      */
-    @Builder
     public static FrameStageComponent createFrameStage(FrameStageDataModel data,
                                                        StageComputator stageComputator,
                                                        AsyncTaskManager asyncTaskManager) {
@@ -47,7 +47,7 @@ public class SceneFrameStageProvider {
         FrameStageComponent frameStageComponent = new FrameStageComponent(
                 createFrameTemplate(data.getTiledMapAbsolutePath()),
                 actorCharacters,
-                createStageFacilities(data.getFacilities()),
+                createStageFacilities(data.getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList())),
                 stageComputator,
                 asyncTaskManager
         );

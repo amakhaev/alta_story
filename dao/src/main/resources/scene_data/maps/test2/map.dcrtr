@@ -6,21 +6,24 @@
 			"name": "gate1", 
 			"descriptorFileName": "facility1",
 			"startX": 5,
-			"startY": 11
+			"startY": 11,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "68d48dbf-9058-4889-b8ae-dab8559cb830",
 			"name": "gate2", 
 			"descriptorFileName": "facility1",
 			"startX": 22,
-			"startY": 11
+			"startY": 11,
+			"defaultVisible": "true"
 		},
 		{
 			"uuid": "7c9b0094-c364-4926-9dec-8dc5966dd960",
 			"name": "flooring1", 
 			"descriptorFileName": "facility3",
 			"startX": 14,
-			"startY": 39
+			"startY": 39,
+			"defaultVisible": "true"
 		}
 	],
 	"simpleNpcList": [],
