@@ -99,6 +99,20 @@ public class FrameStageComponent extends FrameStage {
         );
     }
 
+    /**
+     * Removes the facility from frame stage.
+     *
+     * @param facilityUuid - the uuid of facility to be removed.
+     */
+    public void removeFacility(String facilityUuid) {
+        if (this.facilitiesByUuid.containsKey(facilityUuid)) {
+            this.facilitiesByUuid.remove(facilityUuid);
+            log.info("Facility with UUID {} was removed from frame stage.", facilityUuid);
+        } else {
+            log.warn("Facility with UUID {} not found.", facilityUuid);
+        }
+    }
+
     private void renderFrame() {
         Point mapCoordinates = this.stageComputator.getMapGlobalCoordinates();
         if (mapCoordinates == null) {

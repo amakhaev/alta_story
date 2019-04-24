@@ -18,7 +18,8 @@ import java.util.Queue;
 public class InteractionScenario {
 
     private final InteractionFactory interactionFactory;
-    private final Runnable completeCallback;
+    private final Runnable successCallback;
+    private final Runnable failCallback;
 
     private Queue<InteractionEffectEngineModel> currentScenario;
     private Interaction currentInteraction;
@@ -28,10 +29,13 @@ public class InteractionScenario {
      * Initialize new instance of {@link InteractionScenario}.
      */
     @AssistedInject
-    public InteractionScenario(InteractionFactory interactionFactory, @Assisted Runnable completeCallback) {
+    public InteractionScenario(InteractionFactory interactionFactory,
+                               @Assisted("successCallback") Runnable successCallback,
+                               @Assisted("failCallback") Runnable failCallback) {
         this.currentScenario = new ArrayDeque<>();
         this.interactionFactory = interactionFactory;
-        this.completeCallback = completeCallback;
+        this.successCallback = successCallback;
+        this.failCallback = failCallback;
     }
 
     /**
@@ -80,27 +84,36 @@ public class InteractionScenario {
                     this.targetedParticipantSummary.getUuid()
             );
             this.targetedParticipantSummary = null;
-            this.completeCallback.run();
+            this.successCallback.run();
             return;
         }
 
-        InteractionEffectEngineModel interaction = this.currentScenario.poll();
-        switch (interaction.getType()) {
+        Interaction interaction = null;
+        InteractionEffectEngineModel interactionEffect = this.currentScenario.poll();
+        switch (interactionEffect.getType()) {
             case DIALOGUE:
-                this.startDialogueInteraction(interaction);
+                interaction = this.interactionFactory.createDialogueInteraction(this.targetedParticipantSummary);
+
+                break;
+            case HIDE_FACILITY:
+                interaction = this.interactionFactory.createHideFacilityInteraction(this.targetedParticipantSummary);
                 break;
             default:
-                log.error("Unknown type of interaction: {}", interaction.getType());
+                log.error("Unknown type of interaction: {}", interactionEffect.getType());
+                this.failCallback.run();
+        }
+
+        if (interaction != null) {
+            this.startInteraction(interactionEffect, interaction);
         }
     }
 
-    private void startDialogueInteraction(InteractionEffectEngineModel interaction) {
-        this.currentInteraction = this.interactionFactory.createDialogueInteraction(this.targetedParticipantSummary);
+    private void startInteraction(InteractionEffectEngineModel interactionEffect, Interaction interaction) {
+        this.currentInteraction = interaction;
         this.currentInteraction.setCompleteCallback(() -> {
             this.currentInteraction = null;
             this.determinateInteractionAndStart();
         });
-        this.currentInteraction.start(interaction);
+        this.currentInteraction.start(interactionEffect);
     }
-
 }

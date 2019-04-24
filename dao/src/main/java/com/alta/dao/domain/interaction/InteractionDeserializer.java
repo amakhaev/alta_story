@@ -1,8 +1,8 @@
 package com.alta.dao.domain.interaction;
 
 import com.alta.dao.data.interaction.DialogueEffectModel;
+import com.alta.dao.data.interaction.HideFacilityEffectModel;
 import com.alta.dao.data.interaction.InteractionEffectModel;
-import com.alta.dao.data.interaction.InteractionEffectType;
 import com.alta.dao.data.interaction.InteractionModel;
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,7 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
     private static final String EFFECTS_FIELD_NAME = "effects";
     private static final String TYPE_FIELD_NAME = "type";
     private static final String TEXT_FIELD_NAME = "text";
+    private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
 
     /**
      * Gson invokes this call-back method during deserialization when it encounters a field of the
@@ -88,23 +89,44 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
         interactionEffects.forEach(jsonInteractionEffectItem -> {
             JsonObject item = jsonInteractionEffectItem.getAsJsonObject();
 
-            InteractionEffectType type = InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
-            if (type == InteractionEffectType.DIALOGUE) {
-                DialogueEffectModel model = this.getDialogueModel(item);
-                if (model != null) {
-                    result.add(model);
-                }
+            InteractionEffectModel.InteractionEffectType type =
+                    InteractionEffectModel.InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
+
+            InteractionEffectModel model = null;
+            switch (type) {
+                case DIALOGUE:
+                    model = this.parseDialogueEffect(item);
+                    break;
+                case HIDE_FACILITY:
+                    model = this.parseHideFacilityEffect(item);
+                    break;
+                default:
+                    log.error("Unknown type of interaction effect {}", type);
+            }
+
+            if (model != null) {
+                result.add(model);
             }
         });
 
         return result;
     }
 
-    private DialogueEffectModel getDialogueModel(JsonObject jsonDialogueModel) {
+    private DialogueEffectModel parseDialogueEffect(JsonObject jsonDialogueModel) {
         try {
-            InteractionEffectType type = InteractionEffectType.valueOf(jsonDialogueModel.get(TYPE_FIELD_NAME).getAsString());
-            DialogueEffectModel model = new DialogueEffectModel(type);
+            DialogueEffectModel model = new DialogueEffectModel();
             model.setText(jsonDialogueModel.get(TEXT_FIELD_NAME).getAsString());
+            return model;
+        } catch (Exception e) {
+            log.error("Parsing of DialogueEffectModel was failed with error: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private HideFacilityEffectModel parseHideFacilityEffect(JsonObject jsonHideFacilityEffect) {
+        try {
+            HideFacilityEffectModel model = new HideFacilityEffectModel();
+            model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
             return model;
         } catch (Exception e) {
             log.error("Parsing of DialogueEffectModel was failed with error: {}", e.getMessage());

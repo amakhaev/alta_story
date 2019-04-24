@@ -107,6 +107,17 @@ public class FrameStagePresenter {
         }
     }
 
+    /**
+     * Removes the facility from frame stage and computator.
+     *
+     * @param facilityUuid - the uuid of facility to be removed.
+     */
+    public void removeFacility(String facilityUuid) {
+        if (this.currentView != null) {
+            this.currentView.removeFacility(facilityUuid);
+        }
+    }
+
     private void onSceneFocusChanged(boolean sceneHasFocus) {
         if (this.currentView == null) {
             return;

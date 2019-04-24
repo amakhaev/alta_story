@@ -37,7 +37,9 @@ public class InteractionFacade {
                              InteractionScenarioFactory interactionScenarioFactory,
                              FrameStageListener frameStageListener) {
         this.frameStagePresenter = frameStagePresenter;
-        this.interactionScenario = interactionScenarioFactory.createInteractionScenario(this::onScenarioCompleted);
+        this.interactionScenario = interactionScenarioFactory.createInteractionScenario(
+                this::onScenarioCompletedSuccesfully, this::onScenarioFail
+        );
         this.frameStageListener = frameStageListener;
     }
 
@@ -117,7 +119,7 @@ public class InteractionFacade {
         return incompletedInteraction == null ? interaction.findLastInteraction() : incompletedInteraction;
     }
 
-    private void onScenarioCompleted() {
+    private void onScenarioCompletedSuccesfully() {
         if (this.currentInteraction == null) {
             log.warn("Complete interaction was called but no interaction model found.");
             return;
@@ -125,6 +127,10 @@ public class InteractionFacade {
 
         this.currentInteraction.setCompleted(true);
         this.frameStageListener.handleInteractionCompleteEvent(this.currentInteraction.getUuid());
+        this.currentInteraction = null;
+    }
+
+    private void onScenarioFail() {
         this.currentInteraction = null;
     }
 }

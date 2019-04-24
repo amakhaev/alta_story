@@ -12,4 +12,12 @@ public interface InteractionFactory {
      */
     DialogueInteraction createDialogueInteraction(TargetedParticipantSummary targetedParticipantSummary);
 
+    /**
+     * Creates tje instance of {@link HideFacilityInteraction}.
+     *
+     * @param targetedParticipantSummary - the participant summary to be used for interaction.
+     * @return created {@link HideFacilityInteraction} instance.
+     */
+    HideFacilityInteraction createHideFacilityInteraction(TargetedParticipantSummary targetedParticipantSummary);
+
 }

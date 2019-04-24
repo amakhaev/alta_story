@@ -83,8 +83,7 @@
 		"effects": [
 			{
 				"type": "HIDE_FACILITY",
-				"failityUuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38",
-				"textFail": "Закрыто."
+				"facilityUuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38"
 			}
 		]
 	}

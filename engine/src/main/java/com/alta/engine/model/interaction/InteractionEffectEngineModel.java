@@ -13,6 +13,7 @@ public abstract class InteractionEffectEngineModel {
     private final EffectType type;
 
     public enum EffectType {
-        DIALOGUE
+        DIALOGUE,
+        HIDE_FACILITY
     }
 }

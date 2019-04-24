@@ -55,6 +55,15 @@ public class LayerComputator {
         this.resortParticipants();
     }
 
+    /**
+     * Removes the participant from layer list.
+     *
+     * @param participantUuid - the uuid of participant to be removed.
+     */
+    public void removeParticipant(String participantUuid) {
+        this.sortedParticipants.removeIf(p -> p.getUuid().equals(participantUuid));
+    }
+
     private void resortParticipants() {
         this.sortedParticipants = this.sortedParticipants.stream()
                 .sorted(Comparator.comparingInt(CoordinatedParticipant::getZIndex))

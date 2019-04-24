@@ -80,6 +80,28 @@ public class FacilityComputator {
                 .orElse(null);
     }
 
+    /**
+     * Finds the facility participant by given uuid.
+     *
+     * @param uuid - the uuid of facility participant.
+     * @return the {@link FacilityParticipant} instance of null if not found.
+     */
+    public FacilityParticipant findParticipantByUuid(String uuid) {
+        return this.getFacilityParticipants().stream()
+                .filter(participant -> participant.getUuid().equals(uuid))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Removes the facility participant by given uuid.
+     *
+     * @param uuid - the uuid of facility to be removed.
+     */
+    public void removeFacility(String uuid) {
+        this.getFacilityParticipants().removeIf(participant -> participant.getUuid().equals(uuid));
+    }
+
     private void calculate(FacilityParticipant facilityParticipant, AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {
         if (facilityParticipant == null) {
             return;

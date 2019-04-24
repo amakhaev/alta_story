@@ -15,7 +15,7 @@ public class DialogueEffectModel extends InteractionEffectModel {
     /**
      * Initialize new instance of {@link DialogueEffectModel}
      */
-    public DialogueEffectModel(InteractionEffectType type) {
-        super(type);
+    public DialogueEffectModel() {
+        super(InteractionEffectType.DIALOGUE);
     }
 }

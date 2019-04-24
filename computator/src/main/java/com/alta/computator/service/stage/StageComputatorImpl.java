@@ -1,6 +1,7 @@
 package com.alta.computator.service.stage;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
@@ -224,6 +225,29 @@ public class StageComputatorImpl implements StageComputator {
             this.layerComputator.addParticipant(npcParticipant);
             log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
         });
+    }
+
+    /**
+     * Removes the facility from computator.
+     *
+     * @param facilityUuid - the uuid of facility to be removed.
+     */
+    public synchronized void removeFacility(String facilityUuid) {
+        FacilityParticipant facilityParticipant = this.facilityComputator.findParticipantByUuid(facilityUuid);
+        if (facilityParticipant == null) {
+            log.warn("Can't remove facility from computation. Facility with give uuid {} not found.", facilityUuid);
+            return;
+        }
+
+        facilityParticipant.getFacilityPartParticipants().forEach(participantPart -> {
+            this.layerComputator.removeParticipant(participantPart.getUuid());
+            this.altitudeMap.setTileState(
+                    participantPart.getCurrentMapCoordinates().x,
+                    participantPart.getCurrentMapCoordinates().y,
+                    TileState.FREE
+            );
+        });
+        this.facilityComputator.removeFacility(facilityUuid);
     }
 
     /**

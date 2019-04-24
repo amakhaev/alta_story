@@ -17,6 +17,7 @@ import com.google.common.base.Strings;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
@@ -133,6 +134,16 @@ public class FrameStageView {
      */
     public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
         return this.stageComputatorImpl.findParticipantTargetedByActingCharacter();
+    }
+
+    /**
+     * Removes the facility from frame stage and computator.
+     *
+     * @param facilityUuid - the uuid of facility to be removed.
+     */
+    public void removeFacility(@NonNull String facilityUuid) {
+        this.frameStage.removeFacility(facilityUuid);
+        this.stageComputatorImpl.removeFacility(facilityUuid);
     }
 
 }
