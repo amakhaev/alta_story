@@ -101,7 +101,7 @@
 			"uuid": "28f24976-0bdb-4fc8-ac73-eb785caa790a",
 			"name": "box2", 
 			"descriptorFileName": "facility6",
-			"startX": 8,
+			"startX": 7,
 			"startY": 3,
 			"defaultVisible": "false"
 		}

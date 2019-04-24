@@ -96,7 +96,10 @@ public class InteractionScenario {
 
                 break;
             case HIDE_FACILITY:
-                interaction = this.interactionFactory.createHideFacilityInteraction(this.targetedParticipantSummary);
+                interaction = this.interactionFactory.createHideFacilityInteraction();
+                break;
+            case SHOW_FACILITY:
+                interaction = this.interactionFactory.createShowFacilityInteraction();
                 break;
             default:
                 log.error("Unknown type of interaction: {}", interactionEffect.getType());

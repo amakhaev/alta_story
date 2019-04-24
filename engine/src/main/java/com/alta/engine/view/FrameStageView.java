@@ -3,6 +3,7 @@ package com.alta.engine.view;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
+import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
@@ -22,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import java.awt.*;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -137,12 +139,34 @@ public class FrameStageView {
     }
 
     /**
+     * Adds the facility to map.
+     *
+     * @param facilityUuid - the uuid of facility to be added.
+     */
+    public void addFacility(@NonNull String facilityUuid) {
+        FacilityEngineModel facilityEngineModel = this.frameStageDataModel.getFacilities().stream()
+                .filter(facility -> facility.getUuid().equals(facilityUuid))
+                .findFirst()
+                .orElse(null);
+
+        if (facilityEngineModel == null) {
+            log.error("Facility for given UUID {} not found. It must be described in map.dscr file.", facilityUuid);
+            return;
+        }
+
+        this.stageComputatorImpl.addFacilities(
+                Collections.singletonList(ComputatorFrameStageProvider.createFacilityParticipant(facilityEngineModel))
+        );
+        this.frameStage.addFacilityComponent(FrameStageComponentProvider.createFacilityComponent(facilityEngineModel));
+    }
+
+    /**
      * Removes the facility from frame stage and computator.
      *
      * @param facilityUuid - the uuid of facility to be removed.
      */
     public void removeFacility(@NonNull String facilityUuid) {
-        this.frameStage.removeFacility(facilityUuid);
+        this.frameStage.removeFacilityComponent(facilityUuid);
         this.stageComputatorImpl.removeFacility(facilityUuid);
     }
 

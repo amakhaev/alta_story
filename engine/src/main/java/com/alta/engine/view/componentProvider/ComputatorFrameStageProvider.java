@@ -10,6 +10,7 @@ import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
 import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.eventStream.EventProducer;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,6 +59,20 @@ public class ComputatorFrameStageProvider {
         return stageComputatorImpl;
     }
 
+    /**
+     * Creates the facility participant for computations.
+     *
+     * @param facilityModel - the facility model from which created participant.
+     * @return created {@link FacilityParticipant} instance.
+     */
+    public FacilityParticipant createFacilityParticipant(@NonNull FacilityEngineModel facilityModel) {
+        return new FacilityParticipant(
+                facilityModel.getUuid(),
+                new Point(facilityModel.getStartX(), facilityModel.getStartY()),
+                createFacilityParts(facilityModel)
+        );
+    }
+
     private List<SimpleNpcParticipant> createSimpleNpcParticipants(List<SimpleNpcEngineModel> simpleNpcEngineModels) {
         if (simpleNpcEngineModels == null || simpleNpcEngineModels.isEmpty()) {
             return Collections.emptyList();
@@ -81,13 +96,7 @@ public class ComputatorFrameStageProvider {
         }
 
         return facilityModels.stream()
-                .map(facilityModel ->
-                        new FacilityParticipant(
-                                facilityModel.getUuid(),
-                                new Point(facilityModel.getStartX(), facilityModel.getStartY()),
-                                createFacilityParts(facilityModel)
-                        )
-                )
+                .map(ComputatorFrameStageProvider::createFacilityParticipant)
                 .collect(Collectors.toList());
     }
 

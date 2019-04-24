@@ -176,7 +176,7 @@ public class StageComputatorImpl implements StageComputator {
      *
      * @param facilityParticipants - the list of facility participants.
      */
-    public void addFacilities(List<FacilityParticipant> facilityParticipants) {
+    public synchronized void addFacilities(List<FacilityParticipant> facilityParticipants) {
         if (facilityParticipants == null || facilityParticipants.isEmpty()) {
             log.warn("Attempt to add empty facility list.");
             return;

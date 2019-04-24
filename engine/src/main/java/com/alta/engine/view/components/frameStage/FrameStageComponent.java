@@ -15,6 +15,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,6 +32,8 @@ public class FrameStageComponent extends FrameStage {
     private final Map<String, FacilityComponent> facilitiesByUuid;
     private final Map<String, ActorCharacterComponent> actorCharacters;
 
+    private List<FacilityComponent> facilitiesToInitialize;
+
     /**
      * Initialize new instance of {@link FrameStage}
      */
@@ -45,6 +48,7 @@ public class FrameStageComponent extends FrameStage {
 
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(FacilityComponent::getUuid, f -> f));
         this.actorCharacters = actorCharacters.stream().collect(Collectors.toMap(ActorCharacterComponent::getUuid, npc -> npc));
+        this.facilitiesToInitialize = new ArrayList<>();
     }
 
     /**
@@ -55,7 +59,7 @@ public class FrameStageComponent extends FrameStage {
      */
     @Override
     public void onUpdateStage(GameContainer gameContainer, int delta) {
-        this.onUpdate(delta);
+        this.onUpdate(gameContainer, delta);
     }
 
     /**
@@ -93,10 +97,19 @@ public class FrameStageComponent extends FrameStage {
                     log.debug("Completed initialization of computator for FrameStageComponent.");
 
                     log.debug("Call update method (initial) to avoid incorrect rendering animation");
-                    this.onUpdate(0);
+                    this.onUpdate(gameContainer,0);
                     log.debug("Initial update completed.");
                 }
         );
+    }
+
+    /**
+     * Added facility component to stage.
+     *
+     * @param facilityComponent - the facility to be added.
+     */
+    public void addFacilityComponent(FacilityComponent facilityComponent) {
+        this.facilitiesToInitialize.add(facilityComponent);
     }
 
     /**
@@ -104,7 +117,7 @@ public class FrameStageComponent extends FrameStage {
      *
      * @param facilityUuid - the uuid of facility to be removed.
      */
-    public void removeFacility(String facilityUuid) {
+    public void removeFacilityComponent(String facilityUuid) {
         if (this.facilitiesByUuid.containsKey(facilityUuid)) {
             this.facilitiesByUuid.remove(facilityUuid);
             log.info("Facility with UUID {} was removed from frame stage.", facilityUuid);
@@ -146,7 +159,14 @@ public class FrameStageComponent extends FrameStage {
         });
     }
 
-    private void onUpdate(int delta) {
+    private void onUpdate(GameContainer gameContainer, int delta) {
+        if (!this.facilitiesToInitialize.isEmpty()) {
+            this.facilitiesToInitialize.forEach(facility -> {
+                facility.initialize(gameContainer);
+                this.facilitiesByUuid.put(facility.getUuid(), facility);
+            });
+        }
+
         this.actorCharacters.forEach((uuid, baseSimpleNpc) -> {
             ActorParticipant participant = this.stageComputator.getActorParticipant(uuid);
             if (participant != null) {

@@ -79,11 +79,19 @@
 		"chapterIndicatorFrom": 1,
 		"chapterIndicatorTo": 1000,
 		"shiftTileX": 0,
-        "shiftTileY": 0,
+		"shiftTileY": 0,
 		"effects": [
 			{
 				"type": "HIDE_FACILITY",
 				"facilityUuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38"
+			},
+			{
+				"type": "SHOW_FACILITY",
+				"facilityUuid": "28f24976-0bdb-4fc8-ac73-eb785caa790a"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Найдено сокровище."
 			}
 		]
 	}

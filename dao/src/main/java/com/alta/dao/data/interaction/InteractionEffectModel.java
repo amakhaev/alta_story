@@ -14,6 +14,7 @@ public class InteractionEffectModel {
 
     public enum InteractionEffectType {
         DIALOGUE,
-        HIDE_FACILITY
+        HIDE_FACILITY,
+        SHOW_FACILITY
     }
 }

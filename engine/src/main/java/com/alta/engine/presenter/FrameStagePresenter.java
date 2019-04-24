@@ -108,6 +108,17 @@ public class FrameStagePresenter {
     }
 
     /**
+     * Adds the facility to map.
+     *
+     * @param facilityUuid - the uuid of facility to be added.
+     */
+    public void addFacility(String facilityUuid) {
+        if (this.currentView != null) {
+            this.currentView.addFacility(facilityUuid);
+        }
+    }
+
+    /**
      * Removes the facility from frame stage and computator.
      *
      * @param facilityUuid - the uuid of facility to be removed.

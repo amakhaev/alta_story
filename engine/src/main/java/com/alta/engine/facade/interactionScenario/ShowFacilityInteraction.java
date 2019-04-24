@@ -1,15 +1,15 @@
 package com.alta.engine.facade.interactionScenario;
 
-import com.alta.engine.model.interaction.HideFacilityEffectEngineModel;
 import com.alta.engine.model.interaction.InteractionEffectEngineModel;
+import com.alta.engine.model.interaction.ShowFacilityEffectEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.Setter;
 
 /**
- * Provides the interaction that handles the hide of facility.
+ * Provides the interaction that handles the show of facility.
  */
-public class HideFacilityInteraction implements Interaction {
+public class ShowFacilityInteraction implements Interaction {
 
     private final FrameStagePresenter frameStagePresenter;
 
@@ -17,10 +17,10 @@ public class HideFacilityInteraction implements Interaction {
     private Runnable completeCallback;
 
     /**
-     * Initialize new instance of {@link HideFacilityInteraction}.
+     * Initialize new instance of {@link ShowFacilityInteraction}.
      */
     @AssistedInject
-    public HideFacilityInteraction(FrameStagePresenter frameStagePresenter) {
+    public ShowFacilityInteraction(FrameStagePresenter frameStagePresenter) {
         this.frameStagePresenter = frameStagePresenter;
     }
 
@@ -31,14 +31,14 @@ public class HideFacilityInteraction implements Interaction {
      */
     @Override
     public void start(InteractionEffectEngineModel effect) {
-        if (effect.getType() != InteractionEffectEngineModel.EffectType.HIDE_FACILITY) {
+        if (effect.getType() != InteractionEffectEngineModel.EffectType.SHOW_FACILITY) {
             throw new ClassCastException(
                     "The interaction effect has " + effect.getType() +
-                            " type but required " + InteractionEffectEngineModel.EffectType.HIDE_FACILITY
+                            " type but required " + InteractionEffectEngineModel.EffectType.SHOW_FACILITY
             );
         }
-        HideFacilityEffectEngineModel hideEffect = (HideFacilityEffectEngineModel) effect;
-        this.frameStagePresenter.removeFacility(hideEffect.getFacilityUuid());
+        ShowFacilityEffectEngineModel showFacilityEffect = (ShowFacilityEffectEngineModel) effect;
+        this.frameStagePresenter.addFacility(showFacilityEffect.getFacilityUuid());
         this.completeCallback.run();
     }
 

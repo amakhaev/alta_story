@@ -1,9 +1,6 @@
 package com.alta.dao.domain.interaction;
 
-import com.alta.dao.data.interaction.DialogueEffectModel;
-import com.alta.dao.data.interaction.HideFacilityEffectModel;
-import com.alta.dao.data.interaction.InteractionEffectModel;
-import com.alta.dao.data.interaction.InteractionModel;
+import com.alta.dao.data.interaction.*;
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -100,6 +97,9 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                 case HIDE_FACILITY:
                     model = this.parseHideFacilityEffect(item);
                     break;
+                case SHOW_FACILITY:
+                    model = this.parseShowFacilityEffect(item);
+                    break;
                 default:
                     log.error("Unknown type of interaction effect {}", type);
             }
@@ -129,7 +129,18 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
             model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
             return model;
         } catch (Exception e) {
-            log.error("Parsing of DialogueEffectModel was failed with error: {}", e.getMessage());
+            log.error("Parsing of HideFacilityEffectModel was failed with error: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private ShowFacilityEffectModel parseShowFacilityEffect(JsonObject jsonHideFacilityEffect) {
+        try {
+            ShowFacilityEffectModel model = new ShowFacilityEffectModel();
+            model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
+            return model;
+        } catch (Exception e) {
+            log.error("Parsing of ShowFacilityEffectModel was failed with error: {}", e.getMessage());
             return null;
         }
     }

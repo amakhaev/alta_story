@@ -1,17 +1,11 @@
 package com.alta.mediator.domain.interaction;
 
-import com.alta.dao.data.interaction.DialogueEffectModel;
-import com.alta.dao.data.interaction.HideFacilityEffectModel;
-import com.alta.dao.data.interaction.InteractionEffectModel;
-import com.alta.dao.data.interaction.InteractionModel;
+import com.alta.dao.data.interaction.*;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
 import com.alta.engine.model.InteractionDataModel;
-import com.alta.engine.model.interaction.DialogueEffectEngineModel;
-import com.alta.engine.model.interaction.HideFacilityEffectEngineModel;
-import com.alta.engine.model.interaction.InteractionEffectEngineModel;
-import com.alta.engine.model.interaction.InteractionEngineModel;
+import com.alta.engine.model.interaction.*;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;
@@ -110,6 +104,8 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                             return new DialogueEffectEngineModel(((DialogueEffectModel)effect).getText());
                         case HIDE_FACILITY:
                             return new HideFacilityEffectEngineModel(((HideFacilityEffectModel)effect).getFacilityUuid());
+                        case SHOW_FACILITY:
+                            return new ShowFacilityEffectEngineModel(((ShowFacilityEffectModel)effect).getFacilityUuid());
                         default:
                             throw new IllegalArgumentException("Unknown type of interaction effect: " + effect.getType());
                     }
