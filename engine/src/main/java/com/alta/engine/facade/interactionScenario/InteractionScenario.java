@@ -47,6 +47,7 @@ public class InteractionScenario {
     public void performScenario(@NonNull TargetedParticipantSummary targetedParticipantSummary,
                                 @NonNull List<InteractionEffectEngineModel> effects) {
         if (effects.size() == 0) {
+            this.failCallback.run();
             return;
         }
 

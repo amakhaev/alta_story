@@ -79,7 +79,11 @@ public class InteractionFacade {
         }
 
         this.currentInteraction = interaction;
-        this.interactionScenario.performScenario(targetedParticipant, interaction.getInteractionEffects());
+        if (interaction.getPreCondition() == null || interaction.getPreCondition().apply(null)) {
+            this.interactionScenario.performScenario(targetedParticipant, interaction.getInteractionEffects());
+        } else {
+            this.interactionScenario.performScenario(targetedParticipant, interaction.getFailedPreConditionInteractionEffects());
+        }
     }
 
     private InteractionEngineModel findInteractionForNpc(@NonNull String targetUuid) {

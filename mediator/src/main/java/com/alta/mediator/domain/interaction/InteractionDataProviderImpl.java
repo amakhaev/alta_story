@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class InteractionDataProviderImpl implements InteractionDataProvider {
 
     private final InteractionService interactionService;
+    private final InteractionConditionService conditionService;
 
     /**
      * Gets the interaction engine model by given related map name.
@@ -85,9 +86,11 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                 .uuid(parent.getUuid())
                 .targetUuid(parent.getTargetUuid())
                 .interactionEffects(this.createEffects(parent.getEffects()))
+                .failedPreConditionInteractionEffects(this.createEffects(parent.getFailedPreConditionEffects()))
                 .shiftTileX(parent.getShiftTileX())
                 .shiftTileY(parent.getShiftTileY())
                 .isCompleted(interactionPreservationModel != null)
+                .preCondition(this.conditionService.build(parent.getPreCondition()))
                 .next(childInteraction)
                 .build();
     }

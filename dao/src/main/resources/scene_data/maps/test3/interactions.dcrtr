@@ -33,5 +33,37 @@
 				"text": "У меня есть план."
 			}
 		]
+	},
+	{
+		"uuid": "5efcc405-8e23-4b0e-ae47-bd24863e6dfb",
+		"targetUuid": "7ec3fd56-a0da-4319-a0d2-f81b0914b081",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTileX": 0,
+		"shiftTileY": 0,
+		"preCondition": {
+			"uuid": "98d08cbc-c411-4b43-a9bb-11f1a14db16f",
+			"conditionType": "ITERACTION_COMPLETED"
+		},
+		"effects": [
+			{
+				"type": "HIDE_FACILITY",
+				"facilityUuid": "7ec3fd56-a0da-4319-a0d2-f81b0914b081"
+			},
+			{
+				"type": "SHOW_FACILITY",
+				"facilityUuid": "39239e8c-e7c2-46ed-aae1-c0c4ea023669"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Найдено сокровище."
+			}
+		],
+		"failedPreConditionEffects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
 	}
 ]

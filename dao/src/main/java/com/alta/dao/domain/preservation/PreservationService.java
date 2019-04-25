@@ -1,5 +1,6 @@
 package com.alta.dao.domain.preservation;
 
+import com.alta.dao.data.interaction.InteractionModel;
 import com.alta.dao.data.preservation.CharacterPreservationModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
@@ -41,4 +42,13 @@ public interface PreservationService {
      * @return the {@link List} of {@link InteractionPreservationModel} related to specific map and preservation.
      */
     List<InteractionPreservationModel> getInteractionsPreservation(Long preservationId, String mapName);
+
+    /**
+     * Finds the saved interaction by given preservation id and uuid of interaction.
+     *
+     * @param preservationId    - the preservation id.
+     * @param interactionUuid   - the interaction uuid.
+     * @return the {@link InteractionPreservationModel} instance or null if not found.
+     */
+    InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId, String interactionUuid);
 }

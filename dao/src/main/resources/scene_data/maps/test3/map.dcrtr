@@ -80,6 +80,22 @@
 			"startX": 19,
 			"startY": 14,
 			"defaultVisible": "true"
+		},
+		{
+			"uuid": "7ec3fd56-a0da-4319-a0d2-f81b0914b081",
+			"name": "box1", 
+			"descriptorFileName": "facility6",
+			"startX": 1,
+			"startY": 1,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "39239e8c-e7c2-46ed-aae1-c0c4ea023669",
+			"name": "box2", 
+			"descriptorFileName": "facility6",
+			"startX": 1,
+			"startY": 1,
+			"defaultVisible": "false"
 		}
 	],
 	"simpleNpcList": [

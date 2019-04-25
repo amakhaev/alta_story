@@ -88,6 +88,30 @@ public class TemporaryDataPreservationServiceImpl implements TemporaryDataPreser
     }
 
     /**
+     * Finds the temporary interaction by given preservation id and uuid of interaction.
+     *
+     * @param preservationId  - the preservation id.
+     * @param interactionUuid - the interaction uuid.
+     * @return the {@link InteractionPreservationModel} instance or null if not found.
+     */
+    @Override
+    public InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId, String interactionUuid) {
+        try {
+            return this.interactionPreservationDao.queryBuilder()
+                    .where()
+                    .eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId)
+                    .and()
+                    .eq(InteractionPreservationModel.UUID_FIELD, interactionUuid)
+                    .and()
+                    .eq(InteractionPreservationModel.IS_TEMPORARY_FIELD, true)
+                    .queryForFirst();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Creates or updates the interaction preservation model in storage.
      *
      * @param interactionPreservationModel - the model to be saved.

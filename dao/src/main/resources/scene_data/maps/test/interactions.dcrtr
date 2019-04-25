@@ -80,6 +80,10 @@
 		"chapterIndicatorTo": 1000,
 		"shiftTileX": 0,
 		"shiftTileY": 0,
+		"preCondition": {
+			"uuid": "24db9418-3cbb-457a-9590-2dd871bcb524",
+			"conditionType": "ITERACTION_COMPLETED"
+		},
 		"effects": [
 			{
 				"type": "HIDE_FACILITY",
@@ -92,6 +96,12 @@
 			{
 				"type": "DIALOGUE",
 				"text": "Найдено сокровище."
+			}
+		],
+		"failedPreConditionEffects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
 			}
 		]
 	}

@@ -20,8 +20,11 @@ public class InteractionModel {
     private Integer chapterIndicatorTo;
     private Integer shiftTileX;
     private Integer shiftTileY;
+    private InteractionConditionModel preCondition;
 
-    @Singular
+    @Singular("failedPreConditionEffects")
+    private List<InteractionEffectModel> failedPreConditionEffects;
+
+    @Singular("effects")
     private List<InteractionEffectModel> effects;
-
 }

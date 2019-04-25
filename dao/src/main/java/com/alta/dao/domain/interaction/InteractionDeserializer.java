@@ -28,6 +28,10 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
     private static final String TEXT_FIELD_NAME = "text";
     private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
 
+    private static final String PRE_CONDITION_FIELD_NAME = "preCondition";
+    private static final String CONDITION_TYPE_FIELD_NAME = "conditionType";
+    private static final String FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME = "failedPreConditionEffects";
+
     /**
      * Gson invokes this call-back method during deserialization when it encounters a field of the
      * specified type.
@@ -69,12 +73,27 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                     .nextInteractionUuid(item.has(NEXT_INTERACTION_UUID_FIELD_NAME) ?
                             item.get(NEXT_INTERACTION_UUID_FIELD_NAME).getAsString() : null
                     )
+                    .preCondition(item.has(PRE_CONDITION_FIELD_NAME) ?
+                            this.parsePreCondition(item.get(PRE_CONDITION_FIELD_NAME).getAsJsonObject()) : null
+                    )
+                    .failedPreConditionEffects(
+                            this.parseEffects(item.getAsJsonArray(FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME))
+                    )
                     .effects(this.parseEffects(item.getAsJsonArray(EFFECTS_FIELD_NAME)))
                     .build();
             result.add(interactionModel);
         });
 
         return result;
+    }
+
+    private InteractionConditionModel parsePreCondition(JsonObject jsonObject) {
+        return InteractionConditionModel.builder()
+                .uuid(jsonObject.get(UUID_FIELD_NAME).getAsString())
+                .conditionType(InteractionConditionModel.ConditionType.valueOf(
+                        jsonObject.get(CONDITION_TYPE_FIELD_NAME).getAsString())
+                )
+                .build();
     }
 
     private List<InteractionEffectModel> parseEffects(JsonArray interactionEffects) {

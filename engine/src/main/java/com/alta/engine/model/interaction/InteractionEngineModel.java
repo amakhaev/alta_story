@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Provides the model to be described interactions between participants on scene.
@@ -17,8 +18,10 @@ public class InteractionEngineModel {
     private final String targetUuid;
     private final InteractionEngineModel next;
     private final List<InteractionEffectEngineModel> interactionEffects;
+    private final List<InteractionEffectEngineModel> failedPreConditionInteractionEffects;
     private Integer shiftTileX;
     private Integer shiftTileY;
+    private Function<Void, Boolean> preCondition;
 
     @Setter
     private boolean isCompleted;

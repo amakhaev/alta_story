@@ -1,5 +1,6 @@
 package com.alta.dao.domain.preservation;
 
+import com.alta.dao.data.interaction.InteractionModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 
 import java.util.List;
@@ -26,6 +27,15 @@ public interface TemporaryDataPreservationService {
      * @return the {@link InteractionPreservationModel} instance.
      */
     InteractionPreservationModel getTemporaryInteractionPreservation(Long preservationId, String interactionUuid);
+
+    /**
+     * Finds the temporary interaction by given preservation id and uuid of interaction.
+     *
+     * @param preservationId    - the preservation id.
+     * @param interactionUuid   - the interaction uuid.
+     * @return the {@link InteractionPreservationModel} instance or null if not found.
+     */
+    InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId, String interactionUuid);
 
     /**
      * Creates or updates the interaction preservation model in storage.

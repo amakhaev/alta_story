@@ -120,4 +120,29 @@ public class PreservationServiceImpl implements PreservationService {
             return null;
         }
     }
+
+    /**
+     * Finds the saved interaction by given preservation id and uuid of interaction.
+     *
+     * @param preservationId  - the preservation id.
+     * @param interactionUuid - the interaction uuid.
+     * @return the {@link InteractionPreservationModel} instance or null if not found.
+     */
+    @Override
+    public InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId,
+                                                                               String interactionUuid) {
+        try {
+            return this.interactionPreservationDao.queryBuilder()
+                    .where()
+                    .eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId)
+                    .and()
+                    .eq(InteractionPreservationModel.UUID_FIELD, interactionUuid)
+                    .and()
+                    .eq(InteractionPreservationModel.IS_TEMPORARY_FIELD, false)
+                    .queryForFirst();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
 }

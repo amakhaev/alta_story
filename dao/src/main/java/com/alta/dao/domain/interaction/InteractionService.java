@@ -16,5 +16,4 @@ public interface InteractionService {
      * @return the {@link List} of interactions.
      */
     List<InteractionModel> getInteractions(String relatedMapName);
-
 }
