@@ -1,6 +1,6 @@
 package com.alta.mediator.command.preservation;
 
-import com.alta.dao.domain.preservation.PreservationService;
+import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.AssistedInject;
 
@@ -11,13 +11,16 @@ import javax.inject.Named;
  */
 public class ClearTemporaryPreservationDataCommand implements Command {
 
-    private final PreservationService preservationService;
+    private final TemporaryDataPreservationService temporaryDataPreservationService;
     private final Long currentPreservationId;
 
+    /**
+     * Initialize new instance of {@link ClearTemporaryPreservationDataCommand}.
+     */
     @AssistedInject
-    public ClearTemporaryPreservationDataCommand(PreservationService preservationService,
+    public ClearTemporaryPreservationDataCommand(TemporaryDataPreservationService temporaryDataPreservationService,
                                                  @Named("currentPreservationId") Long currentPreservationId) {
-        this.preservationService = preservationService;
+        this.temporaryDataPreservationService = temporaryDataPreservationService;
         this.currentPreservationId = currentPreservationId;
     }
 
@@ -26,6 +29,6 @@ public class ClearTemporaryPreservationDataCommand implements Command {
      */
     @Override
     public void execute() {
-        this.preservationService.clearTemporaryDataFromPreservation(this.currentPreservationId);
+        this.temporaryDataPreservationService.clearTemporaryDataFromPreservation(this.currentPreservationId);
     }
 }

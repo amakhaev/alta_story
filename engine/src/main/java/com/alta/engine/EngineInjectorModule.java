@@ -1,6 +1,7 @@
 package com.alta.engine;
 
 import com.alta.computator.model.event.ComputatorEvent;
+import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.facade.FrameStageFacade;
 import com.alta.engine.facade.FrameStageListener;
 import com.alta.engine.facade.InteractionFacade;
@@ -34,6 +35,8 @@ public class EngineInjectorModule extends AbstractModule {
         bind(FrameStagePresenter.class).in(Singleton.class);
 
         bind(FrameStageListener.class).in(Singleton.class);
+
+        bind(AsyncTaskManager.class).in(Singleton.class);
 
         bind(new TypeLiteral<EventProducer<ComputatorEvent>>(){})
                 .annotatedWith(Names.named("computatorActionProducer"))

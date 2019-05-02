@@ -1,8 +1,8 @@
 package com.alta.dao.domain.preservation;
 
-import com.alta.dao.data.interaction.InteractionModel;
 import com.alta.dao.data.preservation.CharacterPreservationModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
+import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 
 import java.util.List;
@@ -28,13 +28,6 @@ public interface PreservationService {
     void updateCharacterPreservation(CharacterPreservationModel characterPreservationModel);
 
     /**
-     * Clears all temporary data that related to specific preservation.
-     *
-     * @param preservationId - the preservation to be cleared.
-     */
-    void clearTemporaryDataFromPreservation(Long preservationId);
-
-    /**
      * Gets the list of interactions that related to preservation.
      *
      * @param preservationId    - the preservation id.
@@ -51,4 +44,13 @@ public interface PreservationService {
      * @return the {@link InteractionPreservationModel} instance or null if not found.
      */
     InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId, String interactionUuid);
+
+    /**
+     * Gets the list of maps that related to preservation.
+     *
+     * @param preservationId    - the preservation id.
+     * @param mapName           - the name of map.
+     * @return the {@link List} of {@link MapPreservationModel} related to specific map and preservation.
+     */
+    List<MapPreservationModel> getMapsPreservation(Long preservationId, String mapName);
 }

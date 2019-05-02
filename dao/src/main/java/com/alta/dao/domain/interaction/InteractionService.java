@@ -16,4 +16,13 @@ public interface InteractionService {
      * @return the {@link List} of interactions.
      */
     List<InteractionModel> getInteractions(String relatedMapName);
+
+    /**
+     * Gets the interaction by uuid for given map.
+     *
+     * @param relatedMapName    - the name of related map.
+     * @param interactionUuid   - the uuid of interaction.
+     * @return the {@link InteractionModel} instance or null if not found.
+     */
+    InteractionModel getInteraction(String relatedMapName, String interactionUuid);
 }

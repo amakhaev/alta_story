@@ -1,5 +1,7 @@
 package com.alta.dao.data.interaction;
 
+import com.alta.dao.data.interaction.effect.InteractionEffectModel;
+import com.alta.dao.data.interaction.postProcessing.InteractionPostProcessingModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -27,4 +29,7 @@ public class InteractionModel {
 
     @Singular("effects")
     private List<InteractionEffectModel> effects;
+
+    @Singular("postProcessors")
+    private List<InteractionPostProcessingModel> postProcessors;
 }

@@ -2,6 +2,7 @@ package com.alta.mediator.command.preservation;
 
 import com.alta.dao.data.preservation.CharacterPreservationModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
+import com.alta.dao.data.preservation.MapPreservationModel;
 
 /**
  * Provides the factory for commands related to preservation
@@ -30,4 +31,12 @@ public interface PreservationCommandFactory {
      * @return the {@link SavePreservationCommand} instance.
      */
     SavePreservationCommand createSavePreservationCommand(CharacterPreservationModel model);
+
+    /**
+     * Create the update map preservation command.
+     *
+     * @param mapPreservationModel - the map preservation to be updated.
+     * @return created {@link UpdateMapPreservationCommand} instance.
+     */
+    UpdateMapPreservationCommand createUpdateMapPreservationCommand(MapPreservationModel mapPreservationModel);
 }

@@ -22,8 +22,8 @@ public class FacilityEngineModel {
     private final int startY;
     private final int tileWidth;
     private final int tileHeight;
-    private final boolean visible;
     private final List<Position> positions;
+    private boolean visible;
 
     @Getter
     @Setter

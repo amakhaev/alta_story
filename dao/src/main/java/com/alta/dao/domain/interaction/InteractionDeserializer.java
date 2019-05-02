@@ -1,6 +1,13 @@
 package com.alta.dao.domain.interaction;
 
 import com.alta.dao.data.interaction.*;
+import com.alta.dao.data.interaction.effect.DialogueEffectModel;
+import com.alta.dao.data.interaction.effect.HideFacilityEffectModel;
+import com.alta.dao.data.interaction.effect.InteractionEffectModel;
+import com.alta.dao.data.interaction.effect.ShowFacilityEffectModel;
+import com.alta.dao.data.interaction.postProcessing.InteractionPostProcessingModel;
+import com.alta.dao.data.interaction.postProcessing.ProcessingType;
+import com.alta.dao.data.interaction.postProcessing.UpdateFacilityVisibilityPostProcessModel;
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,8 +36,10 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
     private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
 
     private static final String PRE_CONDITION_FIELD_NAME = "preCondition";
-    private static final String CONDITION_TYPE_FIELD_NAME = "conditionType";
     private static final String FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME = "failedPreConditionEffects";
+
+    private static final String POST_PROCESSING_FIELD_NAME = "postProcessing";
+    private static final String VALUE_FIELD_NAME = "value";
 
     /**
      * Gson invokes this call-back method during deserialization when it encounters a field of the
@@ -80,20 +89,12 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                             this.parseEffects(item.getAsJsonArray(FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME))
                     )
                     .effects(this.parseEffects(item.getAsJsonArray(EFFECTS_FIELD_NAME)))
+                    .postProcessors(this.parsePostProcessing(item.getAsJsonArray(POST_PROCESSING_FIELD_NAME)))
                     .build();
             result.add(interactionModel);
         });
 
         return result;
-    }
-
-    private InteractionConditionModel parsePreCondition(JsonObject jsonObject) {
-        return InteractionConditionModel.builder()
-                .uuid(jsonObject.get(UUID_FIELD_NAME).getAsString())
-                .conditionType(InteractionConditionModel.ConditionType.valueOf(
-                        jsonObject.get(CONDITION_TYPE_FIELD_NAME).getAsString())
-                )
-                .build();
     }
 
     private List<InteractionEffectModel> parseEffects(JsonArray interactionEffects) {
@@ -131,6 +132,43 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
         return result;
     }
 
+    private List<InteractionPostProcessingModel> parsePostProcessing(JsonArray postProcessors) {
+        if (postProcessors == null || postProcessors.size() == 0) {
+            return Collections.emptyList();
+        }
+
+        List<InteractionPostProcessingModel> result = new ArrayList<>();
+        postProcessors.forEach(jsonPostProcessItem -> {
+            JsonObject item = jsonPostProcessItem.getAsJsonObject();
+
+            ProcessingType type = ProcessingType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
+
+            InteractionPostProcessingModel model = null;
+            switch (type) {
+                case UPDATE_FACILITY_VISIBILITY:
+                    model = this.parseUpdateFacilityVisibilityProcessor(item);
+                    break;
+                default:
+                    log.error("Unknown type of interaction post processor {}", type);
+            }
+
+            if (model != null) {
+                result.add(model);
+            }
+        });
+
+        return result;
+    }
+
+    private InteractionConditionModel parsePreCondition(JsonObject jsonObject) {
+        return InteractionConditionModel.builder()
+                .uuid(jsonObject.get(UUID_FIELD_NAME).getAsString())
+                .conditionType(InteractionConditionModel.ConditionType.valueOf(
+                        jsonObject.get(TYPE_FIELD_NAME).getAsString())
+                )
+                .build();
+    }
+
     private DialogueEffectModel parseDialogueEffect(JsonObject jsonDialogueModel) {
         try {
             DialogueEffectModel model = new DialogueEffectModel();
@@ -160,6 +198,18 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
             return model;
         } catch (Exception e) {
             log.error("Parsing of ShowFacilityEffectModel was failed with error: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private UpdateFacilityVisibilityPostProcessModel parseUpdateFacilityVisibilityProcessor(JsonObject postProcessor) {
+        try {
+            UpdateFacilityVisibilityPostProcessModel postProcess = new UpdateFacilityVisibilityPostProcessModel();
+            postProcess.setFacilityUuid(postProcessor.get(FACILITY_UUID_FIELD_NAME).getAsString());
+            postProcess.setValue(postProcessor.get(VALUE_FIELD_NAME).getAsBoolean());
+            return postProcess;
+        } catch (Exception e) {
+            log.error("Parsing of UpdateFacilityVisibilityPostProcessModel was failed with error: {}", e.getMessage());
             return null;
         }
     }

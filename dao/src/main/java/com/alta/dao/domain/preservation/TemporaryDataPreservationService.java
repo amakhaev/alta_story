@@ -1,7 +1,7 @@
 package com.alta.dao.domain.preservation;
 
-import com.alta.dao.data.interaction.InteractionModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
+import com.alta.dao.data.preservation.MapPreservationModel;
 
 import java.util.List;
 
@@ -50,4 +50,36 @@ public interface TemporaryDataPreservationService {
      * @param preservationId    - the preservation id.
      */
     void markTemporaryInteractionsAsCompletelySaved(Long preservationId);
+
+    /**
+     * Creates or updates the preservation of map.
+     *
+     * @param mapPreservationModel - the preservation that should saved.
+     */
+    void upsertTemporaryMapPreservation(MapPreservationModel mapPreservationModel);
+
+    /**
+     * Finds the temporary preservation related to specific map.
+     *
+     * @param preservationId    - the id of parent preservation.
+     * @param uuid              - the uuid of participant of map.
+     * @return the {@link MapPreservationModel} instance or null if not found.
+     */
+    MapPreservationModel findTemporaryMapPreservation(Long preservationId, String uuid);
+
+    /**
+     * Gets the list of maps that related to preservation.
+     *
+     * @param preservationId    - the preservation id.
+     * @param mapName           - the name of map.
+     * @return the {@link List} of {@link MapPreservationModel} related to specific map and preservation.
+     */
+    List<MapPreservationModel> getMapsPreservation(Long preservationId, String mapName);
+
+    /**
+     * Clears all temporary data that related to specific preservation.
+     *
+     * @param preservationId - the preservation to be cleared.
+     */
+    void clearTemporaryDataFromPreservation(Long preservationId);
 }

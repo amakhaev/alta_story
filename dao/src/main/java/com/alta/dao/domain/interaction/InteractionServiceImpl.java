@@ -5,6 +5,7 @@ import com.alta.dao.data.interaction.InteractionModel;
 import com.alta.utils.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -53,6 +54,27 @@ public class InteractionServiceImpl implements InteractionService {
                 new TypeToken<ArrayList<InteractionModel>>(){}.getType(),
                 this.interactionDeserializer
         );
+    }
+
+    /**
+     * Gets the interaction by uuid for given map.
+     *
+     * @param relatedMapName  - the name of related map.
+     * @param interactionUuid - the uuid of interaction.
+     * @return the {@link InteractionModel} instance or null if not found.
+     */
+    @Override
+    public InteractionModel getInteraction(@NonNull String relatedMapName, @NonNull String interactionUuid) {
+        List<InteractionModel> interactionsForMap = this.getInteractions(relatedMapName);
+        if (interactionsForMap == null || interactionsForMap.isEmpty()) {
+            log.warn("Interactions related to map name '{}' not found", relatedMapName);
+            return null;
+        }
+
+        return interactionsForMap.stream()
+                .filter(interaction -> interaction.getUuid().equals(interactionUuid))
+                .findFirst()
+                .orElse(null);
     }
 
     private void loadAvailableInteractions() {

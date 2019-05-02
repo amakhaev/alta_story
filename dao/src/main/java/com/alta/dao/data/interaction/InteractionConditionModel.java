@@ -14,7 +14,6 @@ public class InteractionConditionModel {
     private final ConditionType conditionType;
 
     public enum ConditionType {
-        ITERACTION_COMPLETED
+        INTERACTION_COMPLETED
     }
-
 }

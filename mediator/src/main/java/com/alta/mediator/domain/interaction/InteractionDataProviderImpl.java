@@ -1,8 +1,11 @@
 package com.alta.mediator.domain.interaction;
 
 import com.alta.dao.data.interaction.*;
+import com.alta.dao.data.interaction.effect.DialogueEffectModel;
+import com.alta.dao.data.interaction.effect.HideFacilityEffectModel;
+import com.alta.dao.data.interaction.effect.InteractionEffectModel;
+import com.alta.dao.data.interaction.effect.ShowFacilityEffectModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
 import com.alta.engine.model.InteractionDataModel;
 import com.alta.engine.model.interaction.*;

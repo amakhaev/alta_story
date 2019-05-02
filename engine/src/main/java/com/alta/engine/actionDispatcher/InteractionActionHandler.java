@@ -1,5 +1,6 @@
 package com.alta.engine.actionDispatcher;
 
+import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.facade.InteractionFacade;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class InteractionActionHandler implements ActionHandler {
 
     private final InteractionFacade interactionFacade;
+    private final AsyncTaskManager asyncTaskManager;
 
     /**
      * Handles the constantly action from scene.
@@ -36,6 +38,6 @@ public class InteractionActionHandler implements ActionHandler {
             return;
         }
 
-        this.interactionFacade.triggerInteraction();
+        this.asyncTaskManager.executeTask("handle_interaction", this.interactionFacade::triggerInteraction);
     }
 }

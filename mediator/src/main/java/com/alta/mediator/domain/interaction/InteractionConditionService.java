@@ -1,6 +1,7 @@
 package com.alta.mediator.domain.interaction;
 
 import com.alta.dao.data.interaction.InteractionConditionModel;
+import com.alta.dao.data.interaction.postProcessing.ProcessingType;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
@@ -44,7 +45,7 @@ public class InteractionConditionService {
         }
 
         switch (conditionData.getConditionType()) {
-            case ITERACTION_COMPLETED:
+            case INTERACTION_COMPLETED:
                 return this.createInteractionCompletedCondition(conditionData.getUuid());
             default:
                 log.error("Unknown type of condition data {}", conditionData.getConditionType());
@@ -56,7 +57,7 @@ public class InteractionConditionService {
         if (Strings.isNullOrEmpty(uuid)) {
             log.error(
                     "Invalid condition data. Uuid required for the {} type",
-                    InteractionConditionModel.ConditionType.ITERACTION_COMPLETED
+                    InteractionConditionModel.ConditionType.INTERACTION_COMPLETED
             );
             return null;
         }

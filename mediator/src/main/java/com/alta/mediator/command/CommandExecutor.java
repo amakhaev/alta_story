@@ -3,6 +3,8 @@ package com.alta.mediator.command;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 /**
  * Provides the executor of commands
  */
@@ -20,4 +22,14 @@ public class CommandExecutor {
         log.debug("Finish the execution of command {}", command.getClass().getSimpleName());
     }
 
+    /**
+     * Executes the batch of commands.
+     *
+     * @param commands - the commands to be executed.
+     */
+    public synchronized void executeCommands(List<Command> commands) {
+        log.debug("Have got {} command to be executed", commands.size());
+        commands.forEach(this::executeCommand);
+        log.debug("Execution of commands completed");
+    }
 }

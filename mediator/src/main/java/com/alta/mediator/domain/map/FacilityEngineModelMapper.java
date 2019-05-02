@@ -31,14 +31,6 @@ public class FacilityEngineModelMapper {
         return mapFacilityModels.stream().map(this::doMappingForFacility).collect(Collectors.toList());
     }
 
-    private List<FacilityEngineModel.Position> doMappingForPositions(List<FacilityPositionModel> mapFacilityPositions) {
-        if (mapFacilityPositions == null || mapFacilityPositions.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        return mapFacilityPositions.stream().map(this::doMappingForPosition).collect(Collectors.toList());
-    }
-
     private FacilityEngineModel doMappingForFacility(MapFacilityModel facilityModel) {
         return FacilityEngineModel.builder()
                 .uuid(facilityModel.getUuid())
@@ -50,6 +42,14 @@ public class FacilityEngineModelMapper {
                 .visible(facilityModel.isDefaultVisible())
                 .positions(this.doMappingForPositions(facilityModel.getFacilityPositions()))
                 .build();
+    }
+
+    private List<FacilityEngineModel.Position> doMappingForPositions(List<FacilityPositionModel> mapFacilityPositions) {
+        if (mapFacilityPositions == null || mapFacilityPositions.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return mapFacilityPositions.stream().map(this::doMappingForPosition).collect(Collectors.toList());
     }
 
     private FacilityEngineModel.Position doMappingForPosition(FacilityPositionModel mapFacilityPosition) {

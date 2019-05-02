@@ -1,20 +1,28 @@
 package com.alta.mediator.domain.frameStage;
 
+import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.domain.map.MapService;
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
+import com.alta.dao.domain.map.SimpleNpcEntity;
+import com.alta.dao.domain.preservation.PreservationService;
+import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.model.frameStage.FacilityEngineModel;
 import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.map.FacilityEngineModelMapper;
 import com.alta.mediator.domain.map.JumpingEngineModelMapper;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import one.util.streamex.StreamEx;
 
+import javax.inject.Named;
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,13 +32,35 @@ import java.util.stream.Collectors;
  * Provides the service to manipulate model related to {@link FrameStageDataModel}
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
     private final MapService mapService;
+    private final PreservationService preservationService;
+    private final TemporaryDataPreservationService temporaryDataPreservationService;
     private final ActorDataProvider actorDataProvider;
     private final FacilityEngineModelMapper facilityEngineModelMapper;
     private final JumpingEngineModelMapper jumpingEngineModelMapper;
+    private final Long currentPreservationId;
+
+    /**
+     * Initialize new instance of {@link FrameStageDataProviderImpl}.
+     */
+    @Inject
+    public FrameStageDataProviderImpl(MapService mapService,
+                                      PreservationService preservationService,
+                                      TemporaryDataPreservationService temporaryDataPreservationService,
+                                      ActorDataProvider actorDataProvider,
+                                      FacilityEngineModelMapper facilityEngineModelMapper,
+                                      JumpingEngineModelMapper jumpingEngineModelMapper,
+                                      @Named("currentPreservationId") Long currentPreservationId) {
+        this.mapService = mapService;
+        this.preservationService = preservationService;
+        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.actorDataProvider = actorDataProvider;
+        this.facilityEngineModelMapper = facilityEngineModelMapper;
+        this.jumpingEngineModelMapper = jumpingEngineModelMapper;
+        this.currentPreservationId = currentPreservationId;
+    }
 
     /**
      * Gets the model of frame stage that created from preservation
@@ -85,7 +115,51 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                 UUID.randomUUID().toString()
         );
 
-        List<SimpleNpcEngineModel> simpleNpcEngineModels = mapModel.getSimpleNpcList().stream()
+        return FrameStageDataModel.builder()
+                .mapDisplayName(mapModel.getDisplayName())
+                .mapName(mapModel.getName())
+                .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
+                .focusPointMapStartPosition(focus)
+                .facilities(this.createFacilityList(mapModel.getFacilities(), mapModel.getName()))
+                .simpleNpc(this.createSimpleNpcList(mapModel.getSimpleNpcList()))
+                .actingCharacter(actingCharacterEngineModel)
+                .jumpingPoints(this.jumpingEngineModelMapper.doMappingForJumpings(mapModel.getMapJumpings()))
+                .build();
+    }
+
+    private List<FacilityEngineModel> createFacilityList(List<MapFacilityModel> facilities, String mapName) {
+        if (facilities == null || facilities.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<FacilityEngineModel> facilityEngineModels = this.facilityEngineModelMapper.doMapppingForFacilities(facilities);
+
+        // The map preservation should be applied to facility if needed,
+        List<MapPreservationModel> mapPreservations = this.preservationService.getMapsPreservation(
+                this.currentPreservationId, mapName
+        );
+
+        this.temporaryDataPreservationService.getMapsPreservation(this.currentPreservationId, mapName)
+                .forEach(temporaryMapPreservation -> {
+                    mapPreservations.removeIf(mp -> mp.getId().equals(temporaryMapPreservation.getId()));
+                    mapPreservations.add(temporaryMapPreservation);
+                });
+
+        // Apply preservation to facilities
+        mapPreservations.forEach(mapPreservationModel -> {
+            facilityEngineModels.stream()
+                    .filter(facilityEngineModel -> mapPreservationModel.getParticipantUuid().equals(facilityEngineModel.getUuid()))
+                    .findFirst()
+                    .ifPresent(facilityEngineModel -> {
+                        facilityEngineModel.setVisible(mapPreservationModel.isVisible());
+                    });
+        });
+
+        return facilityEngineModels;
+    }
+
+    private List<SimpleNpcEngineModel> createSimpleNpcList(List<SimpleNpcEntity> simpleNpcList) {
+        return simpleNpcList.stream()
                 .map(simpleNpc ->
                         this.actorDataProvider.getSimpleNpc(
                                 simpleNpc.getName(),
@@ -94,16 +168,5 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                                 simpleNpc.getUuid()
                         )
                 ).collect(Collectors.toList());
-
-        return FrameStageDataModel.builder()
-                .mapDisplayName(mapModel.getDisplayName())
-                .mapName(mapModel.getName())
-                .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
-                .focusPointMapStartPosition(focus)
-                .facilities(this.facilityEngineModelMapper.doMapppingForFacilities(mapModel.getFacilities()))
-                .simpleNpc(simpleNpcEngineModels)
-                .actingCharacter(actingCharacterEngineModel)
-                .jumpingPoints(this.jumpingEngineModelMapper.doMappingForJumpings(mapModel.getMapJumpings()))
-                .build();
     }
 }

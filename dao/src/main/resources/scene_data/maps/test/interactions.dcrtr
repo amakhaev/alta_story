@@ -82,7 +82,7 @@
 		"shiftTileY": 0,
 		"preCondition": {
 			"uuid": "24db9418-3cbb-457a-9590-2dd871bcb524",
-			"conditionType": "ITERACTION_COMPLETED"
+			"type": "INTERACTION_COMPLETED"
 		},
 		"effects": [
 			{
@@ -102,6 +102,18 @@
 			{
 				"type": "DIALOGUE",
 				"text": "Заперто."
+			}
+		],
+		"postProcessing": [
+			{
+				"type": "UPDATE_FACILITY_VISIBILITY",
+				"facilityUuid": "b0078f0f-0750-4c52-8bbb-2004bec9cc38",
+				"value": "false"
+			},
+			{
+				"type": "UPDATE_FACILITY_VISIBILITY",
+				"facilityUuid": "28f24976-0bdb-4fc8-ac73-eb785caa790a",
+				"value": "true"
 			}
 		]
 	}

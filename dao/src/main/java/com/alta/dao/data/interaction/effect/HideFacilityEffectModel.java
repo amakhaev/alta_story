@@ -1,4 +1,4 @@
-package com.alta.dao.data.interaction;
+package com.alta.dao.data.interaction.effect;
 
 import lombok.Getter;
 import lombok.Setter;

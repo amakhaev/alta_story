@@ -13,6 +13,8 @@ import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
 import com.alta.mediator.domain.frameStage.FrameStageDataProviderImpl;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
 import com.alta.mediator.domain.interaction.InteractionDataProviderImpl;
+import com.alta.mediator.domain.interaction.InteractionPostProcessingService;
+import com.alta.mediator.domain.interaction.InteractionPostProcessingServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
@@ -30,6 +32,7 @@ public class MediatorInjectorModule extends AbstractModule {
         bind(ActorDataProvider.class).to(ActorDataProviderImpl.class);
         bind(InteractionDataProvider.class).to(InteractionDataProviderImpl.class);
         bind(Engine.class).in(Singleton.class);
+        bind(InteractionPostProcessingService.class).to(InteractionPostProcessingServiceImpl.class).in(Singleton.class);
 
         bind(Long.class)
                 .annotatedWith(Names.named("currentPreservationId"))

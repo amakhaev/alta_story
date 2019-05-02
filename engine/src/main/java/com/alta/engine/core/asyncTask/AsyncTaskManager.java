@@ -2,7 +2,6 @@ package com.alta.engine.core.asyncTask;
 
 import com.alta.utils.ExecutorServiceFactory;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import java.util.concurrent.TimeUnit;
  * Provides the facade that do balancing of async tasks
  */
 @Slf4j
-@Singleton
 public class AsyncTaskManager {
 
     private static final String THREAD_POOL_NAME = "engine-main-thread";

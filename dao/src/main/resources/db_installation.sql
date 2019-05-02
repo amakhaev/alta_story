@@ -29,3 +29,14 @@ CREATE TABLE IF NOT EXISTS interaction_preservations (
   UNIQUE (preservation_id, uuid, map_name, is_temporary),
   FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS map_preservations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  preservation_id INTEGER NOT NULL,
+  uuid VARCHAR(32) NOT NULL,
+  map_name VARCHAR(32) NOT NULL,
+  is_temporary BOOLEAN NOT NULL,
+  is_visible BOOLEAN,
+  UNIQUE (preservation_id, uuid, map_name, is_temporary),
+  FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
