@@ -114,9 +114,16 @@ public class InteractionFacade {
         }
 
         // Need to run interaction for facility only if select specific targeted tile, not all facility.
-        if (interaction.getShiftTileX() != shiftTileMapCoordinate.x ||
-                interaction.getShiftTileY() != shiftTileMapCoordinate.y) {
-            return null;
+        if (!interaction.getShiftTiles().isEmpty()) {
+            Point interactionTile = interaction.getShiftTiles().stream()
+                    .filter(shiftTile -> shiftTile.x == shiftTileMapCoordinate.x && shiftTile.y == shiftTileMapCoordinate.y)
+                    .findFirst()
+                    .orElse(null);
+
+            if (interactionTile == null) {
+                log.debug("The tile for interaction not found for given related coordinates {}", shiftTileMapCoordinate);
+                return null;
+            }
         }
 
         InteractionEngineModel incompletedInteraction = interaction.findIncompletedInteraction();

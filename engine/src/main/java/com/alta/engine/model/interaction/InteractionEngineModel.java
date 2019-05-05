@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.*;
 import java.util.List;
 import java.util.function.Function;
 
@@ -19,8 +20,7 @@ public class InteractionEngineModel {
     private final InteractionEngineModel next;
     private final List<InteractionEffectEngineModel> interactionEffects;
     private final List<InteractionEffectEngineModel> failedPreConditionInteractionEffects;
-    private Integer shiftTileX;
-    private Integer shiftTileY;
+    private List<Point> shiftTiles;
     private Function<Void, Boolean> preCondition;
 
     @Setter

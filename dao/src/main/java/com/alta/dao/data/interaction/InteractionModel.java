@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -20,9 +21,10 @@ public class InteractionModel {
     private String nextInteractionUuid;
     private Integer chapterIndicatorFrom;
     private Integer chapterIndicatorTo;
-    private Integer shiftTileX;
-    private Integer shiftTileY;
     private InteractionConditionModel preCondition;
+
+    @Singular("shiftTiles")
+    private List<Point> shiftTiles;
 
     @Singular("failedPreConditionEffects")
     private List<InteractionEffectModel> failedPreConditionEffects;

@@ -1,3 +1,24 @@
 [
-	
+	{
+		"uuid": "71037d69-aa8e-42d1-ad29-a6ea6f7df4f4",
+		"targetUuid": "bb0f1b71-ddc8-4c78-aa9b-92cab0f6127f",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 1
+			},
+			{
+				"x": 1,
+				"y": 1
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Очень глубокий колодец."
+			}
+		]
+	}
 ]

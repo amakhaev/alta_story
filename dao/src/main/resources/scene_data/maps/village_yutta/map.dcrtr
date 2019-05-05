@@ -40,6 +40,14 @@
 			"startX": 84,
 			"startY": 84,
 			"defaultVisible": "false"
+		},
+		{
+			"uuid": "bb0f1b71-ddc8-4c78-aa9b-92cab0f6127f",
+			"name": "well1", 
+			"descriptorFileName": "facility10",
+			"startX": 86,
+			"startY": 83,
+			"defaultVisible": "true"
 		}
 	],
 	"simpleNpcList": [

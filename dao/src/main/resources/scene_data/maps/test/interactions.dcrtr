@@ -64,8 +64,12 @@
 		"targetUuid": "6803c153-4e02-4c6b-af08-148da29d7509",
 		"chapterIndicatorFrom": 1,
 		"chapterIndicatorTo": 1000,
-		"shiftTileX": 1,
-        "shiftTileY": 3,
+		"shiftTiles": [
+			{
+				"x": 1,
+				"y": 3
+			}
+		],
 		"effects": [
 			{
 				"type": "DIALOGUE",
