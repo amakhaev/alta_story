@@ -13,5 +13,10 @@
 		name: "test3",
 		tiledMapPath: "scene_data/maps/test3/map.tmx",
 		decoratorPath: "scene_data/maps/test3/map.dcrtr"
+	},
+	{
+		name: "village_yutta",
+		tiledMapPath: "scene_data/maps/village_yutta/map.tmx",
+		decoratorPath: "scene_data/maps/village_yutta/map.dcrtr"
 	}
 ]

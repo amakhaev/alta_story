@@ -10,5 +10,9 @@
 	{
 		name: "test3",
 		decoratorPath: "scene_data/maps/test3/interactions.dcrtr"
+	},
+	{
+		name: "village_yutta",
+		decoratorPath: "scene_data/maps/village_yutta/interactions.dcrtr"
 	}
 ]

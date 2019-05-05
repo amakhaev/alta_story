@@ -10,6 +10,7 @@ import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
 import com.alta.eventStream.EventProducer;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -88,9 +89,20 @@ public class FrameStageListener {
             return;
         }
 
+        JumpingEngineModel jumpingEngineModel;
         switch (event.getComputatorEventType()) {
+            case BEFORE_MOVING_FOCUS_TO_JUMP_POINT:
+                jumpingEngineModel = this.frameStageFacade.findJumpingPoint(
+                        ((ActingCharacterJumpEvent) event).getMapCoordinates()
+                );
+                if (jumpingEngineModel != null &&
+                        !Strings.isNullOrEmpty(jumpingEngineModel.getHideFacilityUuid()) &&
+                        !Strings.isNullOrEmpty(jumpingEngineModel.getShowFacilityUuid())) {
+                    this.frameStageFacade.replaceFacility(jumpingEngineModel.getHideFacilityUuid(), jumpingEngineModel.getShowFacilityUuid());
+                }
+                break;
             case ACTING_CHARACTER_JUMP:
-                JumpingEngineModel jumpingEngineModel = this.frameStageFacade.findJumpingPoint(
+                jumpingEngineModel = this.frameStageFacade.findJumpingPoint(
                         ((ActingCharacterJumpEvent) event).getMapCoordinates()
                 );
                 if (jumpingEngineModel != null) {
@@ -99,7 +111,9 @@ public class FrameStageListener {
                             new JumpingEventPayload(jumpingEngineModel.getMapName(), jumpingEngineModel.getTo())
                     ));
                 }
+                break;
             default:
+                log.error("Unknown type of computator event {}", event.getComputatorEventType());
                 return;
         }
     }

@@ -1,0 +1,20 @@
+{
+  "imageName": "facility9.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "doorway1",
+      "positions": [
+        {
+          "x": 10,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    }
+  ]
+}

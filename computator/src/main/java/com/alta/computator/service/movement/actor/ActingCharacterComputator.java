@@ -2,12 +2,8 @@ package com.alta.computator.service.movement.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
-import com.alta.computator.model.event.ActingCharacterJumpEvent;
-import com.alta.computator.model.event.ComputatorEvent;
-import com.alta.computator.model.event.ComputatorEventType;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.eventStream.EventProducer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +20,7 @@ public class ActingCharacterComputator {
     private final ActingCharacterParticipant actingCharacterParticipant;
 
     @Setter
-    private EventProducer<ComputatorEvent> jumpEventProducer;
+    private ActingCharacterEventListener eventListener;
 
     /**
      * Initialize new instance of {@link ActingCharacterComputator}
@@ -111,7 +107,7 @@ public class ActingCharacterComputator {
     }
 
     private void produceJumpEventIfNeeded(AltitudeMap altitudeMap) {
-        if (this.jumpEventProducer == null ||
+        if (this.eventListener == null ||
                 !altitudeMap.isJumpTileState(
                         this.actingCharacterParticipant.getCurrentMapCoordinates().x,
                         this.actingCharacterParticipant.getCurrentMapCoordinates().y
@@ -119,13 +115,9 @@ public class ActingCharacterComputator {
             return;
         }
 
-        log.info(
-                "The acting character {} moved to jump point {}",
-                this.actingCharacterParticipant.getUuid(),
-                this.actingCharacterParticipant.getCurrentMapCoordinates()
+        this.eventListener.onAfterMovingToJumpPoint(
+                this.actingCharacterParticipant.getCurrentMapCoordinates(),
+                this.actingCharacterParticipant.getUuid()
         );
-        this.jumpEventProducer.publishEvent(new ActingCharacterJumpEvent(
-                ComputatorEventType.ACTING_CHARACTER_JUMP, this.actingCharacterParticipant.getCurrentMapCoordinates()
-        ));
     }
 }

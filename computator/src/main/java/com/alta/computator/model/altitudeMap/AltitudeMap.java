@@ -25,10 +25,23 @@ public class AltitudeMap {
     private TileState[][] currentTileStates;
     private TileState[][] jumpTileStates;
 
-    @Getter private final int screenWidth;
-    @Getter private final int screenHeight;
-    @Getter private final int tileWidth;
-    @Getter private final int tileHeight;
+    @Getter
+    private final int screenWidth;
+
+    @Getter
+    private final int screenHeight;
+
+    @Getter
+    private final int tileWidth;
+
+    @Getter
+    private final int tileHeight;
+
+    @Getter
+    private final int availableCountOfTileOnXAxis;
+
+    @Getter
+    private final int availableCountOfTileOnYAxis;
 
     /**
      * Initialize new instance of {@link AltitudeMap}
@@ -39,6 +52,8 @@ public class AltitudeMap {
         this.createTileStates(tiledMap);
         this.tileWidth = tiledMap.getTileWidth();
         this.tileHeight = tiledMap.getTileHeight();
+        this.availableCountOfTileOnXAxis = (int) Math.ceil((double) this.screenWidth / (double) this.tileWidth);
+        this.availableCountOfTileOnYAxis = (int) Math.ceil((double) this.screenHeight / (double) this.tileHeight);
     }
 
     /**

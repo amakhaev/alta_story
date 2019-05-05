@@ -15,5 +15,6 @@ public class MapJumpingEntity {
     private final int toX;
     private final int toY;
     private final String mapName;
+    private final MapJumpingReplaceFacilityEffectEntity replaceFacility;
 
 }

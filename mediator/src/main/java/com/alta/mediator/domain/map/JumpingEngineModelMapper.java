@@ -35,6 +35,12 @@ public class JumpingEngineModelMapper {
                 .from(new Point(mapJumpingEntity.getFromX(), mapJumpingEntity.getFromY()))
                 .mapName(mapJumpingEntity.getMapName())
                 .to(new Point(mapJumpingEntity.getToX(), mapJumpingEntity.getToY()))
+                .hideFacilityUuid(mapJumpingEntity.getReplaceFacility() == null ?
+                        null : mapJumpingEntity.getReplaceFacility().getHideFacilityUuid()
+                )
+                .showFacilityUuid(mapJumpingEntity.getReplaceFacility() == null ?
+                        null : mapJumpingEntity.getReplaceFacility().getShowFacilityUuid()
+                )
                 .build();
     }
 

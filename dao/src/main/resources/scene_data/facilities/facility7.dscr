@@ -1,0 +1,60 @@
+{
+  "imageName": "facility7.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "roof1",
+      "positions": [
+        {
+          "x": 3,
+          "y": 11,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 11,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 11,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 12,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 12,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 12,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    }
+  ]
+}

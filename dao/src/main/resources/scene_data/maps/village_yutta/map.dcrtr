@@ -1,0 +1,60 @@
+{
+	"displayName": "Ютта",
+	"facilities": [
+		{
+			"uuid": "cb16c034-7479-41fd-9dd7-1cc9e5ee3f76",
+			"name": "roof1", 
+			"descriptorFileName": "facility7",
+			"startX": 83,
+			"startY": 78,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "5ce6c2a5-b466-43f6-9d1f-a7a50004447f",
+			"name": "roof1", 
+			"descriptorFileName": "facility7",
+			"startX": 80,
+			"startY": 78,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "8905243b-4eae-413d-8d21-2f698375e08f",
+			"name": "roof1", 
+			"descriptorFileName": "facility7",
+			"startX": 77,
+			"startY": 78,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "588b9923-fab1-480e-96f8-7dbcff3109cf",
+			"name": "door1", 
+			"descriptorFileName": "facility8",
+			"startX": 84,
+			"startY": 84,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "4f88c106-4d80-470a-a2cb-15c936937e39",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 84,
+			"startY": 84,
+			"defaultVisible": "false"
+		}
+	],
+	"simpleNpcList": [
+	],
+	"jumping": [
+		{
+			"fromX": 84,
+			"fromY": 84,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "588b9923-fab1-480e-96f8-7dbcff3109cf",
+				"showFacilityUuid": "4f88c106-4d80-470a-a2cb-15c936937e39"
+			}
+		}
+	]
+}

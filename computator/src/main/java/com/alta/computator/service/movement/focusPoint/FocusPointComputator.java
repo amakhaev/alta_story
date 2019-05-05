@@ -1,11 +1,14 @@
-package com.alta.computator.service.movement;
+package com.alta.computator.service.movement.focusPoint;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
+import com.alta.computator.model.event.ActingCharacterJumpEvent;
+import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.movement.strategy.MovementStrategy;
 import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
 import com.alta.computator.utils.MovementCoordinateComputator;
+import com.alta.eventStream.EventProducer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,9 @@ public class FocusPointComputator {
 
     @Setter
     private boolean isComputationPause;
+
+    @Setter
+    private FocusPointEventListener eventListener;
 
     @Getter
     private Point constantGlobalStartCoordination;
@@ -97,6 +103,12 @@ public class FocusPointComputator {
                     this.focusPointParticipant.getCurrentMapCoordinates(),
                     targetMapPoint
             );
+
+            if (this.eventListener != null &&
+                    this.movementStrategy.isCurrentlyRunning() &&
+                    altitudeMap.isJumpTileState(targetMapPoint.x,targetMapPoint.y)) {
+                this.eventListener.onBeforeMovingToJumpTile(targetMapPoint);
+            }
         }
     }
 

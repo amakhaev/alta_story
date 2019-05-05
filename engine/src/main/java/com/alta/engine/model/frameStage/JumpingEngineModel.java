@@ -15,4 +15,7 @@ public class JumpingEngineModel {
     private final Point from;
     private final Point to;
     private final String mapName;
+    private final String hideFacilityUuid;
+    private final String showFacilityUuid;
+
 }

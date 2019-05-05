@@ -1,0 +1,20 @@
+{
+  "imageName": "facility8.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "door1",
+      "positions": [
+        {
+          "x": 1,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    }
+  ]
+}

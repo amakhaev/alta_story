@@ -8,21 +8,18 @@ import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
-import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.model.participant.map.MapParticipant;
 import com.alta.computator.service.layer.LayerComputator;
 import com.alta.computator.service.movement.FacilityComputator;
-import com.alta.computator.service.movement.FocusPointComputator;
+import com.alta.computator.service.movement.focusPoint.FocusPointComputator;
 import com.alta.computator.service.movement.MapComputator;
 import com.alta.computator.service.movement.actor.ActingCharacterComputator;
 import com.alta.computator.service.movement.actor.SimpleNpcListComputator;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.eventStream.EventProducer;
-import com.google.common.base.Strings;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -260,7 +257,8 @@ public class StageComputatorImpl implements StageComputator {
             log.warn("The acting character computator is empty. EventStream will not be set.");
         }
 
-        this.actingCharacterComputator.setJumpEventProducer(eventProducer);
+        this.actingCharacterComputator.setEventListener(new ActingCharacterEventListenerImpl(eventProducer));
+        this.focusPointComputator.setEventListener(new FocusPointEventListenerImpl(eventProducer));
     }
 
     /**

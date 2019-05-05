@@ -7,6 +7,7 @@ import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.google.inject.Inject;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -82,6 +83,17 @@ public class FrameStageFacade {
         }
 
         return jumpingPoint;
+    }
+
+    /**
+     * Replaces the facility on map. One facility will be hidden, second will be shown.
+     *
+     * @param hideFacility - the facility to be hidden.
+     * @param showFacility - the facility to be shown.
+     */
+    public void replaceFacility(@NonNull String hideFacility, @NonNull String showFacility) {
+        this.frameStagePresenter.removeFacility(hideFacility);
+        this.frameStagePresenter.addFacility(showFacility);
     }
 
 }
