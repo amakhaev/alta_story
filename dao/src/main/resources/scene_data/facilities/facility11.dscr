@@ -1,0 +1,20 @@
+{
+  "imageName": "facility11.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "cursor1",
+      "positions": [
+        {
+          "x": 11,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    }
+  ]
+}

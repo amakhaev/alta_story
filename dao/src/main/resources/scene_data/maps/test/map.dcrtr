@@ -104,6 +104,14 @@
 			"startX": 7,
 			"startY": 3,
 			"defaultVisible": "false"
+		},
+		{
+			"uuid": "56332ec7-0199-4e0e-a215-5098fb3659b7",
+			"name": "flooring2", 
+			"descriptorFileName": "facility3",
+			"startX": 1,
+			"startY": 1,
+			"defaultVisible": "true"
 		}
 	],
 	"simpleNpcList": [
@@ -143,6 +151,13 @@
 			"toX": 18,
 			"toY": 13,
 			"mapName": "test3"
+		},
+		{
+			"fromX": 1,
+			"fromY": 1,
+			"toX": 12,
+			"toY": 29,
+			"mapName": "village_yutta"
 		}
 	]
 }

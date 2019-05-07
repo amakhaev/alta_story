@@ -48,9 +48,453 @@
 			"startX": 86,
 			"startY": 83,
 			"defaultVisible": "true"
+		},
+		{
+			"uuid": "e4667505-abee-4052-94fe-fbaf5aeff764",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 11,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "b30983b6-f488-48a5-aefc-1d702b8f22f6",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 12,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "69667fcb-ecc9-4277-bb29-4477a819af15",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 13,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "b2bab2af-89cd-4007-aece-7199f501abf7",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 14,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "49e5839d-fda9-4380-affa-50cda052b00d",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 15,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "ec6af7b1-55cb-46b2-bc87-5a98a4ceb667",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 19,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "ae201289-f4cd-4065-ac86-36876936a1a2",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 20,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "79746634-d0aa-4daf-88d6-5d23e8d6a0cc",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 21,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "cb3a5566-35dc-4869-afa4-e6d9e00f4ad7",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 22,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "0e4d8c7b-69b9-4738-b041-332f8dc6f49d",
+			"name": "railing1", 
+			"descriptorFileName": "facility9",
+			"startX": 23,
+			"startY": 85,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "5fca6a7b-2157-440e-901f-ae2c06bec349",
+			"name": "door1", 
+			"descriptorFileName": "facility8",
+			"startX": 17,
+			"startY": 83,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "7e2b0846-9d7d-4601-9d44-08ff808b883b",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 17,
+			"startY": 83,
+			"defaultVisible": "false"
+		},
+		{
+			"uuid": "c7135da7-5125-4738-b007-6292f9ab6959",
+			"name": "roof1", 
+			"descriptorFileName": "facility9",
+			"startX": 15,
+			"startY": 75,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "88631ad2-0187-4cb9-99dd-94d9314057c0",
+			"name": "statue9", 
+			"descriptorFileName": "facility1",
+			"startX": 56,
+			"startY": 62,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "3d9595ce-e89f-48d7-9641-d14c97950687",
+			"name": "statue9", 
+			"descriptorFileName": "facility1",
+			"startX": 60,
+			"startY": 62,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "20f6f604-1837-4ed7-8e81-d5b07fb80ca7",
+			"name": "gate2", 
+			"descriptorFileName": "facility1",
+			"startX": 57,
+			"startY": 62,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "1d3eaaba-2d82-45be-b506-fc4018b0c432",
+			"name": "cursor1", 
+			"descriptorFileName": "facility11",
+			"startX": 58,
+			"startY": 65,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "3b58c712-bab6-4284-a1b0-e09b7b7b8df1",
+			"name": "roof1", 
+			"descriptorFileName": "facility9",
+			"startX": 30,
+			"startY": 40,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "324a5049-2b34-42cd-8a27-f618eb67fe0c",
+			"name": "roof2", 
+			"descriptorFileName": "facility9",
+			"startX": 31,
+			"startY": 37,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "bb578857-fc3c-4de5-bf0e-ad51f6cb9a53",
+			"name": "door2", 
+			"descriptorFileName": "facility8",
+			"startX": 32,
+			"startY": 47,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "c48f9561-f253-4747-b4a1-a1b2a7a299bc",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 32,
+			"startY": 47,
+			"defaultVisible": "false"
+		},
+		{
+			"uuid": "bf411d5a-6122-4f3a-9ebb-997d144ee332",
+			"name": "flooring2", 
+			"descriptorFileName": "facility3",
+			"startX": 11,
+			"startY": 28,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "9004a0c7-87d1-4176-bad1-103bf0bc4667",
+			"name": "flooring2", 
+			"descriptorFileName": "facility3",
+			"startX": 11,
+			"startY": 29,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "303b47be-544c-4b37-9009-49731a6d138c",
+			"name": "flooring2", 
+			"descriptorFileName": "facility3",
+			"startX": 11,
+			"startY": 30,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "0a21df30-9c72-4dbb-8cb3-714ba6f6fd40",
+			"name": "roof3", 
+			"descriptorFileName": "facility9",
+			"startX": 50,
+			"startY": 18,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "d8cf1879-b14d-4558-98f1-fb8caf0d235f",
+			"name": "roof3", 
+			"descriptorFileName": "facility9",
+			"startX": 59,
+			"startY": 19,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "7855faa4-d4f2-4b21-b262-ed9eb857a0ce",
+			"name": "roof3", 
+			"descriptorFileName": "facility9",
+			"startX": 68,
+			"startY": 19,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "4a6fc485-d808-4c8b-ac74-e7ac21f5f32f",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 52,
+			"startY": 25,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "b6f6584c-9fc0-44a0-b5da-b5eab511f9ac",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 61,
+			"startY": 26,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "0f511bae-446e-4951-9780-48877b4dfa7e",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 70,
+			"startY": 26,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "67c60dec-a4e7-46e1-9d45-6fb74f3d8f65",
+			"name": "door2", 
+			"descriptorFileName": "facility8",
+			"startX": 84,
+			"startY": 21,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "f6d9efc9-3052-4505-b6bd-239e46d18faf",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 84,
+			"startY": 21,
+			"defaultVisible": "false"
+		},
+		{
+			"uuid": "5055d08c-a3b2-4c85-b565-dc2c4f6b2f37",
+			"name": "roof1", 
+			"descriptorFileName": "facility12",
+			"startX": 53,
+			"startY": 33,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "d8a71863-848a-411c-94de-a7fe524ac499",
+			"name": "roof1", 
+			"descriptorFileName": "facility12",
+			"startX": 59,
+			"startY": 33,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "424b3ef7-bd50-4d7e-a999-9bd3ec1ee3ce",
+			"name": "roof1", 
+			"descriptorFileName": "facility12",
+			"startX": 65,
+			"startY": 33,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "2c818a8c-ab4e-4be3-83d9-ad6a264de1c5",
+			"name": "door2", 
+			"descriptorFileName": "facility8",
+			"startX": 61,
+			"startY": 51,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "609f6caa-1415-4011-b1de-ecc835a57bc3",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 61,
+			"startY": 51,
+			"defaultVisible": "false"
+		},
+		{
+			"uuid": "d1799317-8d12-4c21-8cb6-1fbaba0fa63c",
+			"name": "door4", 
+			"descriptorFileName": "facility8",
+			"startX": 82,
+			"startY": 43,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "ba005f8b-9ec2-4d97-8357-ddc565e1ee6e",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 82,
+			"startY": 43,
+			"defaultVisible": "false"
+		},
+		{
+			"uuid": "9a8e6347-e4e0-4ce7-aa7a-140a647b7b7e",
+			"name": "door5", 
+			"descriptorFileName": "facility8",
+			"startX": 83,
+			"startY": 43,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "20bc4221-0ad7-4dc1-a891-a7f7f42d3d87",
+			"name": "doorway1", 
+			"descriptorFileName": "facility9",
+			"startX": 83,
+			"startY": 43,
+			"defaultVisible": "false"
+		},
+		{
+			"uuid": "523480e3-5a91-4d7c-b3d2-9b2d4a15e1ae",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 78,
+			"startY": 58,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "d051b31e-4c7a-40a6-af85-5114827f3e47",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 86,
+			"startY": 58,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "b413ea6b-5990-4acb-9ff8-9b5167438418",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 78,
+			"startY": 70,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "97eaa2af-0ce9-4a67-95a4-40f5a0d1203b",
+			"name": "door3", 
+			"descriptorFileName": "facility8",
+			"startX": 85,
+			"startY": 70,
+			"defaultVisible": "true"
 		}
 	],
 	"simpleNpcList": [
+		{
+			"uuid": "2d8b5b52-b589-4060-8772-0086fd7e8544",
+			"name": "animal1",
+			"startX": 15,
+			"startY": 64,
+			"repeatingMovementDurationTime": 2900
+		},
+		{
+			"uuid": "03313711-ce9f-4ff0-ba17-cca2e3a3177d",
+			"name": "animal1",
+			"startX": 19,
+			"startY": 65,
+			"repeatingMovementDurationTime": 3500
+		},
+		{
+			"uuid": "7598946b-ce94-4611-a379-948d07ae8a90",
+			"name": "animal1",
+			"startX": 20,
+			"startY": 64,
+			"repeatingMovementDurationTime": 3000
+		},
+		{
+			"uuid": "7dc825e3-efbb-49c3-9aa9-8b1b70069b6b",
+			"name": "animal1",
+			"startX": 17,
+			"startY": 70,
+			"repeatingMovementDurationTime": 2500
+		},
+		{
+			"uuid": "972ad1e4-e10c-4c96-94dc-320fa628fe0a",
+			"name": "animal1",
+			"startX": 10,
+			"startY": 63,
+			"repeatingMovementDurationTime": 2000
+		},
+		{
+			"uuid": "69fefa0f-8a6c-437d-ba0b-9b1d8d0cdacc",
+			"name": "animal2",
+			"startX": 18,
+			"startY": 68,
+			"repeatingMovementDurationTime": 4000
+		},
+		{
+			"uuid": "ab0bd49a-c656-4424-91ac-cb92a07c7d83",
+			"name": "animal2",
+			"startX": 15,
+			"startY": 68,
+			"repeatingMovementDurationTime": 4000
+		},
+		{
+			"uuid": "f16a8108-7637-46ad-903a-cfc476dbb972",
+			"name": "animal2",
+			"startX": 20,
+			"startY": 40,
+			"repeatingMovementDurationTime": 3000
+		},
+		{
+			"uuid": "6dca7a3f-6588-47c0-bd47-aa694aa54a0d",
+			"name": "animal2",
+			"startX": 25,
+			"startY": 41,
+			"repeatingMovementDurationTime": 3500
+		},
+		{
+			"uuid": "fafd2273-f1b6-48f9-9219-49f3bd763451",
+			"name": "animal2",
+			"startX": 20,
+			"startY": 44,
+			"repeatingMovementDurationTime": 4000
+		},
+		{
+			"uuid": "023af4b9-1a21-40cb-be63-c2bb9c5333e4",
+			"name": "animal1",
+			"startX": 27,
+			"startY": 39,
+			"repeatingMovementDurationTime": 3400
+		},
+		{
+			"uuid": "e83cddd2-ef06-480d-b7f3-e865bcbd86f7",
+			"name": "animal2",
+			"startX": 18,
+			"startY": 68,
+			"repeatingMovementDurationTime": 4000
+		}
 	],
 	"jumping": [
 		{
@@ -63,6 +507,93 @@
 				"hideFacilityUuid": "588b9923-fab1-480e-96f8-7dbcff3109cf",
 				"showFacilityUuid": "4f88c106-4d80-470a-a2cb-15c936937e39"
 			}
+		},
+		{
+			"fromX": 17,
+			"fromY": 83,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "5fca6a7b-2157-440e-901f-ae2c06bec349",
+				"showFacilityUuid": "7e2b0846-9d7d-4601-9d44-08ff808b883b"
+			}
+		},
+		{
+			"fromX": 32,
+			"fromY": 47,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "bb578857-fc3c-4de5-bf0e-ad51f6cb9a53",
+				"showFacilityUuid": "c48f9561-f253-4747-b4a1-a1b2a7a299bc"
+			}
+		},
+		{
+			"fromX": 84,
+			"fromY": 21,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "67c60dec-a4e7-46e1-9d45-6fb74f3d8f65",
+				"showFacilityUuid": "f6d9efc9-3052-4505-b6bd-239e46d18faf"
+			}
+		},
+		{
+			"fromX": 61,
+			"fromY": 51,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "2c818a8c-ab4e-4be3-83d9-ad6a264de1c5",
+				"showFacilityUuid": "609f6caa-1415-4011-b1de-ecc835a57bc3"
+			}
+		},
+		{
+			"fromX": 82,
+			"fromY": 43,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "d1799317-8d12-4c21-8cb6-1fbaba0fa63c",
+				"showFacilityUuid": "ba005f8b-9ec2-4d97-8357-ddc565e1ee6e"
+			}
+		},
+		{
+			"fromX": 83,
+			"fromY": 43,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test",
+			"replaceFacility": {
+				"hideFacilityUuid": "9a8e6347-e4e0-4ce7-aa7a-140a647b7b7e",
+				"showFacilityUuid": "20bc4221-0ad7-4dc1-a891-a7f7f42d3d87"
+			}
+		},
+		{
+			"fromX": 11,
+			"fromY": 28,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test"
+		},
+		{
+			"fromX": 11,
+			"fromY": 29,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test"
+		},
+		{
+			"fromX": 11,
+			"fromY": 30,
+			"toX": 1,
+			"toY": 13,
+			"mapName": "test"
 		}
 	]
 }

@@ -20,5 +20,149 @@
 				"text": "Очень глубокий колодец."
 			}
 		]
+	},
+	{
+		"uuid": "b7a72d01-4b59-4573-a6eb-9c093da47697",
+		"targetUuid": "1d3eaaba-2d82-45be-b506-fc4018b0c432",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Древние врата установленные богами прошлого."
+			}
+		]
+	},
+	{
+		"uuid": "f1846fa7-421f-4bf9-846b-f4a7b3eddeff",
+		"targetUuid": "4a6fc485-d808-4c8b-ac74-e7ac21f5f32f",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
+	},
+	{
+		"uuid": "707b7845-2793-4688-8fc6-08700721a6ea",
+		"targetUuid": "b6f6584c-9fc0-44a0-b5da-b5eab511f9ac",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
+	},
+	{
+		"uuid": "66aeb417-30ee-4ba3-9885-889eb24bed73",
+		"targetUuid": "0f511bae-446e-4951-9780-48877b4dfa7e",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
+	},
+	{
+		"uuid": "bea0b328-aed6-41dc-ba4e-4705ddf23767",
+		"targetUuid": "523480e3-5a91-4d7c-b3d2-9b2d4a15e1ae",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
+	},
+	{
+		"uuid": "7e1f96d9-1471-46de-ad36-aeb5ba93c3d1",
+		"targetUuid": "d051b31e-4c7a-40a6-af85-5114827f3e47",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
+	},
+	{
+		"uuid": "14988ead-dd96-4404-ba9f-ac7a90d47034",
+		"targetUuid": "b413ea6b-5990-4acb-9ff8-9b5167438418",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
+	},
+	{
+		"uuid": "d7bfea78-4803-4bf8-9f80-fb8aab9300de",
+		"targetUuid": "97eaa2af-0ce9-4a67-95a4-40f5a0d1203b",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 0
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Заперто."
+			}
+		]
 	}
 ]

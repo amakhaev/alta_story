@@ -15,6 +15,19 @@
           "zIndex": 0
         }
       ]
+    },
+    {
+      "name": "flooring2",
+      "positions": [
+        {
+          "x": 0,
+          "y": 2,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
     }
   ]
 }

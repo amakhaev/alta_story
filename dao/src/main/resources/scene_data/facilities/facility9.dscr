@@ -15,6 +15,266 @@
           "zIndex": 0
         }
       ]
+    },
+    {
+      "name": "railing1",
+      "positions": [
+        {
+          "x": 9,
+          "y": 8,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "roof1",
+      "positions": [
+        {
+          "x": 1,
+          "y": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 0,
+          "shiftFromStartX": 3,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "shiftFromStartX": 3,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "shiftFromStartX": 4,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "roof2",
+      "positions": [
+        {
+          "x": 9,
+          "y": 0,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 8,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 1,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 1,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 8,
+          "y": 2,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 2,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 2,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 2,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 2,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 2,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 8,
+          "y": 3,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 3,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 3,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 3,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 3,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 3,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 8,
+          "y": 4,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 4,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 4,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 4,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 4,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 4,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "roof3",
+      "positions": [
+        {
+          "x": 1,
+          "y": 10,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 10,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 10,
+          "shiftFromStartX": 3,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 0,
+          "y": 11,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 1,
+          "y": 11,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 2,
+          "y": 11,
+          "shiftFromStartX": 2,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 3,
+          "y": 11,
+          "shiftFromStartX": 3,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 4,
+          "y": 11,
+          "shiftFromStartX": 4,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
     }
   ]
 }

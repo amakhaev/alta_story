@@ -83,6 +83,10 @@ public class ActingCharacterComputator {
         Point actingCharacterMapCoordinates = actingCharacterParticipant.getCurrentMapCoordinates();
 
         Point targetCharacterMapCoordinate = new Point(actingCharacterMapCoordinates);
+        if (this.actingCharacterParticipant.getCurrentDirection() == null) {
+            this.actingCharacterParticipant.setCurrentDirection(MovementDirection.DOWN);
+        }
+
         switch (this.actingCharacterParticipant.getCurrentDirection()) {
             case UP:
                 targetCharacterMapCoordinate.y--;

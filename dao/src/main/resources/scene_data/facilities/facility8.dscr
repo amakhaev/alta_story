@@ -15,6 +15,58 @@
           "zIndex": 0
         }
       ]
+    },
+    {
+      "name": "door2",
+      "positions": [
+        {
+          "x": 9,
+          "y": 7,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "door3",
+      "positions": [
+        {
+          "x": 1,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "door4",
+      "positions": [
+        {
+          "x": 3,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "door5",
+      "positions": [
+        {
+          "x": 4,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
     }
   ]
 }
