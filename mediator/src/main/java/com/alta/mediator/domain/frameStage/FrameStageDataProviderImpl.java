@@ -160,13 +160,19 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
     private List<SimpleNpcEngineModel> createSimpleNpcList(List<SimpleNpcEntity> simpleNpcList) {
         return simpleNpcList.stream()
-                .map(simpleNpc ->
-                        this.actorDataProvider.getSimpleNpc(
-                                simpleNpc.getName(),
-                                new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
-                                simpleNpc.getRepeatingMovementDurationTime(),
-                                simpleNpc.getUuid()
-                        )
+                .map(simpleNpc -> {
+                            SimpleNpcEngineModel simpleNpcEngineModel = this.actorDataProvider.getSimpleNpc(
+                                    simpleNpc.getName(),
+                                    new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
+                                    simpleNpc.getRepeatingMovementDurationTime(),
+                                    simpleNpc.getUuid()
+                            );
+                            if (simpleNpcEngineModel != null) {
+                                simpleNpcEngineModel.setAnimatedAlways(simpleNpc.isAnimatedAlways());
+                            }
+
+                            return simpleNpcEngineModel;
+                        }
                 ).collect(Collectors.toList());
     }
 }

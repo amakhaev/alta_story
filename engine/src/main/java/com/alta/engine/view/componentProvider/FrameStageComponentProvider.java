@@ -107,7 +107,7 @@ public class FrameStageComponentProvider {
         List<ActorCharacterComponent> actorCharacterComponents = new ArrayList<>();
         if (actingCharacter != null) {
             actorCharacterComponents.add(
-                    createActorCharacter(actingCharacter.getAnimationDescriptors(), actingCharacter.getUuid())
+                    createActorCharacter(actingCharacter.getAnimationDescriptors(), actingCharacter.getUuid(), false)
             );
         }
 
@@ -131,7 +131,9 @@ public class FrameStageComponentProvider {
 
         return simpleNpcEngineModels.parallelStream()
                 .map(simpleNpcEngineModel -> createActorCharacter(
-                        simpleNpcEngineModel.getAnimationDescriptors(), simpleNpcEngineModel.getUuid()
+                        simpleNpcEngineModel.getAnimationDescriptors(),
+                        simpleNpcEngineModel.getUuid(),
+                        simpleNpcEngineModel.isAnimatedAlways()
                 ))
                 .collect(Collectors.toList());
     }
@@ -144,8 +146,9 @@ public class FrameStageComponentProvider {
      * @return created {@link ActorCharacterComponent} instance.
      */
     private ActorCharacterComponent createActorCharacter(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors,
-                                                         String uuid) {
-        return new ActorCharacterComponent(animationDescriptors, uuid);
+                                                         String uuid,
+                                                         boolean isAnimatedAlways) {
+        return new ActorCharacterComponent(animationDescriptors, uuid, isAnimatedAlways);
     }
 
     private void validateFrameStageData(FrameStageDataModel data) throws EngineException {

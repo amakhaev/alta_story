@@ -22,6 +22,9 @@ public class SimpleNpcEngineModel {
     private final int zIndex;
 
     @Setter
+    private boolean isAnimatedAlways;
+
+    @Setter
     private int repeatingMovementDurationTime;
 
     @Singular

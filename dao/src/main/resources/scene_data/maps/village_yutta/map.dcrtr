@@ -416,7 +416,8 @@
 			"name": "animal1",
 			"startX": 15,
 			"startY": 64,
-			"repeatingMovementDurationTime": 2900
+			"repeatingMovementDurationTime": 2900,
+			"animatedAlways": "true"
 		},
 		{
 			"uuid": "03313711-ce9f-4ff0-ba17-cca2e3a3177d",
@@ -430,7 +431,8 @@
 			"name": "animal1",
 			"startX": 20,
 			"startY": 64,
-			"repeatingMovementDurationTime": 3000
+			"repeatingMovementDurationTime": 3000,
+			"animatedAlways": "true"
 		},
 		{
 			"uuid": "7dc825e3-efbb-49c3-9aa9-8b1b70069b6b",
@@ -444,14 +446,16 @@
 			"name": "animal1",
 			"startX": 10,
 			"startY": 63,
-			"repeatingMovementDurationTime": 2000
+			"repeatingMovementDurationTime": 2000,
+			"animatedAlways": "true"
 		},
 		{
 			"uuid": "69fefa0f-8a6c-437d-ba0b-9b1d8d0cdacc",
 			"name": "animal2",
 			"startX": 18,
 			"startY": 68,
-			"repeatingMovementDurationTime": 4000
+			"repeatingMovementDurationTime": 4000,
+			"animatedAlways": "true"
 		},
 		{
 			"uuid": "ab0bd49a-c656-4424-91ac-cb92a07c7d83",
@@ -465,7 +469,8 @@
 			"name": "animal2",
 			"startX": 20,
 			"startY": 40,
-			"repeatingMovementDurationTime": 3000
+			"repeatingMovementDurationTime": 3000,
+			"animatedAlways": "true"
 		},
 		{
 			"uuid": "6dca7a3f-6588-47c0-bd47-aa694aa54a0d",
@@ -486,7 +491,8 @@
 			"name": "animal1",
 			"startX": 27,
 			"startY": 39,
-			"repeatingMovementDurationTime": 3400
+			"repeatingMovementDurationTime": 3400,
+			"animatedAlways": "true"
 		},
 		{
 			"uuid": "e83cddd2-ef06-480d-b7f3-e865bcbd86f7",

@@ -21,6 +21,7 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
 
     private final List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors;
     private final ActorAnimation<MovementDirection> actorAnimation;
+    private final boolean isAnimatedAlways;
     private int stopAnimationCounter;
 
     @Getter
@@ -29,10 +30,13 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
     /**
      * Initialize new instance of BaseSimpleNpc
      */
-    public ActorCharacterComponent(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors, String uuid) {
+    public ActorCharacterComponent(List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors,
+                                   String uuid,
+                                   boolean isAnimatedAlways) {
         this.animationDescriptors = animationDescriptors;
         this.uuid = uuid;
         this.actorAnimation = new ActorAnimation<>();
+        this.isAnimatedAlways = isAnimatedAlways;
     }
 
     /**
@@ -45,6 +49,10 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
         if (this.animationDescriptors != null && !this.animationDescriptors.isEmpty()) {
             this.animationDescriptors.forEach(this.actorAnimation::addAnimation);
             this.actorAnimation.setCurrentAnimation(DEFAULT_ANIMATION);
+
+            if (this.isAnimatedAlways) {
+                this.actorAnimation.setAutoupdate(true);
+            }
         }
     }
 
@@ -87,15 +95,19 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
             this.actorAnimation.setCurrentAnimation(data.getCurrentDirection());
         }
 
-        // model.isMoving returns true when actor is moving. Sometimes it can be stopped shortly then appears lags in
-        // animation. Need to check that model.isMoving() return false several times in a row to avoid this issue.
-        if (data.isMoving()) {
-            this.actorAnimation.setAutoupdate(data.isMoving());
-            this.stopAnimationCounter = 0;
+        if (this.isAnimatedAlways) {
+            this.stopAnimationCounter = data.isMoving() ? 0 : this.stopAnimationCounter + 1;
         } else {
-            this.stopAnimationCounter++;
-            if (this.stopAnimationCounter >= 5) {
+            // model.isMoving returns true when actor is moving. Sometimes it can be stopped shortly then appears lags in
+            // animation. Need to check that model.isMoving() return false several times in a row to avoid this issue.
+            if (data.isMoving()) {
                 this.actorAnimation.setAutoupdate(data.isMoving());
+                this.stopAnimationCounter = 0;
+            } else {
+                this.stopAnimationCounter++;
+                if (this.stopAnimationCounter >= 5) {
+                    this.actorAnimation.setAutoupdate(data.isMoving());
+                }
             }
         }
     }
