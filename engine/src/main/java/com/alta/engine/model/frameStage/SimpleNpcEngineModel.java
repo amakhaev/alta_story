@@ -22,6 +22,12 @@ public class SimpleNpcEngineModel {
     private final int zIndex;
 
     @Setter
+    private String movementStrategy;
+
+    @Setter
+    private String initialDirection;
+
+    @Setter
     private boolean isAnimatedAlways;
 
     @Setter

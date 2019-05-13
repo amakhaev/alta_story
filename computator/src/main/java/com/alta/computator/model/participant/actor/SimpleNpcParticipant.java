@@ -2,7 +2,9 @@ package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.ParticipatType;
 import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.awt.*;
 
@@ -14,12 +16,21 @@ public class SimpleNpcParticipant extends ActorParticipant {
     @Getter
     private final int repeatingMovementDurationTime;
 
+    @Getter
+    private final MovementStrategyFactory.Strategy movementStrategy;
+
     /**
      * Initialize new instance of {@link SimpleNpcParticipant}
      */
-    public SimpleNpcParticipant(String uuid, Point startMapCoordinates, int zIndex, int repeatingMovementDurationTime) {
+    public SimpleNpcParticipant(@NonNull String uuid,
+                                @NonNull Point startMapCoordinates,
+                                int zIndex,
+                                int repeatingMovementDurationTime,
+                                @NonNull MovementStrategyFactory.Strategy movementStrategy,
+                                @NonNull MovementDirection initialDirection) {
         super(uuid, startMapCoordinates, zIndex, ParticipatType.SIMPLE_NPC);
         this.repeatingMovementDurationTime = repeatingMovementDurationTime;
-        this.setCurrentDirection(MovementDirection.DOWN);
+        this.movementStrategy = movementStrategy;
+        this.setCurrentDirection(initialDirection);
     }
 }

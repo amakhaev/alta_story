@@ -16,5 +16,7 @@ public class SimpleNpcEntity {
     private int startY;
     private int repeatingMovementDurationTime;
     private boolean animatedAlways;
+    private String movementStrategy;
+    private String initialDirection;
 
 }

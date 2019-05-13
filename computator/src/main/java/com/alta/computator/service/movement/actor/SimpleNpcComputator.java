@@ -2,7 +2,6 @@ package com.alta.computator.service.movement.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
-import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.service.movement.strategy.MovementDirection;
 import com.alta.computator.service.movement.strategy.MovementStrategy;
@@ -35,7 +34,7 @@ class SimpleNpcComputator {
      */
     SimpleNpcComputator(SimpleNpcParticipant simpleNpcParticipant) {
         this.simpleNpcParticipant = simpleNpcParticipant;
-        this.movementStrategy = MovementStrategyFactory.getStrategy(MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION);
+        this.movementStrategy = MovementStrategyFactory.getStrategy(simpleNpcParticipant.getMovementStrategy());
         this.isInitializedFirstTime = false;
         this.repeatingMovementTime = 0;
         this.isComputationPause = false;

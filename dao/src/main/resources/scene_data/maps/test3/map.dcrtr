@@ -104,7 +104,8 @@
 			"name": "person4",
 			"startX": 9,
 			"startY": 14,
-			"repeatingMovementDurationTime": 2000
+			"repeatingMovementDurationTime": 2000,
+			"movementStrategy": "AVOID_OBSTRUCTION"
 		}
 	],
 	"jumping": [

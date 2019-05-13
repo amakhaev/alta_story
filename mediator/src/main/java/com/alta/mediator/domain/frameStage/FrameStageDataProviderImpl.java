@@ -167,9 +167,13 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                                     simpleNpc.getRepeatingMovementDurationTime(),
                                     simpleNpc.getUuid()
                             );
-                            if (simpleNpcEngineModel != null) {
-                                simpleNpcEngineModel.setAnimatedAlways(simpleNpc.isAnimatedAlways());
+                            if (simpleNpcEngineModel == null) {
+                                return null;
                             }
+
+                            simpleNpcEngineModel.setAnimatedAlways(simpleNpc.isAnimatedAlways());
+                            simpleNpcEngineModel.setInitialDirection(simpleNpc.getInitialDirection());
+                            simpleNpcEngineModel.setMovementStrategy(simpleNpc.getMovementStrategy());
 
                             return simpleNpcEngineModel;
                         }

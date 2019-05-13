@@ -5,11 +5,14 @@ import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
+import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
 import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
 import com.alta.eventStream.EventProducer;
+import com.google.common.base.Strings;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -79,14 +82,7 @@ public class ComputatorFrameStageProvider {
         }
 
         return simpleNpcEngineModels.stream()
-                .map(npc ->
-                        new SimpleNpcParticipant(
-                                npc.getUuid(),
-                                npc.getStartMapCoordinates(),
-                                npc.getZIndex(),
-                                npc.getRepeatingMovementDurationTime()
-                        )
-                )
+                .map(ComputatorFrameStageProvider::createSimpleNpcParticipant)
                 .collect(Collectors.toList());
     }
 
@@ -120,5 +116,43 @@ public class ComputatorFrameStageProvider {
                         )
                 )
                 .collect(Collectors.toList());
+    }
+
+    private SimpleNpcParticipant createSimpleNpcParticipant(SimpleNpcEngineModel engineModel) {
+        MovementStrategyFactory.Strategy movementStrategy = null;
+        try {
+            movementStrategy = Strings.isNullOrEmpty(engineModel.getMovementStrategy()) ?
+                    MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION :
+                    MovementStrategyFactory.Strategy.valueOf(engineModel.getMovementStrategy());
+        } catch (Exception e) {
+            log.error(
+                    "Can't get movement strategy for simple npc {}, given strategy {}",
+                    engineModel.getUuid(),
+                    engineModel.getMovementStrategy()
+            );
+            movementStrategy = MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION;
+        }
+
+        MovementDirection movementDirection = null;
+        try {
+            movementDirection = Strings.isNullOrEmpty(engineModel.getInitialDirection()) ?
+                    MovementDirection.DOWN :
+                    MovementDirection.valueOf(engineModel.getInitialDirection());
+        } catch (Exception e) {
+            log.error(
+                    "Can't get initial direction for simple npc {}, given direction {}",
+                    engineModel.getUuid(),
+                    engineModel.getInitialDirection()
+            );
+        }
+
+        return new SimpleNpcParticipant(
+                engineModel.getUuid(),
+                engineModel.getStartMapCoordinates(),
+                engineModel.getZIndex(),
+                engineModel.getRepeatingMovementDurationTime(),
+                movementStrategy,
+                movementDirection
+        );
     }
 }

@@ -120,21 +120,26 @@
 			"name": "person2",
 			"startX": 2,
 			"startY": 8,
-			"repeatingMovementDurationTime": 4000
+			"repeatingMovementDurationTime": 4000,
+			"movementStrategy": "AVOID_OBSTRUCTION"
 		},
 		{
 			"uuid": "6892fee0-9930-4751-879c-291595ba0148",
 			"name": "person3",
 			"startX": 2,
 			"startY": 5,
-			"repeatingMovementDurationTime": 5000
+			"repeatingMovementDurationTime": 5000,
+			"animatedAlways": "true",
+			"movementStrategy": "AVOID_OBSTRUCTION"
 		},
 		{
 			"uuid": "eb15a241-550e-49ce-827c-d004c19b2f2c",
 			"name": "person4",
 			"startX": 8,
 			"startY": 7,
-			"repeatingMovementDurationTime": 6000
+			"repeatingMovementDurationTime": 6000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"initialDirection": "RIGHT"
 		}
 	],
 	"jumping": [
