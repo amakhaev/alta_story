@@ -12,12 +12,12 @@ import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.model.participant.map.MapParticipant;
 import com.alta.computator.service.layer.LayerComputator;
-import com.alta.computator.service.movement.FacilityComputator;
-import com.alta.computator.service.movement.focusPoint.FocusPointComputator;
-import com.alta.computator.service.movement.MapComputator;
-import com.alta.computator.service.movement.actor.ActingCharacterComputator;
-import com.alta.computator.service.movement.actor.SimpleNpcListComputator;
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.participantComputator.FacilityComputator;
+import com.alta.computator.service.participantComputator.focusPoint.FocusPointComputator;
+import com.alta.computator.service.participantComputator.MapComputator;
+import com.alta.computator.service.participantComputator.actor.ActingCharacterComputator;
+import com.alta.computator.service.participantComputator.actor.SimpleNpcListComputator;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.eventStream.EventProducer;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Provides the computations that help with movement on stage e.g. frame, actors
+ * Provides the computations that help with participantComputator on stage e.g. frame, actors
  */
 @Slf4j
 public class StageComputatorImpl implements StageComputator {
@@ -169,7 +169,7 @@ public class StageComputatorImpl implements StageComputator {
     }
 
     /**
-     * Adds the coordinated participants for calculate coordinates of movement
+     * Adds the coordinated participants for calculate coordinates of participantComputator
      *
      * @param facilityParticipants - the list of facility participants.
      */
@@ -275,7 +275,7 @@ public class StageComputatorImpl implements StageComputator {
     }
 
     /**
-     * Sets the pause on movement process for character.
+     * Sets the pause on participantComputator process for character.
      *
      * @param isPause   - indicates when calculation should be paused.
      * @param uuid      - the uuid of NPC to be paused
@@ -285,9 +285,9 @@ public class StageComputatorImpl implements StageComputator {
     }
 
     /**
-     * Tries to run movement process. If process successfully ran then coordinates will update after calling onTick method
+     * Tries to run participantComputator process. If process successfully ran then coordinates will update after calling onTick method
      *
-     * @param movementDirection - the direction of movement
+     * @param movementDirection - the direction of participantComputator
      */
     public void tryToRunMovement(MovementDirection movementDirection) {
         this.focusPointComputator.tryToRunMovement(movementDirection, this.altitudeMap);

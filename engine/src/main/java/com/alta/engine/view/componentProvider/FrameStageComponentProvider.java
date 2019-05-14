@@ -1,6 +1,6 @@
 package com.alta.engine.view.componentProvider;
 
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;

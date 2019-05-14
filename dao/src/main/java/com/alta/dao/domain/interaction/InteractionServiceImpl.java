@@ -37,7 +37,7 @@ public class InteractionServiceImpl implements InteractionService {
      */
     @Override
     public List<InteractionModel> getInteractions(String relatedMapName) {
-        log.info("Try to get interaction with related map name '{}'", relatedMapName);
+        log.debug("Try to get interaction with related map name '{}'", relatedMapName);
         InteractionEntity matchedInteractionEntity = this.availableInteractions
                 .stream()
                 .filter(mapEntity -> mapEntity.getName().equalsIgnoreCase(relatedMapName))

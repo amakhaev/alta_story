@@ -1,7 +1,6 @@
 package com.alta.engine.actionDispatcher;
 
-import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.engine.actionDispatcher.ActionHandler;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.engine.facade.FrameStageFacade;
 import com.alta.engine.presenter.sceneProxy.sceneInput.SceneAction;
 import com.google.inject.Inject;

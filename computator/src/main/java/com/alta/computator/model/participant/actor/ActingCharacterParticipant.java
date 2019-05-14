@@ -2,9 +2,6 @@ package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.ParticipatType;
-import com.alta.computator.service.movement.strategy.MovementDirection;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.awt.*;
 

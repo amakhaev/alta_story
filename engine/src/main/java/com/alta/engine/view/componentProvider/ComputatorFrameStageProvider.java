@@ -5,8 +5,8 @@ import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
-import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
+import com.alta.computator.service.movement.MovementType;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
@@ -107,7 +107,7 @@ public class ComputatorFrameStageProvider {
                 .stream()
                 .map(facilityPartPosition ->
                         new FacilityPartParticipant(
-                                facilityEngineModel.getUuid().toString(),
+                                facilityEngineModel.getUuid(),
                                 facilityPartPosition.getZIndex(),
                                 new Point(facilityEngineModel.getStartX(), facilityEngineModel.getStartY()),
                                 new Point(facilityPartPosition.getShiftFromStartX(), facilityPartPosition.getShiftFromStartY()),
@@ -119,18 +119,17 @@ public class ComputatorFrameStageProvider {
     }
 
     private SimpleNpcParticipant createSimpleNpcParticipant(SimpleNpcEngineModel engineModel) {
-        MovementStrategyFactory.Strategy movementStrategy = null;
+        MovementType movementStrategy = null;
         try {
             movementStrategy = Strings.isNullOrEmpty(engineModel.getMovementStrategy()) ?
-                    MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION :
-                    MovementStrategyFactory.Strategy.valueOf(engineModel.getMovementStrategy());
+                    MovementType.AVOID_OBSTRUCTION : MovementType.valueOf(engineModel.getMovementStrategy());
         } catch (Exception e) {
             log.error(
-                    "Can't get movement strategy for simple npc {}, given strategy {}",
+                    "Can't get participantComputator strategy for simple npc {}, given strategy {}",
                     engineModel.getUuid(),
                     engineModel.getMovementStrategy()
             );
-            movementStrategy = MovementStrategyFactory.Strategy.AVOID_OBSTRUCTION;
+            movementStrategy = MovementType.AVOID_OBSTRUCTION;
         }
 
         MovementDirection movementDirection = null;

@@ -1,6 +1,6 @@
 package com.alta.engine.model.frameStage;
 
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import lombok.Builder;
 import lombok.Getter;

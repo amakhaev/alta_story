@@ -3,8 +3,7 @@ package com.alta.engine.view;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
-import com.alta.computator.model.participant.facility.FacilityParticipant;
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
@@ -62,9 +61,9 @@ public class FrameStageView {
     }
 
     /**
-     * Performs the movement on scene
+     * Performs the participantComputator on scene
      *
-     * @param movementDirection - the movement that should be performed
+     * @param movementDirection - the participantComputator that should be performed
      */
     public void onMovementPerform(MovementDirection movementDirection) {
         this.stageComputatorImpl.tryToRunMovement(movementDirection);

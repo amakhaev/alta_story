@@ -512,6 +512,92 @@
 			"startY": 68,
 			"repeatingMovementDurationTime": 4000,
 			"movementStrategy": "AVOID_OBSTRUCTION"
+		},
+		{
+			"uuid": "892f2cbd-8945-42fc-ae50-759c48df2528",
+			"name": "person5",
+			"startX": 27,
+			"startY": 13,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "true",
+			"initialDirection": "DOWN"
+		},
+		{
+			"uuid": "3aee0d7d-4d6e-4750-915e-ac174cf2cfd0",
+			"name": "person2",
+			"startX": 42,
+			"startY": 83,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "true",
+			"initialDirection": "UP"
+		},
+		{
+			"uuid": "a9013305-8e34-4760-8e80-3b3fac4b02db",
+			"name": "guardian1",
+			"startX": 41,
+			"startY": 22,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "true",
+			"initialDirection": "DOWN"
+		},
+		{
+			"uuid": "f43108a8-5a04-4025-9651-095bbbb5e9f4",
+			"name": "guardian2",
+			"startX": 40,
+			"startY": 21,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "false",
+			"initialDirection": "DOWN"
+		},
+		{
+			"uuid": "735a054c-e90f-444a-b51e-fe0296993e37",
+			"name": "guardian2",
+			"startX": 42,
+			"startY": 21,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "false",
+			"initialDirection": "DOWN"
+		},
+		{
+			"uuid": "1fcd5bc0-43c6-4db8-b418-a972be5ce2e0",
+			"name": "person6",
+			"startX": 25,
+			"startY": 17,
+			"repeatingMovementDurationTime": 5000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"animatedAlways": "false"
+		},
+		{
+			"uuid": "96ae9b16-97a4-4370-9eb1-22e57a22be80",
+			"name": "person6",
+			"startX": 32,
+			"startY": 14,
+			"repeatingMovementDurationTime": 10000,
+			"movementStrategy": "FROM_POINT_TO_POINT",
+			"animatedAlways": "true",
+			"initialDirection": "UP",
+			"movementRules": {
+				"looped": "true",
+				"points": [
+					{
+						x: 32,
+						y: 16
+					},
+					{
+						x: 33,
+						y: 16
+					},
+					{
+						x: 32,
+						y: 14
+					}
+				]
+			}
 		}
 	],
 	"jumping": [

@@ -3,7 +3,7 @@ package com.alta.computator.utils;
 import lombok.experimental.UtilityClass;
 
 /**
- * Provides the computator of movement coordinates. It should convert tiled coordinates to global.
+ * Provides the computator of participantComputator coordinates. It should convert tiled coordinates to global.
  */
 @UtilityClass
 public class MovementCoordinateComputator {

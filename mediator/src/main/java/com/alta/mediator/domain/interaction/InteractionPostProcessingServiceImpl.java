@@ -56,7 +56,7 @@ public class InteractionPostProcessingServiceImpl implements InteractionPostProc
         }
 
         if (interaction.getPostProcessors() == null || interaction.getPostProcessors().isEmpty()) {
-            log.info("Post processors for interaction for given map '{}' and uuid {} not found", mapName, uuid);
+            log.debug("Post processors for interaction for given map '{}' and uuid {} not found", mapName, uuid);
             return;
         }
 

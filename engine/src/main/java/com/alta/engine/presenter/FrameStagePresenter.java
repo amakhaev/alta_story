@@ -1,7 +1,7 @@
 package com.alta.engine.presenter;
 
 import com.alta.computator.model.participant.TargetedParticipantSummary;
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
@@ -50,9 +50,9 @@ public class FrameStagePresenter {
     }
 
     /**
-     * Performs the movement on scene
+     * Performs the participantComputator on scene
      *
-     * @param movementDirection - the movement that should be performed
+     * @param movementDirection - the participantComputator that should be performed
      */
     public void movementPerform(MovementDirection movementDirection) {
         if (this.currentView != null) {

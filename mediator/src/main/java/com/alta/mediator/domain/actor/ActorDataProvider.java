@@ -25,8 +25,8 @@ public interface ActorDataProvider {
      *
      * @param skinName                      - the name of skin for character
      * @param startCoordinates              - the coordinates of start position for actor
-     * @param repeatingMovementDurationTime - the time of repeating the movement of simple NPC
-     * @param dialogueText                  - the time of repeating the movement of simple NPC
+     * @param repeatingMovementDurationTime - the time of repeating the participantComputator of simple NPC
+     * @param dialogueText                  - the time of repeating the participantComputator of simple NPC
      * @param uuid                          - the uuid of simple npc.
      * @return the {@link SimpleNpcEngineModel}
      */

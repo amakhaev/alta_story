@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement.strategy;
+package com.alta.computator.service.movement.directionCalculation;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Provides possibles directions for movement
+ * Provides possibles directions for participantComputator
  */
 public enum MovementDirection {
     UP,

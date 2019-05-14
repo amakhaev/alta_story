@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement.strategy;
+package com.alta.computator.service.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.utils.MovementCoordinateComputator;
@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 
 /**
- * Provides the base implementation of movement strategy
+ * Provides the base implementation of participantComputator strategy
  */
 @Slf4j
-public abstract class BaseMovementStrategy implements MovementStrategy {
+public class MovementComputatorImpl implements MovementComputator {
 
     private static final int DEFAULT_MOVE_SPEED = 4;
     private static final int DIRECTION_FORWARD = 1;
@@ -28,36 +28,33 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
     private boolean isRunning;
 
     /**
-     * Initialize new instance of {@link BaseMovementStrategy}
+     * Initialize new instance of {@link MovementComputatorImpl}
      */
-    BaseMovementStrategy() {
+    MovementComputatorImpl() {
         this.moveSpeed = DEFAULT_MOVE_SPEED;
         this.isRunning = false;
     }
 
     /**
-     * Indicates if movement already running or not
+     * Indicates if participantComputator already running or not
      *
-     * @return true if movement in progress, false otherwise
+     * @return true if participantComputator in progress, false otherwise
      */
     @Override
     public boolean isCurrentlyRunning() {
         return this.isRunning;
     }
 
-    @Override
     /**
      * Tries to run moving if it possible to given global coordinate
      *
      * @param altitudeMap - the altitude map instance
-     * @param mapCoordinatesFrom - the map coordinates of starting movement
+     * @param mapCoordinatesFrom - the map coordinates of starting participantComputator
      * @param mapCoordinatesTarget - the map coordinates of target point
      */
+    @Override
     public synchronized void tryToRunMoveProcess(AltitudeMap altitudeMap, Point mapCoordinatesFrom, Point mapCoordinatesTarget) {
-        if (!this.isCanMoveTo(mapCoordinatesTarget, altitudeMap)) {
-            log.warn("Can't run move process to map coordinates: {}", mapCoordinatesTarget);
-            return;
-        } else if (this.isCurrentlyRunning()) {
+        if (this.isCurrentlyRunning()) {
             log.warn("Can't run move process because it already ran");
             return;
         }
@@ -91,7 +88,7 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
     }
 
     /**
-     * Updates the coordinates of movement
+     * Updates the coordinates of participantComputator
      */
     public synchronized void onUpdate() {
         if (!this.isCurrentlyRunning()) {
@@ -110,7 +107,7 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
     }
 
     /**
-     * Gets the map coordinates of target position of movement
+     * Gets the map coordinates of target position of participantComputator
      */
     @Override
     public Point getMapTargetCoordinates() {
@@ -118,7 +115,7 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
     }
 
     /**
-     * Gets the global coordinates of current position of movement
+     * Gets the global coordinates of current position of participantComputator
      */
     @Override
     public Point getGlobalCurrentCoordinates() {
@@ -126,7 +123,7 @@ public abstract class BaseMovementStrategy implements MovementStrategy {
     }
 
     /**
-     * Clears the results of calculation for the last movement
+     * Clears the results of calculation for the last participantComputator
      */
     @Override
     public void clearLastMovement() {

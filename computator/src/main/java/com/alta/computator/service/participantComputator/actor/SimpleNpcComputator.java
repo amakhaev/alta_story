@@ -1,11 +1,12 @@
-package com.alta.computator.service.movement.actor;
+package com.alta.computator.service.participantComputator.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
-import com.alta.computator.service.movement.strategy.MovementDirection;
-import com.alta.computator.service.movement.strategy.MovementStrategy;
-import com.alta.computator.service.movement.strategy.MovementStrategyFactory;
+import com.alta.computator.service.movement.directionCalculation.DirectionCalculator;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.movement.MovementComputator;
+import com.alta.computator.service.movement.MovementFactory;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,9 @@ import java.awt.*;
 @Slf4j
 class SimpleNpcComputator {
 
-    private final MovementStrategy movementStrategy;
+    private final MovementComputator movementComputator;
+    private final DirectionCalculator directionCalculator;
+
     private boolean isInitializedFirstTime;
     private int repeatingMovementTime;
 
@@ -34,7 +37,8 @@ class SimpleNpcComputator {
      */
     SimpleNpcComputator(SimpleNpcParticipant simpleNpcParticipant) {
         this.simpleNpcParticipant = simpleNpcParticipant;
-        this.movementStrategy = MovementStrategyFactory.getStrategy(simpleNpcParticipant.getMovementStrategy());
+        this.movementComputator = MovementFactory.createComputator();
+        this.directionCalculator = MovementFactory.createDirectionCalculator(simpleNpcParticipant.getMovementType());
         this.isInitializedFirstTime = false;
         this.repeatingMovementTime = 0;
         this.isComputationPause = false;
@@ -57,7 +61,7 @@ class SimpleNpcComputator {
             this.isInitializedFirstTime = true;
         }
 
-        if (this.movementStrategy.isCurrentlyRunning()) {
+        if (this.movementComputator.isCurrentlyRunning()) {
             this.updateRunningMovement(altitudeMap, focusPointGlobalCoordinates);
             this.repeatingMovementTime = 0;
         } else {
@@ -70,31 +74,24 @@ class SimpleNpcComputator {
         }
     }
 
-
     private void tryToRunMovement(AltitudeMap altitudeMap) {
-        if (this.movementStrategy.isCurrentlyRunning() || this.isComputationPause) {
+        if (this.movementComputator.isCurrentlyRunning() || this.isComputationPause) {
             return;
         }
 
-        this.simpleNpcParticipant.setCurrentDirection(MovementDirection.randomDirection());
-        Point targetMapPoint = new Point(this.simpleNpcParticipant.getCurrentMapCoordinates());
-        switch (this.simpleNpcParticipant.getCurrentDirection()) {
-            case UP:
-                targetMapPoint.y--;
-                break;
-            case DOWN:
-                targetMapPoint.y++;
-                break;
-            case LEFT:
-                targetMapPoint.x--;
-                break;
-            case RIGHT:
-                targetMapPoint.x++;
-                break;
+        MovementDirection direction = this.directionCalculator.getDirection();
+        if (direction == null) {
+            return;
         }
 
-        if (this.movementStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
-            this.movementStrategy.tryToRunMoveProcess(
+        Point targetMapPoint = this.directionCalculator.getTargetPointForMoving(
+                direction, this.simpleNpcParticipant.getCurrentMapCoordinates()
+        );
+
+        this.simpleNpcParticipant.setCurrentDirection(direction);
+
+        if (this.directionCalculator.isCanMoveTo(targetMapPoint, altitudeMap)) {
+            this.movementComputator.tryToRunMoveProcess(
                     altitudeMap,
                     this.simpleNpcParticipant.getCurrentMapCoordinates(),
                     targetMapPoint
@@ -106,18 +103,18 @@ class SimpleNpcComputator {
     }
 
     private void updateRunningMovement(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {
-        this.movementStrategy.onUpdate();
+        this.movementComputator.onUpdate();
 
-        // If last update completing movement then it should be cleared, otherwise just update coordinates
-        if (this.movementStrategy.isCurrentlyRunning()) {
-            int x = this.movementStrategy.getGlobalCurrentCoordinates().x +
+        // If last update complete computation then it should be cleared, otherwise just update coordinates
+        if (this.movementComputator.isCurrentlyRunning()) {
+            int x = this.movementComputator.getGlobalCurrentCoordinates().x +
                     MovementCoordinateComputator.calculateGlobalCoordinateOfMap(
                             altitudeMap.getScreenWidth(),
                             altitudeMap.getTileWidth(),
                             focusPointGlobalCoordinates.x
                     );
 
-            int y = this.movementStrategy.getGlobalCurrentCoordinates().y +
+            int y = this.movementComputator.getGlobalCurrentCoordinates().y +
                     MovementCoordinateComputator.calculateGlobalCoordinateOfMap(
                             altitudeMap.getScreenHeight(),
                             altitudeMap.getTileHeight(),
@@ -133,11 +130,11 @@ class SimpleNpcComputator {
             );
 
             this.simpleNpcParticipant.updateCurrentMapCoordinates(
-                    this.movementStrategy.getMapTargetCoordinates().x,
-                    this.movementStrategy.getMapTargetCoordinates().y
+                    this.movementComputator.getMapTargetCoordinates().x,
+                    this.movementComputator.getMapTargetCoordinates().y
             );
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
-            this.movementStrategy.clearLastMovement();
+            this.movementComputator.clearLastMovement();
         }
     }
 

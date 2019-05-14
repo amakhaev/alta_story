@@ -1,6 +1,6 @@
 package com.alta.mediator.domain.actor;
 
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;

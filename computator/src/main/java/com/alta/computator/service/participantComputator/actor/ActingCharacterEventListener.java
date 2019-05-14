@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement.actor;
+package com.alta.computator.service.participantComputator.actor;
 
 import java.awt.*;
 

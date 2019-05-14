@@ -1,9 +1,9 @@
-package com.alta.computator.service.movement.actor;
+package com.alta.computator.service.participantComputator.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -68,7 +68,7 @@ public class ActingCharacterComputator {
             );
         }
 
-        if (this.actingCharacterParticipant.getCurrentDirection() != direction) {
+        if (direction != null && this.actingCharacterParticipant.getCurrentDirection() != direction) {
             this.actingCharacterParticipant.setCurrentDirection(direction);
         }
         this.actingCharacterParticipant.setMoving(isMoving);

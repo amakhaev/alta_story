@@ -164,5 +164,65 @@
 				"text": "Заперто."
 			}
 		]
+	},
+	{
+		"uuid": "b3a6ee2b-7496-4318-a48e-33be2fec193d",
+		"targetUuid": "892f2cbd-8945-42fc-ae50-759c48df2528",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Только рабочие могут пройти в шахту."
+			}
+		]
+	},
+	{
+		"uuid": "b380cdf8-f9f7-473a-8e1d-3b7685bc832f",
+		"targetUuid": "3aee0d7d-4d6e-4750-915e-ac174cf2cfd0",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Вся моя жизнь прошла в плавании по морям. Говорят существует остров, на который не доплыть ни на одном корабле, не добраться ни на одном самолёте, не дойти по берегу. Как бы мне хотелось побывать на нём перед смертью."
+			}
+		]
+	},
+	{
+		"uuid": "724dfb7f-acb0-4cc0-b970-43843bc0e406",
+		"targetUuid": "a9013305-8e34-4760-8e80-3b3fac4b02db",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Здесь хранятся сокровища добытые в шахте. Посторонним вход воспрещен."
+			}
+		]
+	},
+	{
+		"uuid": "45619cd5-005f-41bb-abd7-fda9512acca4",
+		"targetUuid": "1fcd5bc0-43c6-4db8-b418-a972be5ce2e0",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Я приехал сюда работать в шахте, но меня не берут, что за..?"
+			}
+		]
+	},
+	{
+		"uuid": "bc117c4c-6e73-43e7-afd0-2cf40ecb2d92",
+		"targetUuid": "96ae9b16-97a4-4370-9eb1-22e57a22be80",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Отстань парень, я занят."
+			}
+		]
 	}
 ]

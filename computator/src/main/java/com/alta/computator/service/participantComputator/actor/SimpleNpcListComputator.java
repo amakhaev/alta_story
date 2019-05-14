@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement.actor;
+package com.alta.computator.service.participantComputator.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
@@ -67,7 +67,7 @@ public class SimpleNpcListComputator {
     }
 
     /**
-     * Sets the pause on movement process of NPC.
+     * Sets the pause on participantComputator process of NPC.
      *
      * @param isPause - indicates when calculation should be paused.
      */
@@ -80,7 +80,7 @@ public class SimpleNpcListComputator {
     }
 
     /**
-     * Sets the pause on movement process for specific NPC.
+     * Sets the pause on participantComputator process for specific NPC.
      *
      * @param isPause   - indicates when calculation should be paused.
      * @param uuid      - the uuid of NPC to be paused

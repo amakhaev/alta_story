@@ -3,7 +3,7 @@ package com.alta.computator.service.stage;
 import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.event.ComputatorEventType;
-import com.alta.computator.service.movement.focusPoint.FocusPointEventListener;
+import com.alta.computator.service.participantComputator.focusPoint.FocusPointEventListener;
 import com.alta.eventStream.EventProducer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -41,7 +41,7 @@ public class ActorDataProviderImpl implements ActorDataProvider {
      *
      * @param skinName                      - the name of skin for character
      * @param startCoordinates              - the coordinates of start position for actor
-     * @param repeatingMovementDurationTime - the time of repeating the movement of simple NPC
+     * @param repeatingMovementDurationTime - the time of repeating the participantComputator of simple NPC
      * @return the {@link SimpleNpcEngineModel}
      */
     @Override

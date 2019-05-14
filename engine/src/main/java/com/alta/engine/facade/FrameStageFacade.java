@@ -1,6 +1,6 @@
 package com.alta.engine.facade;
 
-import com.alta.computator.service.movement.strategy.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
@@ -44,9 +44,9 @@ public class FrameStageFacade {
     }
 
     /**
-     * Performs the movement on scene.
+     * Performs the participantComputator on scene.
      *
-     * @param movementDirection - the movement that should be performed
+     * @param movementDirection - the participantComputator that should be performed
      */
     public void movementPerform(MovementDirection movementDirection) {
         this.frameStagePresenter.movementPerform(movementDirection);
