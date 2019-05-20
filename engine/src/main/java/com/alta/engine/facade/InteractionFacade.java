@@ -66,7 +66,8 @@ public class InteractionFacade {
         }
 
         InteractionEngineModel interaction = null;
-        if (targetedParticipant.getParticipatType() == ParticipatType.SIMPLE_NPC) {
+        if (targetedParticipant.getParticipatType() == ParticipatType.SIMPLE_NPC ||
+                targetedParticipant.getParticipatType() == ParticipatType.ROUTE_NPC) {
             interaction = this.findInteractionForNpc(targetedParticipant.getUuid());
         } else if (targetedParticipant.getParticipatType() == ParticipatType.FACILITY) {
             interaction = this.findInteractionForFacility(targetedParticipant.getUuid(), targetedParticipant.getRelatedMapCoordinates());

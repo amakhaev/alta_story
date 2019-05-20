@@ -3,7 +3,7 @@ package com.alta.engine.model;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -53,7 +53,7 @@ public class FrameStageDataModel {
      * The available non player characters.
      */
     @Singular("simpleNpc")
-    private List<SimpleNpcEngineModel> simpleNpc;
+    private List<NpcEngineModel> simpleNpc;
 
     /**
      * The available jumping points on map.

@@ -7,7 +7,20 @@ import java.awt.*;
 /**
  * Provides the direction calculator that focused on one point.
  */
-public class StandSpotDirectionCalculator implements DirectionCalculator {
+public class StandSpotMovementStrategy implements MovementDirectionStrategy {
+
+    /**
+     * Calculates the parameters for next movement.
+     *
+     * @param startPoint  - the start point for calculation.
+     * @param direction   - the direction of movement.
+     * @param altitudeMap - the altitude map instance.
+     */
+    @Override
+    public void calculateMovement(Point startPoint, MovementDirection direction, AltitudeMap altitudeMap) {
+
+    }
+
     /**
      * Gets the direction for future movement.
      */
@@ -19,12 +32,10 @@ public class StandSpotDirectionCalculator implements DirectionCalculator {
     /**
      * Gets the target point for moving.
      *
-     * @param movementDirection   - the direction that used to calculate target point.
-     * @param startMapCoordinates - the start map coordinates.
      * @return the target point for moving.
      */
     @Override
-    public Point getTargetPointForMoving(MovementDirection movementDirection, Point startMapCoordinates) {
+    public Point getTargetPointForMoving() {
         return null;
     }
 
@@ -38,5 +49,15 @@ public class StandSpotDirectionCalculator implements DirectionCalculator {
     @Override
     public boolean isCanMoveTo(Point mapCoordinates, AltitudeMap altitudeMap) {
         return false;
+    }
+
+    /**
+     * Indicates when the route of movement completed.
+     *
+     * @return true if route was completed, false otherwise.
+     */
+    @Override
+    public boolean isRouteCompleted() {
+        return true;
     }
 }

@@ -1,13 +1,16 @@
 package com.alta.computator.service.movement;
 
-import com.alta.computator.service.movement.directionCalculation.AvoidObstructionDirectionCalculator;
-import com.alta.computator.service.movement.directionCalculation.DirectionCalculator;
-import com.alta.computator.service.movement.directionCalculation.StandSpotDirectionCalculator;
+import com.alta.computator.service.movement.directionCalculation.*;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
+
+import java.awt.*;
+import java.util.List;
 
 /**
  * Provides the factory to get {@link MovementComputator} specific instance
  */
+@Slf4j
 @UtilityClass
 public class MovementFactory {
 
@@ -21,20 +24,50 @@ public class MovementFactory {
     }
 
     /**
-     * Gets the direction calculator by given movement type.
+     * Creates the movement computator with given movement speed.
      *
-     * @param movementType - the type of movement.
-     * @return the {@link DirectionCalculator} instance.
+     * @param movementSpeed - the speed of movement.
+     * @return created {@link MovementComputator} instance.
      */
-    public DirectionCalculator createDirectionCalculator(MovementType movementType) {
-        switch (movementType) {
+    public MovementComputator createComputator(int movementSpeed) {
+        return new MovementComputatorImpl(movementSpeed);
+    }
+
+    /**
+     * Creates the strategy of movement for focus point.
+     *
+     * @return created {@link MovementDirectionStrategy} instance.
+     */
+    public MovementDirectionStrategy createFocusPointStrategy() {
+        return new AvoidObstructionMovementStrategy();
+    }
+
+    /**
+     * Creates the strategy of movement for simple NPC.
+     *
+     * @param type - the type of movement direction.
+     * @return created {@link MovementDirectionStrategy} instance.
+     */
+    public MovementDirectionStrategy createSimpleNpcStrategy(MovementType type) {
+        switch (type) {
             case AVOID_OBSTRUCTION:
-                return new AvoidObstructionDirectionCalculator();
+                return new AvoidObstructionMovementStrategy();
             case STAND_SPOT:
-                return new StandSpotDirectionCalculator();
+                return new StandSpotMovementStrategy();
             default:
-                return null;
+                log.error("Unknown type of movement: {}. Default strategy will be StandSpotMovementStrategy", type);
+                return new StandSpotMovementStrategy();
         }
     }
 
+    /**
+     * Creates the strategy for NPC that has route.
+     *
+     * @param isRouteLooped - indicates when route should be looped.
+     * @param points        - the points for movement.
+     * @return created {@link MovementDirectionStrategy}.
+     */
+    public RouteMovementDirectionStrategy createRouteNpcStrategy(boolean isRouteLooped, List<Point> points) {
+        return new RoutePointsMovementStrategy(isRouteLooped, points);
+    }
 }

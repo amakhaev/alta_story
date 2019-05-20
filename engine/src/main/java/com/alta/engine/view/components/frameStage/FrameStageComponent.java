@@ -151,6 +151,7 @@ public class FrameStageComponent extends FrameStage {
                     break;
                 case ACTING_CHARACTER:
                 case SIMPLE_NPC:
+                case ROUTE_NPC:
                     if (this.actorCharacters.containsKey(participant.getUuid())) {
                         this.actorCharacters.get(participant.getUuid()).render((ActorParticipant) participant);
                     }

@@ -37,11 +37,29 @@ public class AltitudeMap {
     @Getter
     private final int tileHeight;
 
+    /**
+     * The count of tiles that can be shown on <code>screenWidth</code>
+     */
     @Getter
     private final int availableCountOfTileOnXAxis;
 
+    /**
+     * The count of tiles that can be shown on <code>screenHeight</code>
+     */
     @Getter
     private final int availableCountOfTileOnYAxis;
+
+    /**
+     * The count of tiles that available on tiled map for X axis.
+     */
+    @Getter
+    private final int totalCountOfTileOnXAxis;
+
+    /**
+     * The count of tiles that available on tiled map for Y axis.
+     */
+    @Getter
+    private final int totalCountOfTileOnYAxis;
 
     /**
      * Initialize new instance of {@link AltitudeMap}
@@ -54,6 +72,8 @@ public class AltitudeMap {
         this.tileHeight = tiledMap.getTileHeight();
         this.availableCountOfTileOnXAxis = (int) Math.ceil((double) this.screenWidth / (double) this.tileWidth);
         this.availableCountOfTileOnYAxis = (int) Math.ceil((double) this.screenHeight / (double) this.tileHeight);
+        this.totalCountOfTileOnXAxis = tiledMap.getWidth();
+        this.totalCountOfTileOnYAxis = tiledMap.getHeight();
     }
 
     /**

@@ -15,11 +15,14 @@ import java.util.List;
  */
 @Getter
 @Builder
-public class SimpleNpcEngineModel {
+public class NpcEngineModel {
 
     private final String uuid;
     private final Point startMapCoordinates;
     private final int zIndex;
+
+    @Setter
+    private boolean isMovementRouteLooped;
 
     @Setter
     private String movementStrategy;
@@ -33,7 +36,10 @@ public class SimpleNpcEngineModel {
     @Setter
     private int repeatingMovementDurationTime;
 
-    @Singular
+    @Setter
+    private List<Point> movementRoute;
+
+    @Singular("animationDescriptors")
     private List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors;
 
 }

@@ -9,5 +9,6 @@ public enum ParticipatType {
     FOCUS_POINT,
     MAP,
     ACTING_CHARACTER,
-    SIMPLE_NPC
+    SIMPLE_NPC,
+    ROUTE_NPC
 }

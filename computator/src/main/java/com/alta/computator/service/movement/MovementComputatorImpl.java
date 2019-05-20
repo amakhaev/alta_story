@@ -12,7 +12,10 @@ import java.awt.*;
 @Slf4j
 public class MovementComputatorImpl implements MovementComputator {
 
-    private static final int DEFAULT_MOVE_SPEED = 4;
+    public static final int FAST_MOVE_SPEED = 4;
+    public static final int MIDDLE_MOVE_SPEED = 3;
+    public static final int SLOW_MOVE_SPEED = 2;
+
     private static final int DIRECTION_FORWARD = 1;
     private static final int DIRECTION_BACKWARD = -1;
     private static final int DIRECTION_NEUTRAL = 0;
@@ -30,9 +33,16 @@ public class MovementComputatorImpl implements MovementComputator {
     /**
      * Initialize new instance of {@link MovementComputatorImpl}
      */
-    MovementComputatorImpl() {
-        this.moveSpeed = DEFAULT_MOVE_SPEED;
+    MovementComputatorImpl(int moveSpeed) {
+        this.moveSpeed = moveSpeed;
         this.isRunning = false;
+    }
+
+    /**
+     * Initialize new instance of {@link MovementComputatorImpl}.
+     */
+    MovementComputatorImpl() {
+        this(MIDDLE_MOVE_SPEED);
     }
 
     /**

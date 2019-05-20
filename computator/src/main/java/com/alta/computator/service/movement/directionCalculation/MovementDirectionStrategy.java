@@ -7,7 +7,16 @@ import java.awt.*;
 /**
  * Provides the calculator of direction for participant's movement.
  */
-public interface DirectionCalculator {
+public interface MovementDirectionStrategy {
+
+    /**
+     * Calculates the parameters for next movement.
+     *
+     * @param startPoint    - the start point for calculation.
+     * @param direction     - the direction of movement.
+     * @param altitudeMap   - the altitude map instance.
+     */
+    void calculateMovement(Point startPoint, MovementDirection direction, AltitudeMap altitudeMap);
 
     /**
      * Gets the direction for future movement.
@@ -16,12 +25,9 @@ public interface DirectionCalculator {
 
     /**
      * Gets the target point for moving.
-     *
-     * @param movementDirection     - the direction that used to calculate target point.
-     * @param startMapCoordinates   - the start map coordinates.
      * @return the target point for moving.
      */
-    Point getTargetPointForMoving(MovementDirection movementDirection, Point startMapCoordinates);
+    Point getTargetPointForMoving();
 
     /**
      * Indicates if object can be moved to given map coordinates
@@ -31,5 +37,12 @@ public interface DirectionCalculator {
      * @return true if move process can be run for given direction, false otherwise
      */
     boolean isCanMoveTo(Point mapCoordinates, AltitudeMap altitudeMap);
+
+    /**
+     * Indicates when the route of movement completed.
+     *
+     * @return true if route was completed, false otherwise.
+     */
+    boolean isRouteCompleted();
 
 }

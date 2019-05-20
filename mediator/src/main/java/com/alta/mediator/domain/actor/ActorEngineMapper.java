@@ -4,7 +4,7 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.google.inject.Singleton;
 
@@ -50,9 +50,9 @@ class ActorEngineMapper {
      * Maps the DAO actors model to engine model
      *
      * @param actorModel - the source actor model
-     * @return the {@link SimpleNpcEngineModel} instance.
+     * @return the {@link NpcEngineModel} instance.
      */
-    SimpleNpcEngineModel doMappingForSimpleNpc(ActorModel actorModel) {
+    NpcEngineModel doMappingForSimpleNpc(ActorModel actorModel) {
         if (actorModel == null) {
             return null;
         }
@@ -64,7 +64,7 @@ class ActorEngineMapper {
                 this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionUp(), MovementDirection.UP)
         );
 
-        return SimpleNpcEngineModel.builder()
+        return NpcEngineModel.builder()
                 .uuid(actorModel.getUuid())
                 .zIndex(actorModel.getZIndex())
                 .startMapCoordinates(actorModel.getStartMapCoordinates())

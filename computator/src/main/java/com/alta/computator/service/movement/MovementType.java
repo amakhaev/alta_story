@@ -5,5 +5,6 @@ package com.alta.computator.service.movement;
  */
 public enum MovementType {
     AVOID_OBSTRUCTION,
-    STAND_SPOT
+    STAND_SPOT,
+    ROUTE_POINTS
 }

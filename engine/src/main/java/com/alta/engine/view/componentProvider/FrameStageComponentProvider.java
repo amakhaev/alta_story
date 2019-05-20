@@ -7,7 +7,7 @@ import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
 import com.alta.engine.model.FrameStageDataModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.engine.view.components.actor.ActorCharacterComponent;
 import com.alta.engine.view.components.facility.FacilityComponent;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
@@ -103,7 +103,7 @@ public class FrameStageComponentProvider {
      * @param simpleNpc - the list of simple npc
      * @return the {@link List< ActorCharacterComponent >} instance.
      */
-    private List<ActorCharacterComponent> createActors(ActingCharacterEngineModel actingCharacter, List<SimpleNpcEngineModel> simpleNpc) {
+    private List<ActorCharacterComponent> createActors(ActingCharacterEngineModel actingCharacter, List<NpcEngineModel> simpleNpc) {
         List<ActorCharacterComponent> actorCharacterComponents = new ArrayList<>();
         if (actingCharacter != null) {
             actorCharacterComponents.add(
@@ -121,15 +121,15 @@ public class FrameStageComponentProvider {
     /**
      * Creates the simple npc entities
      *
-     * @param simpleNpcEngineModels - the models to create scee compionent
+     * @param npcEngineModels - the models to create scee compionent
      * @return the {@link List< ActorCharacterComponent >} instance.
      */
-    private List<ActorCharacterComponent> createSimpleNpcList(List<SimpleNpcEngineModel> simpleNpcEngineModels) {
-        if (simpleNpcEngineModels == null) {
+    private List<ActorCharacterComponent> createSimpleNpcList(List<NpcEngineModel> npcEngineModels) {
+        if (npcEngineModels == null) {
             return Collections.emptyList();
         }
 
-        return simpleNpcEngineModels.parallelStream()
+        return npcEngineModels.parallelStream()
                 .map(simpleNpcEngineModel -> createActorCharacter(
                         simpleNpcEngineModel.getAnimationDescriptors(),
                         simpleNpcEngineModel.getUuid(),

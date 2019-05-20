@@ -577,8 +577,8 @@
 			"name": "person6",
 			"startX": 32,
 			"startY": 14,
-			"repeatingMovementDurationTime": 10000,
-			"movementStrategy": "FROM_POINT_TO_POINT",
+			"repeatingMovementDurationTime": 3000,
+			"movementStrategy": "ROUTE_POINTS",
 			"animatedAlways": "true",
 			"initialDirection": "UP",
 			"movementRules": {
@@ -586,15 +586,28 @@
 				"points": [
 					{
 						x: 32,
-						y: 16
+						y: 16,
+						"finalDirection": "UP"
 					},
 					{
 						x: 33,
-						y: 16
+						y: 14,
+						"finalDirection": "UP"
 					},
 					{
 						x: 32,
-						y: 14
+						y: 14,
+						"finalDirection": "UP"
+					},
+					{
+						x: 31,
+						y: 18,
+						"finalDirection": "UP"
+					},
+					{
+						x: 33,
+						y: 18,
+						"finalDirection": "UP"
 					}
 				]
 			}

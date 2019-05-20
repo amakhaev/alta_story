@@ -90,7 +90,8 @@ public class DialogueInteraction implements Interaction {
         log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", this.targetedParticipant.getUuid());
         this.messageBoxPresenter.showDialogueMessage(this.dialogueEffect.getText());
 
-        if (this.targetedParticipant.getParticipatType() == ParticipatType.SIMPLE_NPC) {
+        if (this.targetedParticipant.getParticipatType() == ParticipatType.SIMPLE_NPC ||
+                this.targetedParticipant.getParticipatType() == ParticipatType.ROUTE_NPC) {
             this.frameStagePresenter.startInteractionWithNpc(this.targetedParticipant.getUuid());
         }
     }

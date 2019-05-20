@@ -7,6 +7,7 @@ import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
+import com.alta.computator.model.participant.actor.NpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
@@ -16,7 +17,7 @@ import com.alta.computator.service.participantComputator.FacilityComputator;
 import com.alta.computator.service.participantComputator.focusPoint.FocusPointComputator;
 import com.alta.computator.service.participantComputator.MapComputator;
 import com.alta.computator.service.participantComputator.actor.ActingCharacterComputator;
-import com.alta.computator.service.participantComputator.actor.SimpleNpcListComputator;
+import com.alta.computator.service.participantComputator.actor.NpcListComputator;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.eventStream.EventProducer;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class StageComputatorImpl implements StageComputator {
 
     private final LayerComputator layerComputator;
     private final FacilityComputator facilityComputator;
-    private final SimpleNpcListComputator simpleNpcListComputator;
+    private final NpcListComputator npcListComputator;
 
     private FocusPointComputator focusPointComputator;
     private MapComputator mapComputator;
@@ -51,7 +52,7 @@ public class StageComputatorImpl implements StageComputator {
     public StageComputatorImpl() {
         this.layerComputator = new LayerComputator();
         this.facilityComputator = new FacilityComputator();
-        this.simpleNpcListComputator = new SimpleNpcListComputator();
+        this.npcListComputator = new NpcListComputator();
     }
 
     /**
@@ -87,7 +88,7 @@ public class StageComputatorImpl implements StageComputator {
             return this.actingCharacterComputator.getActingCharacterParticipant();
         }
 
-        return this.simpleNpcListComputator.getSimpleNpcParticipant(uuid);
+        return this.npcListComputator.getSimpleNpcParticipant(uuid);
     }
 
     /**
@@ -102,7 +103,7 @@ public class StageComputatorImpl implements StageComputator {
         }
 
         Point targetParticipantMapCoordinates = this.actingCharacterComputator.getMapCoordinatesOfTargetParticipant();
-        TargetedParticipantSummary summary = this.simpleNpcListComputator.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
+        TargetedParticipantSummary summary = this.npcListComputator.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
         if (summary != null) {
             return summary;
         }
@@ -143,7 +144,7 @@ public class StageComputatorImpl implements StageComputator {
             );
         }
 
-        this.simpleNpcListComputator.onCompute(
+        this.npcListComputator.onCompute(
                 this.altitudeMap,
                 this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
                 delta
@@ -209,16 +210,16 @@ public class StageComputatorImpl implements StageComputator {
     /**
      * Adds the simple npc to stage for computation
      *
-     * @param npcParticipants - the simple npc participants to be added for computation.
+     * @param npcParticipants - the npc participants to be added for computation.
      */
-    public void addSimpleNpcCharacters(List<SimpleNpcParticipant> npcParticipants) {
+    public void addNpcCharacters(List<NpcParticipant> npcParticipants) {
         if (npcParticipants == null || npcParticipants.isEmpty()) {
             log.warn("Attempt to add empty NPC character.");
             return;
         }
 
         npcParticipants.forEach(npcParticipant -> {
-            this.simpleNpcListComputator.add(npcParticipant);
+            this.npcListComputator.add(npcParticipant);
             this.layerComputator.addParticipant(npcParticipant);
             log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
         });
@@ -271,7 +272,7 @@ public class StageComputatorImpl implements StageComputator {
             this.focusPointComputator.setComputationPause(isPause);
         }
 
-        this.simpleNpcListComputator.setPause(isPause);
+        this.npcListComputator.setPause(isPause);
     }
 
     /**
@@ -281,7 +282,7 @@ public class StageComputatorImpl implements StageComputator {
      * @param uuid      - the uuid of NPC to be paused
      */
     public void setPause(boolean isPause, String uuid) {
-        this.simpleNpcListComputator.setPause(isPause, uuid);
+        this.npcListComputator.setPause(isPause, uuid);
     }
 
     /**

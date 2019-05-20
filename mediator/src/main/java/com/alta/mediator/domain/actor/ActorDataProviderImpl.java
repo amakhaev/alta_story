@@ -3,7 +3,7 @@ package com.alta.mediator.domain.actor;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.domain.actor.ActorService;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,13 +42,13 @@ public class ActorDataProviderImpl implements ActorDataProvider {
      * @param skinName                      - the name of skin for character
      * @param startCoordinates              - the coordinates of start position for actor
      * @param repeatingMovementDurationTime - the time of repeating the participantComputator of simple NPC
-     * @return the {@link SimpleNpcEngineModel}
+     * @return the {@link NpcEngineModel}
      */
     @Override
-    public SimpleNpcEngineModel getSimpleNpc(String skinName,
-                                             Point startCoordinates,
-                                             int repeatingMovementDurationTime,
-                                             String uuid) {
+    public NpcEngineModel getSimpleNpc(String skinName,
+                                       Point startCoordinates,
+                                       int repeatingMovementDurationTime,
+                                       String uuid) {
         ActorModel actorModel = this.actorService.getActorModel(skinName);
         actorModel.setRepeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime());
         actorModel.setRepeatingMovementDurationTime(repeatingMovementDurationTime);

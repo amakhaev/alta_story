@@ -2,11 +2,12 @@ package com.alta.computator.service.participantComputator.focusPoint;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
+import com.alta.computator.service.movement.MovementComputatorImpl;
+import com.alta.computator.service.movement.MovementFactory;
 import com.alta.computator.service.movement.MovementType;
-import com.alta.computator.service.movement.directionCalculation.DirectionCalculator;
+import com.alta.computator.service.movement.directionCalculation.MovementDirectionStrategy;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.movement.MovementComputator;
-import com.alta.computator.service.movement.MovementFactory;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ import java.awt.*;
 public class FocusPointComputator {
 
     private final MovementComputator movementComputator;
-    private final DirectionCalculator directionCalculator;
+    private final MovementDirectionStrategy movementDirectionStrategy;
 
     private boolean isInitializedFirstTime;
 
@@ -45,8 +46,8 @@ public class FocusPointComputator {
      */
     public FocusPointComputator(FocusPointParticipant focusPointParticipant) {
         this.focusPointParticipant = focusPointParticipant;
-        this.movementComputator = MovementFactory.createComputator();
-        this.directionCalculator = MovementFactory.createDirectionCalculator(MovementType.AVOID_OBSTRUCTION);
+        this.movementComputator = MovementFactory.createComputator(MovementComputatorImpl.FAST_MOVE_SPEED);
+        this.movementDirectionStrategy = MovementFactory.createFocusPointStrategy();
         this.isInitializedFirstTime = false;
         this.isComputationPause = false;
     }
@@ -83,11 +84,12 @@ public class FocusPointComputator {
         }
 
         this.lastMovementDirection = movementDirection;
-        Point targetMapPoint = this.directionCalculator.getTargetPointForMoving(
-                movementDirection, this.focusPointParticipant.getCurrentMapCoordinates()
+        this.movementDirectionStrategy.calculateMovement(
+                this.focusPointParticipant.getCurrentMapCoordinates(), movementDirection, altitudeMap
         );
+        Point targetMapPoint = this.movementDirectionStrategy.getTargetPointForMoving();
 
-        if (this.directionCalculator.isCanMoveTo(targetMapPoint, altitudeMap)) {
+        if (this.movementDirectionStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
             this.movementComputator.tryToRunMoveProcess(
                     altitudeMap,
                     this.focusPointParticipant.getCurrentMapCoordinates(),

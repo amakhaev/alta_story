@@ -18,5 +18,6 @@ public class SimpleNpcEntity {
     private boolean animatedAlways;
     private String movementStrategy;
     private String initialDirection;
+    private MovementRulesEntity movementRules;
 
 }

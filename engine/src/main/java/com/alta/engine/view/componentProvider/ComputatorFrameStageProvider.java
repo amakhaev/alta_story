@@ -2,6 +2,8 @@ package com.alta.engine.view.componentProvider;
 
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
+import com.alta.computator.model.participant.actor.NpcParticipant;
+import com.alta.computator.model.participant.actor.RouteNpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
@@ -10,7 +12,7 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import lombok.NonNull;
@@ -41,13 +43,13 @@ public class ComputatorFrameStageProvider {
     public StageComputatorImpl createStageComputator(Point focusPointStartPosition,
                                                      ActingCharacterEngineModel actingCharacter,
                                                      List<FacilityEngineModel> facilityModels,
-                                                     List<SimpleNpcEngineModel> simpleNpc,
+                                                     List<NpcEngineModel> simpleNpc,
                                                      EventProducer<ComputatorEvent> eventProducer) {
         log.debug("Started creating FrameStageComputator");
         StageComputatorImpl stageComputatorImpl = new StageComputatorImpl();
         stageComputatorImpl.addFocusPointParticipant(focusPointStartPosition);
         stageComputatorImpl.addFacilities(createFacilityParticipants(facilityModels));
-        stageComputatorImpl.addSimpleNpcCharacters(createSimpleNpcParticipants(simpleNpc));
+        stageComputatorImpl.addNpcCharacters(createNpcParticipants(simpleNpc));
 
         stageComputatorImpl.addActingCharacter(
                 new ActingCharacterParticipant(
@@ -76,13 +78,37 @@ public class ComputatorFrameStageProvider {
         );
     }
 
-    private List<SimpleNpcParticipant> createSimpleNpcParticipants(List<SimpleNpcEngineModel> simpleNpcEngineModels) {
-        if (simpleNpcEngineModels == null || simpleNpcEngineModels.isEmpty()) {
+    private List<NpcParticipant> createNpcParticipants(List<NpcEngineModel> npcEngineModels) {
+        if (npcEngineModels == null || npcEngineModels.isEmpty()) {
             return Collections.emptyList();
         }
 
-        return simpleNpcEngineModels.stream()
-                .map(ComputatorFrameStageProvider::createSimpleNpcParticipant)
+        return npcEngineModels.stream()
+                .map(npcEngineModel -> {
+                    MovementType movementStrategy = null;
+                    try {
+                        movementStrategy = Strings.isNullOrEmpty(npcEngineModel.getMovementStrategy()) ?
+                                MovementType.AVOID_OBSTRUCTION : MovementType.valueOf(npcEngineModel.getMovementStrategy());
+                    } catch (Exception e) {
+                        log.error(
+                                "Can't get participantComputator strategy for simple npc {}, given strategy {}",
+                                npcEngineModel.getUuid(),
+                                npcEngineModel.getMovementStrategy()
+                        );
+                        return null;
+                    }
+
+                    switch (movementStrategy) {
+                        case AVOID_OBSTRUCTION:
+                        case STAND_SPOT:
+                            return createSimpleNpcParticipant(npcEngineModel, movementStrategy);
+                        case ROUTE_POINTS:
+                            return createRouteNpcParticipant(npcEngineModel);
+                        default:
+                            log.error("Unknown type of movement strategy for given NPC: {}", movementStrategy);
+                            return null;
+                    }
+                })
                 .collect(Collectors.toList());
     }
 
@@ -118,20 +144,7 @@ public class ComputatorFrameStageProvider {
                 .collect(Collectors.toList());
     }
 
-    private SimpleNpcParticipant createSimpleNpcParticipant(SimpleNpcEngineModel engineModel) {
-        MovementType movementStrategy = null;
-        try {
-            movementStrategy = Strings.isNullOrEmpty(engineModel.getMovementStrategy()) ?
-                    MovementType.AVOID_OBSTRUCTION : MovementType.valueOf(engineModel.getMovementStrategy());
-        } catch (Exception e) {
-            log.error(
-                    "Can't get participantComputator strategy for simple npc {}, given strategy {}",
-                    engineModel.getUuid(),
-                    engineModel.getMovementStrategy()
-            );
-            movementStrategy = MovementType.AVOID_OBSTRUCTION;
-        }
-
+    private SimpleNpcParticipant createSimpleNpcParticipant(NpcEngineModel engineModel, MovementType movementType) {
         MovementDirection movementDirection = null;
         try {
             movementDirection = Strings.isNullOrEmpty(engineModel.getInitialDirection()) ?
@@ -150,8 +163,33 @@ public class ComputatorFrameStageProvider {
                 engineModel.getStartMapCoordinates(),
                 engineModel.getZIndex(),
                 engineModel.getRepeatingMovementDurationTime(),
-                movementStrategy,
+                movementType,
                 movementDirection
+        );
+    }
+
+    private RouteNpcParticipant createRouteNpcParticipant(NpcEngineModel engineModel) {
+        MovementDirection movementDirection = null;
+        try {
+            movementDirection = Strings.isNullOrEmpty(engineModel.getInitialDirection()) ?
+                    MovementDirection.DOWN :
+                    MovementDirection.valueOf(engineModel.getInitialDirection());
+        } catch (Exception e) {
+            log.error(
+                    "Can't get initial direction for simple npc {}, given direction {}",
+                    engineModel.getUuid(),
+                    engineModel.getInitialDirection()
+            );
+        }
+
+        return new RouteNpcParticipant(
+                engineModel.getUuid(),
+                engineModel.getStartMapCoordinates(),
+                engineModel.getZIndex(),
+                engineModel.getRepeatingMovementDurationTime(),
+                movementDirection,
+                engineModel.isMovementRouteLooped(),
+                engineModel.getMovementRoute()
         );
     }
 }

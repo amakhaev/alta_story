@@ -11,14 +11,13 @@ import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.SimpleNpcEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.map.FacilityEngineModelMapper;
 import com.alta.mediator.domain.map.JumpingEngineModelMapper;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import one.util.streamex.StreamEx;
 
 import javax.inject.Named;
 import java.awt.*;
@@ -158,24 +157,28 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
         return facilityEngineModels;
     }
 
-    private List<SimpleNpcEngineModel> createSimpleNpcList(List<SimpleNpcEntity> simpleNpcList) {
+    private List<NpcEngineModel> createSimpleNpcList(List<SimpleNpcEntity> simpleNpcList) {
         return simpleNpcList.stream()
                 .map(simpleNpc -> {
-                            SimpleNpcEngineModel simpleNpcEngineModel = this.actorDataProvider.getSimpleNpc(
+                            NpcEngineModel npcEngineModel = this.actorDataProvider.getSimpleNpc(
                                     simpleNpc.getName(),
                                     new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
                                     simpleNpc.getRepeatingMovementDurationTime(),
                                     simpleNpc.getUuid()
                             );
-                            if (simpleNpcEngineModel == null) {
+                            if (npcEngineModel == null) {
                                 return null;
                             }
 
-                            simpleNpcEngineModel.setAnimatedAlways(simpleNpc.isAnimatedAlways());
-                            simpleNpcEngineModel.setInitialDirection(simpleNpc.getInitialDirection());
-                            simpleNpcEngineModel.setMovementStrategy(simpleNpc.getMovementStrategy());
+                            npcEngineModel.setAnimatedAlways(simpleNpc.isAnimatedAlways());
+                            npcEngineModel.setInitialDirection(simpleNpc.getInitialDirection());
+                            npcEngineModel.setMovementStrategy(simpleNpc.getMovementStrategy());
+                            if (simpleNpc.getMovementRules() != null) {
+                                npcEngineModel.setMovementRouteLooped(simpleNpc.getMovementRules().isLooped());
+                                npcEngineModel.setMovementRoute(simpleNpc.getMovementRules().getPoints());
+                            }
 
-                            return simpleNpcEngineModel;
+                            return npcEngineModel;
                         }
                 ).collect(Collectors.toList());
     }
