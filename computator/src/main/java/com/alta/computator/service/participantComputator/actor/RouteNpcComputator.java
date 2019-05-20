@@ -19,9 +19,9 @@ public class RouteNpcComputator extends NpcComputator {
      * Initialize new instance of {@link RouteNpcComputator}
      */
     RouteNpcComputator(RouteNpcParticipant routeNpcParticipant) {
-        super(routeNpcParticipant);
+        super(routeNpcParticipant, routeNpcParticipant.getMovementSpeed());
         this.movementDirectionStrategy = MovementFactory.createRouteNpcStrategy(
-                routeNpcParticipant.isRouteLooped(), routeNpcParticipant.getPoints()
+                routeNpcParticipant.isRouteLooped(), routeNpcParticipant.getRouteDescription()
         );
     }
 
@@ -35,6 +35,10 @@ public class RouteNpcComputator extends NpcComputator {
     @Override
     protected void updateMovement(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates, int delta) {
         if (this.movementDirectionStrategy.isRouteCompleted()) {
+            if (this.npcParticipant.getCurrentDirection() != this.movementDirectionStrategy.getDirection()) {
+                this.npcParticipant.setCurrentDirection(this.movementDirectionStrategy.getDirection());
+            }
+
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
             this.repeatingMovementTime += delta;
             if (this.repeatingMovementTime > this.npcParticipant.getRepeatingMovementDurationTime()) {

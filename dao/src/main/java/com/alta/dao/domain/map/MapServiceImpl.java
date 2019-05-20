@@ -4,6 +4,8 @@ import com.alta.dao.ResourcesLocation;
 import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
 import com.alta.dao.domain.facility.FacilityService;
+import com.alta.dao.domain.map.internalEntities.MapDecoratorEntity;
+import com.alta.dao.domain.map.internalEntities.MapEntity;
 import com.alta.utils.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
@@ -62,6 +64,7 @@ public class MapServiceImpl implements MapService {
                 .tiledMapAbsolutePath(this.getAbsolutePathToMap(matchedMapEntity.getTiledMapPath()))
                 .facilities(this.getFacilities(internalDecorator))
                 .simpleNpcList(internalDecorator.getSimpleNpcList())
+                .alterableNpcList(internalDecorator.getAlterableNpcList())
                 .mapJumpings(internalDecorator.getJumping())
                 .build();
 

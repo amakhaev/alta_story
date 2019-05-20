@@ -1,8 +1,8 @@
 package com.alta.dao.data.map;
 
-import com.alta.dao.domain.map.MapJumpingEntity;
-import com.alta.dao.domain.map.MapJumpingEntity;
-import com.alta.dao.domain.map.SimpleNpcEntity;
+import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
+import com.alta.dao.domain.map.internalEntities.MapJumpingEntity;
+import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import lombok.*;
 
 import java.util.List;
@@ -23,6 +23,9 @@ public class MapModel {
 
     @Singular("simpleNpcList")
     private List<SimpleNpcEntity> simpleNpcList;
+
+    @Singular("alterableNpcList")
+    private List<AlterableNpcEntity> alterableNpcList;
 
     @Singular("mapJumpings")
     private List<MapJumpingEntity> mapJumpings;

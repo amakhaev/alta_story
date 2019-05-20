@@ -1,10 +1,13 @@
 package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.ParticipatType;
+import com.alta.computator.service.movement.MovementComputatorImpl;
 import com.alta.computator.service.movement.MovementType;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.RouteMovementDescription;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.List;
@@ -18,7 +21,11 @@ public class RouteNpcParticipant extends NpcParticipant {
     private final boolean isRouteLooped;
 
     @Getter
-    private final List<Point> points;
+    private final List<RouteMovementDescription> routeDescription;
+
+    @Setter
+    @Getter
+    private int movementSpeed;
 
     /**
      * Initialize new instance of {@link RouteNpcParticipant}
@@ -29,16 +36,18 @@ public class RouteNpcParticipant extends NpcParticipant {
                                int repeatingMovementDurationTime,
                                @NonNull MovementDirection initialDirection,
                                boolean isRouteLooped,
-                               List<Point> points) {
+                               List<RouteMovementDescription> routeDescription) {
         super(
                 uuid,
                 startMapCoordinates,
                 zIndex,
                 repeatingMovementDurationTime,
                 MovementType.ROUTE_POINTS,
-                initialDirection, ParticipatType.ROUTE_NPC
+                initialDirection,
+                ParticipatType.ROUTE_NPC
         );
         this.isRouteLooped = isRouteLooped;
-        this.points = points;
+        this.routeDescription = routeDescription;
+        this.movementSpeed = MovementComputatorImpl.NORMAL_MOVE_SPEED;
     }
 }

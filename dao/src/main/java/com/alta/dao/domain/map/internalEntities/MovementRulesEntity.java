@@ -1,9 +1,8 @@
-package com.alta.dao.domain.map;
+package com.alta.dao.domain.map.internalEntities;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -14,6 +13,6 @@ import java.util.List;
 public class MovementRulesEntity {
 
     private boolean looped;
-    private List<Point> points;
+    private List<NpcRouteDescriptionEntity> routeDescription;
 
 }

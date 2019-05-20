@@ -7,8 +7,10 @@ import com.alta.computator.model.participant.actor.RouteNpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
+import com.alta.computator.service.movement.MovementComputatorImpl;
 import com.alta.computator.service.movement.MovementType;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.movement.directionCalculation.RouteMovementDescription;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
@@ -182,14 +184,40 @@ public class ComputatorFrameStageProvider {
             );
         }
 
-        return new RouteNpcParticipant(
+        RouteNpcParticipant routeNpcParticipant = new RouteNpcParticipant(
                 engineModel.getUuid(),
                 engineModel.getStartMapCoordinates(),
                 engineModel.getZIndex(),
                 engineModel.getRepeatingMovementDurationTime(),
                 movementDirection,
                 engineModel.isMovementRouteLooped(),
-                engineModel.getMovementRoute()
+                createRouteMovementDescription(engineModel.getRouteDescription())
         );
+
+        if (Strings.isNullOrEmpty(engineModel.getMovementSpeed())) {
+            return routeNpcParticipant;
+        }
+
+        switch (engineModel.getMovementSpeed()) {
+            case "SLOW":
+                routeNpcParticipant.setMovementSpeed(MovementComputatorImpl.SLOW_MOVE_SPEED);
+                break;
+            case "NORMAL":
+                routeNpcParticipant.setMovementSpeed(MovementComputatorImpl.NORMAL_MOVE_SPEED);
+                break;
+            case "FAST":
+                routeNpcParticipant.setMovementSpeed(MovementComputatorImpl.FAST_MOVE_SPEED);
+                break;
+            default:
+                log.error("Unknown type of movement speed: {}", engineModel.getMovementSpeed());
+        }
+
+        return routeNpcParticipant;
+    }
+
+    private List<RouteMovementDescription> createRouteMovementDescription(List<NpcEngineModel.RouteDescription> descriptions) {
+        return descriptions.stream()
+                .map(md -> new RouteMovementDescription(md.getX(), md.getY(), MovementDirection.valueOf(md.getFinalDirection())))
+                .collect(Collectors.toList());
     }
 }

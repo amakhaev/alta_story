@@ -16,7 +16,7 @@ import java.util.List;
 public class RoutePointsMovementStrategy implements RouteMovementDirectionStrategy {
 
     private final boolean isRouteLooped;
-    private final List<Point> availableTargets;
+    private final List<RouteMovementDescription> routeDescription;
     private final MovementRouteComputator movementRouteComputator;
     private Integer pointIndex;
     private Deque<Point> currentRoute;
@@ -25,9 +25,9 @@ public class RoutePointsMovementStrategy implements RouteMovementDirectionStrate
     /**
      * Initialize new instance of {@link RoutePointsMovementStrategy}.
      */
-    public RoutePointsMovementStrategy(boolean isRouteLooped, List<Point> availableTargets) {
+    public RoutePointsMovementStrategy(boolean isRouteLooped, List<RouteMovementDescription> RouteMovementDescription) {
         this.isRouteLooped = isRouteLooped;
-        this.availableTargets = availableTargets;
+        this.routeDescription = RouteMovementDescription;
         this.pointIndex = 0;
         this.movementRouteComputator = new MovementRouteComputator();
     }
@@ -44,14 +44,14 @@ public class RoutePointsMovementStrategy implements RouteMovementDirectionStrate
         if (this.pointIndex == null) {
             this.pointIndex = 0;
         } else {
-            if (this.pointIndex < this.availableTargets.size() - 1) {
+            if (this.pointIndex < this.routeDescription.size() - 1) {
                 this.pointIndex++;
             } else {
                 this.pointIndex = this.isRouteLooped ? 0 : this.pointIndex;
             }
         }
 
-        this.calculateRoute(startPoint, this.availableTargets.get(this.pointIndex), altitudeMap);
+        this.calculateRoute(startPoint, this.routeDescription.get(this.pointIndex).getMapCoordinate(), altitudeMap);
     }
 
     /**
@@ -62,7 +62,7 @@ public class RoutePointsMovementStrategy implements RouteMovementDirectionStrate
      */
     @Override
     public void recalculatePartOfRoute(Point startPoint, AltitudeMap altitudeMap) {
-        this.calculateRoute(startPoint, this.availableTargets.get(this.pointIndex), altitudeMap);
+        this.calculateRoute(startPoint, this.routeDescription.get(this.pointIndex).getMapCoordinate(), altitudeMap);
     }
 
     /**
@@ -70,8 +70,12 @@ public class RoutePointsMovementStrategy implements RouteMovementDirectionStrate
      */
     @Override
     public MovementDirection getDirection() {
-        if (this.currentStepPoint == null || this.currentRoute.isEmpty()) {
+        if (this.pointIndex == null) {
             return MovementDirection.DOWN;
+        }
+
+        if (this.currentRoute == null || this.currentRoute.isEmpty()) {
+            return this.routeDescription.get(this.pointIndex).getFinalDirection();
         }
 
         return this.calculateDirection(this.currentStepPoint, this.currentRoute.peekFirst());

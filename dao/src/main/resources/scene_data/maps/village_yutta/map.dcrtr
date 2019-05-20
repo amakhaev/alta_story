@@ -570,8 +570,11 @@
 			"startY": 17,
 			"repeatingMovementDurationTime": 5000,
 			"movementStrategy": "AVOID_OBSTRUCTION",
+			"movementSpeed": "FAST",
 			"animatedAlways": "false"
-		},
+		}
+	],
+	"alterableNpcList": [
 		{
 			"uuid": "96ae9b16-97a4-4370-9eb1-22e57a22be80",
 			"name": "person6",
@@ -581,9 +584,10 @@
 			"movementStrategy": "ROUTE_POINTS",
 			"animatedAlways": "true",
 			"initialDirection": "UP",
+			"movementSpeed": "SLOW",
 			"movementRules": {
 				"looped": "true",
-				"points": [
+				"routeDescription": [
 					{
 						x: 32,
 						y: 16,

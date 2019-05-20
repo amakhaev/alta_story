@@ -1,5 +1,7 @@
 package com.alta.mediator.domain.actor;
 
+import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
+import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.NpcEngineModel;
 
@@ -21,17 +23,18 @@ public interface ActorDataProvider {
     ActingCharacterEngineModel getActingCharacter(String skinName, Point startCoordinates, String uuid);
 
     /**
-     * Gets the simple npc by given skin name
+     * Gets the simple npc by given npc entity.
      *
-     * @param skinName                      - the name of skin for character
-     * @param startCoordinates              - the coordinates of start position for actor
-     * @param repeatingMovementDurationTime - the time of repeating the participantComputator of simple NPC
-     * @param dialogueText                  - the time of repeating the participantComputator of simple NPC
-     * @param uuid                          - the uuid of simple npc.
+     * @param npcEntity - the npc entity to create engine model.
      * @return the {@link NpcEngineModel}
      */
-    NpcEngineModel getSimpleNpc(String skinName,
-                                Point startCoordinates,
-                                int repeatingMovementDurationTime,
-                                String uuid);
+    NpcEngineModel getSimpleNpc(SimpleNpcEntity npcEntity);
+
+    /**
+     * Gets the alterable npc by given npc entity.
+     *
+     * @param npcEntity - the npc entity to create engine model.
+     * @return the {@link NpcEngineModel} instance.
+     */
+    NpcEngineModel getAlterableNpc(AlterableNpcEntity npcEntity);
 }

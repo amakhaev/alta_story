@@ -5,7 +5,8 @@ import com.alta.dao.data.map.MapModel;
 import com.alta.dao.data.preservation.CharacterPreservationModel;
 import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.domain.map.MapService;
-import com.alta.dao.domain.map.SimpleNpcEntity;
+import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
+import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.engine.model.FrameStageDataModel;
@@ -120,7 +121,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
                 .focusPointMapStartPosition(focus)
                 .facilities(this.createFacilityList(mapModel.getFacilities(), mapModel.getName()))
-                .simpleNpc(this.createSimpleNpcList(mapModel.getSimpleNpcList()))
+                .simpleNpc(this.createNpcList(mapModel.getSimpleNpcList(), mapModel.getAlterableNpcList()))
                 .actingCharacter(actingCharacterEngineModel)
                 .jumpingPoints(this.jumpingEngineModelMapper.doMappingForJumpings(mapModel.getMapJumpings()))
                 .build();
@@ -157,29 +158,19 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
         return facilityEngineModels;
     }
 
-    private List<NpcEngineModel> createSimpleNpcList(List<SimpleNpcEntity> simpleNpcList) {
-        return simpleNpcList.stream()
-                .map(simpleNpc -> {
-                            NpcEngineModel npcEngineModel = this.actorDataProvider.getSimpleNpc(
-                                    simpleNpc.getName(),
-                                    new Point(simpleNpc.getStartX(), simpleNpc.getStartY()),
-                                    simpleNpc.getRepeatingMovementDurationTime(),
-                                    simpleNpc.getUuid()
-                            );
-                            if (npcEngineModel == null) {
-                                return null;
-                            }
+    private List<NpcEngineModel> createNpcList(List<SimpleNpcEntity> simpleNpcList,
+                                                     List<AlterableNpcEntity> alterableNpcList) {
 
-                            npcEngineModel.setAnimatedAlways(simpleNpc.isAnimatedAlways());
-                            npcEngineModel.setInitialDirection(simpleNpc.getInitialDirection());
-                            npcEngineModel.setMovementStrategy(simpleNpc.getMovementStrategy());
-                            if (simpleNpc.getMovementRules() != null) {
-                                npcEngineModel.setMovementRouteLooped(simpleNpc.getMovementRules().isLooped());
-                                npcEngineModel.setMovementRoute(simpleNpc.getMovementRules().getPoints());
-                            }
+        // Simple npc
+        List<NpcEngineModel> engineModels = simpleNpcList.stream()
+                .map(this.actorDataProvider::getSimpleNpc)
+                .collect(Collectors.toList());
 
-                            return npcEngineModel;
-                        }
-                ).collect(Collectors.toList());
+        // Alterable npc
+        engineModels.addAll(
+                alterableNpcList.stream().map(this.actorDataProvider::getAlterableNpc).collect(Collectors.toList())
+        );
+
+        return engineModels;
     }
 }

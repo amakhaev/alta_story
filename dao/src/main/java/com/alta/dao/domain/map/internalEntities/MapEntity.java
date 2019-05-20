@@ -1,4 +1,4 @@
-package com.alta.dao.domain.map;
+package com.alta.dao.domain.map.internalEntities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-class MapEntity {
+public class MapEntity {
 
     private String name;
     private String tiledMapPath;

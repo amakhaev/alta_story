@@ -46,7 +46,7 @@ public abstract class NpcComputator {
      * @param npcParticipant - the NPC participant model.
      */
     NpcComputator(NpcParticipant npcParticipant) {
-        this(npcParticipant, MovementComputatorImpl.MIDDLE_MOVE_SPEED);
+        this(npcParticipant, MovementComputatorImpl.NORMAL_MOVE_SPEED);
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class NpcComputator {
                     movementComputator.getMapTargetCoordinates().y
             );
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
-            movementComputator.clearLastMovement();
+            this.movementComputator.clearLastMovement();
         }
     }
 

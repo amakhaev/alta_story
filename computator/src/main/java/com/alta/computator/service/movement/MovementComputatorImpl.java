@@ -13,7 +13,7 @@ import java.awt.*;
 public class MovementComputatorImpl implements MovementComputator {
 
     public static final int FAST_MOVE_SPEED = 4;
-    public static final int MIDDLE_MOVE_SPEED = 3;
+    public static final int NORMAL_MOVE_SPEED = 3;
     public static final int SLOW_MOVE_SPEED = 2;
 
     private static final int DIRECTION_FORWARD = 1;
@@ -42,7 +42,7 @@ public class MovementComputatorImpl implements MovementComputator {
      * Initialize new instance of {@link MovementComputatorImpl}.
      */
     MovementComputatorImpl() {
-        this(MIDDLE_MOVE_SPEED);
+        this(NORMAL_MOVE_SPEED);
     }
 
     /**

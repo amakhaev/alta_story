@@ -1,4 +1,4 @@
-package com.alta.dao.domain.map;
+package com.alta.dao.domain.map.internalEntities;
 
 import lombok.Builder;
 import lombok.Getter;

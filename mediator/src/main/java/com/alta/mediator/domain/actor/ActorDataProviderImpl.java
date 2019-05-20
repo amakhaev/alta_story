@@ -2,6 +2,9 @@ package com.alta.mediator.domain.actor;
 
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.domain.actor.ActorService;
+import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
+import com.alta.dao.domain.map.internalEntities.NpcEntity;
+import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.google.inject.Inject;
@@ -9,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
+import java.util.stream.Collectors;
 
 /**
  * Provides the service that manipulated model related to {@link com.alta.scene.entities.Actor}
@@ -37,24 +41,54 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     }
 
     /**
-     * Gets the simple npc by given skin name
+     * Gets the simple npc by given npc entity.
      *
-     * @param skinName                      - the name of skin for character
-     * @param startCoordinates              - the coordinates of start position for actor
-     * @param repeatingMovementDurationTime - the time of repeating the participantComputator of simple NPC
+     * @param npcEntity - the npc entity to create engine model.
      * @return the {@link NpcEngineModel}
      */
     @Override
-    public NpcEngineModel getSimpleNpc(String skinName,
-                                       Point startCoordinates,
-                                       int repeatingMovementDurationTime,
-                                       String uuid) {
-        ActorModel actorModel = this.actorService.getActorModel(skinName);
-        actorModel.setRepeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime());
-        actorModel.setRepeatingMovementDurationTime(repeatingMovementDurationTime);
-        actorModel.setStartMapCoordinates(startCoordinates);
-        actorModel.setUuid(uuid);
+    public NpcEngineModel getSimpleNpc(SimpleNpcEntity npcEntity) {
+        return this.createNpcEngineModelFromNpcEntity(npcEntity);
+    }
 
-        return this.actorEngineMapper.doMappingForSimpleNpc(actorModel);
+    /**
+     * Gets the alterable npc by given npc entity.
+     *
+     * @param npcEntity - the npc entity to create engine model.
+     * @return the {@link NpcEngineModel} instance.
+     */
+    @Override
+    public NpcEngineModel getAlterableNpc(AlterableNpcEntity npcEntity) {
+        NpcEngineModel npcEngineModel = this.createNpcEngineModelFromNpcEntity(npcEntity);
+        if (npcEntity.getMovementRules() == null) {
+            log.error("The movement rules is required for the AlterableNpcEntity: {}", npcEntity.getUuid());
+            return npcEngineModel;
+        }
+
+        npcEngineModel.setMovementRouteLooped(npcEntity.getMovementRules().isLooped());
+        npcEngineModel.setRouteDescription(
+        npcEntity.getMovementRules().getRouteDescription()
+                .stream()
+                .map(rd -> new NpcEngineModel.RouteDescription(rd.getX(), rd.getY(), rd.getFinalDirection()))
+                .collect(Collectors.toList())
+        );
+
+        return npcEngineModel;
+    }
+
+    private NpcEngineModel createNpcEngineModelFromNpcEntity(NpcEntity npcEntity) {
+        ActorModel actorModel = this.actorService.getActorModel(npcEntity.getName());
+        actorModel.setRepeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime());
+        actorModel.setRepeatingMovementDurationTime(npcEntity.getRepeatingMovementDurationTime());
+        actorModel.setStartMapCoordinates(new Point(npcEntity.getStartX(), npcEntity.getStartY()));
+        actorModel.setUuid(npcEntity.getUuid());
+
+        NpcEngineModel npcEngineModel = this.actorEngineMapper.doMappingForSimpleNpc(actorModel);
+        npcEngineModel.setAnimatedAlways(npcEntity.isAnimatedAlways());
+        npcEngineModel.setInitialDirection(npcEntity.getInitialDirection());
+        npcEngineModel.setMovementStrategy(npcEntity.getMovementStrategy());
+        npcEngineModel.setMovementSpeed(npcEntity.getMovementSpeed());
+
+        return npcEngineModel;
     }
 }

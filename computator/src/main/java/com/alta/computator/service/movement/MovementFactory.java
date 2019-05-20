@@ -63,11 +63,12 @@ public class MovementFactory {
     /**
      * Creates the strategy for NPC that has route.
      *
-     * @param isRouteLooped - indicates when route should be looped.
-     * @param points        - the points for movement.
+     * @param isRouteLooped     - indicates when route should be looped.
+     * @param routeDescription  - the description of route.
      * @return created {@link MovementDirectionStrategy}.
      */
-    public RouteMovementDirectionStrategy createRouteNpcStrategy(boolean isRouteLooped, List<Point> points) {
-        return new RoutePointsMovementStrategy(isRouteLooped, points);
+    public RouteMovementDirectionStrategy createRouteNpcStrategy(boolean isRouteLooped,
+                                                                 List<RouteMovementDescription> routeDescription) {
+        return new RoutePointsMovementStrategy(isRouteLooped, routeDescription);
     }
 }

@@ -2,10 +2,7 @@ package com.alta.engine.model.frameStage;
 
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Singular;
+import lombok.*;
 
 import java.awt.*;
 import java.util.List;
@@ -37,9 +34,19 @@ public class NpcEngineModel {
     private int repeatingMovementDurationTime;
 
     @Setter
-    private List<Point> movementRoute;
+    private String movementSpeed;
+
+    @Setter
+    private List<RouteDescription> routeDescription;
 
     @Singular("animationDescriptors")
     private List<ActorAnimationDescriptor<MovementDirection>> animationDescriptors;
 
+    @Getter
+    @AllArgsConstructor
+    public static class RouteDescription {
+        private int x;
+        private int y;
+        private String finalDirection;
+    }
 }

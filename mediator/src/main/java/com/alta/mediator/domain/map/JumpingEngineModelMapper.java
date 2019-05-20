@@ -1,6 +1,6 @@
 package com.alta.mediator.domain.map;
 
-import com.alta.dao.domain.map.MapJumpingEntity;
+import com.alta.dao.domain.map.internalEntities.MapJumpingEntity;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
 
 import java.awt.*;
