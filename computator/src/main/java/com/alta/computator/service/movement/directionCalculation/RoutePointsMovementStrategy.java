@@ -28,7 +28,6 @@ public class RoutePointsMovementStrategy implements RouteMovementDirectionStrate
     public RoutePointsMovementStrategy(boolean isRouteLooped, List<RouteMovementDescription> RouteMovementDescription) {
         this.isRouteLooped = isRouteLooped;
         this.routeDescription = RouteMovementDescription;
-        this.pointIndex = 0;
         this.movementRouteComputator = new MovementRouteComputator();
     }
 

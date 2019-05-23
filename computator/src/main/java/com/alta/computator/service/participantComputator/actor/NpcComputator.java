@@ -84,6 +84,12 @@ public abstract class NpcComputator {
     protected abstract void updateMovement(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates, int delta);
 
     /**
+     * Handles the completing of movement.
+     */
+    protected void onAfterMovementCompleted() {
+    }
+
+    /**
      * Tries to run movement process for NPC participant.
      *
      * @param targetMapPoint    - the target point where NPC to be moved.
@@ -141,6 +147,7 @@ public abstract class NpcComputator {
             );
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
             this.movementComputator.clearLastMovement();
+            this.onAfterMovementCompleted();
         }
     }
 

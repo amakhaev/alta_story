@@ -3,11 +3,16 @@ package com.alta.dao.domain.actor;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.utils.JsonParser;
 import com.google.common.base.Strings;
+import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Provides the implementation of {@link ActorService}
@@ -17,20 +22,24 @@ import java.net.URL;
 public class ActorServiceImpl implements ActorService {
 
     private static final String ACTORS_FOLDER = "scene_data/actors/";
-    private static final String PERSONS_DESCRIPTOR_FILE_NAME = "persons.dscr";
+    private static final String TILE_SETS_FOLDER = ACTORS_FOLDER + "tile_sets/";
+    private static final String ACTOR_TILE_SET_DESCRIPTOR_PATH = ACTORS_FOLDER + "actor_tile_set.dscr";
+    private static final String ACTOR_LIST_DESCRIPTOR_PATH = ACTORS_FOLDER + "actor_list.dscr";
 
     private TileSetDescriptorEntity tileSetDescriptorEntity;
+    private Map<String, ActorEntity> actors;
 
     /**
      * Gets the actor model by given file name of tile sets.
      *
-     * @param descriptorFileName - the full name of descriptor file like "file.dscr".
+     * @param name - the name of actor.
+     *
      * @return the {@link ActorModel} instance.
      */
     @Override
-    public ActorModel getActorModel(String descriptorFileName) {
-        if (Strings.isNullOrEmpty(descriptorFileName)) {
-            log.error("Given descriptor name is null or empty");
+    public ActorModel getActorModel(String name) {
+        if (Strings.isNullOrEmpty(name)) {
+            log.error("Given actor name is null or empty");
             return null;
         }
 
@@ -38,37 +47,48 @@ public class ActorServiceImpl implements ActorService {
             this.tileSetDescriptorEntity = this.loadTileSetDescriptor();
         }
 
-        ActorEntity actorEntity = this.loadActorEntity(descriptorFileName);
+        if (this.actors == null) {
+            this.actors = this.loadActorList();
+        }
+
+        if (!this.actors.containsKey(name)) {
+            return null;
+        }
+
+        ActorEntity actorEntity = this.actors.get(name);
 
         return ActorModel.builder()
                 .descriptor(this.tileSetDescriptorEntity)
                 .durationTime(actorEntity.getDurationTime())
                 .zIndex(actorEntity.getZIndex())
-                .pathToImageSet(this.getAbsolutePathToImageSet(actorEntity.getImageName()))
+                .pathToImageSet(this.getAbsolutePathToTileSet(actorEntity.getImageName()))
                 .build();
     }
 
     private TileSetDescriptorEntity loadTileSetDescriptor() {
         return JsonParser.parse(
-                this.getClass().getClassLoader().getResource(ACTORS_FOLDER + PERSONS_DESCRIPTOR_FILE_NAME).getPath(),
+                this.getClass().getClassLoader().getResource(ACTOR_TILE_SET_DESCRIPTOR_PATH).getPath(),
                 TileSetDescriptorEntity.class
         );
     }
 
-    private ActorEntity loadActorEntity(String descriptorFileName) {
-        String fullPath = ACTORS_FOLDER + descriptorFileName;
-        fullPath += descriptorFileName.contains(".dscr") ? "" : ".dscr";
-
-        return JsonParser.parse(
-                this.getClass().getClassLoader().getResource(fullPath).getPath(),
-                ActorEntity.class
+    private Map<String, ActorEntity> loadActorList() {
+        List<ActorEntity> actors =  JsonParser.parse(
+                this.getClass().getClassLoader().getResource(ACTOR_LIST_DESCRIPTOR_PATH).getPath(),
+                new TypeToken<ArrayList<ActorEntity>>(){}.getType()
         );
+
+        if (actors == null || actors.isEmpty()) {
+            throw new RuntimeException("No available actors.");
+        }
+
+        return actors.stream().collect(Collectors.toMap(ActorEntity::getName, actor -> actor ));
     }
 
-    private String getAbsolutePathToImageSet(String imageFileName) {
+    private String getAbsolutePathToTileSet(String imageFileName) {
         URL absolutePath = this.getClass()
                 .getClassLoader()
-                .getResource(ACTORS_FOLDER + imageFileName);
+                .getResource(TILE_SETS_FOLDER + imageFileName);
 
         if (absolutePath == null) {
             log.error("File with given name doesn't exists: {}", imageFileName);

@@ -1,0 +1,41 @@
+{
+	"tileWidth": 96,
+	"tileHeight": 96,
+	"emotions": [
+		{
+			"type": "CALM",
+			"x": 0,
+			"y": 0
+		},
+		{
+			"type": "JOY",
+			"x": 96,
+			"y": 0
+		},
+		{
+			"type": "DETERMINATION",
+			"x": 192,
+			"y": 0
+		},
+		{
+			"type": "SURPRISE",
+			"x": 288,
+			"y": 0
+		},
+		{
+			"type": "SADNESS",
+			"x": 0,
+			"y": 96
+		},
+		{
+			"type": "ANNOYANCE",
+			"x": 192,
+			"y": 96
+		},
+		{
+			"type": "IRRITATION",
+			"x": 288,
+			"y": 96
+		}
+	]
+}

@@ -224,5 +224,159 @@
 				"text": "Отстань парень, я занят."
 			}
 		]
+	},
+	{
+		"uuid": "33a3e656-d74b-40d0-b61a-37f9819b297e",
+		"targetUuid": "de819fa2-a508-4093-b2ef-d5acad24f174",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Фух.. фух.."
+			}
+		]
+	},
+	{
+		"uuid": "07f5b464-1488-4a3a-8a76-12b3d90ba4d3",
+		"targetUuid": "9cafa8f6-f2d7-4446-8919-e420074cca3b",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Играть в догонялки всегда весело. Только вот они слишком быстрые."
+			}
+		]
+	},
+	{
+		"uuid": "74e98ef6-dc85-4bf8-8c76-d9490d5df5e0",
+		"targetUuid": "bf66c6ab-9a08-4274-8c1b-e259d378092f",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Не отвлекай, а то меня догонят, придётся водить."
+			}
+		]
+	},
+	{
+		"uuid": "b7d4ab49-1e8d-4628-ba72-f21458b7f7d0",
+		"targetUuid": "89081fb9-7f95-43e3-bbf8-d89d1f3ac1a5",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Эй! Ты не видел мою кошку?"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Она постоянно сбегает."
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Я очень скучаю по ней."
+			}
+		]
+	},
+	{
+		"uuid": "eba7324a-cffd-49c4-b0ee-7e1a7e9b793a",
+		"targetUuid": "08a72088-cea9-4708-bdf1-0312ccd7007d",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Вуфф вуфф!"
+			}
+		]
+	},
+	{
+		"uuid": "f1fa8abd-d29e-45cf-9e82-735cd44848d8",
+		"targetUuid": "92e9e85d-3d12-4e72-9cb7-952a8b654385",
+		"nextInteractionUuid": "6cdf4b2b-0c00-474b-80b5-014b9d470d2f",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Я путешествую по миру."
+			}
+		]
+	},
+	{
+		"uuid": "6cdf4b2b-0c00-474b-80b5-014b9d470d2f",
+		"targetUuid": "92e9e85d-3d12-4e72-9cb7-952a8b654385",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Что-то происходит со всем вокруг. Вскоре нас ждёт катастрофа."
+			}
+		]
+	},
+	{
+		"uuid": "1208465f-a73d-41da-8a64-3b93ab418bb9",
+		"targetUuid": "07442078-d057-4648-9457-30b0f7002ee3",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Какие отличные породы... Хммм.. Откуда они здесь..?"
+			}
+		]
+	},
+	{
+		"uuid": "a9e27c74-cb1e-4791-ad47-7a79635114fd",
+		"targetUuid": "9998d708-207d-419e-9ba0-3b8b781ddd31",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Эй Леон, привет! Как ты?"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Кира искала тебя. Похоже она чем-то очень довольна. Тебе стоит поговорить с ней."
+			}
+		]
+	},
+	{
+		"uuid": "38b9b831-6ec4-4682-99cf-0c91de31c6b3",
+		"targetUuid": "b2067645-b173-414c-b99c-f36f25f9ff47",
+		"nextInteractionUuid": "6ca3a83e-b8b1-4b24-85af-b0f92316c2af",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Отстань от меня. Не видишь я зол?"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "А, Леон, это ты."
+			}
+		]
+	},
+	{
+		"uuid": "6ca3a83e-b8b1-4b24-85af-b0f92316c2af",
+		"targetUuid": "b2067645-b173-414c-b99c-f36f25f9ff47",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Мы с Эриком договорились пойти рубить лес на заре, но его всё ещё нет!"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Прибью его..."
+			}
+		]
 	}
 ]

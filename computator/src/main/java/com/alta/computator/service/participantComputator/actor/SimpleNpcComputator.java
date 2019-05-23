@@ -40,7 +40,18 @@ class SimpleNpcComputator extends NpcComputator {
         }
     }
 
+    /**
+     * Handles the completing of movement.
+     */
+    protected void onAfterMovementCompleted() {
+        this.npcParticipant.setMoving(false);
+    }
+
     private void tryToRunMovement(AltitudeMap altitudeMap) {
+        if (this.isComputationPause) {
+            return;
+        }
+
         this.movementDirectionStrategy.calculateMovement(this.npcParticipant.getCurrentMapCoordinates(), null, altitudeMap);
         MovementDirection direction = this.movementDirectionStrategy.getDirection();
         if (direction == null) {
@@ -53,6 +64,7 @@ class SimpleNpcComputator extends NpcComputator {
 
         if (this.movementDirectionStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
             this.tryToRunMovement(targetMapPoint, altitudeMap);
+            this.npcParticipant.setMoving(true);
         } else {
             this.repeatingMovementTime = 0;
         }

@@ -39,6 +39,117 @@
           "zIndex": 10
         }
       ]
+    },
+    {
+      "name": "tradeTentPart1",
+      "positions": [
+        {
+          "x": 9,
+          "y": 4,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 4,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 5,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 5,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "tradeTentPart2",
+      "positions": [
+        {
+          "x": 9,
+          "y": 7,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 7,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 9,
+          "y": 8,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 10,
+          "y": 8,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "tradeTentPart3",
+      "positions": [
+        {
+          "x": 13,
+          "y": 7,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 14,
+          "y": 7,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 13,
+          "y": 8,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 14,
+          "y": 8,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "FREE",
+          "zIndex": 10
+        }
+      ]
     }
   ]
 }

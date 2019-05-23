@@ -101,12 +101,14 @@
 	"simpleNpcList": [
 		{
 			"uuid": "dc6c5f8f-1e0c-4c63-bc8c-9d8fbee98f95",
-			"name": "person4",
+			"name": "child1",
 			"startX": 9,
 			"startY": 14,
 			"repeatingMovementDurationTime": 2000,
 			"movementStrategy": "AVOID_OBSTRUCTION"
 		}
+	],
+	"alterableNpcList": [
 	],
 	"jumping": [
 		{

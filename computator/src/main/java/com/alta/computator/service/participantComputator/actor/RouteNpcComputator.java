@@ -35,10 +35,6 @@ public class RouteNpcComputator extends NpcComputator {
     @Override
     protected void updateMovement(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates, int delta) {
         if (this.movementDirectionStrategy.isRouteCompleted()) {
-            if (this.npcParticipant.getCurrentDirection() != this.movementDirectionStrategy.getDirection()) {
-                this.npcParticipant.setCurrentDirection(this.movementDirectionStrategy.getDirection());
-            }
-
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
             this.repeatingMovementTime += delta;
             if (this.repeatingMovementTime > this.npcParticipant.getRepeatingMovementDurationTime()) {
@@ -53,7 +49,22 @@ public class RouteNpcComputator extends NpcComputator {
         }
     }
 
+    /**
+     * Handles the completing of movement.
+     */
+    @Override
+    protected void onAfterMovementCompleted() {
+        if (this.npcParticipant.getCurrentDirection() != this.movementDirectionStrategy.getDirection()) {
+            this.npcParticipant.setCurrentDirection(this.movementDirectionStrategy.getDirection());
+        }
+        this.npcParticipant.setMoving(false);
+    }
+
     private void tryToRunMovementForRoute(AltitudeMap altitudeMap) {
+        if (this.isComputationPause) {
+            return;
+        }
+
         MovementDirection direction = this.movementDirectionStrategy.getDirection();
         if (direction == null) {
             return;
@@ -64,22 +75,31 @@ public class RouteNpcComputator extends NpcComputator {
 
         if (this.movementDirectionStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
             this.tryToRunMovement(targetMapPoint, altitudeMap);
+            this.npcParticipant.setMoving(true);
         } else {
             this.repeatingMovementTime = 0;
         }
     }
 
     private void continueAlongRoute(AltitudeMap altitudeMap) {
+        if (this.isComputationPause) {
+            return;
+        }
+
         MovementDirection direction = this.movementDirectionStrategy.getDirection();
         if (direction == null) {
             return;
         }
 
-        Point targetMapPoint = this.movementDirectionStrategy.getTargetPointForMoving();
+        Point targetMapPoint;
+        do {
+            targetMapPoint = this.movementDirectionStrategy.getTargetPointForMoving();
+        } while (targetMapPoint != null && targetMapPoint.equals(this.npcParticipant.getCurrentMapCoordinates()));
         this.npcParticipant.setCurrentDirection(direction);
 
         if (this.movementDirectionStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
             this.tryToRunMovement(targetMapPoint, altitudeMap);
+            this.npcParticipant.setMoving(true);
         } else {
             this.movementDirectionStrategy.recalculatePartOfRoute(
                     this.npcParticipant.getCurrentMapCoordinates(),

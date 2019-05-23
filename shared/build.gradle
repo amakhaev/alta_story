@@ -19,6 +19,7 @@ ext {
     lombokVersion = "1.18.4"
     logbackVersion = "1.1.2"
     snakeyamlVersion = "1.23"
+    jmapperVersion = "1.6.0.1"
 }
 
 dependencies {
@@ -36,6 +37,8 @@ dependencies {
 
     compile "org.yaml:snakeyaml:${snakeyamlVersion}"
     compile "com.google.code.gson:gson:${gsonVersion}"
+
+    compile "com.googlecode.jmapper-framework:jmapper-core:${jmapperVersion}"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

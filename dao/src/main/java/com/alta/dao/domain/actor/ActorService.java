@@ -12,10 +12,10 @@ public interface ActorService {
     /**
      * Gets the actor model by given file name of tile sets.
      *
-     * @param descriptorFileName - the full name of descriptor file like "file.dscr".
+     * @param name - the name of actor.
      *
      * @return the {@link ActorModel} instance.
      */
-    ActorModel getActorModel(String descriptorFileName);
+    ActorModel getActorModel(String name);
 
 }

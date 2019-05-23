@@ -408,6 +408,62 @@
 			"startX": 85,
 			"startY": 70,
 			"defaultVisible": "true"
+		},
+		{
+			"uuid": "98a0c57e-f0e7-4668-90fd-8e07418f98ce",
+			"name": "roof1", 
+			"descriptorFileName": "facility9",
+			"startX": 76,
+			"startY": 51,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "f8d22a25-68d2-48dd-85a7-9e7a34aa2c12",
+			"name": "roof1", 
+			"descriptorFileName": "facility9",
+			"startX": 84,
+			"startY": 51,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "136a8263-74ad-4c10-8875-c2f111de6dfd",
+			"name": "roof1", 
+			"descriptorFileName": "facility9",
+			"startX": 76,
+			"startY": 63,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "c07c5718-4691-412b-9f05-6b5d77ee3c75",
+			"name": "roof1", 
+			"descriptorFileName": "facility9",
+			"startX": 83,
+			"startY": 63,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "ded63796-20f9-4579-b670-70b44f7b715f",
+			"name": "tradeTentPart1", 
+			"descriptorFileName": "facility12",
+			"startX": 54,
+			"startY": 36,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "fcc79120-3317-475f-9f69-e89cd68c9cf1",
+			"name": "tradeTentPart2", 
+			"descriptorFileName": "facility12",
+			"startX": 60,
+			"startY": 36,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "4f44ce0b-b32e-4954-9ac8-861bea8b8eb9",
+			"name": "tradeTentPart3", 
+			"descriptorFileName": "facility12",
+			"startX": 66,
+			"startY": 36,
+			"defaultVisible": "true"
 		}
 	],
 	"simpleNpcList": [
@@ -572,6 +628,63 @@
 			"movementStrategy": "AVOID_OBSTRUCTION",
 			"movementSpeed": "FAST",
 			"animatedAlways": "false"
+		},
+		{
+			"uuid": "89081fb9-7f95-43e3-bbf8-d89d1f3ac1a5",
+			"name": "child6",
+			"startX": 81,
+			"startY": 61,
+			"repeatingMovementDurationTime": 10000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"animatedAlways": "false"
+		},
+		{
+			"uuid": "08a72088-cea9-4708-bdf1-0312ccd7007d",
+			"name": "dog1",
+			"startX": 84,
+			"startY": 88,
+			"repeatingMovementDurationTime": 5000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"animatedAlways": "true"
+		},
+		{
+			"uuid": "92e9e85d-3d12-4e72-9cb7-952a8b654385",
+			"name": "person11",
+			"startX": 45,
+			"startY": 33,
+			"repeatingMovementDurationTime": 3000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"animatedAlways": "true"
+		},
+		{
+			"uuid": "9998d708-207d-419e-9ba0-3b8b781ddd31",
+			"name": "person14",
+			"startX": 64,
+			"startY": 39,
+			"repeatingMovementDurationTime": 8000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"movementSpeed": "SLOW",
+			"animatedAlways": "true"
+		},
+		{
+			"uuid": "b2067645-b173-414c-b99c-f36f25f9ff47",
+			"name": "person15",
+			"startX": 23,
+			"startY": 57,
+			"repeatingMovementDurationTime": 4000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"movementSpeed": "NORMAL",
+			"animatedAlways": "true"
+		},
+		{
+			"uuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
+			"name": "kira",
+			"startX": 59,
+			"startY": 66,
+			"repeatingMovementDurationTime": 4000,
+			"movementStrategy": "AVOID_OBSTRUCTION",
+			"movementSpeed": "NORMAL",
+			"animatedAlways": "true"
 		}
 	],
 	"alterableNpcList": [
@@ -580,7 +693,7 @@
 			"name": "person6",
 			"startX": 32,
 			"startY": 14,
-			"repeatingMovementDurationTime": 3000,
+			"repeatingMovementDurationTime": 5000,
 			"movementStrategy": "ROUTE_POINTS",
 			"animatedAlways": "true",
 			"initialDirection": "UP",
@@ -611,6 +724,304 @@
 					{
 						x: 33,
 						y: 18,
+						"finalDirection": "UP"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "de819fa2-a508-4093-b2ef-d5acad24f174",
+			"name": "child1",
+			"startX": 31,
+			"startY": 28,
+			"repeatingMovementDurationTime": 2000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "UP",
+			"movementSpeed": "FAST",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 33,
+						y: 32,
+						"finalDirection": "LEFT"
+					},
+					{
+						x: 28,
+						y: 30,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 30,
+						y: 28,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 25,
+						y: 30,
+						"finalDirection": "UP"
+					},
+					{
+						x: 32,
+						y: 28,
+						"finalDirection": "DOWN"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "9cafa8f6-f2d7-4446-8919-e420074cca3b",
+			"name": "child2",
+			"startX": 32,
+			"startY": 29,
+			"repeatingMovementDurationTime": 2500,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "UP",
+			"movementSpeed": "NORMAL",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 34,
+						y: 32,
+						"finalDirection": "UP"
+					},
+					{
+						x: 27,
+						y: 29,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 31,
+						y: 28,
+						"finalDirection": "LEFT"
+					},
+					{
+						x: 25,
+						y: 30,
+						"finalDirection": "UP"
+					},
+					{
+						x: 32,
+						y: 29,
+						"finalDirection": "LEFT"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "bf66c6ab-9a08-4274-8c1b-e259d378092f",
+			"name": "child3",
+			"startX": 29,
+			"startY": 30,
+			"repeatingMovementDurationTime": 3000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "UP",
+			"movementSpeed": "NORMAL",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 33,
+						y: 31,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 28,
+						y: 29,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 31,
+						y: 25,
+						"finalDirection": "UP"
+					},
+					{
+						x: 19,
+						y: 30,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 29,
+						y: 30,
+						"finalDirection": "UP"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "ae7702ad-e923-407b-8bf9-1154a693e507",
+			"name": "cat1",
+			"startX": 80,
+			"startY": 91,
+			"repeatingMovementDurationTime": 10000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "false",
+			"initialDirection": "UP",
+			"movementSpeed": "SLOW",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 51,
+						y: 77,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 41,
+						y: 82,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 13,
+						y: 90,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 33,
+						y: 69,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 28,
+						y: 45,
+						"finalDirection": "UP"
+					},
+					{
+						x: 32,
+						y: 39,
+						"finalDirection": "UP"
+					},
+					{
+						x: 56,
+						y: 52,
+						"finalDirection": "UP"
+					},
+					{
+						x: 42,
+						y: 79,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 79,
+						y: 91,
+						"finalDirection": "LEFT"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "d856a3d2-dc37-4785-aa2c-5e8feabd29c2",
+			"name": "person9",
+			"startX": 55,
+			"startY": 37,
+			"repeatingMovementDurationTime": 10000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "DOWN",
+			"movementSpeed": "SLOW",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 54,
+						y: 37,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 55,
+						y: 37,
+						"finalDirection": "DOWN"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "95c436e9-9e2d-42ec-910a-6fe4b80efcd8",
+			"name": "person8",
+			"startX": 60,
+			"startY": 37,
+			"repeatingMovementDurationTime": 6000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "DOWN",
+			"movementSpeed": "SLOW",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 61,
+						y: 37,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 60,
+						y: 37,
+						"finalDirection": "DOWN"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "e2a89fb0-203f-4ec0-932d-60802bf91ec2",
+			"name": "person10",
+			"startX": 67,
+			"startY": 37,
+			"repeatingMovementDurationTime": 8000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "DOWN",
+			"movementSpeed": "SLOW",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 66,
+						y: 37,
+						"finalDirection": "DOWN"
+					},
+					{
+						x: 67,
+						y: 37,
+						"finalDirection": "DOWN"
+					}
+				]
+			}
+		},
+		{
+			"uuid": "07442078-d057-4648-9457-30b0f7002ee3",
+			"name": "person13",
+			"startX": 75,
+			"startY": 16,
+			"repeatingMovementDurationTime": 10000,
+			"movementStrategy": "ROUTE_POINTS",
+			"animatedAlways": "true",
+			"initialDirection": "UP",
+			"movementSpeed": "NORMAL",
+			"movementRules": {
+				"looped": "true",
+				"routeDescription": [
+					{
+						x: 70,
+						y: 13,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 63,
+						y: 13,
+						"finalDirection": "LEFT"
+					},
+					{
+						x: 44,
+						y: 11,
+						"finalDirection": "RIGHT"
+					},
+					{
+						x: 75,
+						y: 16,
 						"finalDirection": "UP"
 					}
 				]

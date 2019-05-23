@@ -27,6 +27,7 @@
 		}
 	],
 	"simpleNpcList": [],
+	"alterableNpcList": [],
 	"jumping": [
 		{
 			"fromX": 14,

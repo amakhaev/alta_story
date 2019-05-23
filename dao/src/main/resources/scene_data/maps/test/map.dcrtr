@@ -134,13 +134,15 @@
 		},
 		{
 			"uuid": "eb15a241-550e-49ce-827c-d004c19b2f2c",
-			"name": "person4",
+			"name": "child1",
 			"startX": 8,
 			"startY": 7,
 			"repeatingMovementDurationTime": 6000,
 			"movementStrategy": "AVOID_OBSTRUCTION",
 			"initialDirection": "RIGHT"
 		}
+	],
+	"alterableNpcList": [
 	],
 	"jumping": [
 		{

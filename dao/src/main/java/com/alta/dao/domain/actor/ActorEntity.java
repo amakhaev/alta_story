@@ -12,6 +12,7 @@ import java.awt.*;
 @Setter
 public class ActorEntity {
 
+    private String name;
     private String imageName;
     private int zIndex;
     private int durationTime;
