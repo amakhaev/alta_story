@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'engine'
+group 'interaction'
 version '1.0'
 
 sourceCompatibility = 1.8
@@ -12,10 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile project(':computator')
     compile project(':shared')
-    compile project(':scene')
-    compile project(':interaction')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

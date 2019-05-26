@@ -3,6 +3,7 @@ package com.alta.mediator;
 import com.alta.dao.DaoInjectorModule;
 import com.alta.engine.Engine;
 import com.alta.engine.EngineInjectorModule;
+import com.alta.interaction.InteractionInjectorModule;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
@@ -37,7 +38,8 @@ public class Mediator {
                 new MediatorInjectorModule(),
                 new DaoInjectorModule(),
                 new EngineInjectorModule(),
-                new SceneInjectorModule()
+                new SceneInjectorModule(),
+                new InteractionInjectorModule()
         );
 
         this.engine = injector.getInstance(Engine.class);

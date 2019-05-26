@@ -1,0 +1,4 @@
+rootProject.name = 'interaction'
+
+include ':shared'
+
