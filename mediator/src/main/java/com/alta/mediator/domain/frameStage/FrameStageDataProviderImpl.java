@@ -121,7 +121,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())
                 .focusPointMapStartPosition(focus)
                 .facilities(this.createFacilityList(mapModel.getFacilities(), mapModel.getName()))
-                .simpleNpc(this.createNpcList(mapModel.getSimpleNpcList(), mapModel.getAlterableNpcList()))
+                .npcList(this.createNpcList(mapModel.getSimpleNpcList(), mapModel.getAlterableNpcList()))
                 .actingCharacter(actingCharacterEngineModel)
                 .jumpingPoints(this.jumpingEngineModelMapper.doMappingForJumpings(mapModel.getMapJumpings()))
                 .build();
@@ -159,7 +159,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     }
 
     private List<NpcEngineModel> createNpcList(List<SimpleNpcEntity> simpleNpcList,
-                                                     List<AlterableNpcEntity> alterableNpcList) {
+                                               List<AlterableNpcEntity> alterableNpcList) {
 
         // Simple npc
         List<NpcEngineModel> engineModels = simpleNpcList.stream()

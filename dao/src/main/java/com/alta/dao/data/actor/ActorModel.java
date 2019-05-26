@@ -1,6 +1,5 @@
 package com.alta.dao.data.actor;
 
-import com.alta.dao.domain.actor.TileSetDescriptorEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +13,12 @@ import java.awt.*;
 @Builder
 public final class ActorModel {
 
-    private final TileSetDescriptorEntity descriptor;
-    private final String pathToImageSet;
+    private final String pathToTileSetImage;
+    private final String pathToFaceSetImage;
     private final int zIndex;
     private final int durationTime;
+    private final ActorFaceSetDescriptorModel faceSetDescriptor;
+    private final ActorTileSetDescriptorModel tileSetDescriptor;
 
     @Setter
     private Point startMapCoordinates;

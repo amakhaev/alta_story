@@ -13,7 +13,8 @@ import java.awt.*;
 public class ActorEntity {
 
     private String name;
-    private String imageName;
+    private String tileSetImageName;
+    private String faceSetImageName;
     private int zIndex;
     private int durationTime;
 }

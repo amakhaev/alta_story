@@ -1,11 +1,12 @@
 package com.alta.dao.domain.actor;
 
+import com.alta.dao.data.actor.ActorFaceSetDescriptorModel;
 import com.alta.dao.data.actor.ActorModel;
+import com.alta.dao.data.actor.ActorTileSetDescriptorModel;
 import com.alta.utils.JsonParser;
 import com.google.common.base.Strings;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
@@ -18,16 +19,33 @@ import java.util.stream.Collectors;
  * Provides the implementation of {@link ActorService}
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class ActorServiceImpl implements ActorService {
 
     private static final String ACTORS_FOLDER = "scene_data/actors/";
     private static final String TILE_SETS_FOLDER = ACTORS_FOLDER + "tile_sets/";
+    private static final String FACE_SETS_FOLDER = ACTORS_FOLDER + "face_sets/";
     private static final String ACTOR_TILE_SET_DESCRIPTOR_PATH = ACTORS_FOLDER + "actor_tile_set.dscr";
+    private static final String ACTOR_FACE_SET_DESCRIPTOR_PATH = ACTORS_FOLDER + "face_set.dscr";
     private static final String ACTOR_LIST_DESCRIPTOR_PATH = ACTORS_FOLDER + "actor_list.dscr";
 
-    private TileSetDescriptorEntity tileSetDescriptorEntity;
+    private final ActorTileSetDescriptorDeserializer actorTileSetDescriptorDeserializer;
+    private final ActorFaceSetDescriptoDeserializer actorFaceSetDescriptoDeserializer;
+
+    private ActorTileSetDescriptorModel actorTileSetDescriptorModel;
+    private ActorFaceSetDescriptorModel actorFaceSetDescriptorModel;
     private Map<String, ActorEntity> actors;
+
+    @Inject
+    public ActorServiceImpl(ActorTileSetDescriptorDeserializer actorTileSetDescriptorDeserializer,
+                            ActorFaceSetDescriptoDeserializer actorFaceSetDescriptoDeserializer) {
+
+        this.actorTileSetDescriptorDeserializer = actorTileSetDescriptorDeserializer;
+        this.actorFaceSetDescriptoDeserializer = actorFaceSetDescriptoDeserializer;
+
+        this.actorTileSetDescriptorModel = this.loadTileSetDescriptor();
+        this.actorFaceSetDescriptorModel = this.loadFaceSetDescriptor();
+        this.actors = this.loadActorList();
+    }
 
     /**
      * Gets the actor model by given file name of tile sets.
@@ -43,32 +61,38 @@ public class ActorServiceImpl implements ActorService {
             return null;
         }
 
-        if (this.tileSetDescriptorEntity == null) {
-            this.tileSetDescriptorEntity = this.loadTileSetDescriptor();
-        }
-
-        if (this.actors == null) {
-            this.actors = this.loadActorList();
-        }
-
         if (!this.actors.containsKey(name)) {
             return null;
         }
 
         ActorEntity actorEntity = this.actors.get(name);
-
         return ActorModel.builder()
-                .descriptor(this.tileSetDescriptorEntity)
+                .tileSetDescriptor(this.actorTileSetDescriptorModel)
+                .faceSetDescriptor(this.actorFaceSetDescriptorModel)
                 .durationTime(actorEntity.getDurationTime())
                 .zIndex(actorEntity.getZIndex())
-                .pathToImageSet(this.getAbsolutePathToTileSet(actorEntity.getImageName()))
+                .pathToTileSetImage(this.getAbsolutePathToResource(TILE_SETS_FOLDER + actorEntity.getTileSetImageName()))
+                .pathToFaceSetImage(
+                        Strings.isNullOrEmpty(actorEntity.getFaceSetImageName()) ?
+                                null :
+                                this.getAbsolutePathToResource(FACE_SETS_FOLDER + actorEntity.getFaceSetImageName())
+                )
                 .build();
     }
 
-    private TileSetDescriptorEntity loadTileSetDescriptor() {
+    private ActorTileSetDescriptorModel loadTileSetDescriptor() {
         return JsonParser.parse(
                 this.getClass().getClassLoader().getResource(ACTOR_TILE_SET_DESCRIPTOR_PATH).getPath(),
-                TileSetDescriptorEntity.class
+                ActorTileSetDescriptorModel.class,
+                this.actorTileSetDescriptorDeserializer
+        );
+    }
+
+    private ActorFaceSetDescriptorModel loadFaceSetDescriptor() {
+        return JsonParser.parse(
+                this.getClass().getClassLoader().getResource(ACTOR_FACE_SET_DESCRIPTOR_PATH).getPath(),
+                ActorFaceSetDescriptorModel.class,
+                this.actorFaceSetDescriptoDeserializer
         );
     }
 
@@ -85,13 +109,13 @@ public class ActorServiceImpl implements ActorService {
         return actors.stream().collect(Collectors.toMap(ActorEntity::getName, actor -> actor ));
     }
 
-    private String getAbsolutePathToTileSet(String imageFileName) {
+    private String getAbsolutePathToResource(String relatedFilePath) {
         URL absolutePath = this.getClass()
                 .getClassLoader()
-                .getResource(TILE_SETS_FOLDER + imageFileName);
+                .getResource(relatedFilePath);
 
         if (absolutePath == null) {
-            log.error("File with given name doesn't exists: {}", imageFileName);
+            log.error("File with given name doesn't exists: {}", relatedFilePath);
             return null;
         }
 

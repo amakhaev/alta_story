@@ -50,7 +50,7 @@ public class FrameStageView {
                     data.getFocusPointMapStartPosition(),
                     data.getActingCharacter(),
                     data.getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList()),
-                    data.getSimpleNpc(),
+                    data.getNpcList(),
                     computatorEventProducer
             );
 

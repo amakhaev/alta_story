@@ -1,5 +1,6 @@
 package com.alta.dao.data.actor;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import lombok.Setter;
  * Provides the model that describes the direction of actors
  */
 @Getter
-@Setter
+@AllArgsConstructor
 public class ActorDirectionModel {
 
     private int x;

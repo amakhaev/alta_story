@@ -37,11 +37,11 @@ public class FrameStageComponentProvider {
      * @return created {@link FrameStageComponent} instance based of @param model
      */
     public FrameStageComponent createFrameStage(FrameStageDataModel data,
-                                                       StageComputator stageComputator,
-                                                       AsyncTaskManager asyncTaskManager) {
+                                                StageComputator stageComputator,
+                                                AsyncTaskManager asyncTaskManager) {
         validateFrameStageData(data);
 
-        List<ActorCharacterComponent> actorCharacters = createActors(data.getActingCharacter(), data.getSimpleNpc());
+        List<ActorCharacterComponent> actorCharacters = createActors(data.getActingCharacter(), data.getNpcList());
         log.info("Creating of actors completed. Count: {}", actorCharacters.size());
 
         FrameStageComponent frameStageComponent = new FrameStageComponent(

@@ -52,8 +52,8 @@ public class FrameStageDataModel {
     /**
      * The available non player characters.
      */
-    @Singular("simpleNpc")
-    private List<NpcEngineModel> simpleNpc;
+    @Singular("npcList")
+    private List<NpcEngineModel> npcList;
 
     /**
      * The available jumping points on map.

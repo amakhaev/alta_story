@@ -1,175 +1,176 @@
 [
 	{
 		"name": "animal1",
-		"imageName": "animal1.png",
+		"tileSetImageName": "animal1.png",
 		"zIndex": 5,
 		"durationTime": 200
 	},
 	{
 		"name": "animal2",
-		"imageName": "animal2.png",
+		"tileSetImageName": "animal2.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},	
 	{
 		"name": "cat1",
-		"imageName": "cat1.png",
+		"tileSetImageName": "cat1.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "cat2",
-		"imageName": "cat2.png",
+		"tileSetImageName": "cat2.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "cat3",
-		"imageName": "cat3.png",
+		"tileSetImageName": "cat3.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "child1",
-		"imageName": "child1.png",
+		"tileSetImageName": "child1.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "child2",
-		"imageName": "child2.png",
+		"tileSetImageName": "child2.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "child3",
-		"imageName": "child3.png",
+		"tileSetImageName": "child3.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "animal4",
-		"imageName": "child4.png",
+		"tileSetImageName": "child4.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "child5",
-		"imageName": "child5.png",
+		"tileSetImageName": "child5.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "child6",
-		"imageName": "child6.png",
+		"tileSetImageName": "child6.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "dog1",
-		"imageName": "dog1.png",
+		"tileSetImageName": "dog1.png",
 		"zIndex": 5,
 		"durationTime": 300
 	},
 	{
 		"name": "guardian1",
-		"imageName": "guardian1.png",
+		"tileSetImageName": "guardian1.png",
 		"zIndex": 5,
 		"durationTime": 500
 	},
 	{
 		"name": "guardian2",
-		"imageName": "guardian2.png",
+		"tileSetImageName": "guardian2.png",
 		"zIndex": 5,
 		"durationTime": 300
 	},
 	{
 		"name": "kira",
-		"imageName": "kira.png",
+		"tileSetImageName": "kira.png",
+		"faceSetImageName": "kira.png",
 		"zIndex": 5,
 		"durationTime": 250
 	},
 	{
 		"name": "person1",
-		"imageName": "person1.png",
+		"tileSetImageName": "person1.png",
 		"zIndex": 5,
 		"durationTime": 150
 	},
 	{
 		"name": "person2",
-		"imageName": "person2.png",
+		"tileSetImageName": "person2.png",
 		"zIndex": 5,
 		"durationTime": 200
 	},
 	{
 		"name": "person3",
-		"imageName": "person3.png",
+		"tileSetImageName": "person3.png",
 		"zIndex": 5,
 		"durationTime": 250
 	},
 	{
 		"name": "person5",
-		"imageName": "person5.png",
+		"tileSetImageName": "person5.png",
 		"zIndex": 5,
 		"durationTime": 500
 	},
 	{
 		"name": "person6",
-		"imageName": "person6.png",
+		"tileSetImageName": "person6.png",
 		"zIndex": 5,
 		"durationTime": 200
 	},
 	{
 		"name": "person7",
-		"imageName": "person6.png",
+		"tileSetImageName": "person6.png",
 		"zIndex": 5,
 		"durationTime": 350
 	},
 	{
 		"name": "person8",
-		"imageName": "person8.png",
+		"tileSetImageName": "person8.png",
 		"zIndex": 5,
 		"durationTime": 350
 	},
 	{
 		"name": "person9",
-		"imageName": "person9.png",
+		"tileSetImageName": "person9.png",
 		"zIndex": 5,
 		"durationTime": 350
 	},
 	{
 		"name": "person10",
-		"imageName": "person10.png",
+		"tileSetImageName": "person10.png",
 		"zIndex": 5,
 		"durationTime": 350
 	},
 	{
 		"name": "person11",
-		"imageName": "person11.png",
+		"tileSetImageName": "person11.png",
 		"zIndex": 5,
 		"durationTime": 350
 	},
 	{
 		"name": "person12",
-		"imageName": "person12.png",
+		"tileSetImageName": "person12.png",
 		"zIndex": 5,
 		"durationTime": 200
 	},
 	{
 		"name": "person13",
-		"imageName": "person13.png",
+		"tileSetImageName": "person13.png",
 		"zIndex": 5,
 		"durationTime": 200
 	},
 	{
 		"name": "person14",
-		"imageName": "person14.png",
+		"tileSetImageName": "person14.png",
 		"zIndex": 5,
 		"durationTime": 350
 	},
 	{
 		"name": "person15",
-		"imageName": "person15.png",
+		"tileSetImageName": "person15.png",
 		"zIndex": 5,
 		"durationTime": 300
 	}

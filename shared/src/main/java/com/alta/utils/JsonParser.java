@@ -39,6 +39,25 @@ public class JsonParser {
      *
      * @param path - the path to file
      * @param resultType - the type of result class
+     * @param deserializer - the deserializer that will be used to create POJO.
+     * @return parsed class instance
+     */
+    public <T> T parse(String path, Class<T> resultType, JsonDeserializer<T> deserializer) {
+        try (Reader reader = new InputStreamReader(new FileInputStream(path))) {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(resultType, deserializer);
+            return gsonBuilder.create().fromJson(reader, resultType);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Parses the file to POJO by given path
+     *
+     * @param path - the path to file
+     * @param resultType - the type of result class
      * @return parsed class instance
      */
     public <T> T parse(String path, Type resultType) {

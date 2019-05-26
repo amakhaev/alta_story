@@ -38,7 +38,7 @@ public class InteractionFacade {
                              FrameStageListener frameStageListener) {
         this.frameStagePresenter = frameStagePresenter;
         this.interactionScenario = interactionScenarioFactory.createInteractionScenario(
-                this::onScenarioCompletedSuccesfully, this::onScenarioFail
+                this::onScenarioCompletedSuccessfully, this::onScenarioFail
         );
         this.frameStageListener = frameStageListener;
     }
@@ -131,7 +131,7 @@ public class InteractionFacade {
         return incompletedInteraction == null ? interaction.findLastInteraction() : incompletedInteraction;
     }
 
-    private void onScenarioCompletedSuccesfully() {
+    private void onScenarioCompletedSuccessfully() {
         if (this.currentInteraction == null) {
             log.warn("Complete interaction was called but no interaction model found.");
             return;

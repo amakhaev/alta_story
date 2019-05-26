@@ -31,10 +31,10 @@ class ActorEngineMapper {
         }
 
         List<ActorAnimationDescriptor<MovementDirection>> actorAnimationDescriptors = Arrays.asList(
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionDown(), MovementDirection.DOWN),
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionLeft(), MovementDirection.LEFT),
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionRight(), MovementDirection.RIGHT),
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionUp(), MovementDirection.UP)
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionDown(), MovementDirection.DOWN),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionLeft(), MovementDirection.LEFT),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionRight(), MovementDirection.RIGHT),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionUp(), MovementDirection.UP)
         );
 
         return ActingCharacterEngineModel.builder()
@@ -58,10 +58,10 @@ class ActorEngineMapper {
         }
 
         List<ActorAnimationDescriptor<MovementDirection>> actorAnimationDescriptors = Arrays.asList(
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionDown(), MovementDirection.DOWN),
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionLeft(), MovementDirection.LEFT),
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionRight(), MovementDirection.RIGHT),
-                this.doMappingForAnimationDescriptor(actorModel, actorModel.getDescriptor().getDirectionUp(), MovementDirection.UP)
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionDown(), MovementDirection.DOWN),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionLeft(), MovementDirection.LEFT),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionRight(), MovementDirection.RIGHT),
+                this.doMappingForAnimationDescriptor(actorModel, actorModel.getTileSetDescriptor().getDirectionUp(), MovementDirection.UP)
         );
 
         return NpcEngineModel.builder()
@@ -87,9 +87,9 @@ class ActorEngineMapper {
         }
 
         return ActorAnimationDescriptor.<MovementDirection>builder()
-                .pathToSpriteSheet(actorModel.getPathToImageSet())
-                .tileWidth(actorModel.getDescriptor().getTileWidth())
-                .tileHeight(actorModel.getDescriptor().getTileHeight())
+                .pathToSpriteSheet(actorModel.getPathToTileSetImage())
+                .tileWidth(actorModel.getTileSetDescriptor().getTileWidth())
+                .tileHeight(actorModel.getTileSetDescriptor().getTileHeight())
                 .identifier(direction)
                 .duration(actorModel.getDurationTime())
                 .stopFrameIndex(stopFrameIndex)
