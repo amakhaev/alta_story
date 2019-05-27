@@ -1,10 +1,9 @@
 package com.alta.dao.domain.interaction;
 
 import com.alta.dao.data.interaction.*;
-import com.alta.dao.data.interaction.effect.DialogueEffectModel;
-import com.alta.dao.data.interaction.effect.HideFacilityEffectModel;
-import com.alta.dao.data.interaction.effect.InteractionEffectModel;
-import com.alta.dao.data.interaction.effect.ShowFacilityEffectModel;
+import com.alta.dao.data.interaction.effect.*;
+import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
+import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.data.interaction.postProcessing.InteractionPostProcessingModel;
 import com.alta.dao.data.interaction.postProcessing.ProcessingType;
 import com.alta.dao.data.interaction.postProcessing.UpdateFacilityVisibilityPostProcessModel;
@@ -21,7 +20,7 @@ import java.util.List;
  * Provides custom deserializer of interaction.
  */
 @Slf4j
-public class InteractionDeserializer implements JsonDeserializer<List<InteractionModel>> {
+public class InteractionDeserializer implements JsonDeserializer<List<InteractionDataModel>> {
 
     private static final String UUID_FIELD_NAME = "uuid";
     private static final String TARGET_UUID_FIELD_NAME = "targetUuid";
@@ -59,14 +58,14 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
      * @throws JsonParseException if json is not in the expected format of {@code typeofT}
      */
     @Override
-    public List<InteractionModel> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public List<InteractionDataModel> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonArray jsonInteractions = json.getAsJsonArray();
 
-        List<InteractionModel> result = new ArrayList<>();
+        List<InteractionDataModel> result = new ArrayList<>();
         jsonInteractions.forEach(jsonInteractionItem -> {
             JsonObject item = jsonInteractionItem.getAsJsonObject();
 
-            InteractionModel interactionModel = InteractionModel.builder()
+            InteractionDataModel interactionDataModel = InteractionDataModel.builder()
                     .uuid(item.get(UUID_FIELD_NAME).getAsString())
                     .targetUuid(item.get(TARGET_UUID_FIELD_NAME).getAsString())
                     .chapterIndicatorFrom(item.has(CHAPTER_INDICATOR_FROM_FIELD_NAME) ?
@@ -88,7 +87,7 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                     .effects(this.parseEffects(item.getAsJsonArray(EFFECTS_FIELD_NAME)))
                     .postProcessors(this.parsePostProcessing(item.getAsJsonArray(POST_PROCESSING_FIELD_NAME)))
                     .build();
-            result.add(interactionModel);
+            result.add(interactionDataModel);
         });
 
         return result;
@@ -111,19 +110,19 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
         return result;
     }
 
-    private List<InteractionEffectModel> parseEffects(JsonArray interactionEffects) {
+    private List<InteractionEffectDataModel> parseEffects(JsonArray interactionEffects) {
         if (interactionEffects == null || interactionEffects.size() == 0) {
             return Collections.emptyList();
         }
 
-        List<InteractionEffectModel> result = new ArrayList<>();
+        List<InteractionEffectDataModel> result = new ArrayList<>();
         interactionEffects.forEach(jsonInteractionEffectItem -> {
             JsonObject item = jsonInteractionEffectItem.getAsJsonObject();
 
-            InteractionEffectModel.InteractionEffectType type =
-                    InteractionEffectModel.InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
+            InteractionEffectDataModel.InteractionEffectType type =
+                    InteractionEffectDataModel.InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
 
-            InteractionEffectModel model = null;
+            InteractionEffectDataModel model = null;
             switch (type) {
                 case DIALOGUE:
                     model = this.parseDialogueEffect(item);
@@ -183,35 +182,35 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                 .build();
     }
 
-    private DialogueEffectModel parseDialogueEffect(JsonObject jsonDialogueModel) {
+    private DialogueEffectDataModel parseDialogueEffect(JsonObject jsonDialogueModel) {
         try {
-            DialogueEffectModel model = new DialogueEffectModel();
+            DialogueEffectDataModel model = new DialogueEffectDataModel();
             model.setText(jsonDialogueModel.get(TEXT_FIELD_NAME).getAsString());
             return model;
         } catch (Exception e) {
-            log.error("Parsing of DialogueEffectModel was failed with error: {}", e.getMessage());
+            log.error("Parsing of DialogueEffectDataModel was failed with error: {}", e.getMessage());
             return null;
         }
     }
 
-    private HideFacilityEffectModel parseHideFacilityEffect(JsonObject jsonHideFacilityEffect) {
+    private HideFacilityEffectDataModel parseHideFacilityEffect(JsonObject jsonHideFacilityEffect) {
         try {
-            HideFacilityEffectModel model = new HideFacilityEffectModel();
+            HideFacilityEffectDataModel model = new HideFacilityEffectDataModel();
             model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
             return model;
         } catch (Exception e) {
-            log.error("Parsing of HideFacilityEffectModel was failed with error: {}", e.getMessage());
+            log.error("Parsing of HideFacilityEffectDataModel was failed with error: {}", e.getMessage());
             return null;
         }
     }
 
-    private ShowFacilityEffectModel parseShowFacilityEffect(JsonObject jsonHideFacilityEffect) {
+    private ShowFacilityEffectDataModel parseShowFacilityEffect(JsonObject jsonHideFacilityEffect) {
         try {
-            ShowFacilityEffectModel model = new ShowFacilityEffectModel();
+            ShowFacilityEffectDataModel model = new ShowFacilityEffectDataModel();
             model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
             return model;
         } catch (Exception e) {
-            log.error("Parsing of ShowFacilityEffectModel was failed with error: {}", e.getMessage());
+            log.error("Parsing of ShowFacilityEffectDataModel was failed with error: {}", e.getMessage());
             return null;
         }
     }

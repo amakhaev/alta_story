@@ -8,14 +8,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class DialogueEffectModel extends InteractionEffectModel {
+public class DialogueEffectDataModel extends InteractionEffectDataModel {
 
     private String text;
 
     /**
-     * Initialize new instance of {@link DialogueEffectModel}
+     * Initialize new instance of {@link DialogueEffectDataModel}
      */
-    public DialogueEffectModel() {
+    public DialogueEffectDataModel() {
         super(InteractionEffectType.DIALOGUE);
     }
 }

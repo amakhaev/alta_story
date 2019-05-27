@@ -1,6 +1,6 @@
-package com.alta.engine.facade.interactionScenario;
+package com.alta.interaction.scenario;
 
-import com.alta.engine.model.interaction.InteractionEffectEngineModel;
+import com.alta.interaction.data.EffectModel;
 
 /**
  * Provides the common interface to makes interaction.
@@ -10,9 +10,9 @@ public interface Interaction {
     /**
      * Starts the interaction.
      *
-     * @param effect - the effect to be shown.
+     * @param effect - the effect to be performed.
      */
-    void start(InteractionEffectEngineModel effect);
+    void start(EffectModel effect);
 
     /**
      * Triggers the next step in interaction.

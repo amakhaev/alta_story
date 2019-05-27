@@ -1,7 +1,6 @@
-package com.alta.engine.facade.interactionScenario;
+package com.alta.interaction.scenario;
 
-import com.alta.computator.model.participant.TargetedParticipantSummary;
-import com.alta.engine.model.interaction.InteractionEffectEngineModel;
+import com.alta.interaction.data.EffectModel;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.NonNull;
@@ -15,25 +14,28 @@ import java.util.Queue;
  * Provides the scenario of interaction effects.
  */
 @Slf4j
-public class InteractionScenario {
+public class Scenario {
 
-    private final InteractionFactory interactionFactory;
+    private final EffectListener effectListener;
+    private final EffectFactory effectFactory;
     private final Runnable successCallback;
     private final Runnable failCallback;
 
-    private Queue<InteractionEffectEngineModel> currentScenario;
+    private Queue<EffectModel> currentScenario;
     private Interaction currentInteraction;
-    private TargetedParticipantSummary targetedParticipantSummary;
+    private String targetedParticipantUuid;
 
     /**
-     * Initialize new instance of {@link InteractionScenario}.
+     * Initialize new instance of {@link Scenario}.
      */
     @AssistedInject
-    public InteractionScenario(InteractionFactory interactionFactory,
-                               @Assisted("successCallback") Runnable successCallback,
-                               @Assisted("failCallback") Runnable failCallback) {
+    public Scenario(EffectFactory effectFactory,
+                    @Assisted @NonNull EffectListener effectListener,
+                    @Assisted("successCallback") Runnable successCallback,
+                    @Assisted("failCallback") Runnable failCallback) {
+        this.effectListener = effectListener;
         this.currentScenario = new ArrayDeque<>();
-        this.interactionFactory = interactionFactory;
+        this.effectFactory = effectFactory;
         this.successCallback = successCallback;
         this.failCallback = failCallback;
     }
@@ -41,11 +43,10 @@ public class InteractionScenario {
     /**
      * Performs the scenario related to interaction.
      *
-     * @param targetedParticipantSummary    - the summery of participant that selected for interaction.
-     * @param effects                       - the effects of interaction that should be shown.
+     * @param targetedParticipantUuid   - the uuid of targeted participant.
+     * @param effects                   - the effects of interaction that should be shown.
      */
-    public void performScenario(@NonNull TargetedParticipantSummary targetedParticipantSummary,
-                                @NonNull List<InteractionEffectEngineModel> effects) {
+    public void performScenario(@NonNull String targetedParticipantUuid, @NonNull List<EffectModel> effects) {
         if (effects.size() == 0) {
             this.failCallback.run();
             return;
@@ -55,7 +56,7 @@ public class InteractionScenario {
             throw new RuntimeException("Scenario already in progress. Can't add another effects.");
         }
 
-        this.targetedParticipantSummary = targetedParticipantSummary;
+        this.targetedParticipantUuid = targetedParticipantUuid;
         this.currentScenario.addAll(effects);
         this.determinateInteractionAndStart();
     }
@@ -80,27 +81,25 @@ public class InteractionScenario {
 
         if (this.currentScenario.peek() == null) {
             log.debug(
-                    "The scenario interaction completed. Target type: {}, uuid: {}",
-                    this.targetedParticipantSummary.getParticipatType(),
-                    this.targetedParticipantSummary.getUuid()
+                    "The scenario interaction completed. Target uuid: {}",
+                    this.targetedParticipantUuid
             );
-            this.targetedParticipantSummary = null;
+            this.targetedParticipantUuid = null;
             this.successCallback.run();
             return;
         }
 
         Interaction interaction = null;
-        InteractionEffectEngineModel interactionEffect = this.currentScenario.poll();
+        EffectModel interactionEffect = this.currentScenario.poll();
         switch (interactionEffect.getType()) {
             case DIALOGUE:
-                interaction = this.interactionFactory.createDialogueInteraction(this.targetedParticipantSummary);
-
+                interaction = this.effectFactory.createDialogueInteraction(this.targetedParticipantUuid, this.effectListener);
                 break;
             case HIDE_FACILITY:
-                interaction = this.interactionFactory.createHideFacilityInteraction();
+                interaction = this.effectFactory.createHideFacilityInteraction(this.effectListener);
                 break;
             case SHOW_FACILITY:
-                interaction = this.interactionFactory.createShowFacilityInteraction();
+                interaction = this.effectFactory.createShowFacilityInteraction(this.effectListener);
                 break;
             default:
                 log.error("Unknown type of interaction: {}", interactionEffect.getType());
@@ -112,7 +111,7 @@ public class InteractionScenario {
         }
     }
 
-    private void startInteraction(InteractionEffectEngineModel interactionEffect, Interaction interaction) {
+    private void startInteraction(EffectModel interactionEffect, Interaction interaction) {
         this.currentInteraction = interaction;
         this.currentInteraction.setCompleteCallback(() -> {
             this.currentInteraction = null;

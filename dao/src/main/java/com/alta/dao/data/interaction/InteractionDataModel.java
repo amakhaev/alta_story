@@ -1,6 +1,6 @@
 package com.alta.dao.data.interaction;
 
-import com.alta.dao.data.interaction.effect.InteractionEffectModel;
+import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
 import com.alta.dao.data.interaction.postProcessing.InteractionPostProcessingModel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Getter
 @Builder
-public class InteractionModel {
+public class InteractionDataModel {
 
     private String uuid;
     private String targetUuid;
@@ -27,10 +27,10 @@ public class InteractionModel {
     private List<Point> shiftTiles;
 
     @Singular("failedPreConditionEffects")
-    private List<InteractionEffectModel> failedPreConditionEffects;
+    private List<InteractionEffectDataModel> failedPreConditionEffects;
 
     @Singular("effects")
-    private List<InteractionEffectModel> effects;
+    private List<InteractionEffectDataModel> effects;
 
     @Singular("postProcessors")
     private List<InteractionPostProcessingModel> postProcessors;

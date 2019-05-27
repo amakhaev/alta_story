@@ -1,6 +1,6 @@
 package com.alta.mediator.domain.interaction;
 
-import com.alta.dao.data.interaction.InteractionModel;
+import com.alta.dao.data.interaction.InteractionDataModel;
 import com.alta.dao.data.interaction.postProcessing.UpdateFacilityVisibilityPostProcessModel;
 import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
@@ -49,7 +49,7 @@ public class InteractionPostProcessingServiceImpl implements InteractionPostProc
      */
     @Override
     public void executeInteractionPostProcessing(@NonNull String uuid, @NonNull String mapName) {
-        InteractionModel interaction = this.interactionService.getInteraction(mapName, uuid);
+        InteractionDataModel interaction = this.interactionService.getInteraction(mapName, uuid);
         if (interaction == null) {
             log.warn("Interaction for given map '{}' and uuid {} not found", mapName, uuid);
             return;

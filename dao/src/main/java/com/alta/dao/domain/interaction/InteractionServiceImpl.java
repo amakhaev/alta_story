@@ -1,7 +1,7 @@
 package com.alta.dao.domain.interaction;
 
 import com.alta.dao.ResourcesLocation;
-import com.alta.dao.data.interaction.InteractionModel;
+import com.alta.dao.data.interaction.InteractionDataModel;
 import com.alta.utils.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
@@ -36,7 +36,7 @@ public class InteractionServiceImpl implements InteractionService {
      * @return the {@link List} of interactions.
      */
     @Override
-    public List<InteractionModel> getInteractions(String relatedMapName) {
+    public List<InteractionDataModel> getInteractions(String relatedMapName) {
         log.debug("Try to get interaction with related map name '{}'", relatedMapName);
         InteractionEntity matchedInteractionEntity = this.availableInteractions
                 .stream()
@@ -51,7 +51,7 @@ public class InteractionServiceImpl implements InteractionService {
 
         return JsonParser.parse(
                 this.getClass().getClassLoader().getResource(matchedInteractionEntity.getDecoratorPath()).getPath(),
-                new TypeToken<ArrayList<InteractionModel>>(){}.getType(),
+                new TypeToken<ArrayList<InteractionDataModel>>(){}.getType(),
                 this.interactionDeserializer
         );
     }
@@ -61,11 +61,11 @@ public class InteractionServiceImpl implements InteractionService {
      *
      * @param relatedMapName  - the name of related map.
      * @param interactionUuid - the uuid of interaction.
-     * @return the {@link InteractionModel} instance or null if not found.
+     * @return the {@link InteractionDataModel} instance or null if not found.
      */
     @Override
-    public InteractionModel getInteraction(@NonNull String relatedMapName, @NonNull String interactionUuid) {
-        List<InteractionModel> interactionsForMap = this.getInteractions(relatedMapName);
+    public InteractionDataModel getInteraction(@NonNull String relatedMapName, @NonNull String interactionUuid) {
+        List<InteractionDataModel> interactionsForMap = this.getInteractions(relatedMapName);
         if (interactionsForMap == null || interactionsForMap.isEmpty()) {
             log.warn("Interactions related to map name '{}' not found", relatedMapName);
             return null;

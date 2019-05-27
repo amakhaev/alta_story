@@ -1,6 +1,6 @@
 package com.alta.dao.domain.interaction;
 
-import com.alta.dao.data.interaction.InteractionModel;
+import com.alta.dao.data.interaction.InteractionDataModel;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ public interface InteractionService {
      * @param relatedMapName - the name of related map.
      * @return the {@link List} of interactions.
      */
-    List<InteractionModel> getInteractions(String relatedMapName);
+    List<InteractionDataModel> getInteractions(String relatedMapName);
 
     /**
      * Gets the interaction by uuid for given map.
      *
      * @param relatedMapName    - the name of related map.
      * @param interactionUuid   - the uuid of interaction.
-     * @return the {@link InteractionModel} instance or null if not found.
+     * @return the {@link InteractionDataModel} instance or null if not found.
      */
-    InteractionModel getInteraction(String relatedMapName, String interactionUuid);
+    InteractionDataModel getInteraction(String relatedMapName, String interactionUuid);
 }

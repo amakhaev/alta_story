@@ -8,14 +8,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class HideFacilityEffectModel extends InteractionEffectModel {
+public class HideFacilityEffectDataModel extends InteractionEffectDataModel {
 
     private String facilityUuid;
 
     /**
-     * Initialize new instance of {@link HideFacilityEffectModel}.
+     * Initialize new instance of {@link HideFacilityEffectDataModel}.
      */
-    public HideFacilityEffectModel() {
+    public HideFacilityEffectDataModel() {
         super(InteractionEffectType.HIDE_FACILITY);
     }
 }

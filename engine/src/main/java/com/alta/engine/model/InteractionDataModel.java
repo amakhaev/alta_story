@@ -1,6 +1,6 @@
 package com.alta.engine.model;
 
-import com.alta.engine.model.interaction.InteractionEngineModel;
+import com.alta.interaction.interactionOnMap.InteractionModel;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,6 +16,6 @@ public class InteractionDataModel {
     /**
      * Provides the list of interaction between participants.
      */
-    private final List<InteractionEngineModel> interactions;
+    private final List<InteractionModel> interactions;
 
 }

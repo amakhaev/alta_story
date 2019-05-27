@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public class InteractionEffectModel {
+public class InteractionEffectDataModel {
 
     private final InteractionEffectType type;
 
