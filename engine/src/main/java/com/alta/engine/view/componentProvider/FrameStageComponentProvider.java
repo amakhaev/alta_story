@@ -4,9 +4,9 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
+import com.alta.engine.model.FrameStageEngineDataModel;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.FrameStageDataModel;
 import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.engine.view.components.actor.ActorCharacterComponent;
 import com.alta.engine.view.components.facility.FacilityComponent;
@@ -36,7 +36,7 @@ public class FrameStageComponentProvider {
      * @param asyncTaskManager - the facade of async tasks
      * @return created {@link FrameStageComponent} instance based of @param model
      */
-    public FrameStageComponent createFrameStage(FrameStageDataModel data,
+    public FrameStageComponent createFrameStage(FrameStageEngineDataModel data,
                                                 StageComputator stageComputator,
                                                 AsyncTaskManager asyncTaskManager) {
         validateFrameStageData(data);
@@ -151,9 +151,9 @@ public class FrameStageComponentProvider {
         return new ActorCharacterComponent(animationDescriptors, uuid, isAnimatedAlways);
     }
 
-    private void validateFrameStageData(FrameStageDataModel data) throws EngineException {
+    private void validateFrameStageData(FrameStageEngineDataModel data) throws EngineException {
         if (data == null) {
-            throw new EngineException("The FrameStageDataModel is null. It required for creating frame stage.");
+            throw new EngineException("The FrameStageEngineDataModel is null. It required for creating frame stage.");
         }
 
         if (data.getFocusPointMapStartPosition() == null) {

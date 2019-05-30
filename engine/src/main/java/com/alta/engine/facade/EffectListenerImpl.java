@@ -1,8 +1,11 @@
 package com.alta.engine.facade;
 
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.alta.interaction.scenario.EffectListener;
+import com.alta.scene.messageBox.FaceSetDescriptor;
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,39 @@ public class EffectListenerImpl implements EffectListener {
 
         log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", targetUuid);
         this.messageBoxPresenter.showDialogueMessage(message);
+
+        // The target participant can has type NPC or FACILITY. If interaction has started with NPC then need to do
+        // some actions for it.
+        this.frameStagePresenter.startInteractionWithNpc(targetUuid);
+    }
+
+    /**
+     * Shows the message.
+     *
+     * @param targetUuid     - the uuid of target NPC.
+     * @param message        - the message to be shown.
+     * @param speakerUuid    - the uuid of speaker.
+     * @param speakerEmotion - the emotion that should be shown when speaker say.
+     */
+    @Override
+    public void onShowMessage(String targetUuid, String message, String speakerUuid, String speakerEmotion) {
+        if (Strings.isNullOrEmpty(speakerUuid) || Strings.isNullOrEmpty(speakerEmotion)) {
+            this.onShowMessage(targetUuid, message);
+            return;
+        }
+
+        NpcEngineModel npcEngineModel = this.frameStagePresenter.findNpcByUuid(speakerUuid);
+        log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", targetUuid);
+        this.messageBoxPresenter.showDialogueMessage(
+                message,
+                new FaceSetDescriptor(
+                        npcEngineModel.getFaceSetDescriptor().getTileWidth(),
+                        npcEngineModel.getFaceSetDescriptor().getTileHeight(),
+                        npcEngineModel.getFaceSetDescriptor().getEmotions().get(speakerEmotion).x,
+                        npcEngineModel.getFaceSetDescriptor().getEmotions().get(speakerEmotion).y,
+                        npcEngineModel.getFaceSetDescriptor().getPathToImageSet()
+                )
+        );
 
         // The target participant can has type NPC or FACILITY. If interaction has started with NPC then need to do
         // some actions for it.

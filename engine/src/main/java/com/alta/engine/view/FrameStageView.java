@@ -7,8 +7,9 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.engine.view.componentProvider.ComputatorFrameStageProvider;
 import com.alta.engine.view.componentProvider.FrameStageComponentProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
@@ -24,6 +25,7 @@ import javax.inject.Named;
 import java.awt.*;
 import java.util.Collections;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Provides the dispatcher of computator
@@ -32,7 +34,7 @@ import java.util.stream.Collectors;
 public class FrameStageView {
 
     private final StageComputatorImpl stageComputatorImpl;
-    private final FrameStageDataModel frameStageDataModel;
+    private final FrameStageEngineDataModel frameStageEngineDataModel;
 
     @Getter
     private final FrameStageComponent frameStage;
@@ -41,11 +43,11 @@ public class FrameStageView {
      * Initialize new instance of {@link FrameStageView}
      */
     @AssistedInject
-    public FrameStageView(@Assisted FrameStageDataModel data,
+    public FrameStageView(@Assisted FrameStageEngineDataModel data,
                           AsyncTaskManager asyncTaskManager,
                           @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer) {
         try {
-            this.frameStageDataModel = data;
+            this.frameStageEngineDataModel = data;
             this.stageComputatorImpl = ComputatorFrameStageProvider.createStageComputator(
                     data.getFocusPointMapStartPosition(),
                     data.getActingCharacter(),
@@ -74,7 +76,7 @@ public class FrameStageView {
      */
     public Point getActingCharacterMapCoordinate() {
         return this.stageComputatorImpl.getActorParticipant(
-                this.frameStageDataModel.getActingCharacter().getUuid()
+                this.frameStageEngineDataModel.getActingCharacter().getUuid()
         ).getCurrentMapCoordinates();
     }
 
@@ -110,7 +112,7 @@ public class FrameStageView {
 
         ActorParticipant npcCharacter = this.stageComputatorImpl.getActorParticipant(uuid);
         ActorParticipant actingCharacter = this.stageComputatorImpl.getActorParticipant(
-                this.frameStageDataModel.getActingCharacter().getUuid()
+                this.frameStageEngineDataModel.getActingCharacter().getUuid()
         );
 
         if (actingCharacter == null || npcCharacter == null) {
@@ -138,12 +140,25 @@ public class FrameStageView {
     }
 
     /**
+     * Finds the NPC by given uuid.
+     *
+     * @param uuid - the UUID of NPC to be found.
+     * @return found {@link NpcEngineModel} or null.
+     */
+    public NpcEngineModel findNpcByUuid(@NonNull String uuid) {
+        return this.frameStageEngineDataModel.getNpcList().stream()
+                .filter(npc -> npc.getUuid().equals(uuid))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
      * Adds the facility to map.
      *
      * @param facilityUuid - the uuid of facility to be added.
      */
     public void addFacility(@NonNull String facilityUuid) {
-        FacilityEngineModel facilityEngineModel = this.frameStageDataModel.getFacilities().stream()
+        FacilityEngineModel facilityEngineModel = this.frameStageEngineDataModel.getFacilities().stream()
                 .filter(facility -> facility.getUuid().equals(facilityUuid))
                 .findFirst()
                 .orElse(null);

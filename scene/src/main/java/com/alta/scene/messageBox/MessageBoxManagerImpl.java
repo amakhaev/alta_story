@@ -33,9 +33,9 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
                 .build();
 
         this.bottomMessageBox = MessageBoxEntityImpl.builder()
-                .startCoordinates(new Point(0, config.getUiContainer().getHeight() - 200))
+                .startCoordinates(new Point(0, config.getUiContainer().getHeight() - 137))
                 .width(config.getUiContainer().getWidth())
-                .height(200)
+                .height(137)
                 .marginLeft(5)
                 .marginRight(5)
                 .build();
@@ -81,14 +81,15 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
     }
 
     /**
-     * Draws the simple message on the bottom of screen.
+     * Draws the message using animation on the bottom of screen.
      *
-     * @param message - the message the should be shown.
+     * @param message           - the text that will be shown.
+     * @param faceSetDescriptor - the descriptor of face set.
      */
     @Override
-    public void drawMessage(String message) {
+    public void drawAnimatedMessage(String message, FaceSetDescriptor faceSetDescriptor) {
         this.bottomMessageBox.setText(message);
-        this.bottomMessageBox.completeDrawingImmediately();
+        this.bottomMessageBox.setFaceSet(faceSetDescriptor);
         this.bottomMessageBox.show();
     }
 

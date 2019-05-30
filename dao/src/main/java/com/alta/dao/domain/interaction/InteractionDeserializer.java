@@ -35,6 +35,8 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
     private static final String TYPE_FIELD_NAME = "type";
     private static final String TEXT_FIELD_NAME = "text";
     private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
+    private static final String SPEAKER_UUID_FIELD_NAME = "speakerUuid";
+    private static final String SPEAKER_EMOTION_FIELD_NAME = "speakerEmotion";
 
     private static final String PRE_CONDITION_FIELD_NAME = "preCondition";
     private static final String FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME = "failedPreConditionEffects";
@@ -184,9 +186,17 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
 
     private DialogueEffectDataModel parseDialogueEffect(JsonObject jsonDialogueModel) {
         try {
-            DialogueEffectDataModel model = new DialogueEffectDataModel();
-            model.setText(jsonDialogueModel.get(TEXT_FIELD_NAME).getAsString());
-            return model;
+            return DialogueEffectDataModel.builder()
+                    .text(jsonDialogueModel.get(TEXT_FIELD_NAME).getAsString())
+                    .speakerUuid(
+                            jsonDialogueModel.has(SPEAKER_UUID_FIELD_NAME) ?
+                                    jsonDialogueModel.get(SPEAKER_UUID_FIELD_NAME).getAsString() : null
+                    )
+                    .speakerEmotion(
+                            jsonDialogueModel.has(SPEAKER_EMOTION_FIELD_NAME) ?
+                                    jsonDialogueModel.get(SPEAKER_EMOTION_FIELD_NAME).getAsString() : null
+                    )
+                    .build();
         } catch (Exception e) {
             log.error("Parsing of DialogueEffectDataModel was failed with error: {}", e.getMessage());
             return null;

@@ -21,11 +21,12 @@ public interface MessageBox {
     void drawAnimatedMessage(String message);
 
     /**
-     * Draws the message on the bottom of screen.
+     * Draws the message using animation on the bottom of screen.
      *
-     * @param message - the message the should be shown.
+     * @param message           - the text that will be shown.
+     * @param faceSetDescriptor - the descriptor of face set.
      */
-    void drawMessage(String message);
+    void drawAnimatedMessage(String message, FaceSetDescriptor faceSetDescriptor);
 
     /**
      * Completes the animation of current message immediately.

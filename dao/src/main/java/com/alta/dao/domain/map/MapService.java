@@ -2,8 +2,6 @@ package com.alta.dao.domain.map;
 
 import com.alta.dao.data.map.MapModel;
 
-import java.util.List;
-
 /**
  * Provides the service to make CRUD with maps
  */

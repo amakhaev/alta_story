@@ -2,7 +2,8 @@ package com.alta.engine.presenter;
 
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
+import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
 import com.alta.engine.view.ViewFactory;
@@ -37,7 +38,7 @@ public class FrameStagePresenter {
     /**
      * Loads scene state from preservation
      */
-    public void tryToRenderFrameStageView(FrameStageDataModel data) {
+    public void tryToRenderFrameStageView(FrameStageEngineDataModel data) {
         this.currentView = this.viewFactory.createFrameStageView(data);
         this.sceneProxy.renderFrameStage(this.currentView.getFrameStage());
     }
@@ -74,6 +75,16 @@ public class FrameStagePresenter {
      */
     public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
         return this.currentView == null ? null : this.currentView.findParticipantTargetedByActingCharacter();
+    }
+
+    /**
+     * Finds the NPC by given uuid.
+     *
+     * @param uuid - the UUID of NPC to be found.
+     * @return found {@link NpcEngineModel} or null.
+     */
+    public NpcEngineModel findNpcByUuid(String uuid) {
+        return this.currentView == null ? null : this.currentView.findNpcByUuid(uuid);
     }
 
     /**

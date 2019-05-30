@@ -1,8 +1,11 @@
 package com.alta.engine.view;
 
+import com.alta.scene.messageBox.FaceSetDescriptor;
 import com.alta.scene.messageBox.MessageBox;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
+
+import java.awt.*;
 
 /**
  * Provides the view that can show message boxes
@@ -30,6 +33,16 @@ public class MessageBoxView {
      */
     public void showMessage(String text) {
         this.messageBox.drawAnimatedMessage(text);
+    }
+
+    /**
+     * Shown the message on the bottom of scene.
+     *
+     * @param text              - the text to be shown.
+     * @param faceSetDescriptor - the descriptor of face set.
+     */
+    public void showMessage(String text, FaceSetDescriptor faceSetDescriptor) {
+        this.messageBox.drawAnimatedMessage(text, faceSetDescriptor);
     }
 
     /**

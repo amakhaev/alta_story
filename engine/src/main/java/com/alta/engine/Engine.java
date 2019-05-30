@@ -2,8 +2,8 @@ package com.alta.engine;
 
 import com.alta.engine.configuration.EngineConfiguration;
 import com.alta.engine.facade.FrameStageFacade;
-import com.alta.engine.model.FrameStageDataModel;
-import com.alta.engine.model.InteractionDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
+import com.alta.engine.model.InteractionEngineDataModel;
 import com.alta.interaction.interactionOnMap.InteractionOnMapManager;
 import com.google.inject.Inject;
 
@@ -30,9 +30,9 @@ public class Engine {
     /**
      * Loads scene state from preservation
      */
-    public void tryToRenderFrameStage(FrameStageDataModel data, InteractionDataModel interactionDataModel) {
+    public void tryToRenderFrameStage(FrameStageEngineDataModel data, InteractionEngineDataModel interactionEngineDataModel) {
         this.frameStageFacade.tryToRenderFrameStageView(data);
-        this.interactionOnMapManager.setInteractions(interactionDataModel.getInteractions());
+        this.interactionOnMapManager.setInteractions(interactionEngineDataModel.getInteractions());
     }
 
     /**

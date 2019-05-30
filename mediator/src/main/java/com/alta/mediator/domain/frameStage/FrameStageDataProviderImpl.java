@@ -9,7 +9,7 @@ import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
 import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
-import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.FacilityEngineModel;
 import com.alta.engine.model.frameStage.NpcEngineModel;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Provides the service to manipulate model related to {@link FrameStageDataModel}
+ * Provides the service to manipulate model related to {@link FrameStageEngineDataModel}
  */
 @Slf4j
 public class FrameStageDataProviderImpl implements FrameStageDataProvider {
@@ -66,10 +66,10 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
      * Gets the model of frame stage that created from preservation
      *
      * @param characterPreservationModel - the preservation of game
-     * @return the {@link FrameStageDataModel} generated from preservation.
+     * @return the {@link FrameStageEngineDataModel} generated from preservation.
      */
     @Override
-    public FrameStageDataModel getFromPreservation(CharacterPreservationModel characterPreservationModel) {
+    public FrameStageEngineDataModel getFromPreservation(CharacterPreservationModel characterPreservationModel) {
         return this.getByParams(
                 characterPreservationModel.getMapName(),
                 characterPreservationModel.getMainCharaterSkin(),
@@ -83,29 +83,29 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
      * @param mapName - the name of map to be render
      * @param skin    - the skin of acting character
      * @param focus   - the coordinates of focus point on tiled map
-     * @return the {@link FrameStageDataModel} instance.
+     * @return the {@link FrameStageEngineDataModel} instance.
      */
     @Override
-    public FrameStageDataModel getByParams(String mapName, String skin, Point focus) {
+    public FrameStageEngineDataModel getByParams(String mapName, String skin, Point focus) {
         log.debug(
-                "Start getting FrameStageDataModel by params. Map name: {}, skin: {}, focus point: {}.",
+                "Start getting FrameStageEngineDataModel by params. Map name: {}, skin: {}, focus point: {}.",
                 mapName, skin, focus
         );
 
         if (Strings.isNullOrEmpty(mapName)) {
-            log.error("Name of map is null, but required for creating of FrameStageDataModel");
+            log.error("Name of map is null, but required for creating of FrameStageEngineDataModel");
             return null;
         } else  if (Strings.isNullOrEmpty(skin)) {
-            log.error("Skin of acting character is null, but required for creating of FrameStageDataModel");
+            log.error("Skin of acting character is null, but required for creating of FrameStageEngineDataModel");
             return null;
         } else if (focus == null) {
-            log.error("The focus point of acting character is null, but required for creating of FrameStageDataModel");
+            log.error("The focus point of acting character is null, but required for creating of FrameStageEngineDataModel");
             return null;
         }
 
         MapModel mapModel = this.mapService.getMap(mapName);
         if (mapModel == null) {
-            log.error("Map model is null, but required for creating of FrameStageDataModel");
+            log.error("Map model is null, but required for creating of FrameStageEngineDataModel");
             return null;
         }
 
@@ -115,7 +115,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
                 UUID.randomUUID().toString()
         );
 
-        return FrameStageDataModel.builder()
+        return FrameStageEngineDataModel.builder()
                 .mapDisplayName(mapModel.getDisplayName())
                 .mapName(mapModel.getName())
                 .tiledMapAbsolutePath(mapModel.getTiledMapAbsolutePath())

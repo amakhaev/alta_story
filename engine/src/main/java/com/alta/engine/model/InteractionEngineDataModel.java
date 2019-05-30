@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Getter
 @Builder
-public class InteractionDataModel {
+public class InteractionEngineDataModel {
 
     /**
      * Provides the list of interaction between participants.

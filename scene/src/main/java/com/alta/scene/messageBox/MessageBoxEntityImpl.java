@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.*;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.geom.RoundedRectangle;
@@ -23,6 +24,8 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
 
     private static final Color ROYAL_BLUE = new Color(6, 6, 6, 120);
     private static final Color NAVY = new Color(30, 30, 30, 150);
+    private static final int FACE_IMAGE_WIDTH = 135;
+    private static final int FACE_IMAGE_HEIGHT = 135;
 
     /**
      * Creates the {@link MessageBoxEntityImpl} by given parameters.
@@ -75,6 +78,10 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
     private String text;
     private int hideTimeout;
 
+    private SpriteSheet faceSet;
+    private Point currentFaceCoordinates;
+    private FaceSetDescriptor faceSetDescriptor;
+
     /**
      * Initialize new instance of {@link MessageBoxEntityImpl}
      */
@@ -84,6 +91,7 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         this.height = height;
         this.textAlignment = TextAlignment.LEFT;
         this.currentTextCoordinates = new Point(0, 0);
+        this.currentFaceCoordinates = new Point(0, 0);
     }
 
     /**
@@ -170,6 +178,11 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         if (!this.text.equals(this.currentText)) {
             this.updateTextCoordinates();
         }
+
+        this.updateFaceCoordinates();
+        if (this.faceSetDescriptor != null && this.faceSet == null) {
+            this.faceSet = this.createFaceSetSpriteSheet();
+        }
     }
 
     /**
@@ -191,6 +204,16 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         if (this.unicodeFont != null && this.text != null) {
             this.unicodeFont.drawString(this.currentTextCoordinates.x, this.currentTextCoordinates.y, this.currentText);
         }
+
+        if (this.faceSet != null &&
+                this.faceSetDescriptor != null &&
+                this.currentFaceCoordinates.x != 0 &&
+                this.currentFaceCoordinates.y != 0) {
+            Image image = this.faceSet.getSubImage(
+                    this.faceSetDescriptor.getTileToShowX(), this.faceSetDescriptor.getTileToShowY()
+            );
+            image.draw(this.currentFaceCoordinates.x, this.currentFaceCoordinates.y, FACE_IMAGE_WIDTH, FACE_IMAGE_HEIGHT);
+        }
     }
 
     /**
@@ -199,6 +222,15 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
     void setText(String text) {
         this.text = this.doFormatText(text);
         this.currentText = "";
+    }
+
+    /**
+     * Sets the face set sprite sheet to be shown.
+     *
+     * @param faceSetDescriptor - the descriptor of sprite sheet to show face set.
+     */
+    void setFaceSet(FaceSetDescriptor faceSetDescriptor) {
+        this.faceSetDescriptor = faceSetDescriptor;
     }
 
     /**
@@ -228,6 +260,8 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         this.text = null;
         this.hideTimeout = -1;
         this.currentHideTimeout = -1;
+        this.faceSetDescriptor = null;
+        this.faceSet = null;
     }
 
     /**
@@ -255,11 +289,25 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         if (this.textAlignment == TextAlignment.LEFT) {
             this.currentTextCoordinates.x = this.startCoordinates.x + this.marginLeft + defaultTextMargin;
             this.currentTextCoordinates.y = this.startCoordinates.y + this.marginTop + defaultTextMargin;
+
+            if (this.faceSet != null && this.faceSetDescriptor != null) {
+                this.currentTextCoordinates.x += FACE_IMAGE_WIDTH + defaultTextMargin;
+            }
         } else if (this.textAlignment == TextAlignment.CENTER) {
             this.currentTextCoordinates.x = (this.width - this.startCoordinates.x) / 2 -
                     this.unicodeFont.getWidth(this.text) / 2;
             this.currentTextCoordinates.y = this.height / 2 - this.unicodeFont.getHeight(this.currentText) / 2;
         }
+    }
+
+    private void updateFaceCoordinates() {
+        if (this.faceSet == null || this.faceSetDescriptor == null) {
+            return;
+        }
+
+        final int defaultMargin = 5;
+        this.currentFaceCoordinates.x = this.startCoordinates.x + this.marginLeft + defaultMargin;
+        this.currentFaceCoordinates.y = this.startCoordinates.y + this.marginTop;
     }
 
     private String doFormatText(String text) {
@@ -291,6 +339,19 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
 
         formatStringBuilder.setLength(0);
         return String.join(" ", result);
+    }
+
+    private SpriteSheet createFaceSetSpriteSheet() {
+        try {
+            return new SpriteSheet(
+                    this.faceSetDescriptor.getFaceSetFilePath(),
+                    this.faceSetDescriptor.getFaceSetTileWidth(),
+                    this.faceSetDescriptor.getFaceSetTileHeight()
+            );
+        } catch (SlickException e) {
+            log.error("Can't create face set sprite sheet: {}", e.getMessage());
+            return null;
+        }
     }
 
     enum TextAlignment {

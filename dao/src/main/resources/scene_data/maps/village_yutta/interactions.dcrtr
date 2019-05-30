@@ -378,5 +378,19 @@
 				"text": "Прибью его..."
 			}
 		]
+	},
+	{
+		"uuid": "177cf8aa-6065-4442-a819-ab0caf856219",
+		"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Леон, привет!",
+				"speakerUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
+				"speakerEmotion": "CALM"
+			}
+		]
 	}
 ]

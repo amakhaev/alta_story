@@ -47,7 +47,17 @@ public class DialogueEffect implements Interaction {
             );
         }
         log.debug("Perform the dialogue interaction. Target participant was found with uuid {}.", this.targetedParticipantUuid);
-        this.effectListener.onShowMessage(this.targetedParticipantUuid, ((DialogueEffectModel) effect).getText());
+        DialogueEffectModel dialogueEffectModel = (DialogueEffectModel) effect;
+        if (dialogueEffectModel.getDialogueSpeaker() == null) {
+            this.effectListener.onShowMessage(this.targetedParticipantUuid, dialogueEffectModel.getText());
+        } else {
+            this.effectListener.onShowMessage(
+                    this.targetedParticipantUuid,
+                    dialogueEffectModel.getText(),
+                    dialogueEffectModel.getDialogueSpeaker().getUuid(),
+                    dialogueEffectModel.getDialogueSpeaker().getEmotion()
+            );
+        }
     }
 
     /**

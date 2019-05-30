@@ -7,7 +7,7 @@ import com.alta.engine.eventProducer.EngineEventType;
 import com.alta.engine.eventProducer.eventPayload.InteractionCompletedEventPayload;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
-import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
@@ -41,17 +41,17 @@ public class FrameStageListener {
      * Handles the save event from frame stage.
      */
     public void handleSaveEvent() {
-        FrameStageDataModel frameStageDataModel = this.frameStageFacade.getFrameStageDataModel();
+        FrameStageEngineDataModel frameStageEngineDataModel = this.frameStageFacade.getFrameStageEngineDataModel();
         Point actionCharacterMapCoordinates = this.frameStageFacade.getActingCharacterMapCoordinate();
 
-        if (frameStageDataModel == null || actionCharacterMapCoordinates == null) {
+        if (frameStageEngineDataModel == null || actionCharacterMapCoordinates == null) {
             return;
         }
 
         this.engineEventProducer.publishEvent(
                 new EngineEvent(EngineEventType.SAVE_STATE, new SaveStateEventPayload(
-                        frameStageDataModel.getMapName(),
-                        frameStageDataModel.getActingCharacter().getSkinName(),
+                        frameStageEngineDataModel.getMapName(),
+                        frameStageEngineDataModel.getActingCharacter().getSkinName(),
                         actionCharacterMapCoordinates
                 ))
         );
@@ -69,7 +69,7 @@ public class FrameStageListener {
 
         this.engineEventProducer.publishEvent(new EngineEvent(
                 EngineEventType.INTERACTION_COMPLETED,
-                new InteractionCompletedEventPayload(interactionUuid, this.frameStageFacade.getFrameStageDataModel().getMapName())
+                new InteractionCompletedEventPayload(interactionUuid, this.frameStageFacade.getFrameStageEngineDataModel().getMapName())
         ));
     }
 

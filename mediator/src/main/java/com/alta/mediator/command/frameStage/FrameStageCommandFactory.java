@@ -1,7 +1,7 @@
 package com.alta.mediator.command.frameStage;
 
-import com.alta.engine.model.FrameStageDataModel;
-import com.alta.engine.model.InteractionDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
+import com.alta.engine.model.InteractionEngineDataModel;
 import com.google.inject.assistedinject.Assisted;
 
 import java.awt.*;
@@ -15,10 +15,10 @@ public interface FrameStageCommandFactory {
      * Creates the {@link RenderFrameStageCommand} instance.
      *
      * @param data                  - the data for creating.
-     * @param interactionDataModel  - the data model that stored interactions.
+     * @param interactionEngineDataModel  - the data model that stored interactions.
      * @return the {@link RenderFrameStageCommand} instance.
      */
-    RenderFrameStageCommand createRenderFrameStageCommand(FrameStageDataModel data, InteractionDataModel interactionDataModel);
+    RenderFrameStageCommand createRenderFrameStageCommand(FrameStageEngineDataModel data, InteractionEngineDataModel interactionEngineDataModel);
 
     /**
      * Creates the {@link RenderFrameStageFromPreservationCommand} instance.

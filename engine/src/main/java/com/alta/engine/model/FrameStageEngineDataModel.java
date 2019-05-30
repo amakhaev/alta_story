@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Getter
 @Builder(toBuilder = true)
-public class FrameStageDataModel {
+public class FrameStageEngineDataModel {
 
     /**
      * The display name of map.

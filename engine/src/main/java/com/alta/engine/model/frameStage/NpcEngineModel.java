@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the model that describes the simple npc
@@ -17,6 +18,7 @@ public class NpcEngineModel {
     private final String uuid;
     private final Point startMapCoordinates;
     private final int zIndex;
+    private final FaceSetDescription faceSetDescriptor;
 
     @Setter
     private boolean isMovementRouteLooped;
@@ -48,5 +50,14 @@ public class NpcEngineModel {
         private int x;
         private int y;
         private String finalDirection;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class FaceSetDescription {
+        private int tileWidth;
+        private int tileHeight;
+        private Map<String, Point> emotions;
+        private String pathToImageSet;
     }
 }

@@ -1,21 +1,33 @@
 package com.alta.dao.data.interaction.effect;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Provides the model that describes the dialogue.
  */
 @Getter
-@Setter
 public class DialogueEffectDataModel extends InteractionEffectDataModel {
 
-    private String text;
+    @Builder
+    private static DialogueEffectDataModel create(String text, String speakerUuid, String speakerEmotion) {
+        return new DialogueEffectDataModel(text, speakerUuid, speakerEmotion);
+    }
+
+    private final String text;
+    private final String speakerUuid;
+    private final String speakerEmotion;
 
     /**
      * Initialize new instance of {@link DialogueEffectDataModel}
+     * @param text              - the text to be shown in the dialog.
+     * @param speakerUuid       - the uuid of speaker. Ca be null.
+     * @param speakerEmotion    - the emotion of speaker.
      */
-    public DialogueEffectDataModel() {
+    private DialogueEffectDataModel(String text, String speakerUuid, String speakerEmotion) {
         super(InteractionEffectType.DIALOGUE);
+        this.text = text;
+        this.speakerUuid = speakerUuid;
+        this.speakerEmotion = speakerEmotion;
     }
 }

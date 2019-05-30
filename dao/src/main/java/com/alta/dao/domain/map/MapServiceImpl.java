@@ -6,14 +6,18 @@ import com.alta.dao.data.map.MapModel;
 import com.alta.dao.domain.facility.FacilityService;
 import com.alta.dao.domain.map.internalEntities.MapDecoratorEntity;
 import com.alta.dao.domain.map.internalEntities.MapEntity;
+import com.alta.dao.domain.map.internalEntities.NpcEntity;
 import com.alta.utils.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Provides the service to make CRUD with maps
@@ -40,8 +44,7 @@ public class MapServiceImpl implements MapService {
      * @return the {@link MapModel} instance
      */
     @Override
-    public MapModel getMap(String name) {
-        log.info("Try to initialize map with given name '{}'", name);
+    public MapModel getMap(@NonNull String name) {
         MapEntity matchedMapEntity = this.availableMaps
                 .stream()
                 .filter(mapEntity -> mapEntity.getName().equalsIgnoreCase(name))

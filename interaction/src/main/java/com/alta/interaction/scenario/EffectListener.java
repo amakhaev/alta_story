@@ -14,6 +14,16 @@ public interface EffectListener {
     void onShowMessage(String targetUuid, String message);
 
     /**
+     * Shows the message.
+     *
+     * @param targetUuid        - the uuid of target NPC.
+     * @param message           - the message to be shown.
+     * @param speakerUuid       - the uuid of speaker.
+     * @param speakerEmotion    - the emotion that should be shown when speaker say.
+     */
+    void onShowMessage(String targetUuid, String message, String speakerUuid, String speakerEmotion);
+
+    /**
      * Triggers the state of message box to next one.
      *
      * @param targetUuid        - the uuid of target NPC.

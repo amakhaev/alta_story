@@ -6,6 +6,7 @@ import com.alta.dao.data.actor.ActorModel;
 import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.model.frameStage.NpcEngineModel;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
+import com.google.common.base.Strings;
 import com.google.inject.Singleton;
 
 import java.awt.*;
@@ -70,6 +71,7 @@ class ActorEngineMapper {
                 .startMapCoordinates(actorModel.getStartMapCoordinates())
                 .animationDescriptors(actorAnimationDescriptors)
                 .repeatingMovementDurationTime(actorModel.getRepeatingMovementDurationTime())
+                .faceSetDescriptor(this.doMappingForFaceSetDescriptor(actorModel))
                 .build();
     }
 
@@ -95,6 +97,19 @@ class ActorEngineMapper {
                 .stopFrameIndex(stopFrameIndex)
                 .animatedTileCoordinates(positions)
                 .build();
+    }
+
+    private NpcEngineModel.FaceSetDescription doMappingForFaceSetDescriptor(ActorModel actorModel) {
+        if (Strings.isNullOrEmpty(actorModel.getPathToFaceSetImage()) || actorModel.getFaceSetDescriptor() == null) {
+            return null;
+        }
+
+        return new NpcEngineModel.FaceSetDescription(
+                actorModel.getFaceSetDescriptor().getTileWidth(),
+                actorModel.getFaceSetDescriptor().getTileHeight(),
+                actorModel.getFaceSetDescriptor().getEmotions(),
+                actorModel.getPathToFaceSetImage()
+        );
     }
 
 }

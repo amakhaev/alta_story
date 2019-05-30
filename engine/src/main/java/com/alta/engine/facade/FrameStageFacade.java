@@ -1,7 +1,7 @@
 package com.alta.engine.facade;
 
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.engine.model.FrameStageDataModel;
+import com.alta.engine.model.FrameStageEngineDataModel;
 import com.alta.engine.model.frameStage.JumpingEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
@@ -24,14 +24,14 @@ public class FrameStageFacade {
     private final MessageBoxPresenter messageBoxPresenter;
 
     @Getter
-    private FrameStageDataModel frameStageDataModel;
+    private FrameStageEngineDataModel frameStageEngineDataModel;
 
     /**
      * Loads scene state from preservation
      */
-    public void tryToRenderFrameStageView(FrameStageDataModel data) {
-        this.frameStageDataModel = data;
-        this.frameStagePresenter.tryToRenderFrameStageView(this.frameStageDataModel);
+    public void tryToRenderFrameStageView(FrameStageEngineDataModel data) {
+        this.frameStageEngineDataModel = data;
+        this.frameStagePresenter.tryToRenderFrameStageView(this.frameStageEngineDataModel);
         this.messageBoxPresenter.forceHideMessageBox();
         this.messageBoxPresenter.showTitle(data.getMapDisplayName());
     }
@@ -71,7 +71,7 @@ public class FrameStageFacade {
             return null;
         }
 
-        JumpingEngineModel jumpingPoint = this.frameStageDataModel.getJumpingPoints().stream()
+        JumpingEngineModel jumpingPoint = this.frameStageEngineDataModel.getJumpingPoints().stream()
                 .filter(jp -> jp.getFrom().x == mapCoordinates.x && jp.getFrom().y == mapCoordinates.y)
                 .findAny()
                 .orElse(null);

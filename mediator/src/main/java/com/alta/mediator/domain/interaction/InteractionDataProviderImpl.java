@@ -7,6 +7,7 @@ import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
 import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
+import com.alta.engine.model.InteractionEngineDataModel;
 import com.alta.interaction.data.DialogueEffectModel;
 import com.alta.interaction.data.EffectModel;
 import com.alta.interaction.data.HideFacilityEffectModel;
@@ -38,21 +39,21 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
      * @param relatedMapName           - the name of map where interaction should be happens.
      * @param interactionPreservations - the current preservation model.
      * @param currentChapterIndicator  - the indicator of current chapter.
-     * @return the {@link com.alta.engine.model.InteractionDataModel} instance.
+     * @return the {@link InteractionEngineDataModel} instance.
      */
     @Override
-    public com.alta.engine.model.InteractionDataModel getInteractionByRelatedMapName(@NonNull String relatedMapName,
-                                                                                     @NonNull List<InteractionPreservationModel> interactionPreservations,
-                                                                                     int currentChapterIndicator) {
+    public InteractionEngineDataModel getInteractionByRelatedMapName(@NonNull String relatedMapName,
+                                                                     @NonNull List<InteractionPreservationModel> interactionPreservations,
+                                                                     int currentChapterIndicator) {
         List<InteractionDataModel> interactions = this.interactionService.getInteractions(relatedMapName);
         if (interactions == null || interactions.size() == 0) {
             log.debug("Interactions for given map '{}' not found", relatedMapName);
-            return com.alta.engine.model.InteractionDataModel.builder().interactions(Collections.emptyList()).build();
+            return InteractionEngineDataModel.builder().interactions(Collections.emptyList()).build();
         }
 
         log.debug("{} interactions found for '{}' map", interactions.size(), relatedMapName);
 
-        List<com.alta.interaction.interactionOnMap.InteractionModel> interactionEngineModels = interactions.stream()
+        List<InteractionModel> interactionEngineModels = interactions.stream()
                 .filter(interactionModel -> interactionModel.getChapterIndicatorFrom() != null)
                 .filter(interactionModel -> interactionModel.getChapterIndicatorTo() != null)
                 .filter(interactionModel -> currentChapterIndicator >= interactionModel.getChapterIndicatorFrom())
@@ -64,7 +65,7 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
 
         log.info("{} interactions found for '{}' map.", interactions.size(), relatedMapName);
 
-        return com.alta.engine.model.InteractionDataModel.builder().interactions(interactionEngineModels).build();
+        return InteractionEngineDataModel.builder().interactions(interactionEngineModels).build();
     }
 
     private InteractionModel createInteractionModelWithChildren(InteractionDataModel parent,
@@ -109,7 +110,13 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                 .map(effect -> {
                     switch (effect.getType()) {
                         case DIALOGUE:
-                            return new DialogueEffectModel(((DialogueEffectDataModel)effect).getText());
+                            DialogueEffectDataModel effectDataModel = ((DialogueEffectDataModel)effect);
+                            return new DialogueEffectModel(
+                                    effectDataModel.getText(),
+                                    new DialogueEffectModel.DialogueSpeaker(
+                                            effectDataModel.getSpeakerUuid(), effectDataModel.getSpeakerEmotion()
+                                    )
+                            );
                         case HIDE_FACILITY:
                             return new HideFacilityEffectModel(((HideFacilityEffectDataModel)effect).getFacilityUuid());
                         case SHOW_FACILITY:
