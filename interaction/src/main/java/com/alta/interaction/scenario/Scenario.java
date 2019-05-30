@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Provides the scenario of interaction effects.
+ * Provides the interaction.scenario of interaction effects.
  */
 @Slf4j
 public class Scenario {
@@ -41,7 +41,7 @@ public class Scenario {
     }
 
     /**
-     * Performs the scenario related to interaction.
+     * Performs the interaction.scenario related to interaction.
      *
      * @param targetedParticipantUuid   - the uuid of targeted participant.
      * @param effects                   - the effects of interaction that should be shown.
@@ -81,7 +81,7 @@ public class Scenario {
 
         if (this.currentScenario.peek() == null) {
             log.debug(
-                    "The scenario interaction completed. Target uuid: {}",
+                    "The interaction.scenario interaction completed. Target uuid: {}",
                     this.targetedParticipantUuid
             );
             this.targetedParticipantUuid = null;

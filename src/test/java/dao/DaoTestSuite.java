@@ -1,4 +1,6 @@
-import domain.ActorServiceTest;
+package dao;
+
+import dao.domain.ActorServiceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

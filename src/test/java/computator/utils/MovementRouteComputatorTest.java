@@ -1,4 +1,4 @@
-package utils;
+package computator.utils;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;

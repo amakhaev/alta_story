@@ -1,13 +1,10 @@
-package scenario;
+package interaction.scenario;
 
-import com.alta.interaction.data.DialogueEffectModel;
 import com.alta.interaction.data.HideFacilityEffectModel;
 import com.alta.interaction.data.ShowFacilityEffectModel;
 import com.alta.interaction.scenario.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import java.util.Arrays;
 import java.util.Collections;

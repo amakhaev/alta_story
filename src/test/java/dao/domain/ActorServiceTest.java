@@ -1,4 +1,4 @@
-package domain;
+package dao.domain;
 
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorFaceSetDescriptorModel;

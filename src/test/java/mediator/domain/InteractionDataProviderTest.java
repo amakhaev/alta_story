@@ -1,4 +1,4 @@
-package domain;
+package mediator.domain;
 
 import com.alta.dao.data.interaction.InteractionDataModel;
 import com.alta.dao.data.interaction.effect.DialogueEffectDataModel;

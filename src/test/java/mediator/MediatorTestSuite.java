@@ -1,4 +1,6 @@
-import domain.InteractionDataProviderTest;
+package mediator;
+
+import mediator.domain.InteractionDataProviderTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

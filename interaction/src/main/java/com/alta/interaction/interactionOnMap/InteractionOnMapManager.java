@@ -35,7 +35,7 @@ public class InteractionOnMapManager {
      * Initialize new instance of {@link InteractionOnMapManager}.
      *
      * @param effectListener    - the listener of effects.
-     * @param scenarioFactory   - the scenario factory.
+     * @param scenarioFactory   - the interaction.scenario factory.
      */
     @Inject
     public InteractionOnMapManager(EffectListener effectListener, ScenarioFactory scenarioFactory) {
