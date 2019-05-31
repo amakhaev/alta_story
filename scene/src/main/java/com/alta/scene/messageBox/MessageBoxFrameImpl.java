@@ -1,6 +1,6 @@
 package com.alta.scene.messageBox;
 
-import com.alta.scene.entities.MessageBoxEntity;
+import com.alta.scene.entities.MessageBoxFrame;
 import com.google.common.base.Strings;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
@@ -17,18 +17,18 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Provides the implementation of {@link MessageBoxEntity}
+ * Provides the implementation of {@link MessageBoxFrame}
  */
 @Slf4j
-public class MessageBoxEntityImpl implements MessageBoxEntity {
+public class MessageBoxFrameImpl implements MessageBoxFrame {
 
     private static final Color ROYAL_BLUE = new Color(6, 6, 6, 120);
     private static final Color NAVY = new Color(30, 30, 30, 150);
-    private static final int FACE_IMAGE_WIDTH = 135;
-    private static final int FACE_IMAGE_HEIGHT = 135;
+    private static final int FACE_IMAGE_WIDTH = 112;
+    private static final int FACE_IMAGE_HEIGHT = 112;
 
     /**
-     * Creates the {@link MessageBoxEntityImpl} by given parameters.
+     * Creates the {@link MessageBoxFrameImpl} by given parameters.
      *
      * @param startCoordinates  - the start coordinates of message box.
      * @param width             - the width of message box.
@@ -36,17 +36,17 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
      * @param marginRight       - the width margin to right.
      * @param marginLeft        - the width margin to left.
      * @param marginTop         - the width margin to top.
-     * @return created {@link MessageBoxEntityImpl} instance.
+     * @return created {@link MessageBoxFrameImpl} instance.
      */
     @Builder
-    public static MessageBoxEntityImpl create(Point startCoordinates,
-                                              int width,
-                                              int height,
-                                              int marginRight,
-                                              int marginLeft,
-                                              int marginTop,
-                                              TextAlignment textAlignment) {
-        MessageBoxEntityImpl messageBoxEntity = new MessageBoxEntityImpl(startCoordinates, width, height);
+    public static MessageBoxFrameImpl create(Point startCoordinates,
+                                             int width,
+                                             int height,
+                                             int marginRight,
+                                             int marginLeft,
+                                             int marginTop,
+                                             TextAlignment textAlignment) {
+        MessageBoxFrameImpl messageBoxEntity = new MessageBoxFrameImpl(startCoordinates, width, height);
         messageBoxEntity.marginRight = marginRight;
         messageBoxEntity.marginLeft = marginLeft;
         messageBoxEntity.marginTop = marginTop;
@@ -83,9 +83,9 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
     private FaceSetDescriptor faceSetDescriptor;
 
     /**
-     * Initialize new instance of {@link MessageBoxEntityImpl}
+     * Initialize new instance of {@link MessageBoxFrameImpl}
      */
-    private MessageBoxEntityImpl(Point startCoordinates, int width, int height) {
+    private MessageBoxFrameImpl(Point startCoordinates, int width, int height) {
         this.startCoordinates = startCoordinates;
         this.width = width;
         this.height = height;
@@ -213,6 +213,15 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
                     this.faceSetDescriptor.getTileToShowX(), this.faceSetDescriptor.getTileToShowY()
             );
             image.draw(this.currentFaceCoordinates.x, this.currentFaceCoordinates.y, FACE_IMAGE_WIDTH, FACE_IMAGE_HEIGHT);
+            graphics.setLineWidth(8);
+            graphics.setColor(new Color(255, 255, 255, 128));
+            graphics.drawRoundRect(
+                    this.currentFaceCoordinates.x - 2,
+                    this.currentFaceCoordinates.y - 2,
+                    FACE_IMAGE_WIDTH + 2,
+                    FACE_IMAGE_HEIGHT + 2,
+                    5
+            );
         }
     }
 
@@ -306,8 +315,8 @@ public class MessageBoxEntityImpl implements MessageBoxEntity {
         }
 
         final int defaultMargin = 5;
-        this.currentFaceCoordinates.x = this.startCoordinates.x + this.marginLeft + defaultMargin;
-        this.currentFaceCoordinates.y = this.startCoordinates.y + this.marginTop;
+        this.currentFaceCoordinates.x = this.startCoordinates.x + this.marginLeft + 12;
+        this.currentFaceCoordinates.y = this.startCoordinates.y + this.marginTop + (this.height / 2 - FACE_IMAGE_HEIGHT / 2);
     }
 
     private String doFormatText(String text) {

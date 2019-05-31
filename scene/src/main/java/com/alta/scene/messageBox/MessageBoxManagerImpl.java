@@ -1,7 +1,7 @@
 package com.alta.scene.messageBox;
 
 import com.alta.scene.configuration.SceneConfig;
-import com.alta.scene.entities.MessageBoxEntity;
+import com.alta.scene.entities.MessageBoxFrame;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,25 +14,25 @@ import java.awt.*;
 @Singleton
 public class MessageBoxManagerImpl implements MessageBoxManager {
 
-    private final MessageBoxEntityImpl topMessageBox;
-    private final MessageBoxEntityImpl bottomMessageBox;
+    private final MessageBoxFrameImpl topMessageBox;
+    private final MessageBoxFrameImpl bottomMessageBox;
 
     /**
      * Initialize new instance of {@link MessageBoxManagerImpl}
      */
     @Inject
     public MessageBoxManagerImpl(@Named("sceneConfig") SceneConfig config) {
-        this.topMessageBox = MessageBoxEntityImpl.builder()
+        this.topMessageBox = MessageBoxFrameImpl.builder()
                 .startCoordinates(new Point(0, 0))
                 .width(config.getUiContainer().getWidth())
                 .height(40)
                 .marginLeft(5)
                 .marginRight(5)
                 .marginTop(5)
-                .textAlignment(MessageBoxEntityImpl.TextAlignment.CENTER)
+                .textAlignment(MessageBoxFrameImpl.TextAlignment.CENTER)
                 .build();
 
-        this.bottomMessageBox = MessageBoxEntityImpl.builder()
+        this.bottomMessageBox = MessageBoxFrameImpl.builder()
                 .startCoordinates(new Point(0, config.getUiContainer().getHeight() - 137))
                 .width(config.getUiContainer().getWidth())
                 .height(137)
@@ -45,7 +45,7 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
      * Gets the message box that shown on top of the scene.
      */
     @Override
-    public MessageBoxEntity getTopMessageBoxEntity() {
+    public MessageBoxFrame getTopMessageBoxEntity() {
         return this.topMessageBox;
     }
 
@@ -53,7 +53,7 @@ public class MessageBoxManagerImpl implements MessageBoxManager {
      * Gets the message box that shown on bottom of the scene.
      */
     @Override
-    public MessageBoxEntity getBottomMessageBoxEntity() {
+    public MessageBoxFrame getBottomMessageBoxEntity() {
         return this.bottomMessageBox;
     }
 

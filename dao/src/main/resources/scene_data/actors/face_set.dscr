@@ -29,13 +29,18 @@
 		},
 		{
 			"type": "ANNOYANCE",
-			"x": 192,
-			"y": 2
+			"x": 1,
+			"y": 1
 		},
 		{
 			"type": "IRRITATION",
-			"x": 288,
-			"y": 3
+			"x": 2,
+			"y": 1
+		},
+		{
+			"type": "FRUSTRATION",
+			"x": 2,
+			"y": 1
 		}
 	]
 }

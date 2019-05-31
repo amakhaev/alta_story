@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 /**
  * Provides the massage box that shown the text.
  */
-public interface MessageBoxEntity extends RenderableEntity<Graphics> {
+public interface MessageBoxFrame extends RenderableEntity<Graphics> {
 
     /**
      * Updates the message box
