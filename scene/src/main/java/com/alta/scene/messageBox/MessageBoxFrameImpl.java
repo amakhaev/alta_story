@@ -216,10 +216,10 @@ public class MessageBoxFrameImpl implements MessageBoxFrame {
             graphics.setLineWidth(8);
             graphics.setColor(new Color(255, 255, 255, 128));
             graphics.drawRoundRect(
-                    this.currentFaceCoordinates.x - 2,
-                    this.currentFaceCoordinates.y - 2,
-                    FACE_IMAGE_WIDTH + 2,
-                    FACE_IMAGE_HEIGHT + 2,
+                    this.currentFaceCoordinates.x - 5,
+                    this.currentFaceCoordinates.y - 5,
+                    FACE_IMAGE_WIDTH + 5,
+                    FACE_IMAGE_HEIGHT + 5,
                     5
             );
         }

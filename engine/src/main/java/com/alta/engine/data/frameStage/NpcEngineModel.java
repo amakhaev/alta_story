@@ -1,4 +1,4 @@
-package com.alta.engine.model.frameStage;
+package com.alta.engine.data.frameStage;
 
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Provides the model that describes the simple npc
+ * Provides the data that describes the simple npc
  */
 @Getter
 @Builder

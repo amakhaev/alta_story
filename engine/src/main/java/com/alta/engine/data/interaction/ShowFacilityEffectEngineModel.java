@@ -1,9 +1,9 @@
-package com.alta.engine.model.interaction;
+package com.alta.engine.data.interaction;
 
 import lombok.Getter;
 
 /**
- * Provides the model that describes the interaction by show facility.
+ * Provides the data that describes the interaction by show facility.
  */
 @Getter
 public class ShowFacilityEffectEngineModel extends InteractionEffectEngineModel {

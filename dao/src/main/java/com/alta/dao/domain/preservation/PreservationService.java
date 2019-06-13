@@ -23,7 +23,7 @@ public interface PreservationService {
     /**
      * Updates the preservation that related to character.
      *
-     * @param characterPreservationModel - the model to be updated.
+     * @param characterPreservationModel - the data to be updated.
      */
     void updateCharacterPreservation(CharacterPreservationModel characterPreservationModel);
 

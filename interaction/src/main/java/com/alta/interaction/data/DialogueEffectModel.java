@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Provides the dialogue model.
+ * Provides the dialogue data.
  */
 @Getter
 public class DialogueEffectModel extends EffectModel {

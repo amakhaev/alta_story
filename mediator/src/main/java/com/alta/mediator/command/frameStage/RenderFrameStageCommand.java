@@ -1,8 +1,7 @@
 package com.alta.mediator.command.frameStage;
 
 import com.alta.engine.Engine;
-import com.alta.engine.model.FrameStageEngineDataModel;
-import com.alta.engine.model.InteractionEngineDataModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -16,18 +15,14 @@ public class RenderFrameStageCommand implements Command {
 
     private final Engine engine;
     private final FrameStageEngineDataModel frameStageEngineDataModel;
-    private final InteractionEngineDataModel interactionEngineDataModel;
 
     /**
      * Initialize new instance of {@link RenderFrameStageCommand}.
      */
     @AssistedInject
-    public RenderFrameStageCommand(Engine engine,
-                                   @Assisted FrameStageEngineDataModel data,
-                                   @Assisted InteractionEngineDataModel interactionEngineDataModel) {
+    public RenderFrameStageCommand(Engine engine, @Assisted FrameStageEngineDataModel data) {
         this.engine = engine;
         this.frameStageEngineDataModel = data;
-        this.interactionEngineDataModel = interactionEngineDataModel;
     }
 
     /**
@@ -41,7 +36,7 @@ public class RenderFrameStageCommand implements Command {
         }
 
         log.info("Try to render map: '{}'", this.frameStageEngineDataModel.getMapName());
-        this.engine.tryToRenderFrameStage(this.frameStageEngineDataModel, this.interactionEngineDataModel);
+        this.engine.tryToRenderFrameStage(this.frameStageEngineDataModel);
         log.info("Rendering of map: '{}' completed", this.frameStageEngineDataModel.getMapName());
     }
 }

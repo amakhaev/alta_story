@@ -1,8 +1,8 @@
 package com.alta.engine.facade;
 
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.engine.model.FrameStageEngineDataModel;
-import com.alta.engine.model.frameStage.JumpingEngineModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
+import com.alta.engine.data.frameStage.JumpingEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.google.inject.Inject;

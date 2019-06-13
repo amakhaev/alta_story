@@ -9,10 +9,10 @@ import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
 import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
-import com.alta.engine.model.FrameStageEngineDataModel;
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
+import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.data.frameStage.FacilityEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.map.FacilityEngineModelMapper;
 import com.alta.mediator.domain.map.JumpingEngineModelMapper;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Provides the service to manipulate model related to {@link FrameStageEngineDataModel}
+ * Provides the service to manipulate data related to {@link FrameStageEngineDataModel}
  */
 @Slf4j
 public class FrameStageDataProviderImpl implements FrameStageDataProvider {
@@ -63,7 +63,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     }
 
     /**
-     * Gets the model of frame stage that created from preservation
+     * Gets the data of frame stage that created from preservation
      *
      * @param characterPreservationModel - the preservation of game
      * @return the {@link FrameStageEngineDataModel} generated from preservation.
@@ -78,7 +78,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     }
 
     /**
-     * Gets the model of frame stage that created by give params
+     * Gets the data of frame stage that created by give params
      *
      * @param mapName - the name of map to be render
      * @param skin    - the skin of acting character
@@ -105,7 +105,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
         MapModel mapModel = this.mapService.getMap(mapName);
         if (mapModel == null) {
-            log.error("Map model is null, but required for creating of FrameStageEngineDataModel");
+            log.error("Map data is null, but required for creating of FrameStageEngineDataModel");
             return null;
         }
 

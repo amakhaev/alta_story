@@ -12,9 +12,9 @@ import com.alta.computator.service.movement.MovementType;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.movement.directionCalculation.RouteMovementDescription;
 import com.alta.computator.service.stage.StageComputatorImpl;
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.data.frameStage.FacilityEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import lombok.NonNull;
@@ -37,7 +37,7 @@ public class ComputatorFrameStageProvider {
      * Creates the frame stage computator
      *
      * @param focusPointStartPosition - the coordinates of focus point on map.
-     * @param actingCharacter - the acting character model.
+     * @param actingCharacter - the acting character data.
      * @param facilityModels - the facilities that available on map.
      * @param eventProducer - the event stream related to computator
      * @return the {@link StageComputatorImpl} instance.
@@ -69,7 +69,7 @@ public class ComputatorFrameStageProvider {
     /**
      * Creates the facility participant for computations.
      *
-     * @param facilityModel - the facility model from which created participant.
+     * @param facilityModel - the facility data from which created participant.
      * @return created {@link FacilityParticipant} instance.
      */
     public FacilityParticipant createFacilityParticipant(@NonNull FacilityEngineModel facilityModel) {

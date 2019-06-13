@@ -13,20 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 public class InteractionFacade {
 
     private final FrameStagePresenter frameStagePresenter;
-    private final FrameStageListener frameStageListener;
     private final InteractionOnMapManager interactionOnMapManager;
 
     /**
      * Initialize ew instance of {@link InteractionFacade}.
      */
     @Inject
-    public InteractionFacade(FrameStagePresenter frameStagePresenter,
-                             FrameStageListener frameStageListener,
-                             InteractionOnMapManager interactionOnMapManager) {
+    public InteractionFacade(FrameStagePresenter frameStagePresenter, InteractionOnMapManager interactionOnMapManager) {
         this.frameStagePresenter = frameStagePresenter;
-        this.frameStageListener = frameStageListener;
         this.interactionOnMapManager = interactionOnMapManager;
-        this.interactionOnMapManager.setSuccessCallback(this::onScenarioCompletedSuccessfully);
     }
 
     /**
@@ -47,18 +42,17 @@ public class InteractionFacade {
         switch (targetedParticipant.getParticipatType()) {
             case SIMPLE_NPC:
             case ROUTE_NPC:
-                this.interactionOnMapManager.startInteractionForNpc(targetedParticipant.getUuid());
+                this.interactionOnMapManager.startInteractionForNpc(
+                        this.frameStagePresenter.getCurrentMapName(), targetedParticipant.getUuid()
+                );
                 break;
             case FACILITY:
                 this.interactionOnMapManager.startInteractionForFacility(
-                        targetedParticipant.getUuid(), targetedParticipant.getRelatedMapCoordinates()
+                        this.frameStagePresenter.getCurrentMapName(),
+                        targetedParticipant.getUuid(),
+                        targetedParticipant.getRelatedMapCoordinates()
                 );
                 break;
         }
-    }
-
-    private Void onScenarioCompletedSuccessfully(String interactionUuid) {
-        this.frameStageListener.handleInteractionCompleteEvent(interactionUuid);
-        return null;
     }
 }

@@ -28,6 +28,8 @@
 	{
 		"uuid": "24db9418-3cbb-457a-9590-2dd871bcb524",
 		"targetUuid": "36fa9616-37bd-4edc-b564-81dba3352cf0",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
 				"type": "DIALOGUE",

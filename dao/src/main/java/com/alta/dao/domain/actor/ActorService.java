@@ -10,7 +10,7 @@ import java.awt.*;
 public interface ActorService {
 
     /**
-     * Gets the actor model by given file name of tile sets.
+     * Gets the actor data by given file name of tile sets.
      *
      * @param name - the name of actor.
      *

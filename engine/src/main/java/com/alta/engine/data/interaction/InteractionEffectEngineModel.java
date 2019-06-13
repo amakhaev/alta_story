@@ -1,10 +1,10 @@
-package com.alta.engine.model.interaction;
+package com.alta.engine.data.interaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Provides the engine model that describes the effect of interaction.
+ * Provides the engine data that describes the effect of interaction.
  */
 @Getter
 @AllArgsConstructor

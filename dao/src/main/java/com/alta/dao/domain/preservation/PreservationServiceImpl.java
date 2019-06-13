@@ -59,13 +59,13 @@ public class PreservationServiceImpl implements PreservationService {
     /**
      * Updates the preservation that related to character.
      *
-     * @param characterPreservationModel - the model to be updated.
+     * @param characterPreservationModel - the data to be updated.
      */
     @Override
     public void updateCharacterPreservation(CharacterPreservationModel characterPreservationModel) {
         if (characterPreservationModel == null || characterPreservationModel.getId() == null) {
-            log.error("The model to update is null or has null identifier.");
-            throw new IllegalArgumentException("The model to has invalid value.");
+            log.error("The data to update is null or has null identifier.");
+            throw new IllegalArgumentException("The data to has invalid value.");
         }
 
         try {

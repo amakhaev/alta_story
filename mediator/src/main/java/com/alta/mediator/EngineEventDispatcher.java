@@ -73,9 +73,7 @@ public class EngineEventDispatcher {
                         this.executeSaving(event.tryToCastPayload(SaveStateEventPayload.class));
                         break;
                     case INTERACTION_COMPLETED:
-                        InteractionCompletedEventPayload interactionEventPayload = event.tryToCastPayload(InteractionCompletedEventPayload.class);
-                        this.executeUpdateInteractionPreservationCommand(interactionEventPayload);
-                        this.executeInteractionPostProcessorsCommand(interactionEventPayload);
+                        log.error("Should not be here");
                         break;
                     default:
                         log.error("Unknown type of payload {}", event.getType());
@@ -96,37 +94,9 @@ public class EngineEventDispatcher {
         );
     }
 
-    private void executeUpdateInteractionPreservationCommand(@NonNull InteractionCompletedEventPayload payload) {
-        InteractionPreservationModel interactionPreservationToUpdate;
-        interactionPreservationToUpdate = this.temporaryDataPreservationService.getTemporaryInteractionPreservation(
-                this.currentPreservationId, payload.getInteractionUuid()
-        );
 
-        if (interactionPreservationToUpdate == null) {
-            interactionPreservationToUpdate = InteractionPreservationModel
-                    .builder()
-                    .preservationId(this.currentPreservationId)
-                    .uuid(payload.getInteractionUuid())
-                    .isComplete(true)
-                    .isTemporary(true)
-                    .mapName(payload.getMapName())
-                    .build();
-        } else {
-            interactionPreservationToUpdate.setCompleted(true);
-        }
 
-        Command command = this.preservationCommandFactory.createUpdateInteractionPreservationCommand(
-                interactionPreservationToUpdate
-        );
 
-        this.commandExecutor.executeCommand(command);
-    }
-
-    private void executeInteractionPostProcessorsCommand(@NonNull InteractionCompletedEventPayload payload) {
-        this.interactionPostProcessingService.executeInteractionPostProcessing(
-                payload.getInteractionUuid(), payload.getMapName()
-        );
-    }
 
     private void executeSaving(@NonNull SaveStateEventPayload payload) {
         CharacterPreservationModel characterPreservationModel = CharacterPreservationModel.builder()

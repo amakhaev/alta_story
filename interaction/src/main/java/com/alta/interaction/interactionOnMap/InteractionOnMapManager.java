@@ -1,16 +1,15 @@
 package com.alta.interaction.interactionOnMap;
 
+import com.alta.interaction.data.InteractionModel;
+import com.alta.interaction.dataSource.InteractionRepository;
 import com.alta.interaction.scenario.EffectListener;
 import com.alta.interaction.scenario.Scenario;
 import com.alta.interaction.scenario.ScenarioFactory;
 import com.google.inject.Inject;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
-import java.util.List;
-import java.util.function.Function;
 
 /**
  * Provides the manager that handles interaction on map.
@@ -18,29 +17,25 @@ import java.util.function.Function;
 @Slf4j
 public class InteractionOnMapManager {
 
+    private final InteractionRepository interactionRepository;
     private final Scenario scenario;
 
     private InteractionModel currentInteraction;
 
-    @Setter
-    private Function<String, Void> successCallback;
-
-    @Setter
-    private Runnable failCallback;
-
-    @Setter
-    private List<InteractionModel> interactions;
-
     /**
      * Initialize new instance of {@link InteractionOnMapManager}.
      *
-     * @param effectListener    - the listener of effects.
-     * @param scenarioFactory   - the interaction.scenario factory.
+     * @param interactionRepository - the repository to be used for interaction getting.
+     * @param effectListener        - the listener of effects.
+     * @param scenarioFactory       - the interaction.scenario factory.
      */
     @Inject
-    public InteractionOnMapManager(EffectListener effectListener, ScenarioFactory scenarioFactory) {
+    public InteractionOnMapManager(InteractionRepository interactionRepository,
+                                   EffectListener effectListener,
+                                   ScenarioFactory scenarioFactory) {
+        this.interactionRepository = interactionRepository;
         this.scenario = scenarioFactory.createInteractionScenario(
-                effectListener, this::onScenarioCompleted, this::onScenarioFail
+                effectListener, this::onScenarioCompleted, () -> {}
         );
     }
 
@@ -56,15 +51,16 @@ public class InteractionOnMapManager {
     /**
      * Starts the interaction for NPC participant.
      *
-     * @param targetUuid - the uuid of target participant.
+     * @param targetUuid    - the uuid of target participant.
+     * @param mapName       - the name of map related to interaction.
      */
-    public void startInteractionForNpc(@NonNull String targetUuid) {
+    public void startInteractionForNpc(@NonNull String mapName, @NonNull String targetUuid) {
         if (this.isInteractionInProgress()) {
             log.error("One of interactions already have ran: {}", this.currentInteraction.getUuid());
             return;
         }
 
-        this.startInteraction(this.findInteractionForNpc(targetUuid), targetUuid);
+        this.startInteraction(this.findInteractionForNpc(mapName, targetUuid), targetUuid);
     }
 
     /**
@@ -72,13 +68,15 @@ public class InteractionOnMapManager {
      *
      * @param targetUuid - the uuid of target participant.
      */
-    public void startInteractionForFacility(@NonNull String targetUuid, @NonNull Point shiftTileMapCoordinate) {
+    public void startInteractionForFacility(@NonNull String mapName,
+                                            @NonNull String targetUuid,
+                                            @NonNull Point shiftTileMapCoordinate) {
         if (this.isInteractionInProgress()) {
             log.error("One of interactions already have ran: {}", this.currentInteraction.getUuid());
             return;
         }
 
-        this.startInteraction(this.findInteractionForFacility(targetUuid, shiftTileMapCoordinate), targetUuid);
+        this.startInteraction(this.findInteractionForFacility(mapName, targetUuid, shiftTileMapCoordinate), targetUuid);
     }
 
     /**
@@ -111,15 +109,8 @@ public class InteractionOnMapManager {
         }
     }
 
-    private InteractionModel findInteractionForNpc(@NonNull String targetUuid) {
-        if (this.interactions == null) {
-            return null;
-        }
-
-        InteractionModel interaction = this.interactions.stream()
-                .filter(interactionModel -> interactionModel.getTargetUuid().equals(targetUuid))
-                .findFirst()
-                .orElse(null);
+    private InteractionModel findInteractionForNpc(@NonNull String mapName, @NonNull String targetUuid) {
+        InteractionModel interaction = this.interactionRepository.findInteraction(mapName, targetUuid);
 
         if (interaction == null) {
             return null;
@@ -129,12 +120,10 @@ public class InteractionOnMapManager {
         return incompletedInteraction == null ? interaction.findLastInteraction() : incompletedInteraction;
     }
 
-    private InteractionModel findInteractionForFacility(@NonNull String targetUuid,
+    private InteractionModel findInteractionForFacility(@NonNull String mapName,
+                                                        @NonNull String targetUuid,
                                                         @NonNull Point shiftTileMapCoordinate) {
-        InteractionModel interaction = this.interactions.stream()
-                .filter(interactionModel -> interactionModel.getTargetUuid().equals(targetUuid))
-                .findFirst()
-                .orElse(null);
+        InteractionModel interaction = this.interactionRepository.findInteraction(mapName, targetUuid);
 
         if (interaction == null) {
             return null;
@@ -159,25 +148,12 @@ public class InteractionOnMapManager {
 
     private void onScenarioCompleted() {
         if (this.currentInteraction == null) {
-            log.warn("Complete interaction was called but no interaction model found.");
-            if (this.successCallback != null) {
-                this.failCallback.run();
-            }
+            log.warn("Complete interaction was called but no interaction data found.");
             return;
         }
 
         this.currentInteraction.setCompleted(true);
-        if (this.successCallback != null) {
-            this.successCallback.apply(this.currentInteraction.getUuid());
-        }
-
+        this.interactionRepository.completeInteraction(this.currentInteraction.getUuid(), this.currentInteraction.getMapName());
         this.currentInteraction = null;
-    }
-
-    private void onScenarioFail() {
-        this.currentInteraction = null;
-        if (this.failCallback != null) {
-            this.failCallback.run();
-        }
     }
 }

@@ -1,4 +1,4 @@
-package com.alta.engine.model.frameStage;
+package com.alta.engine.data.frameStage;
 
 import com.alta.computator.model.altitudeMap.TileState;
 import lombok.Builder;
@@ -7,10 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
- * Provides the model that describes map
+ * Provides the data that describes map
  */
 @Data
 @Builder

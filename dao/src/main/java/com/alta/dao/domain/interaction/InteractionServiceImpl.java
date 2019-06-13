@@ -9,7 +9,10 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Provides the implementation of {@link InteractionService}
@@ -54,6 +57,31 @@ public class InteractionServiceImpl implements InteractionService {
                 new TypeToken<ArrayList<InteractionDataModel>>(){}.getType(),
                 this.interactionDeserializer
         );
+    }
+
+    /**
+     * Gets the list of interactions that available for given parameters.
+     *
+     * @param relatedMapName          - the name of map where interactions are searching.
+     * @param targetUuid              - the uuid of target for interaction.
+     * @param currentChapterIndicator - the indicator of current chapter.
+     * @return the {@link Map} of found interactions or empty list.
+     */
+    @Override
+    public Map<String, InteractionDataModel> getInteractions(String relatedMapName, String targetUuid, int currentChapterIndicator) {
+        List<InteractionDataModel> interactionsForMap = this.getInteractions(relatedMapName);
+        if (interactionsForMap == null || interactionsForMap.isEmpty()) {
+            log.warn("Interactions related to map name '{}' not found", relatedMapName);
+            return Collections.emptyMap();
+        }
+
+        return interactionsForMap.stream()
+                .filter(interaction -> interaction.getTargetUuid().equals(targetUuid))
+                .filter(interaction -> interaction.getChapterIndicatorFrom() != null)
+                .filter(interaction -> interaction.getChapterIndicatorTo() != null)
+                .filter(interaction -> interaction.getChapterIndicatorFrom() <= currentChapterIndicator)
+                .filter(interaction -> interaction.getChapterIndicatorTo() >= currentChapterIndicator)
+                .collect(Collectors.toMap(InteractionDataModel::getUuid, i -> i));
     }
 
     /**

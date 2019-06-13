@@ -1,6 +1,6 @@
 package com.alta.engine.facade;
 
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.alta.interaction.scenario.EffectListener;

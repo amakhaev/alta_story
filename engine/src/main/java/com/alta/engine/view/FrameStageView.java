@@ -7,9 +7,9 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.model.FrameStageEngineDataModel;
-import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
+import com.alta.engine.data.frameStage.FacilityEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.view.componentProvider.ComputatorFrameStageProvider;
 import com.alta.engine.view.componentProvider.FrameStageComponentProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
@@ -25,7 +25,6 @@ import javax.inject.Named;
 import java.awt.*;
 import java.util.Collections;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Provides the dispatcher of computator
@@ -150,6 +149,13 @@ public class FrameStageView {
                 .filter(npc -> npc.getUuid().equals(uuid))
                 .findFirst()
                 .orElse(null);
+    }
+
+    /**
+     * Gets the name of current map.
+     */
+    public String getCurrentMapName() {
+        return this.frameStageEngineDataModel.getMapName();
     }
 
     /**

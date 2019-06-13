@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the model that describes the interaction between participants.
+ * Provides the data that describes the interaction between participants.
  */
 @Getter
 @Builder

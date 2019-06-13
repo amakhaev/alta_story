@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the model that described the preservation.
+ * Provides the data that described the preservation.
  */
 @Getter
 @DatabaseTable(tableName = "preservations")

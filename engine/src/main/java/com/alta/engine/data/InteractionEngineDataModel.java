@@ -1,13 +1,13 @@
-package com.alta.engine.model;
+package com.alta.engine.data;
 
-import com.alta.interaction.interactionOnMap.InteractionModel;
+import com.alta.interaction.data.InteractionModel;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
 
 /**
- * Provides the data model that describes the interactions available on scene.
+ * Provides the data data that describes the interactions available on scene.
  */
 @Getter
 @Builder

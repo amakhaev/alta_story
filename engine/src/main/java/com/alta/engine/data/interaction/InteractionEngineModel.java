@@ -1,6 +1,5 @@
-package com.alta.interaction.interactionOnMap;
+package com.alta.engine.data.interaction;
 
-import com.alta.interaction.data.EffectModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,17 +9,17 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * Provides the model that describes the interaction.
+ * Provides the data to be described interactions between participants on scene.
  */
 @Getter
 @Builder
-public class InteractionModel {
+public class InteractionEngineModel {
 
     private final String uuid;
     private final String targetUuid;
-    private final InteractionModel next;
-    private final List<EffectModel> interactionEffects;
-    private final List<EffectModel> failedPreConditionInteractionEffects;
+    private final InteractionEngineModel next;
+    private final List<InteractionEffectEngineModel> interactionEffects;
+    private final List<InteractionEffectEngineModel> failedPreConditionInteractionEffects;
     private List<Point> shiftTiles;
     private Function<Void, Boolean> preCondition;
 
@@ -30,22 +29,22 @@ public class InteractionModel {
     /**
      * Finds the interaction that wasn't completed.
      *
-     * @return the {@link InteractionModel} instance or null if all already completed.
+     * @return the {@link InteractionEngineModel} instance or null if all already completed.
      */
-    public InteractionModel findIncompletedInteraction() {
+    public InteractionEngineModel findIncompletedInteraction() {
         return this.findIncompletedInteractionInternal(this);
     }
 
     /**
      * Finds the last interaction.
      *
-     * @return the {@link InteractionModel} instance.
+     * @return the {@link InteractionEngineModel} instance.
      */
-    public InteractionModel findLastInteraction() {
+    public InteractionEngineModel findLastInteraction() {
         return this.findLastInteractionInternal(this);
     }
 
-    private InteractionModel findIncompletedInteractionInternal(InteractionModel interaction) {
+    private InteractionEngineModel findIncompletedInteractionInternal(InteractionEngineModel interaction) {
         if (!interaction.isCompleted) {
             return interaction;
         }
@@ -53,8 +52,7 @@ public class InteractionModel {
         return interaction.next == null ? null : interaction.findIncompletedInteractionInternal(interaction.next);
     }
 
-    private InteractionModel findLastInteractionInternal(InteractionModel interaction) {
+    private InteractionEngineModel findLastInteractionInternal(InteractionEngineModel interaction) {
         return interaction.next == null ? interaction : interaction.findLastInteractionInternal(interaction.next);
     }
-
 }

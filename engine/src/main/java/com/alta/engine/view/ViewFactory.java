@@ -1,6 +1,6 @@
 package com.alta.engine.view;
 
-import com.alta.engine.model.FrameStageEngineDataModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
 
 /**
  * The factory to create the views.

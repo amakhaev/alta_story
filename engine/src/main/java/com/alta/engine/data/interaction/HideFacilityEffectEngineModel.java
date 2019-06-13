@@ -1,9 +1,9 @@
-package com.alta.engine.model.interaction;
+package com.alta.engine.data.interaction;
 
 import lombok.Getter;
 
 /**
- * Provides the model that describes the interaction by hide facility.
+ * Provides the data that describes the interaction by hide facility.
  */
 @Getter
 public class HideFacilityEffectEngineModel extends InteractionEffectEngineModel {

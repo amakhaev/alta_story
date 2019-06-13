@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the event that stored model to event of any type
+ * Provides the event that stored data to event of any type
  */
 @Getter
 @Setter

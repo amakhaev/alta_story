@@ -3,7 +3,7 @@ package com.alta.interaction.data;
 import lombok.Getter;
 
 /**
- * Provides the model that describes the interaction by show facility.
+ * Provides the data that describes the interaction by show facility.
  */
 @Getter
 public class ShowFacilityEffectModel extends EffectModel {

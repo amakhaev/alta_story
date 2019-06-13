@@ -115,9 +115,9 @@ public class TemporaryDataPreservationServiceImpl implements TemporaryDataPreser
     }
 
     /**
-     * Creates or updates the interaction preservation model in storage.
+     * Creates or updates the interaction preservation data in storage.
      *
-     * @param interactionPreservationModel - the model to be saved.
+     * @param interactionPreservationModel - the data to be saved.
      */
     @Override
     public void upsertTemporaryInteractionPreservation(@NonNull InteractionPreservationModel interactionPreservationModel) {

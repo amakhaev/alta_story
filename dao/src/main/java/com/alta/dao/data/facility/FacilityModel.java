@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * Provides the model that describes the map
+ * Provides the data that describes the map
  */
 @Getter
 @Setter

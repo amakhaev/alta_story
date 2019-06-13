@@ -6,7 +6,8 @@ import com.alta.dao.data.interaction.effect.HideFacilityEffectDataModel;
 import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
 import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.domain.interaction.InteractionService;
-import com.alta.engine.model.InteractionEngineDataModel;
+import com.alta.engine.data.InteractionEngineDataModel;
+import com.alta.interaction.data.InteractionModel;
 import com.alta.mediator.domain.interaction.InteractionConditionService;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
 import com.alta.mediator.domain.interaction.InteractionDataProviderImpl;
@@ -16,7 +17,10 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -64,65 +68,55 @@ public class InteractionDataProviderTest {
 
     @Test
     public void interactionDataProvider_oneInteraction_returnCreatedEngineModel() {
-        when(this.interactionService.getInteractions(anyString())).thenReturn(Collections.singletonList(this.dataModel1));
-
-        InteractionEngineDataModel engineDataModel = this.interactionDataProvider.getInteractionByRelatedMapName(
-                "relatedMap", Collections.emptyList(), 5
+        when(this.interactionService.getInteractions(anyString(), anyString(), anyInt())).thenReturn(
+                Collections.singletonMap(this.dataModel1.getUuid(), this.dataModel1)
         );
 
-        Assert.assertEquals(1, engineDataModel.getInteractions().size());
-        Assert.assertEquals(this.dataModel1.getUuid(), engineDataModel.getInteractions().get(0).getUuid());
-        Assert.assertEquals(this.dataModel1.getTargetUuid(), engineDataModel.getInteractions().get(0).getTargetUuid());
-        Assert.assertNull(engineDataModel.getInteractions().get(0).getNext());
-        Assert.assertEquals(0, engineDataModel.getInteractions().get(0).getFailedPreConditionInteractionEffects().size());
-        Assert.assertEquals(0, engineDataModel.getInteractions().get(0).getShiftTiles().size());
-        Assert.assertNull(engineDataModel.getInteractions().get(0).getPreCondition());
-        Assert.assertFalse(engineDataModel.getInteractions().get(0).isCompleted());
-        Assert.assertEquals(this.dataModel1.getEffects().size(), engineDataModel.getInteractions().get(0).getInteractionEffects().size());
+        InteractionModel interactionModel = this.interactionDataProvider.getInteractionByRelatedMapName(
+                "relatedMap", this.dataModel1.getTargetUuid(), 5, Collections.emptyList()
+        );
+
+        Assert.assertEquals(this.dataModel1.getUuid(), interactionModel.getUuid());
+        Assert.assertEquals(this.dataModel1.getTargetUuid(), interactionModel.getTargetUuid());
+        Assert.assertNull(interactionModel.getNext());
+        Assert.assertEquals(0, interactionModel.getFailedPreConditionInteractionEffects().size());
+        Assert.assertEquals(0, interactionModel.getShiftTiles().size());
+        Assert.assertNull(interactionModel.getPreCondition());
+        Assert.assertFalse(interactionModel.isCompleted());
+        Assert.assertEquals(this.dataModel1.getEffects().size(), interactionModel.getInteractionEffects().size());
     }
 
     @Test
     public void interactionDataProvider_oneInteractionWithInvalidChapter_returnEmptyList() {
         when(this.interactionService.getInteractions(anyString())).thenReturn(Collections.singletonList(this.dataModel1));
 
-        InteractionEngineDataModel engineDataModel = this.interactionDataProvider.getInteractionByRelatedMapName(
-                "relatedMap", Collections.emptyList(), 15
+        InteractionModel interactionModel = this.interactionDataProvider.getInteractionByRelatedMapName(
+                "relatedMap", this.dataModel1.getTargetUuid(), 15, Collections.emptyList()
         );
 
-        Assert.assertNotNull(engineDataModel);
-        Assert.assertEquals(0, engineDataModel.getInteractions().size());
+        Assert.assertNull(interactionModel);
     }
 
     @Test
     public void interactionDataProvider_twoInteraction_returnOne() {
-        when(this.interactionService.getInteractions(anyString())).thenReturn(Arrays.asList(this.dataModel1, this.dataModel2));
+        Map<String, InteractionDataModel> models = new HashMap<>();
+        models.put(this.dataModel1.getUuid(), this.dataModel1);
+        models.put(this.dataModel2.getUuid(), this.dataModel2);
 
-        InteractionEngineDataModel engineDataModel = this.interactionDataProvider.getInteractionByRelatedMapName(
-                "relatedMap", Collections.emptyList(), 12
+        when(this.interactionService.getInteractions(anyString(), anyString(), anyInt())).thenReturn(models);
+
+        InteractionModel interactionModel = this.interactionDataProvider.getInteractionByRelatedMapName(
+                "relatedMap", this.dataModel1.getTargetUuid(), 12, Collections.emptyList()
         );
 
-        Assert.assertNotNull(engineDataModel);
-        Assert.assertEquals(1, engineDataModel.getInteractions().size());
-        Assert.assertEquals(this.dataModel2.getUuid(), engineDataModel.getInteractions().get(0).getUuid());
-        Assert.assertEquals(this.dataModel2.getTargetUuid(), engineDataModel.getInteractions().get(0).getTargetUuid());
-        Assert.assertNull(engineDataModel.getInteractions().get(0).getNext());
-        Assert.assertEquals(0, engineDataModel.getInteractions().get(0).getFailedPreConditionInteractionEffects().size());
-        Assert.assertEquals(0, engineDataModel.getInteractions().get(0).getShiftTiles().size());
-        Assert.assertNull(engineDataModel.getInteractions().get(0).getPreCondition());
-        Assert.assertFalse(engineDataModel.getInteractions().get(0).isCompleted());
-        Assert.assertEquals(this.dataModel2.getEffects().size(), engineDataModel.getInteractions().get(0).getInteractionEffects().size());
-    }
-
-    @Test
-    public void interactionDataProvider_unknownMap_returnEmptyList() {
-        when(this.interactionService.getInteractions("test1")).thenReturn(Arrays.asList(this.dataModel1, this.dataModel2));
-
-        InteractionEngineDataModel engineDataModel = this.interactionDataProvider.getInteractionByRelatedMapName(
-                "relatedMap", Collections.emptyList(), 5
-        );
-
-        Assert.assertNotNull(engineDataModel);
-        Assert.assertEquals(0, engineDataModel.getInteractions().size());
+        Assert.assertEquals(this.dataModel1.getUuid(), interactionModel.getUuid());
+        Assert.assertEquals(this.dataModel1.getTargetUuid(), interactionModel.getTargetUuid());
+        Assert.assertNull(interactionModel.getNext());
+        Assert.assertEquals(0, interactionModel.getFailedPreConditionInteractionEffects().size());
+        Assert.assertEquals(0, interactionModel.getShiftTiles().size());
+        Assert.assertNull(interactionModel.getPreCondition());
+        Assert.assertFalse(interactionModel.isCompleted());
+        Assert.assertEquals(this.dataModel1.getEffects().size(), interactionModel.getInteractionEffects().size());
     }
 
     @Test
@@ -136,18 +130,18 @@ public class InteractionDataProviderTest {
                 .nextInteractionUuid(this.dataModel1.getUuid())
                 .build();
 
-        when(this.interactionService.getInteractions(anyString())).thenReturn(Arrays.asList(this.dataModel1, this.dataModel2, interactionDataModel));
+        Map<String, InteractionDataModel> models = new HashMap<>();
+        models.put(this.dataModel1.getUuid(), this.dataModel1);
+        models.put(this.dataModel2.getUuid(), this.dataModel2);
+        models.put(interactionDataModel.getUuid(), interactionDataModel);
 
-        InteractionEngineDataModel engineDataModel = this.interactionDataProvider.getInteractionByRelatedMapName(
-                "relatedMap", Collections.emptyList(), 10
+        when(this.interactionService.getInteractions(anyString(), anyString(), anyInt())).thenReturn(models);
+
+        InteractionModel interactionModel = this.interactionDataProvider.getInteractionByRelatedMapName(
+                "relatedMap", this.dataModel1.getTargetUuid(), 10, Collections.emptyList()
         );
 
-        Assert.assertNotNull(engineDataModel);
-        Assert.assertEquals(3, engineDataModel.getInteractions().size());
-        Assert.assertEquals(this.dataModel1.getUuid(), engineDataModel.getInteractions().get(0).getUuid());
-        Assert.assertEquals(this.dataModel2.getUuid(), engineDataModel.getInteractions().get(1).getUuid());
-        Assert.assertEquals(interactionDataModel.getUuid(), engineDataModel.getInteractions().get(2).getUuid());
-        Assert.assertEquals(interactionDataModel.getNextInteractionUuid(), engineDataModel.getInteractions().get(2).getNext().getUuid());
-        Assert.assertEquals(this.dataModel1.getUuid(), engineDataModel.getInteractions().get(2).getNext().getUuid());
+        Assert.assertEquals(interactionDataModel.getUuid(), interactionModel.getUuid());
+        Assert.assertEquals(this.dataModel1.getUuid(), interactionModel.getNext().getUuid());
     }
 }

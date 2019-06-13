@@ -1,9 +1,9 @@
-package com.alta.engine.model;
+package com.alta.engine.data;
 
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.JumpingEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.data.frameStage.FacilityEngineModel;
+import com.alta.engine.data.frameStage.JumpingEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the builder that builds model for creating scene
+ * Provides the builder that builds data for creating scene
  */
 @Getter
 @Builder(toBuilder = true)
@@ -45,7 +45,7 @@ public class FrameStageEngineDataModel {
     private List<FacilityEngineModel> facilities;
 
     /**
-     * The model that describes the acting character on stage
+     * The data that describes the acting character on stage
      */
     private ActingCharacterEngineModel actingCharacter;
 

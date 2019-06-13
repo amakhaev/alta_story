@@ -38,9 +38,9 @@ public interface TemporaryDataPreservationService {
     InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId, String interactionUuid);
 
     /**
-     * Creates or updates the interaction preservation model in storage.
+     * Creates or updates the interaction preservation data in storage.
      *
-     * @param interactionPreservationModel - the model to be saved.
+     * @param interactionPreservationModel - the data to be saved.
      */
     void upsertTemporaryInteractionPreservation(InteractionPreservationModel interactionPreservationModel);
 

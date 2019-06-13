@@ -1,14 +1,14 @@
 package com.alta.mediator.domain.map;
 
 import com.alta.dao.domain.map.internalEntities.MapJumpingEntity;
-import com.alta.engine.model.frameStage.JumpingEngineModel;
+import com.alta.engine.data.frameStage.JumpingEngineModel;
 
 import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Provides the model mapper for jumping point.
+ * Provides the data mapper for jumping point.
  */
 public class JumpingEngineModelMapper {
 

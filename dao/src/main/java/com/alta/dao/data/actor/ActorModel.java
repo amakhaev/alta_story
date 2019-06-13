@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.awt.*;
 
 /**
- * Provides the model that describes actor
+ * Provides the data that describes actor
  */
 @Getter
 @Builder

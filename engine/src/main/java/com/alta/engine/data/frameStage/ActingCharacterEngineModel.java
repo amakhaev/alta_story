@@ -1,4 +1,4 @@
-package com.alta.engine.model.frameStage;
+package com.alta.engine.data.frameStage;
 
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the engine model of acting character
+ * Provides the engine data of acting character
  */
 @Getter
 @Builder

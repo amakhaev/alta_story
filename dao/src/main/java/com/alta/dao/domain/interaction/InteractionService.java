@@ -3,6 +3,7 @@ package com.alta.dao.domain.interaction;
 import com.alta.dao.data.interaction.InteractionDataModel;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the service to make CRUD operations with interactions.
@@ -16,6 +17,16 @@ public interface InteractionService {
      * @return the {@link List} of interactions.
      */
     List<InteractionDataModel> getInteractions(String relatedMapName);
+
+    /**
+     * Gets the list of interactions that available for given parameters.
+     *
+     * @param relatedMapName            - the name of map where interactions are searching.
+     * @param targetUuid                - the uuid of target for interaction.
+     * @param currentChapterIndicator   - the indicator of current chapter.
+     * @return the {@link Map} of found interactions or empty list.
+     */
+    Map<String, InteractionDataModel> getInteractions(String relatedMapName, String targetUuid, int currentChapterIndicator);
 
     /**
      * Gets the interaction by uuid for given map.

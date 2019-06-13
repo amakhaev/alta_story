@@ -5,8 +5,8 @@ import com.alta.dao.domain.actor.ActorService;
 import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
 import com.alta.dao.domain.map.internalEntities.NpcEntity;
 import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import java.awt.*;
 import java.util.stream.Collectors;
 
 /**
- * Provides the service that manipulated model related to {@link com.alta.scene.entities.Actor}
+ * Provides the service that manipulated data related to {@link com.alta.scene.entities.Actor}
  */
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -43,7 +43,7 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     /**
      * Gets the simple npc by given npc entity.
      *
-     * @param npcEntity - the npc entity to create engine model.
+     * @param npcEntity - the npc entity to create engine data.
      * @return the {@link NpcEngineModel}
      */
     @Override
@@ -54,7 +54,7 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     /**
      * Gets the alterable npc by given npc entity.
      *
-     * @param npcEntity - the npc entity to create engine model.
+     * @param npcEntity - the npc entity to create engine data.
      * @return the {@link NpcEngineModel} instance.
      */
     @Override

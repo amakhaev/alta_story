@@ -27,7 +27,7 @@ public interface PreservationCommandFactory {
     /**
      * Creates the save preservation command.
      *
-     * @param model - the character preservation model to be saved.
+     * @param model - the character preservation data to be saved.
      * @return the {@link SavePreservationCommand} instance.
      */
     SavePreservationCommand createSavePreservationCommand(CharacterPreservationModel model);

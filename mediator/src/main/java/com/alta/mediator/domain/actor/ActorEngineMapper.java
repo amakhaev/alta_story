@@ -3,8 +3,8 @@ package com.alta.mediator.domain.actor;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.google.common.base.Strings;
 import com.google.inject.Singleton;
@@ -15,15 +15,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Provides the model mapper for actors
+ * Provides the data mapper for actors
  */
 @Singleton
 class ActorEngineMapper {
 
     /**
-     * Maps the DAO actors model to engine model
+     * Maps the DAO actors data to engine data
      *
-     * @param actorModel - the source actor model
+     * @param actorModel - the source actor data
      * @return the {@link ActingCharacterEngineModel} instance.
      */
     ActingCharacterEngineModel doMappingForActingCharacter(ActorModel actorModel, String skinName) {
@@ -48,9 +48,9 @@ class ActorEngineMapper {
     }
 
     /**
-     * Maps the DAO actors model to engine model
+     * Maps the DAO actors data to engine data
      *
-     * @param actorModel - the source actor model
+     * @param actorModel - the source actor data
      * @return the {@link NpcEngineModel} instance.
      */
     NpcEngineModel doMappingForSimpleNpc(ActorModel actorModel) {

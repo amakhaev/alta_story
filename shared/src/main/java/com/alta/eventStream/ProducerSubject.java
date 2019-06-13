@@ -9,7 +9,7 @@ public interface ProducerSubject<T> {
     /**
      * Handles the event.
      *
-     * @param data - the model that received from event producer
+     * @param data - the data that received from event producer
      */
     void onHandle(T data);
 

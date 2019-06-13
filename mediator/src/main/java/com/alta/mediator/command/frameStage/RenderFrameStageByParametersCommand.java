@@ -20,7 +20,6 @@ import java.util.List;
 public class RenderFrameStageByParametersCommand implements Command {
 
     private final FrameStageDataProvider frameStageDataProvider;
-    private final InteractionDataProvider interactionDataProvider;
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final PreservationService preservationService;
     private final TemporaryDataPreservationService temporaryDataPreservationService;
@@ -34,7 +33,6 @@ public class RenderFrameStageByParametersCommand implements Command {
      */
     @AssistedInject
     public RenderFrameStageByParametersCommand(FrameStageDataProvider frameStageDataProvider,
-                                               InteractionDataProvider interactionDataProvider,
                                                FrameStageCommandFactory frameStageCommandFactory,
                                                PreservationService preservationService,
                                                TemporaryDataPreservationService temporaryDataPreservationService,
@@ -43,7 +41,6 @@ public class RenderFrameStageByParametersCommand implements Command {
                                                @Assisted("skinName") String skinName,
                                                @Assisted Point startPosition) {
         this.frameStageDataProvider = frameStageDataProvider;
-        this.interactionDataProvider = interactionDataProvider;
         this.frameStageCommandFactory = frameStageCommandFactory;
         this.preservationService = preservationService;
         this.temporaryDataPreservationService = temporaryDataPreservationService;
@@ -78,12 +75,7 @@ public class RenderFrameStageByParametersCommand implements Command {
         );
 
         Command command = this.frameStageCommandFactory.createRenderFrameStageCommand(
-                this.frameStageDataProvider.getByParams(this.mapName, this.skinName, this.startPosition),
-                this.interactionDataProvider.getInteractionByRelatedMapName(
-                        this.mapName,
-                        interactionPreservations,
-                        currentPreservation.getChapterIndicator()
-                )
+                this.frameStageDataProvider.getByParams(this.mapName, this.skinName, this.startPosition)
         );
         command.execute();
     }

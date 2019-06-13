@@ -4,10 +4,10 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
-import com.alta.engine.model.FrameStageEngineDataModel;
-import com.alta.engine.model.frameStage.ActingCharacterEngineModel;
-import com.alta.engine.model.frameStage.FacilityEngineModel;
-import com.alta.engine.model.frameStage.NpcEngineModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
+import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
+import com.alta.engine.data.frameStage.FacilityEngineModel;
+import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.view.components.actor.ActorCharacterComponent;
 import com.alta.engine.view.components.facility.FacilityComponent;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
@@ -29,12 +29,12 @@ import java.util.stream.Collectors;
 public class FrameStageComponentProvider {
 
     /**
-     * Creates the FrameStage instance by given model
+     * Creates the FrameStage instance by given data
      *
-     * @param data - the model that full describes the frame stage
+     * @param data - the data that full describes the frame stage
      * @param stageComputator - the computator of frame stage
      * @param asyncTaskManager - the facade of async tasks
-     * @return created {@link FrameStageComponent} instance based of @param model
+     * @return created {@link FrameStageComponent} instance based of @param data
      */
     public FrameStageComponent createFrameStage(FrameStageEngineDataModel data,
                                                 StageComputator stageComputator,
@@ -56,9 +56,9 @@ public class FrameStageComponentProvider {
     }
 
     /**
-     * Creates the facility component from engine model.
+     * Creates the facility component from engine data.
      *
-     * @param facilityModel - the engine model to be used for creating component.
+     * @param facilityModel - the engine data to be used for creating component.
      * @return the created {@link FacilityComponent} instance.
      */
     public FacilityComponent createFacilityComponent(FacilityEngineModel facilityModel) {

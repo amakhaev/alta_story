@@ -3,7 +3,7 @@ package com.alta.interaction.data;
 import lombok.Getter;
 
 /**
- * Provides the model that describes the interaction by hide facility.
+ * Provides the data that describes the interaction by hide facility.
  */
 @Getter
 public class HideFacilityEffectModel extends EffectModel {

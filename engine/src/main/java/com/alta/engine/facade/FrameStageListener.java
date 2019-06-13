@@ -7,8 +7,8 @@ import com.alta.engine.eventProducer.EngineEventType;
 import com.alta.engine.eventProducer.eventPayload.InteractionCompletedEventPayload;
 import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
 import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
-import com.alta.engine.model.FrameStageEngineDataModel;
-import com.alta.engine.model.frameStage.JumpingEngineModel;
+import com.alta.engine.data.FrameStageEngineDataModel;
+import com.alta.engine.data.frameStage.JumpingEngineModel;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
@@ -55,22 +55,6 @@ public class FrameStageListener {
                         actionCharacterMapCoordinates
                 ))
         );
-    }
-
-    /**
-     * Handles the completing of interaction.
-     *
-     * @param interactionUuid   - the uuid of interaction that was completed.
-     */
-    public void handleInteractionCompleteEvent(@NonNull String interactionUuid) {
-        if (interactionUuid.isEmpty()) {
-            throw new IllegalArgumentException("Uuid of interaction is required for complete event.");
-        }
-
-        this.engineEventProducer.publishEvent(new EngineEvent(
-                EngineEventType.INTERACTION_COMPLETED,
-                new InteractionCompletedEventPayload(interactionUuid, this.frameStageFacade.getFrameStageEngineDataModel().getMapName())
-        ));
     }
 
     /**

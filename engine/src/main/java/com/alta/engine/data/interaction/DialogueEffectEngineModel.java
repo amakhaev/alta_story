@@ -1,9 +1,9 @@
-package com.alta.engine.model.interaction;
+package com.alta.engine.data.interaction;
 
 import lombok.Getter;
 
 /**
- * Provides the dialogue model.
+ * Provides the dialogue data.
  */
 @Getter
 public class DialogueEffectEngineModel extends InteractionEffectEngineModel {

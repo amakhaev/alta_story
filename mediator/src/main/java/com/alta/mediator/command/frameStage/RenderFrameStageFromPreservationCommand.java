@@ -20,7 +20,6 @@ import java.util.List;
 public class RenderFrameStageFromPreservationCommand implements Command {
 
     private final FrameStageDataProvider frameStageDataProvider;
-    private final InteractionDataProvider interactionDataProvider;
     private final PreservationService preservationService;
     private final TemporaryDataPreservationService temporaryDataPreservationService;
     private final FrameStageCommandFactory frameStageCommandFactory;
@@ -31,13 +30,11 @@ public class RenderFrameStageFromPreservationCommand implements Command {
      */
     @Inject
     public RenderFrameStageFromPreservationCommand(FrameStageDataProvider frameStageDataProvider,
-                                                   InteractionDataProvider interactionDataProvider,
                                                    PreservationService preservationService,
                                                    TemporaryDataPreservationService temporaryDataPreservationService,
                                                    FrameStageCommandFactory frameStageCommandFactory,
                                                    @Named("currentPreservationId") Long currentPreservationId) {
         this.frameStageDataProvider = frameStageDataProvider;
-        this.interactionDataProvider = interactionDataProvider;
         this.preservationService = preservationService;
         this.temporaryDataPreservationService = temporaryDataPreservationService;
         this.frameStageCommandFactory = frameStageCommandFactory;
@@ -51,8 +48,8 @@ public class RenderFrameStageFromPreservationCommand implements Command {
     public void execute() {
         PreservationModel preservationModel = this.preservationService.getPreservation(this.currentPreservationId);
         if (preservationModel == null || preservationModel.getCharacterPreservation() == null) {
-            log.error("Preservation model with given Id {} not found.", this.currentPreservationId);
-            throw new NullPointerException("Preservation model with given Id not found.");
+            log.error("Preservation data with given Id {} not found.", this.currentPreservationId);
+            throw new NullPointerException("Preservation data with given Id not found.");
         }
 
         // Add saved interactions.
@@ -70,12 +67,7 @@ public class RenderFrameStageFromPreservationCommand implements Command {
         );
 
         Command command = this.frameStageCommandFactory.createRenderFrameStageCommand(
-                this.frameStageDataProvider.getFromPreservation(preservationModel.getCharacterPreservation()),
-                this.interactionDataProvider.getInteractionByRelatedMapName(
-                        preservationModel.getCharacterPreservation().getMapName(),
-                        interactionPreservations,
-                        preservationModel.getChapterIndicator()
-                )
+                this.frameStageDataProvider.getFromPreservation(preservationModel.getCharacterPreservation())
         );
         command.execute();
     }
