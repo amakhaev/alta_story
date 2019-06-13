@@ -2,17 +2,15 @@ package com.alta.engine.facade;
 
 import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
-import com.alta.engine.eventProducer.EngineEvent;
-import com.alta.engine.eventProducer.EngineEventType;
-import com.alta.engine.eventProducer.eventPayload.InteractionCompletedEventPayload;
-import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
-import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
+import com.alta.engine.core.eventProducer.EngineEvent;
+import com.alta.engine.core.eventProducer.EngineEventType;
+import com.alta.engine.core.eventProducer.eventPayload.JumpingEventPayload;
+import com.alta.engine.core.eventProducer.eventPayload.SaveStateEventPayload;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.JumpingEngineModel;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;

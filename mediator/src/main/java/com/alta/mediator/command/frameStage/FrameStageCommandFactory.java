@@ -1,7 +1,6 @@
 package com.alta.mediator.command.frameStage;
 
 import com.alta.engine.data.FrameStageEngineDataModel;
-import com.alta.engine.data.InteractionEngineDataModel;
 import com.google.inject.assistedinject.Assisted;
 
 import java.awt.*;

@@ -6,7 +6,6 @@ import com.alta.dao.data.interaction.effect.HideFacilityEffectDataModel;
 import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
 import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.domain.interaction.InteractionService;
-import com.alta.engine.data.InteractionEngineDataModel;
 import com.alta.interaction.data.InteractionModel;
 import com.alta.mediator.domain.interaction.InteractionConditionService;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;

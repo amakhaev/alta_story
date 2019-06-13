@@ -1,7 +1,6 @@
 package com.alta.mediator.domain.interaction;
 
 import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.engine.data.InteractionEngineDataModel;
 import com.alta.interaction.data.InteractionModel;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public interface InteractionDataProvider {
      * @param targetUuid                - the uuid of target for interaction.
      * @param interactionPreservations  - the current preservation data.
      * @param currentChapterIndicator   - the indicator of current chapter.
-     * @return the {@link InteractionEngineDataModel} instance.
+     * @return the {@link InteractionModel} instance.
      */
     InteractionModel getInteractionByRelatedMapName(String relatedMapName,
                                                     String targetUuid,

@@ -1,10 +1,8 @@
 package com.alta.engine;
 
 import com.alta.engine.configuration.EngineConfiguration;
-import com.alta.engine.facade.FrameStageFacade;
 import com.alta.engine.data.FrameStageEngineDataModel;
-import com.alta.engine.data.InteractionEngineDataModel;
-import com.alta.interaction.interactionOnMap.InteractionOnMapManager;
+import com.alta.engine.facade.FrameStageFacade;
 import com.google.inject.Inject;
 
 /**

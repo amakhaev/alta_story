@@ -1,6 +1,6 @@
 package com.alta.mediator.configuration;
 
-import com.alta.engine.eventProducer.EngineEvent;
+import com.alta.engine.core.eventProducer.EngineEvent;
 import com.alta.eventStream.EventProducer;
 import com.alta.mediator.EngineEventDispatcher;
 import com.google.inject.Inject;

@@ -7,12 +7,7 @@ import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
 import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
-import com.alta.engine.data.InteractionEngineDataModel;
-import com.alta.interaction.data.DialogueEffectModel;
-import com.alta.interaction.data.EffectModel;
-import com.alta.interaction.data.HideFacilityEffectModel;
-import com.alta.interaction.data.ShowFacilityEffectModel;
-import com.alta.interaction.data.InteractionModel;
+import com.alta.interaction.data.*;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;
@@ -39,7 +34,7 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
      * @param targetUuid               - the uuid of target for interaction.
      * @param currentChapterIndicator  - the indicator of current chapter.
      * @param interactionPreservations - the current preservation data.
-     * @return the {@link InteractionEngineDataModel} instance.
+     * @return the {@link InteractionModel} instance.
      */
     @Override
     public InteractionModel getInteractionByRelatedMapName(@NonNull String relatedMapName,

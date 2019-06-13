@@ -1,11 +1,10 @@
 package com.alta.mediator;
 
 import com.alta.engine.Engine;
-import com.alta.engine.eventProducer.EngineEvent;
+import com.alta.engine.core.eventProducer.EngineEvent;
 import com.alta.eventStream.EventProducer;
 import com.alta.interaction.dataSource.InteractionRepository;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
-import com.alta.mediator.command.frameStage.RenderFrameStageCommand;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
 import com.alta.mediator.dataSource.InteractionRepositoryImpl;

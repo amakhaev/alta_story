@@ -1,4 +1,4 @@
-package com.alta.engine.eventProducer.eventPayload;
+package com.alta.engine.core.eventProducer.eventPayload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

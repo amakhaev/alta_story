@@ -1,12 +1,10 @@
 package com.alta.mediator;
 
 import com.alta.dao.data.preservation.CharacterPreservationModel;
-import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
-import com.alta.engine.eventProducer.EngineEvent;
-import com.alta.engine.eventProducer.eventPayload.InteractionCompletedEventPayload;
-import com.alta.engine.eventProducer.eventPayload.JumpingEventPayload;
-import com.alta.engine.eventProducer.eventPayload.SaveStateEventPayload;
+import com.alta.engine.core.eventProducer.EngineEvent;
+import com.alta.engine.core.eventProducer.eventPayload.JumpingEventPayload;
+import com.alta.engine.core.eventProducer.eventPayload.SaveStateEventPayload;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
