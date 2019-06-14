@@ -1,12 +1,12 @@
 package com.alta.mediator;
 
 import com.alta.engine.Engine;
-import com.alta.engine.core.eventProducer.EngineEvent;
-import com.alta.eventStream.EventProducer;
+import com.alta.engine.data.EngineRepository;
 import com.alta.interaction.dataSource.InteractionRepository;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
+import com.alta.mediator.dataSource.EngineRepositoryImpl;
 import com.alta.mediator.dataSource.InteractionRepositoryImpl;
 import com.alta.mediator.di.ThreadPoolProvider;
 import com.alta.mediator.domain.actor.ActorDataProvider;
@@ -19,7 +19,6 @@ import com.alta.mediator.domain.interaction.InteractionPostProcessingService;
 import com.alta.mediator.domain.interaction.InteractionPostProcessingServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.name.Names;
 
@@ -41,11 +40,8 @@ public class MediatorInjectorModule extends AbstractModule {
         bind(InteractionDataProvider.class).to(InteractionDataProviderImpl.class);
         bind(Engine.class).in(Singleton.class);
         bind(InteractionPostProcessingService.class).to(InteractionPostProcessingServiceImpl.class).in(Singleton.class);
+
         bind(InteractionRepository.class).to(InteractionRepositoryImpl.class).in(Singleton.class);
-
-        bind(new TypeLiteral<EventProducer<EngineEvent>>(){})
-                .annotatedWith(Names.named("engineEventProducer"))
-                .toInstance(new EventProducer<>());
-
+        bind(EngineRepository.class).to(EngineRepositoryImpl.class).in(Singleton.class);
     }
 }

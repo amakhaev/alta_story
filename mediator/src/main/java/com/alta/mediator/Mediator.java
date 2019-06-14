@@ -7,7 +7,6 @@ import com.alta.interaction.InteractionInjectorModule;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
-import com.alta.mediator.configuration.MediatorConfiguration;
 import com.alta.scene.SceneInjectorModule;
 import com.alta.utils.ExecutorServiceFactory;
 import com.google.inject.Guice;
@@ -48,8 +47,6 @@ public class Mediator {
         this.preservationCommandFactory = injector.getInstance(PreservationCommandFactory.class);
 
         this.engineMainThread = ExecutorServiceFactory.create(1, ENGINE_THREAD_POOL_NAME);
-
-        injector.getInstance(MediatorConfiguration.class).configure();
     }
 
     /**
