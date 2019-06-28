@@ -1,7 +1,7 @@
 package com.alta.mediator.domain.interaction;
 
+import com.alta.behaviorprocess.shared.data.InteractionModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.interaction.data.InteractionModel;
 
 import java.util.List;
 

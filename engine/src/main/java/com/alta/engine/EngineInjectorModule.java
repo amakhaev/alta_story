@@ -1,5 +1,7 @@
 package com.alta.engine;
 
+import com.alta.behaviorprocess.WorldBehaviorProcessor;
+import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.facade.EffectListenerImpl;
@@ -10,8 +12,6 @@ import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.view.FrameStageView;
 import com.alta.engine.view.ViewFactory;
 import com.alta.eventStream.EventProducer;
-import com.alta.interaction.interactionOnMap.InteractionOnMapManager;
-import com.alta.interaction.scenario.EffectListener;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
@@ -36,7 +36,7 @@ public class EngineInjectorModule extends AbstractModule {
         bind(FrameStageListener.class).in(Singleton.class);
 
         bind(AsyncTaskManager.class).in(Singleton.class);
-        bind(InteractionOnMapManager.class).in(Singleton.class);
+        bind(WorldBehaviorProcessor.class).in(Singleton.class);
 
         bind(new TypeLiteral<EventProducer<ComputatorEvent>>(){})
                 .annotatedWith(Names.named("computatorActionProducer"))

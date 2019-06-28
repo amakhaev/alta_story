@@ -1,8 +1,8 @@
 package com.alta.mediator;
 
+import com.alta.behaviorprocess.behaviorAction.interaction.InteractionRepository;
 import com.alta.engine.Engine;
 import com.alta.engine.data.EngineRepository;
-import com.alta.interaction.dataSource.InteractionRepository;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;

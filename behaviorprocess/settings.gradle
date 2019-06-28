@@ -1,0 +1,4 @@
+rootProject.name = 'behaviorprocess'
+
+include ':shared'
+

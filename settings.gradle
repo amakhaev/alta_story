@@ -1,5 +1,5 @@
-rootProject.name = 'alta'
+rootProject.name = 'com.alta'
 
-include ':mediator', ':scene', ':dao', ':shared', ':computator', ':engine', ':interaction'
+include ':mediator', ':scene', ':dao', ':shared', ':computator', ':engine', ':behaviorprocess'
 project(':shared').projectDir = new File('./shared')
 

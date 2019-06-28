@@ -1,9 +1,9 @@
 package com.alta.engine.facade;
 
+import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
-import com.alta.interaction.scenario.EffectListener;
 import com.alta.scene.messageBox.FaceSetDescriptor;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;

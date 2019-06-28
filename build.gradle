@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'alta'
+group 'com.alta'
 version '1.0'
 
 sourceCompatibility = 1.8

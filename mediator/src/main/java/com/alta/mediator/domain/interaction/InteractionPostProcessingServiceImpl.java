@@ -51,7 +51,7 @@ public class InteractionPostProcessingServiceImpl implements InteractionPostProc
     public void executeInteractionPostProcessing(@NonNull String uuid, @NonNull String mapName) {
         InteractionDataModel interaction = this.interactionService.getInteraction(mapName, uuid);
         if (interaction == null) {
-            log.warn("Interaction for given map '{}' and uuid {} not found", mapName, uuid);
+            log.warn("Effect for given map '{}' and uuid {} not found", mapName, uuid);
             return;
         }
 

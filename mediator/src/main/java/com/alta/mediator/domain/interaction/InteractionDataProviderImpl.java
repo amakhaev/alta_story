@@ -1,5 +1,6 @@
 package com.alta.mediator.domain.interaction;
 
+import com.alta.behaviorprocess.shared.data.*;
 import com.alta.dao.data.interaction.InteractionDataModel;
 import com.alta.dao.data.interaction.effect.DialogueEffectDataModel;
 import com.alta.dao.data.interaction.effect.HideFacilityEffectDataModel;
@@ -7,7 +8,6 @@ import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
 import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
-import com.alta.interaction.data.*;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;

@@ -1,6 +1,6 @@
+import behaviorprocess.BehaviorProcessTestSuite;
 import computator.ComputatorTestSuite;
 import dao.DaoTestSuite;
-import interaction.InteractionTestSuite;
 import mediator.MediatorTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
         MediatorTestSuite.class,
         ComputatorTestSuite.class,
         DaoTestSuite.class,
-        InteractionTestSuite.class
+        BehaviorProcessTestSuite.class
 })
 public class AltaTestSuite {
 }

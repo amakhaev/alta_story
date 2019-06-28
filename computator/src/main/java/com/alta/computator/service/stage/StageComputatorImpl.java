@@ -221,7 +221,7 @@ public class StageComputatorImpl implements StageComputator {
         npcParticipants.forEach(npcParticipant -> {
             this.npcListComputator.add(npcParticipant);
             this.layerComputator.addParticipant(npcParticipant);
-            log.info("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
+            log.debug("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
         });
     }
 

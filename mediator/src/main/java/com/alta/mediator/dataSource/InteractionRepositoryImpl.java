@@ -1,11 +1,11 @@
 package com.alta.mediator.dataSource;
 
+import com.alta.behaviorprocess.behaviorAction.interaction.InteractionRepository;
+import com.alta.behaviorprocess.shared.data.InteractionModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
-import com.alta.interaction.data.InteractionModel;
-import com.alta.interaction.dataSource.InteractionRepository;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
