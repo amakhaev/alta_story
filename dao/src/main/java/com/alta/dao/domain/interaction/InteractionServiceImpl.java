@@ -1,17 +1,18 @@
 package com.alta.dao.domain.interaction;
 
 import com.alta.dao.ResourcesLocation;
+import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.interaction.InteractionDataModel;
+import com.alta.dao.domain.common.effect.EffectDeserializer;
 import com.alta.utils.JsonParser;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Type;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -21,14 +22,16 @@ import java.util.stream.Collectors;
 public class InteractionServiceImpl implements InteractionService {
 
     private final InteractionDeserializer interactionDeserializer;
+    private final EffectDeserializer effectDeserializer;
     private List<InteractionEntity> availableInteractions;
 
     /**
      * Initialize new instance of {@link InteractionServiceImpl}
      */
     @Inject
-    public InteractionServiceImpl(InteractionDeserializer interactionDeserializer) {
+    public InteractionServiceImpl(InteractionDeserializer interactionDeserializer, EffectDeserializer effectDeserializer) {
         this.interactionDeserializer = interactionDeserializer;
+        this.effectDeserializer = effectDeserializer;
         this.loadAvailableInteractions();
     }
 
@@ -52,10 +55,14 @@ public class InteractionServiceImpl implements InteractionService {
             return null;
         }
 
+        Map<Type, JsonDeserializer> deserializers = new HashMap<>();
+        deserializers.put(new TypeToken<ArrayList<InteractionDataModel>>(){}.getType(), this.interactionDeserializer);
+        deserializers.put(new TypeToken<ArrayList<EffectDataModel>>(){}.getType(), this.effectDeserializer);
+
         return JsonParser.parse(
                 this.getClass().getClassLoader().getResource(matchedInteractionEntity.getDecoratorPath()).getPath(),
                 new TypeToken<ArrayList<InteractionDataModel>>(){}.getType(),
-                this.interactionDeserializer
+                deserializers
         );
     }
 

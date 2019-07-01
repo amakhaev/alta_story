@@ -1,6 +1,6 @@
 package com.alta.dao.data.interaction;
 
-import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
+import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.interaction.postProcessing.InteractionPostProcessingModel;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,10 +27,10 @@ public class InteractionDataModel {
     private List<Point> shiftTiles;
 
     @Singular("failedPreConditionEffects")
-    private List<InteractionEffectDataModel> failedPreConditionEffects;
+    private List<EffectDataModel> failedPreConditionEffects;
 
     @Singular("effects")
-    private List<InteractionEffectDataModel> effects;
+    private List<EffectDataModel> effects;
 
     @Singular("postProcessors")
     private List<InteractionPostProcessingModel> postProcessors;

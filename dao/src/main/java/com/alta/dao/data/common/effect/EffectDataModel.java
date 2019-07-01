@@ -1,4 +1,4 @@
-package com.alta.dao.data.interaction.effect;
+package com.alta.dao.data.common.effect;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public class InteractionEffectDataModel {
+public class EffectDataModel {
 
     private final InteractionEffectType type;
 

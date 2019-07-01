@@ -2,10 +2,10 @@ package mediator.domain;
 
 import com.alta.behaviorprocess.shared.data.InteractionModel;
 import com.alta.dao.data.interaction.InteractionDataModel;
-import com.alta.dao.data.interaction.effect.DialogueEffectDataModel;
-import com.alta.dao.data.interaction.effect.HideFacilityEffectDataModel;
-import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
-import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.DialogueEffectDataModel;
+import com.alta.dao.data.common.effect.HideFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.EffectDataModel;
+import com.alta.dao.data.common.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.domain.interaction.InteractionService;
 import com.alta.mediator.domain.interaction.InteractionConditionService;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
@@ -36,7 +36,7 @@ public class EffectDataProviderTest {
         this.interactionService = mock(InteractionService.class);
         this.interactionDataProvider = new InteractionDataProviderImpl(this.interactionService, mock(InteractionConditionService.class));
 
-        InteractionEffectDataModel dialogueEffect = DialogueEffectDataModel.builder()
+        EffectDataModel dialogueEffect = DialogueEffectDataModel.builder()
                 .text("my text")
                 .speakerUuid("dialogEffectId")
                 .speakerEmotion("CALM")

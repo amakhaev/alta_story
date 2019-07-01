@@ -13,6 +13,10 @@ import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.PreservationServiceImpl;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationServiceImpl;
+import com.alta.dao.domain.quest.QuestListService;
+import com.alta.dao.domain.quest.QuestListServiceImpl;
+import com.alta.dao.domain.quest.QuestService;
+import com.alta.dao.domain.quest.QuestServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.j256.ormlite.support.ConnectionSource;
@@ -27,6 +31,8 @@ public class DaoInjectorModule extends AbstractModule {
         bind(FacilityService.class).to(FacilityServiceImpl.class);
         bind(ActorService.class).to(ActorServiceImpl.class);
         bind(InteractionService.class).to(InteractionServiceImpl.class);
+        bind(QuestService.class).to(QuestServiceImpl.class);
+        bind(QuestListService.class).to(QuestListServiceImpl.class);
 
         bind(ConnectionSource.class).toProvider(DatabaseConnectionProvider.class).in(Singleton.class);
     }

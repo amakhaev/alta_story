@@ -1,4 +1,4 @@
-package com.alta.dao.data.interaction.effect;
+package com.alta.dao.data.common.effect;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class HideFacilityEffectDataModel extends InteractionEffectDataModel {
+public class HideFacilityEffectDataModel extends EffectDataModel {
 
     private String facilityUuid;
 

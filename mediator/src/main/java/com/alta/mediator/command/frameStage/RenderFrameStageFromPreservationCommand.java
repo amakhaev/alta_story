@@ -1,12 +1,16 @@
 package com.alta.mediator.command.frameStage;
 
+import com.alta.dao.data.common.effect.DialogueEffectDataModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
+import com.alta.dao.data.quest.QuestListItemModel;
+import com.alta.dao.data.quest.QuestModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.quest.QuestListService;
+import com.alta.dao.domain.quest.QuestService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
-import com.alta.mediator.domain.interaction.InteractionDataProvider;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +28,8 @@ public class RenderFrameStageFromPreservationCommand implements Command {
     private final TemporaryDataPreservationService temporaryDataPreservationService;
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final Long currentPreservationId;
+    private final QuestListService questListService;
+    private final QuestService questService;
 
     /**
      * Initialize ew instance of {@link RenderFrameStageFromPreservationCommand}.
@@ -33,12 +39,16 @@ public class RenderFrameStageFromPreservationCommand implements Command {
                                                    PreservationService preservationService,
                                                    TemporaryDataPreservationService temporaryDataPreservationService,
                                                    FrameStageCommandFactory frameStageCommandFactory,
-                                                   @Named("currentPreservationId") Long currentPreservationId) {
+                                                   @Named("currentPreservationId") Long currentPreservationId,
+                                                   QuestListService questListService,
+                                                   QuestService questService) {
         this.frameStageDataProvider = frameStageDataProvider;
         this.preservationService = preservationService;
         this.temporaryDataPreservationService = temporaryDataPreservationService;
         this.frameStageCommandFactory = frameStageCommandFactory;
         this.currentPreservationId = currentPreservationId;
+        this.questListService = questListService;
+        this.questService = questService;
     }
 
     /**
@@ -46,6 +56,9 @@ public class RenderFrameStageFromPreservationCommand implements Command {
      */
     @Override
     public void execute() {
+        QuestListItemModel questListItemModel = this.questListService.findQuestByName("main");
+        QuestModel questModel = this.questService.getQuest(questListItemModel.getPathToDescriptor());
+
         PreservationModel preservationModel = this.preservationService.getPreservation(this.currentPreservationId);
         if (preservationModel == null || preservationModel.getCharacterPreservation() == null) {
             log.error("Preservation data with given Id {} not found.", this.currentPreservationId);

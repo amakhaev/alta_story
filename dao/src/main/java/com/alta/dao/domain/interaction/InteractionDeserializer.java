@@ -1,14 +1,14 @@
 package com.alta.dao.domain.interaction;
 
+import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.interaction.*;
-import com.alta.dao.data.interaction.effect.*;
-import com.alta.dao.data.interaction.effect.InteractionEffectDataModel;
-import com.alta.dao.data.interaction.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.data.interaction.postProcessing.InteractionPostProcessingModel;
 import com.alta.dao.data.interaction.postProcessing.ProcessingType;
 import com.alta.dao.data.interaction.postProcessing.UpdateFacilityVisibilityPostProcessModel;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
+import org.newdawn.slick.font.effects.Effect;
 
 import java.awt.*;
 import java.lang.reflect.Type;
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Provides custom deserializer of interaction.
+ * Provides custom matcher of interaction.
  */
 @Slf4j
 public class InteractionDeserializer implements JsonDeserializer<List<InteractionDataModel>> {
@@ -33,13 +33,10 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
 
     private static final String EFFECTS_FIELD_NAME = "effects";
     private static final String TYPE_FIELD_NAME = "type";
-    private static final String TEXT_FIELD_NAME = "text";
-    private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
-    private static final String SPEAKER_UUID_FIELD_NAME = "speakerUuid";
-    private static final String SPEAKER_EMOTION_FIELD_NAME = "speakerEmotion";
 
     private static final String PRE_CONDITION_FIELD_NAME = "preCondition";
     private static final String FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME = "failedPreConditionEffects";
+    private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
 
     private static final String POST_PROCESSING_FIELD_NAME = "postProcessing";
     private static final String VALUE_FIELD_NAME = "value";
@@ -67,29 +64,41 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
         jsonInteractions.forEach(jsonInteractionItem -> {
             JsonObject item = jsonInteractionItem.getAsJsonObject();
 
-            InteractionDataModel interactionDataModel = InteractionDataModel.builder()
-                    .uuid(item.get(UUID_FIELD_NAME).getAsString())
-                    .targetUuid(item.get(TARGET_UUID_FIELD_NAME).getAsString())
-                    .chapterIndicatorFrom(item.has(CHAPTER_INDICATOR_FROM_FIELD_NAME) ?
-                            item.get(CHAPTER_INDICATOR_FROM_FIELD_NAME).getAsInt() : null
-                    )
-                    .chapterIndicatorTo(item.has(CHAPTER_INDICATOR_TO_FIELD_NAME) ?
-                            item.get(CHAPTER_INDICATOR_TO_FIELD_NAME).getAsInt() : null
-                    )
-                    .shiftTiles(this.parseShiftTiles(item.getAsJsonArray(SHIFT_TILES_FIELD_NAME)))
-                    .nextInteractionUuid(item.has(NEXT_INTERACTION_UUID_FIELD_NAME) ?
-                            item.get(NEXT_INTERACTION_UUID_FIELD_NAME).getAsString() : null
-                    )
-                    .preCondition(item.has(PRE_CONDITION_FIELD_NAME) ?
-                            this.parsePreCondition(item.get(PRE_CONDITION_FIELD_NAME).getAsJsonObject()) : null
-                    )
-                    .failedPreConditionEffects(
-                            this.parseEffects(item.getAsJsonArray(FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME))
-                    )
-                    .effects(this.parseEffects(item.getAsJsonArray(EFFECTS_FIELD_NAME)))
-                    .postProcessors(this.parsePostProcessing(item.getAsJsonArray(POST_PROCESSING_FIELD_NAME)))
-                    .build();
-            result.add(interactionDataModel);
+            List<EffectDataModel> effects = context.deserialize(
+                    item.getAsJsonArray(EFFECTS_FIELD_NAME), new TypeToken<ArrayList<EffectDataModel>>(){}.getType()
+            );
+
+            List<EffectDataModel> failedConditionEffects = context.deserialize(
+                    item.getAsJsonArray(FAILED_PRE_CONDITION_EFFECTS_FIELD_NAME),
+                    new TypeToken<ArrayList<EffectDataModel>>(){}.getType()
+            );
+
+            try {
+                InteractionDataModel interactionDataModel = InteractionDataModel.builder()
+                        .uuid(item.get(UUID_FIELD_NAME).getAsString())
+                        .targetUuid(item.get(TARGET_UUID_FIELD_NAME).getAsString())
+                        .chapterIndicatorFrom(item.has(CHAPTER_INDICATOR_FROM_FIELD_NAME) ?
+                                item.get(CHAPTER_INDICATOR_FROM_FIELD_NAME).getAsInt() : null
+                        )
+                        .chapterIndicatorTo(item.has(CHAPTER_INDICATOR_TO_FIELD_NAME) ?
+                                item.get(CHAPTER_INDICATOR_TO_FIELD_NAME).getAsInt() : null
+                        )
+                        .shiftTiles(this.parseShiftTiles(item.getAsJsonArray(SHIFT_TILES_FIELD_NAME)))
+                        .nextInteractionUuid(item.has(NEXT_INTERACTION_UUID_FIELD_NAME) ?
+                                item.get(NEXT_INTERACTION_UUID_FIELD_NAME).getAsString() : null
+                        )
+                        .preCondition(item.has(PRE_CONDITION_FIELD_NAME) ?
+                                this.parsePreCondition(item.get(PRE_CONDITION_FIELD_NAME).getAsJsonObject()) : null
+                        )
+                        .failedPreConditionEffects(failedConditionEffects == null ? Collections.emptyList() : failedConditionEffects)
+                        .effects(effects)
+                        .postProcessors(this.parsePostProcessing(item.getAsJsonArray(POST_PROCESSING_FIELD_NAME)))
+                        .build();
+                result.add(interactionDataModel);
+            } catch (Exception e) {
+                String k = null;
+            }
+
         });
 
         return result;
@@ -107,41 +116,6 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                     item.get(X_FIELD_NAME).getAsInt(),
                     item.get(Y_FIELD_NAME).getAsInt()
             ));
-        });
-
-        return result;
-    }
-
-    private List<InteractionEffectDataModel> parseEffects(JsonArray interactionEffects) {
-        if (interactionEffects == null || interactionEffects.size() == 0) {
-            return Collections.emptyList();
-        }
-
-        List<InteractionEffectDataModel> result = new ArrayList<>();
-        interactionEffects.forEach(jsonInteractionEffectItem -> {
-            JsonObject item = jsonInteractionEffectItem.getAsJsonObject();
-
-            InteractionEffectDataModel.InteractionEffectType type =
-                    InteractionEffectDataModel.InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
-
-            InteractionEffectDataModel model = null;
-            switch (type) {
-                case DIALOGUE:
-                    model = this.parseDialogueEffect(item);
-                    break;
-                case HIDE_FACILITY:
-                    model = this.parseHideFacilityEffect(item);
-                    break;
-                case SHOW_FACILITY:
-                    model = this.parseShowFacilityEffect(item);
-                    break;
-                default:
-                    log.error("Unknown type of interaction effect {}", type);
-            }
-
-            if (model != null) {
-                result.add(model);
-            }
         });
 
         return result;
@@ -182,47 +156,6 @@ public class InteractionDeserializer implements JsonDeserializer<List<Interactio
                         jsonObject.get(TYPE_FIELD_NAME).getAsString())
                 )
                 .build();
-    }
-
-    private DialogueEffectDataModel parseDialogueEffect(JsonObject jsonDialogueModel) {
-        try {
-            return DialogueEffectDataModel.builder()
-                    .text(jsonDialogueModel.get(TEXT_FIELD_NAME).getAsString())
-                    .speakerUuid(
-                            jsonDialogueModel.has(SPEAKER_UUID_FIELD_NAME) ?
-                                    jsonDialogueModel.get(SPEAKER_UUID_FIELD_NAME).getAsString() : null
-                    )
-                    .speakerEmotion(
-                            jsonDialogueModel.has(SPEAKER_EMOTION_FIELD_NAME) ?
-                                    jsonDialogueModel.get(SPEAKER_EMOTION_FIELD_NAME).getAsString() : null
-                    )
-                    .build();
-        } catch (Exception e) {
-            log.error("Parsing of DialogueEffectDataModel was failed with error: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    private HideFacilityEffectDataModel parseHideFacilityEffect(JsonObject jsonHideFacilityEffect) {
-        try {
-            HideFacilityEffectDataModel model = new HideFacilityEffectDataModel();
-            model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
-            return model;
-        } catch (Exception e) {
-            log.error("Parsing of HideFacilityEffectDataModel was failed with error: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    private ShowFacilityEffectDataModel parseShowFacilityEffect(JsonObject jsonHideFacilityEffect) {
-        try {
-            ShowFacilityEffectDataModel model = new ShowFacilityEffectDataModel();
-            model.setFacilityUuid(jsonHideFacilityEffect.get(FACILITY_UUID_FIELD_NAME).getAsString());
-            return model;
-        } catch (Exception e) {
-            log.error("Parsing of ShowFacilityEffectDataModel was failed with error: {}", e.getMessage());
-            return null;
-        }
     }
 
     private UpdateFacilityVisibilityPostProcessModel parseUpdateFacilityVisibilityProcessor(JsonObject postProcessor) {

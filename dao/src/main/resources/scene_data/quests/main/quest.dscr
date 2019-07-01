@@ -1,4 +1,5 @@
 {
+	"uuid": "5f2f10df-a0c9-4321-a942-9b561de2fa08",
 	"name": "main",
 	"displayName": "Основной сюжет",
 	"steps": [
@@ -6,24 +7,24 @@
 			"stepNumber": 0,
 			"triggerType": "DIALOG",
 			"triggerMap": "village_yutta",
-			"targetUuid"" "5583d306-254f-4c6f-bf33-a3423b34532e",
+			"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
 			"effects": [
 				{
 					"type": "DIALOGUE",
 					"text": "Я тут размышляла о этих воротах. Сколько им лет и кто построил? Столько загадок в этом мире.",
-					"name": "kira",
+					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				},
 				{
 					"type": "DIALOGUE",
 					"text": "Что останется от нас в будущем? Множество людей ходит по планете, но лишь единицы остаются в памяти.",
-					"name": "kira",
+					"speakerName": "kira",
 					"speakerEmotion": "SADNESS"
 				},
 				{
 					"type": "DIALOGUE",
 					"text": "Что-то я много думаю.. Хей Леон, как дела?",
-					"name": "kira",
+					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				}
 			]		

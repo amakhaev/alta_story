@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the parser of json
@@ -39,7 +41,7 @@ public class JsonParser {
      *
      * @param path - the path to file
      * @param resultType - the type of result class
-     * @param deserializer - the deserializer that will be used to create POJO.
+     * @param deserializer - the matcher that will be used to create POJO.
      * @return parsed class instance
      */
     public <T> T parse(String path, Class<T> resultType, JsonDeserializer<T> deserializer) {
@@ -70,17 +72,17 @@ public class JsonParser {
     }
 
     /**
-     * Parses the file to POJO by given path and custom deserializer.
+     * Parses the file to POJO by given path and custom matcher.
      *
      * @param path - the path to file
      * @param resultType - the type of result class
-     * @param deserializer - the deserializer that will be used to create POJO.
+     * @param deserializers - the matcher that will be used to create POJO.
      * @return parsed class instance
      */
-    public <T> T parse(String path, Type resultType, JsonDeserializer<T> deserializer) {
+    public <T> T parse(String path, Type resultType, Map<Type, JsonDeserializer> deserializers) {
         try (Reader reader = new InputStreamReader(new FileInputStream(path))) {
             GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(resultType, deserializer);
+            deserializers.forEach(gsonBuilder::registerTypeAdapter);
             return gsonBuilder.create().fromJson(reader, resultType);
         } catch (IOException e) {
             log.error(e.getMessage());
