@@ -4,6 +4,7 @@ import com.alta.behaviorprocess.WorldBehaviorProcessor;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
+import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.facade.EffectListenerImpl;
 import com.alta.engine.facade.FrameStageFacade;
 import com.alta.engine.facade.FrameStageListener;
@@ -36,6 +37,7 @@ public class EngineInjectorModule extends AbstractModule {
         bind(FrameStageListener.class).in(Singleton.class);
 
         bind(AsyncTaskManager.class).in(Singleton.class);
+        bind(EngineStorage.class).in(Singleton.class);
         bind(WorldBehaviorProcessor.class).in(Singleton.class);
 
         bind(new TypeLiteral<EventProducer<ComputatorEvent>>(){})

@@ -7,6 +7,7 @@ import com.alta.computator.service.movement.directionCalculation.MovementDirecti
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
+import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
 import com.alta.engine.data.frameStage.NpcEngineModel;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
 public class FrameStageView {
 
     private final StageComputatorImpl stageComputatorImpl;
-    private final FrameStageEngineDataModel frameStageEngineDataModel;
+    private final EngineStorage engineStorage;
 
     @Getter
     private final FrameStageComponent frameStage;
@@ -42,20 +43,22 @@ public class FrameStageView {
      * Initialize new instance of {@link FrameStageView}
      */
     @AssistedInject
-    public FrameStageView(@Assisted FrameStageEngineDataModel data,
-                          AsyncTaskManager asyncTaskManager,
-                          @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer) {
+    public FrameStageView(AsyncTaskManager asyncTaskManager,
+                          @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer,
+                          EngineStorage engineStorage) {
+        this.engineStorage = engineStorage;
         try {
-            this.frameStageEngineDataModel = data;
             this.stageComputatorImpl = ComputatorFrameStageProvider.createStageComputator(
-                    data.getFocusPointMapStartPosition(),
-                    data.getActingCharacter(),
-                    data.getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList()),
-                    data.getNpcList(),
+                    this.engineStorage.getFrameStageData().getFocusPointMapStartPosition(),
+                    this.engineStorage.getFrameStageData().getActingCharacter(),
+                    this.engineStorage.getFrameStageData().getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList()),
+                    this.engineStorage.getFrameStageData().getNpcList(),
                     computatorEventProducer
             );
 
-            this.frameStage = FrameStageComponentProvider.createFrameStage(data, this.stageComputatorImpl, asyncTaskManager);
+            this.frameStage = FrameStageComponentProvider.createFrameStage(
+                    this.engineStorage.getFrameStageData(), this.stageComputatorImpl, asyncTaskManager
+            );
         } catch (Exception e) {
             throw new EngineException(e);
         }
@@ -75,7 +78,7 @@ public class FrameStageView {
      */
     public Point getActingCharacterMapCoordinate() {
         return this.stageComputatorImpl.getActorParticipant(
-                this.frameStageEngineDataModel.getActingCharacter().getUuid()
+                this.engineStorage.getFrameStageData().getActingCharacter().getUuid()
         ).getCurrentMapCoordinates();
     }
 
@@ -111,7 +114,7 @@ public class FrameStageView {
 
         ActorParticipant npcCharacter = this.stageComputatorImpl.getActorParticipant(uuid);
         ActorParticipant actingCharacter = this.stageComputatorImpl.getActorParticipant(
-                this.frameStageEngineDataModel.getActingCharacter().getUuid()
+                this.engineStorage.getFrameStageData().getActingCharacter().getUuid()
         );
 
         if (actingCharacter == null || npcCharacter == null) {
@@ -145,17 +148,10 @@ public class FrameStageView {
      * @return found {@link NpcEngineModel} or null.
      */
     public NpcEngineModel findNpcByUuid(@NonNull String uuid) {
-        return this.frameStageEngineDataModel.getNpcList().stream()
+        return this.engineStorage.getFrameStageData().getNpcList().stream()
                 .filter(npc -> npc.getUuid().equals(uuid))
                 .findFirst()
                 .orElse(null);
-    }
-
-    /**
-     * Gets the name of current map.
-     */
-    public String getCurrentMapName() {
-        return this.frameStageEngineDataModel.getMapName();
     }
 
     /**
@@ -164,7 +160,7 @@ public class FrameStageView {
      * @param facilityUuid - the uuid of facility to be added.
      */
     public void addFacility(@NonNull String facilityUuid) {
-        FacilityEngineModel facilityEngineModel = this.frameStageEngineDataModel.getFacilities().stream()
+        FacilityEngineModel facilityEngineModel = this.engineStorage.getFrameStageData().getFacilities().stream()
                 .filter(facility -> facility.getUuid().equals(facilityUuid))
                 .findFirst()
                 .orElse(null);

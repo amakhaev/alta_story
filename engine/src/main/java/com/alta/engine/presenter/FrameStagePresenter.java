@@ -2,7 +2,6 @@ package com.alta.engine.presenter;
 
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
@@ -37,8 +36,8 @@ public class FrameStagePresenter {
     /**
      * Loads scene state from preservation
      */
-    public void tryToRenderFrameStageView(FrameStageEngineDataModel data) {
-        this.currentView = this.viewFactory.createFrameStageView(data);
+    public void tryToRenderFrameStageView() {
+        this.currentView = this.viewFactory.createFrameStageView();
         this.sceneProxy.renderFrameStage(this.currentView.getFrameStage());
     }
 
@@ -84,13 +83,6 @@ public class FrameStagePresenter {
      */
     public NpcEngineModel findNpcByUuid(String uuid) {
         return this.currentView == null ? null : this.currentView.findNpcByUuid(uuid);
-    }
-
-    /**
-     * Gets the name of current map.
-     */
-    public String getCurrentMapName() {
-        return this.currentView == null ? null : this.currentView.getCurrentMapName();
     }
 
     /**

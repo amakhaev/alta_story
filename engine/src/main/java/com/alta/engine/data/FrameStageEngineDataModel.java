@@ -39,15 +39,15 @@ public class FrameStageEngineDataModel {
     private final Point focusPointMapStartPosition;
 
     /**
+     * The data that describes the acting character on stage
+     */
+    private ActingCharacterEngineModel actingCharacter;
+
+    /**
      * The available facilities on {@link org.newdawn.slick.tiled.TiledMap}
      */
     @Singular
     private List<FacilityEngineModel> facilities;
-
-    /**
-     * The data that describes the acting character on stage
-     */
-    private ActingCharacterEngineModel actingCharacter;
 
     /**
      * The available non player characters.

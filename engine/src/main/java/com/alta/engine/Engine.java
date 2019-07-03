@@ -1,6 +1,7 @@
 package com.alta.engine;
 
 import com.alta.engine.configuration.EngineConfiguration;
+import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.facade.FrameStageFacade;
 import com.google.inject.Inject;
@@ -11,13 +12,17 @@ import com.google.inject.Inject;
 public class Engine {
 
     private final FrameStageFacade frameStageFacade;
+    private final EngineStorage engineStorage;
 
     /**
      * Initialize new instance of {@link Engine}
      */
     @Inject
-    public Engine(FrameStageFacade frameStageFacade, EngineConfiguration engineConfiguration) {
+    public Engine(FrameStageFacade frameStageFacade,
+                  EngineConfiguration engineConfiguration,
+                  EngineStorage engineStorage) {
         this.frameStageFacade = frameStageFacade;
+        this.engineStorage = engineStorage;
         engineConfiguration.configure();
     }
 
@@ -25,7 +30,8 @@ public class Engine {
      * Loads scene state from preservation
      */
     public void tryToRenderFrameStage(FrameStageEngineDataModel data) {
-        this.frameStageFacade.tryToRenderFrameStageView(data);
+        this.engineStorage.put(data);
+        this.frameStageFacade.tryToRenderFrameStageView();
     }
 
     /**

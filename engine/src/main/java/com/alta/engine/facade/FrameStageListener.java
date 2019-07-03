@@ -2,6 +2,7 @@ package com.alta.engine.facade;
 
 import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
+import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.data.EngineRepository;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.JumpingEngineModel;
@@ -21,12 +22,13 @@ public class FrameStageListener {
 
     private final EngineRepository engineRepository;
     private final FrameStageFacade frameStageFacade;
+    private final EngineStorage engineStorage;
 
     /**
      * Handles the save event from frame stage.
      */
     public void handleSaveEvent() {
-        FrameStageEngineDataModel frameStageEngineDataModel = this.frameStageFacade.getFrameStageEngineDataModel();
+        FrameStageEngineDataModel frameStageEngineDataModel = this.engineStorage.getFrameStageData();
         Point actionCharacterMapCoordinates = this.frameStageFacade.getActingCharacterMapCoordinate();
 
         if (frameStageEngineDataModel == null || actionCharacterMapCoordinates == null) {
@@ -73,7 +75,6 @@ public class FrameStageListener {
                 break;
             default:
                 log.error("Unknown type of computator event {}", event.getComputatorEventType());
-                return;
         }
     }
 
