@@ -2,7 +2,6 @@ package com.alta.engine.facade;
 
 import com.alta.behaviorprocess.WorldBehaviorProcessor;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
-import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,6 @@ public class InteractionFacade {
 
     private final FrameStagePresenter frameStagePresenter;
     private final WorldBehaviorProcessor worldBehaviorProcessor;
-    private final EngineStorage engineStorage;
 
     /**
      * Triggers the interaction between acting character and another participant.
@@ -35,7 +33,6 @@ public class InteractionFacade {
         }
 
         this.worldBehaviorProcessor.runProcessing(
-                this.engineStorage.getFrameStageData().getMapName(),
                 targetedParticipant.getUuid(),
                 targetedParticipant.getRelatedMapCoordinates()
         );

@@ -14,7 +14,6 @@ import java.awt.*;
 @RequiredArgsConstructor
 public class InteractionScenarioData {
 
-    private final String mapName;
     private final String targetUuid;
     private Point shiftTileMapCoordinate;
 

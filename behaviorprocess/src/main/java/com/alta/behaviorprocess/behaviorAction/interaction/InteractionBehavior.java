@@ -1,6 +1,7 @@
 package com.alta.behaviorprocess.behaviorAction.interaction;
 
 import com.alta.behaviorprocess.behaviorAction.Behavior;
+import com.alta.behaviorprocess.core.DataStorage;
 import com.alta.behaviorprocess.shared.data.EffectModel;
 import com.alta.behaviorprocess.shared.data.InteractionModel;
 import com.alta.behaviorprocess.shared.scenario.InteractionScenario;
@@ -26,6 +27,7 @@ public class InteractionBehavior implements Behavior<InteractionScenarioData> {
     private final InteractionRepository interactionRepository;
     private final ScenarioFactory scenarioFactory;
     private final EffectListener effectListener;
+    private final DataStorage dataStorage;
 
     /**
      * Gets the scenario by given params.
@@ -35,15 +37,13 @@ public class InteractionBehavior implements Behavior<InteractionScenarioData> {
      */
     @Override
     public synchronized Scenario getScenario(@NonNull InteractionScenarioData scenarioParams) {
-        if (Strings.isNullOrEmpty(scenarioParams.getMapName()) || Strings.isNullOrEmpty(scenarioParams.getTargetUuid())) {
+        if (Strings.isNullOrEmpty(this.dataStorage.getCurrentMap()) || Strings.isNullOrEmpty(scenarioParams.getTargetUuid())) {
             throw new RuntimeException("Can't create the scenario since map name and/or targetUuid is null");
         }
 
         InteractionModel interactionModel = scenarioParams.getShiftTileMapCoordinate() == null ?
-                this.findInteractionForNpc(scenarioParams.getMapName(), scenarioParams.getTargetUuid()) :
-                this.findInteractionForFacility(
-                        scenarioParams.getMapName(), scenarioParams.getTargetUuid(), scenarioParams.getShiftTileMapCoordinate()
-                );
+                this.findInteractionForNpc(scenarioParams.getTargetUuid()) :
+                this.findInteractionForFacility(scenarioParams.getTargetUuid(), scenarioParams.getShiftTileMapCoordinate());
 
         if (interactionModel == null) {
             return null;
@@ -60,15 +60,15 @@ public class InteractionBehavior implements Behavior<InteractionScenarioData> {
                 effects
         );
         scenario.subscribeToResult(
-                () -> this.onScenarioCompleted(interactionModel.getUuid(), scenarioParams.getMapName()),
-                () -> this.onScenarioFailed(interactionModel.getUuid(), scenarioParams.getMapName())
+                () -> this.onScenarioCompleted(interactionModel),
+                () -> this.onScenarioFailed(interactionModel.getUuid())
         );
 
         return scenario;
     }
 
-    private InteractionModel findInteractionForNpc(@NonNull String mapName, @NonNull String targetUuid) {
-        InteractionModel interaction = this.interactionRepository.findInteraction(mapName, targetUuid);
+    private InteractionModel findInteractionForNpc(@NonNull String targetUuid) {
+        InteractionModel interaction = this.findInteractionByTargetUuid(targetUuid);
 
         if (interaction == null) {
             return null;
@@ -78,10 +78,8 @@ public class InteractionBehavior implements Behavior<InteractionScenarioData> {
         return incompletedInteraction == null ? interaction.findLastInteraction() : incompletedInteraction;
     }
 
-    private InteractionModel findInteractionForFacility(@NonNull String mapName,
-                                                        @NonNull String targetUuid,
-                                                        @NonNull Point shiftTileMapCoordinate) {
-        InteractionModel interaction = this.interactionRepository.findInteraction(mapName, targetUuid);
+    private InteractionModel findInteractionForFacility(@NonNull String targetUuid, @NonNull Point shiftTileMapCoordinate) {
+        InteractionModel interaction = this.findInteractionByTargetUuid(targetUuid);
 
         if (interaction == null) {
             return null;
@@ -104,12 +102,25 @@ public class InteractionBehavior implements Behavior<InteractionScenarioData> {
         return incompletedInteraction == null ? interaction.findLastInteraction() : incompletedInteraction;
     }
 
-    private void onScenarioCompleted(String interactionUuid, String mapName) {
-        this.interactionRepository.completeInteraction(interactionUuid, mapName);
-        log.debug("Interaction {} on map {} was completed.", interactionUuid, mapName);
+    private InteractionModel findInteractionByTargetUuid(String targetUuid) {
+        List<InteractionModel> interactionModels = this.dataStorage.getInteractions();
+        if (interactionModels == null) {
+            return null;
+        }
+
+        return interactionModels.stream()
+                .filter(i -> i.getTargetUuid().equals(targetUuid))
+                .findFirst()
+                .orElse(null);
     }
 
-    private void onScenarioFailed(String interactionUuid, String mapName) {
-        log.debug("Interaction {} on map {} was failed.", interactionUuid, mapName);
+    private void onScenarioCompleted(InteractionModel interactionModel) {
+        this.interactionRepository.completeInteraction(interactionModel.getUuid(), this.dataStorage.getCurrentMap());
+        interactionModel.setCompleted(true);
+        log.debug("Interaction {} on map {} was completed.", interactionModel.getUuid(), this.dataStorage.getCurrentMap());
+    }
+
+    private void onScenarioFailed(String interactionUuid) {
+        log.debug("Interaction {} on map {} was failed.", interactionUuid, this.dataStorage.getCurrentMap());
     }
 }

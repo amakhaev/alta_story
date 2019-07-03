@@ -1,5 +1,6 @@
 package com.alta.engine;
 
+import com.alta.behaviorprocess.sync.DataSynchronizer;
 import com.alta.engine.configuration.EngineConfiguration;
 import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.data.FrameStageEngineDataModel;
@@ -13,6 +14,7 @@ public class Engine {
 
     private final FrameStageFacade frameStageFacade;
     private final EngineStorage engineStorage;
+    private final DataSynchronizer dataSynchronizer;
 
     /**
      * Initialize new instance of {@link Engine}
@@ -20,9 +22,11 @@ public class Engine {
     @Inject
     public Engine(FrameStageFacade frameStageFacade,
                   EngineConfiguration engineConfiguration,
-                  EngineStorage engineStorage) {
+                  EngineStorage engineStorage,
+                  DataSynchronizer dataSynchronizer) {
         this.frameStageFacade = frameStageFacade;
         this.engineStorage = engineStorage;
+        this.dataSynchronizer = dataSynchronizer;
         engineConfiguration.configure();
     }
 
@@ -31,6 +35,7 @@ public class Engine {
      */
     public void tryToRenderFrameStage(FrameStageEngineDataModel data) {
         this.engineStorage.put(data);
+        this.dataSynchronizer.synchronize(data.getMapName());
         this.frameStageFacade.tryToRenderFrameStageView();
     }
 

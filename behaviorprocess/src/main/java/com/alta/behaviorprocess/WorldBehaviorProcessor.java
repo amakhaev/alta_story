@@ -54,17 +54,16 @@ public class WorldBehaviorProcessor {
      * 3. Try to get scenario for interaction.
      *
      * @param targetUuid                - the uuid of target.
-     * @param mapName                   - the name of map where event happens.
      * @param shiftTileMapCoordinate    - the coordinate of target tile.
      */
-    public synchronized void runProcessing(String targetUuid, String mapName, Point shiftTileMapCoordinate) {
+    public synchronized void runProcessing(String targetUuid, Point shiftTileMapCoordinate) {
         if (this.isProcessRunning()) {
-            log.warn("One of scenarios already running. Attempt ignored to run process for target {} and map {}", targetUuid, mapName);
+            log.warn("One of scenarios already running. Attempt ignored to run process for target {}", targetUuid);
             return;
         }
 
         this.currentScenario = this.interactionBehavior.getScenario(
-                new InteractionScenarioData(targetUuid, mapName, shiftTileMapCoordinate)
+                new InteractionScenarioData(targetUuid, shiftTileMapCoordinate)
         );
 
         if (this.currentScenario != null) {

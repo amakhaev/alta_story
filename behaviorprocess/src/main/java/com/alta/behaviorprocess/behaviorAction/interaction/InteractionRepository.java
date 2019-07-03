@@ -2,19 +2,20 @@ package com.alta.behaviorprocess.behaviorAction.interaction;
 
 import com.alta.behaviorprocess.shared.data.InteractionModel;
 
+import java.util.List;
+
 /**
  * Provides the repository to make CRUD with interactions.
  */
 public interface InteractionRepository {
 
     /**
-     * Finds the interaction for target participant on map.
+     * Finds the interactions for target map.
      *
      * @param mapName       - the name of map where interaction available.
-     * @param targetUuid    - the uuid of target for which interaction needed.
-     * @return found {@link InteractionModel} instance or null.
+     * @return found {@link List<InteractionModel>} instance.
      */
-    InteractionModel findInteraction(String mapName, String targetUuid);
+    List<InteractionModel> findInteractions(String mapName);
 
     /**
      * Completes the interaction.

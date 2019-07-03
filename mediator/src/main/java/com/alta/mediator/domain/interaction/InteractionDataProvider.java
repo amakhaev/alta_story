@@ -24,4 +24,16 @@ public interface InteractionDataProvider {
                                                     int currentChapterIndicator,
                                                     List<InteractionPreservationModel> interactionPreservations);
 
+    /**
+     * Gets the interactions by given related map name.
+     *
+     * @param relatedMapName            - the name of map where interaction should be happens.
+     * @param interactionPreservations  - the current preservation data.
+     * @param currentChapterIndicator   - the indicator of current chapter.
+     * @return the {@link List<InteractionModel>} instance.
+     */
+    List<InteractionModel> getInteractionsByRelatedMapName(String relatedMapName,
+                                                           int currentChapterIndicator,
+                                                           List<InteractionPreservationModel> interactionPreservations);
+
 }

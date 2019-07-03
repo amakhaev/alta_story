@@ -63,6 +63,39 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
         return interactionEngineModels.isEmpty() ? null : interactionEngineModels.get(0);
     }
 
+    /**
+     * Gets the interactions by given related map name.
+     *
+     * @param relatedMapName           - the name of map where interaction should be happens.
+     * @param currentChapterIndicator  - the indicator of current chapter.
+     * @param interactionPreservations - the current preservation data.
+     * @return the {@link List<InteractionModel>} instance.
+     */
+    @Override
+    public List<InteractionModel> getInteractionsByRelatedMapName(String relatedMapName,
+                                                                  int currentChapterIndicator,
+                                                                  List<InteractionPreservationModel> interactionPreservations) {
+        List<InteractionDataModel> interactions = this.interactionService.getInteractions(
+                relatedMapName
+        );
+
+        if (interactions == null || interactions.size() == 0) {
+            log.debug("Interactions for given map '{}' not found", relatedMapName);
+            return Collections.emptyList();
+        }
+
+        Map<String, InteractionDataModel> interactionsAsMap = interactions.stream()
+                .filter(interaction -> interaction.getChapterIndicatorFrom() != null)
+                .filter(interaction -> interaction.getChapterIndicatorTo() != null)
+                .filter(interaction -> interaction.getChapterIndicatorFrom() <= currentChapterIndicator)
+                .filter(interaction -> interaction.getChapterIndicatorTo() >= currentChapterIndicator)
+                .collect(Collectors.toMap(InteractionDataModel::getUuid, i -> i));
+
+        log.debug("{} interactions found for '{}' map", interactions.size(), relatedMapName);
+
+        return this.createInteractions(relatedMapName, interactionsAsMap, interactionPreservations);
+    }
+
     private List<InteractionModel> createInteractions(String relatedMapName,
                                                       Map<String, InteractionDataModel> rawData,
                                                       List<InteractionPreservationModel> interactionPreservations) {
@@ -72,19 +105,25 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                 .map(es -> this.createInteraction(relatedMapName, es.getValue(), interactionPreservations))
                 .collect(Collectors.toMap(InteractionModel::getUuid, interaction -> interaction));
 
-        List<InteractionModel> resultList = new ArrayList<>();
         interactionUuids.forEach(interactionUuid -> {
             if (!Strings.isNullOrEmpty(rawData.get(interactionUuid).getNextInteractionUuid())) {
                 interactionModels.get(interactionUuid).setNext(
                         interactionModels.get(rawData.get(interactionUuid).getNextInteractionUuid())
                 );
-                resultList.add(interactionModels.get(interactionUuid));
-                interactionModels.remove(interactionUuid);
-
+                // resultList.add(interactionModels.get(interactionUuid));
+                // interactionModels.remove(interactionUuid);
             }
         });
 
-        interactionModels.forEach((key, value) -> resultList.add(value));
+        List<InteractionModel> resultList = new ArrayList<>();
+        interactionModels.forEach((key, value) -> {
+            boolean exists = interactionModels.values().stream()
+                    .anyMatch(i -> i.getNext() != null && i.getNext().getUuid().equals(key));
+
+            if (!exists) {
+                resultList.add(value);
+            }
+        });
 
         return resultList.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
@@ -107,47 +146,6 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
                 .shiftTiles(rawData.getShiftTiles())
                 .isCompleted(interactionPreservationModel != null)
                 .preCondition(this.conditionService.build(rawData.getPreCondition()))
-                .mapName(relatedMapName)
-                .build();
-    }
-
-    private InteractionModel createInteractionModelWithChildren(String relatedMapName,
-                                                                String rawDataUuid,
-                                                                Map<String, InteractionDataModel> rawData,
-                                                                List<InteractionPreservationModel> interactionPreservations) {
-        if (rawData.isEmpty() || !rawData.containsKey(rawDataUuid)) {
-            return null;
-        }
-
-        InteractionDataModel rawDataModel = rawData.get(rawDataUuid);
-        rawData.remove(rawDataUuid);
-
-        InteractionModel childInteraction = null;
-        if (!Strings.isNullOrEmpty(rawDataModel.getNextInteractionUuid())) {
-            InteractionDataModel child = rawData.get(rawDataModel.getNextInteractionUuid());
-
-            if (child != null) {
-                childInteraction = this.createInteractionModelWithChildren(
-                        relatedMapName, child.getUuid(), rawData, interactionPreservations
-                );
-            }
-        }
-
-        InteractionPreservationModel interactionPreservationModel = interactionPreservations
-                .stream()
-                .filter(interaction -> interaction.getUuid().equals(rawDataModel.getUuid()))
-                .findFirst()
-                .orElse(null);
-
-        return InteractionModel.builder()
-                .uuid(rawDataModel.getUuid())
-                .targetUuid(rawDataModel.getTargetUuid())
-                .interactionEffects(this.createEffects(rawDataModel.getEffects()))
-                .failedPreConditionInteractionEffects(this.createEffects(rawDataModel.getFailedPreConditionEffects()))
-                .shiftTiles(rawDataModel.getShiftTiles())
-                .isCompleted(interactionPreservationModel != null)
-                .preCondition(this.conditionService.build(rawDataModel.getPreCondition()))
-                .next(childInteraction)
                 .mapName(relatedMapName)
                 .build();
     }

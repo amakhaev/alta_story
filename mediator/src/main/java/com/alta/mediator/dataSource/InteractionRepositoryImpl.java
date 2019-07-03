@@ -54,14 +54,13 @@ public class InteractionRepositoryImpl implements InteractionRepository {
     }
 
     /**
-     * Finds the interaction for target participant on map.
+     * Finds the interactions for target map.
      *
-     * @param mapName    - the name of map where interaction available.
-     * @param targetUuid - the uuid of target for which interaction needed.
-     * @return found {@link InteractionModel} instance or null.
+     * @param mapName - the name of map where interaction available.
+     * @return found {@link List<InteractionModel>} instance.
      */
     @Override
-    public InteractionModel findInteraction(@NonNull String mapName, @NonNull String targetUuid) {
+    public List<InteractionModel> findInteractions(String mapName) {
         PreservationModel preservationModel = this.preservationService.getPreservation(this.currentPreservationId);
         if (preservationModel == null || preservationModel.getCharacterPreservation() == null) {
             log.error("Preservation data with given Id {} not found.", this.currentPreservationId);
@@ -82,8 +81,8 @@ public class InteractionRepositoryImpl implements InteractionRepository {
                 )
         );
 
-        return this.interactionDataProvider.getInteractionByRelatedMapName(
-                mapName, targetUuid, preservationModel.getChapterIndicator(), interactionPreservations
+        return this.interactionDataProvider.getInteractionsByRelatedMapName(
+                mapName, preservationModel.getChapterIndicator(), interactionPreservations
         );
     }
 
