@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.awt.*;
 
 /**
- * Provides the engine data to work with jumping
+ * Provides the engine model to work with jumping
  */
 @Builder
 @Getter

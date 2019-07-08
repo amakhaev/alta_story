@@ -3,10 +3,9 @@ package com.alta.mediator.command.frameStage;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
-import com.alta.mediator.domain.interaction.InteractionDataProvider;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
@@ -22,7 +21,7 @@ public class RenderFrameStageByParametersCommand implements Command {
     private final FrameStageDataProvider frameStageDataProvider;
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final PreservationService preservationService;
-    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final InteractionPreservationService interactionPreservationService;
     private final Long currentPreservationId;
     private final String mapName;
     private final String skinName;
@@ -35,7 +34,7 @@ public class RenderFrameStageByParametersCommand implements Command {
     public RenderFrameStageByParametersCommand(FrameStageDataProvider frameStageDataProvider,
                                                FrameStageCommandFactory frameStageCommandFactory,
                                                PreservationService preservationService,
-                                               TemporaryDataPreservationService temporaryDataPreservationService,
+                                               InteractionPreservationService interactionPreservationService,
                                                @Named("currentPreservationId") Long currentPreservationId,
                                                @Assisted("mapName") String mapName,
                                                @Assisted("skinName") String skinName,
@@ -43,7 +42,7 @@ public class RenderFrameStageByParametersCommand implements Command {
         this.frameStageDataProvider = frameStageDataProvider;
         this.frameStageCommandFactory = frameStageCommandFactory;
         this.preservationService = preservationService;
-        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.interactionPreservationService = interactionPreservationService;
         this.currentPreservationId = currentPreservationId;
         this.mapName = mapName;
         this.skinName = skinName;
@@ -61,14 +60,14 @@ public class RenderFrameStageByParametersCommand implements Command {
         }
 
         // Add saved interactions.
-        List<InteractionPreservationModel> interactionPreservations = this.preservationService.getInteractionsPreservation(
+        List<InteractionPreservationModel> interactionPreservations = this.interactionPreservationService.getInteractionsPreservation(
                 this.currentPreservationId,
                 this.mapName
         );
 
         // Add temporary saved interactions.
         interactionPreservations.addAll(
-                this.temporaryDataPreservationService.getTemporaryInteractionsPreservation(
+                this.interactionPreservationService.getTemporaryInteractionsPreservation(
                         this.currentPreservationId,
                         this.mapName
                 )

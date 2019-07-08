@@ -3,8 +3,10 @@ package com.alta.dao.domain.quest;
 import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.quest.QuestModel;
 import com.alta.dao.data.quest.QuestStepModel;
+import com.alta.dao.domain.quest.matcher.QuestMatcher;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import lombok.Setter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -16,16 +18,22 @@ import java.util.List;
  */
 public class QuestDeserializer implements JsonDeserializer<QuestModel> {
 
-    private static final String UUID_FIELD_NAME = "uuid";
-    private static final String NAME_FIELD_NAME = "name";
-    private static final String DISPLAY_NAME_FIELD_NAME = "displayName";
+    public static final String NAME_FIELD_NAME = "name";
+    public static final String DISPLAY_NAME_FIELD_NAME = "displayName";
 
-    private static final String STEPS_FIELD_NAME = "steps";
-    private static final String STEP_NUMBER_FIELD_NAME = "stepNumber";
-    private static final String TRIGGER_TYPE_FIELD_NAME = "triggerType";
-    private static final String TRIGGER_MAP_FIELD_NAME = "triggerMap";
-    private static final String TARGET_UUID_FIELD_NAME = "targetUuid";
-    private static final String EFFECTS_FIELD_NAME = "effects";
+    public static final String STEPS_FIELD_NAME = "steps";
+    public static final String STEP_NUMBER_FIELD_NAME = "stepNumber";
+    public static final String TRIGGER_TYPE_FIELD_NAME = "triggerType";
+    public static final String TRIGGER_MAP_FIELD_NAME = "triggerMap";
+    public static final String TARGET_UUID_FIELD_NAME = "targetUuid";
+
+    public static final String EFFECTS_FIELD_NAME = "effects";
+
+    public static final String CHAPTER_INDICATOR_FROM_FIELD_NAME = "chapterIndicatorFrom";
+    public static final String CHAPTER_INDICATOR_TO_FIELD_NAME = "chapterIndicatorTo";
+
+    @Setter
+    private List<QuestMatcher> stepMatchers;
 
     /**
      * Gson invokes this call-back method during deserialization when it encounters a field of the
@@ -36,7 +44,7 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
      * the same type passing {@code json} since that will cause an infinite loop (Gson will call your
      * call-back method again).
      *
-     * @param json    The Json data being deserialized
+     * @param json    The Json model being deserialized
      * @param typeOfT The type of the Object to deserialize to
      * @param context
      * @return a deserialized object of the specified type typeOfT which is a subclass of {@code T}
@@ -47,7 +55,6 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
         JsonObject jsonQuestItem = json.getAsJsonObject();
 
         return QuestModel.builder()
-                .uuid(jsonQuestItem.get(UUID_FIELD_NAME).getAsString())
                 .name(jsonQuestItem.get(NAME_FIELD_NAME).getAsString())
                 .displayName(jsonQuestItem.get(DISPLAY_NAME_FIELD_NAME).getAsString())
                 .steps(this.parseSteps(jsonQuestItem.getAsJsonArray(STEPS_FIELD_NAME), context))
@@ -63,6 +70,10 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
         stepsJsonArray.forEach(stepJsonItem -> {
             JsonObject item = stepJsonItem.getAsJsonObject();
 
+            if (!this.isNeedToParseStep(item)) {
+                return;
+            }
+
             List<EffectDataModel> effects = context.deserialize(
                     item.getAsJsonArray(EFFECTS_FIELD_NAME), new TypeToken<ArrayList<EffectDataModel>>(){}.getType()
             );
@@ -73,11 +84,21 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
                             .triggerType(item.get(TRIGGER_TYPE_FIELD_NAME).getAsString())
                             .triggerMap(item.get(TRIGGER_MAP_FIELD_NAME).getAsString())
                             .targetUuid(item.get(TARGET_UUID_FIELD_NAME).getAsString())
+                            .chapterIndicatorFrom(item.get(CHAPTER_INDICATOR_FROM_FIELD_NAME).getAsInt())
+                            .chapterIndicatorTo(item.get(CHAPTER_INDICATOR_TO_FIELD_NAME).getAsInt())
                             .effects(effects)
                             .build()
             );
         });
 
         return steps;
+    }
+
+    private boolean isNeedToParseStep(JsonObject stepJson) {
+        if (this.stepMatchers == null || this.stepMatchers.isEmpty()) {
+            return true;
+        }
+
+        return this.stepMatchers.stream().anyMatch(matcher -> matcher.isMatched(stepJson));
     }
 }

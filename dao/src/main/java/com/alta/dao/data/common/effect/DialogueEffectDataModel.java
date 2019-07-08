@@ -4,13 +4,16 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * Provides the data that describes the dialogue.
+ * Provides the model that describes the dialogue.
  */
 @Data
 public class DialogueEffectDataModel extends EffectDataModel {
 
     @Builder
-    private static DialogueEffectDataModel create(String text, String speakerName, String speakerUuid, String speakerEmotion) {
+    private static DialogueEffectDataModel create(String text,
+                                                  String speakerName,
+                                                  String speakerUuid,
+                                                  String speakerEmotion) {
         return new DialogueEffectDataModel(text, speakerName, speakerUuid, speakerEmotion);
     }
 

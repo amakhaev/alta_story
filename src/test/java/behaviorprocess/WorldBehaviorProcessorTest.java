@@ -1,8 +1,9 @@
 package behaviorprocess;
 
 import com.alta.behaviorprocess.WorldBehaviorProcessor;
-import com.alta.behaviorprocess.behaviorAction.Behavior;
-import com.alta.behaviorprocess.behaviorAction.interaction.InteractionScenarioData;
+import com.alta.behaviorprocess.service.Behavior;
+import com.alta.behaviorprocess.service.interaction.InteractionScenarioData;
+import com.alta.behaviorprocess.service.quest.QuestScenarioData;
 import com.alta.behaviorprocess.shared.scenario.Scenario;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,12 +17,14 @@ import static org.mockito.Mockito.*;
 public class WorldBehaviorProcessorTest {
 
     private Behavior<InteractionScenarioData> interactionBehavior;
+    private Behavior<QuestScenarioData> mainQuestBehavior;
     private WorldBehaviorProcessor worldBehaviorProcessor;
 
     @Before
     public void setUp() {
         this.interactionBehavior = mock(Behavior.class);
-        this.worldBehaviorProcessor = new WorldBehaviorProcessor(this.interactionBehavior);
+        this.mainQuestBehavior = mock(Behavior.class);
+        this.worldBehaviorProcessor = new WorldBehaviorProcessor(this.interactionBehavior, this.mainQuestBehavior);
     }
 
     @Test
@@ -92,5 +95,17 @@ public class WorldBehaviorProcessorTest {
 
         this.worldBehaviorProcessor.runNextStep();
         verify(scenario, times(1)).runNextEffect();
+    }
+
+    @Test
+    public void worldBehaviorProcessorTest_processRunningForQuest_processIsRunning() {
+        Scenario scenario = mock(Scenario.class);
+        when(scenario.isCompleted()).thenReturn(false);
+        when(this.mainQuestBehavior.getScenario(any())).thenReturn(scenario);
+        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+
+        Assert.assertTrue(this.worldBehaviorProcessor.isProcessRunning());
+        verify(this.mainQuestBehavior, times(1)).getScenario(any());
+        verify(this.interactionBehavior, times(0)).getScenario(any());
     }
 }

@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Provides the map data that related to decorators
+ * Provides the map model that related to decorators
  */
 public class MapFacilityModel {
 

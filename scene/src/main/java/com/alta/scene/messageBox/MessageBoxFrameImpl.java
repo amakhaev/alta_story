@@ -229,7 +229,7 @@ public class MessageBoxFrameImpl implements MessageBoxFrame {
      * Sets the text to be shown.
      */
     void setText(String text) {
-        this.text = this.doFormatText(text);
+        this.text = text;
         this.currentText = "";
     }
 
@@ -257,6 +257,7 @@ public class MessageBoxFrameImpl implements MessageBoxFrame {
      * Marks message box as ready for showing.
      */
     void show() {
+        this.text = this.doFormatText(this.text);
         this.show(0);
     }
 
@@ -314,7 +315,6 @@ public class MessageBoxFrameImpl implements MessageBoxFrame {
             return;
         }
 
-        final int defaultMargin = 5;
         this.currentFaceCoordinates.x = this.startCoordinates.x + this.marginLeft + 12;
         this.currentFaceCoordinates.y = this.startCoordinates.y + this.marginTop + (this.height / 2 - FACE_IMAGE_HEIGHT / 2);
     }
@@ -329,8 +329,13 @@ public class MessageBoxFrameImpl implements MessageBoxFrame {
         StringBuilder formatStringBuilder = new StringBuilder();
         java.util.List<String> result = new ArrayList<>();
 
+        int containerWidth = this.width - this.marginLeft - this.marginRight;
+        if (this.faceSetDescriptor != null) {
+            containerWidth -= FACE_IMAGE_WIDTH - 24; // 24 is the sum of border width and margin
+        }
+
         for (String word: words) {
-            if (this.unicodeFont.getWidth(currentLine + word) > this.width - this.marginLeft - this.marginRight) {
+            if (this.unicodeFont.getWidth(currentLine + word) > containerWidth) {
                 formatStringBuilder.append(currentLine);
                 formatStringBuilder.append("\n");
                 currentLine = new StringBuilder();

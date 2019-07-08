@@ -1,5 +1,7 @@
 package com.alta.behaviorprocess.shared.scenario.senarioEffects;
 
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
+
 /**
  * Provides the listener of effects.
  */
@@ -22,6 +24,16 @@ public interface EffectListener {
      * @param speakerEmotion    - the emotion that should be shown when speaker say.
      */
     void onShowMessage(String targetUuid, String message, String speakerUuid, String speakerEmotion);
+
+    /**
+     * Shows the message.
+     *
+     * @param targetUuid            - the uuid of target NPC.
+     * @param message               - the message to be shown.
+     * @param faceSetDescription    - the descriptor of face set.
+     * @param speakerEmotion        - the emotion that should be shown when speaker say.
+     */
+    void onShowMessage(String targetUuid, String message, FaceSetDescription faceSetDescription, String speakerEmotion);
 
     /**
      * Triggers the state of message box to next one.

@@ -1,10 +1,11 @@
-package com.alta.behaviorprocess.shared.data;
+package com.alta.behaviorprocess.data.effect;
 
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Provides the dialogue data.
+ * Provides the dialogue model.
  */
 @Getter
 public class DialogueEffectModel extends EffectModel {
@@ -29,5 +30,6 @@ public class DialogueEffectModel extends EffectModel {
     public static class DialogueSpeaker {
         private String uuid;
         private String emotion;
+        private FaceSetDescription faceSetDescription;
     }
 }

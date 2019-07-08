@@ -48,7 +48,7 @@ abstract class EventStream<T> {
     /**
      * Publishes the event
      *
-     * @param eventData - the event data
+     * @param eventData - the event model
      */
     public final void publishEvent(T eventData) {
         ByteBuffer bb = ByteBuffer.allocate(8);

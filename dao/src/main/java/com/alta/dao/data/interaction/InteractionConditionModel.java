@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * Provides data that determinate the condition for interaction
+ * Provides model that determinate the condition for interaction
  */
 @Getter
 @Builder

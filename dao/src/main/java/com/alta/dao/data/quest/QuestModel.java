@@ -7,7 +7,7 @@ import lombok.Singular;
 import java.util.List;
 
 /**
- * Provides the model that contains data for the quest.
+ * Provides the model that contains model for the quest.
  */
 @Data
 @Builder

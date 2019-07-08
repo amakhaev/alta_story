@@ -8,7 +8,7 @@ import lombok.Singular;
 import java.util.List;
 
 /**
- * Provides the model that contains data related to specific step in quest.
+ * Provides the model that contains model related to specific step in quest.
  */
 @Data
 @Builder
@@ -18,6 +18,8 @@ public class QuestStepModel {
     private String triggerType;
     private String triggerMap;
     private String targetUuid;
+    private int chapterIndicatorFrom;
+    private int chapterIndicatorTo;
 
     @Singular
     private List<EffectDataModel> effects;

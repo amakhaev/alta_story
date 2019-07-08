@@ -1,5 +1,6 @@
-package com.alta.behaviorprocess.shared.data;
+package com.alta.behaviorprocess.data.interaction;
 
+import com.alta.behaviorprocess.data.effect.EffectModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * Provides the data that describes the interaction.
+ * Provides the model that describes the interaction.
  */
 @Getter
 @Builder

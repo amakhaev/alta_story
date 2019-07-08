@@ -1,11 +1,11 @@
 package com.alta.mediator.dataSource;
 
-import com.alta.behaviorprocess.behaviorAction.interaction.InteractionRepository;
-import com.alta.behaviorprocess.shared.data.InteractionModel;
+import com.alta.behaviorprocess.data.interaction.InteractionRepository;
+import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
@@ -23,7 +23,7 @@ import java.util.List;
 public class InteractionRepositoryImpl implements InteractionRepository {
 
     private final PreservationService preservationService;
-    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final InteractionPreservationService interactionPreservationService;
     private final InteractionDataProvider interactionDataProvider;
     private final InteractionCommandFactory interactionCommandFactory;
     private final CommandExecutor commandExecutor;
@@ -32,7 +32,7 @@ public class InteractionRepositoryImpl implements InteractionRepository {
     /**
      * Initialize new instance of {@link InteractionRepositoryImpl}.
      * @param preservationService               - the {@link PreservationService} instance.
-     * @param temporaryDataPreservationService  - the {@link TemporaryDataPreservationService} instance.
+     * @param interactionPreservationService    - the {@link InteractionPreservationService} instance.
      * @param interactionDataProvider           - the {@link InteractionDataProvider} instance.
      * @param interactionCommandFactory         - the {@link InteractionCommandFactory} instance.
      * @param commandExecutor                   - the {@link CommandExecutor} instance.
@@ -40,13 +40,13 @@ public class InteractionRepositoryImpl implements InteractionRepository {
      */
     @Inject
     public InteractionRepositoryImpl(PreservationService preservationService,
-                                     TemporaryDataPreservationService temporaryDataPreservationService,
+                                     InteractionPreservationService interactionPreservationService,
                                      InteractionDataProvider interactionDataProvider,
                                      InteractionCommandFactory interactionCommandFactory,
                                      CommandExecutor commandExecutor,
                                      @Named("currentPreservationId") Long currentPreservationId) {
         this.preservationService = preservationService;
-        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.interactionPreservationService = interactionPreservationService;
         this.interactionDataProvider = interactionDataProvider;
         this.interactionCommandFactory = interactionCommandFactory;
         this.commandExecutor = commandExecutor;
@@ -63,19 +63,19 @@ public class InteractionRepositoryImpl implements InteractionRepository {
     public List<InteractionModel> findInteractions(String mapName) {
         PreservationModel preservationModel = this.preservationService.getPreservation(this.currentPreservationId);
         if (preservationModel == null || preservationModel.getCharacterPreservation() == null) {
-            log.error("Preservation data with given Id {} not found.", this.currentPreservationId);
-            throw new NullPointerException("Preservation data with given Id not found.");
+            log.error("Preservation model with given Id {} not found.", this.currentPreservationId);
+            throw new NullPointerException("Preservation model with given Id not found.");
         }
 
         // Add saved interactions.
-        List<InteractionPreservationModel> interactionPreservations = this.preservationService.getInteractionsPreservation(
+        List<InteractionPreservationModel> interactionPreservations = this.interactionPreservationService.getInteractionsPreservation(
                 this.currentPreservationId,
                 preservationModel.getCharacterPreservation().getMapName()
         );
 
         // Add temporary saved interactions.
         interactionPreservations.addAll(
-                this.temporaryDataPreservationService.getTemporaryInteractionsPreservation(
+                this.interactionPreservationService.getTemporaryInteractionsPreservation(
                         this.currentPreservationId,
                         preservationModel.getCharacterPreservation().getMapName()
                 )

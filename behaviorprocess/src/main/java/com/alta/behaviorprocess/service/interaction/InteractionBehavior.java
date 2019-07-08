@@ -1,10 +1,11 @@
-package com.alta.behaviorprocess.behaviorAction.interaction;
+package com.alta.behaviorprocess.service.interaction;
 
-import com.alta.behaviorprocess.behaviorAction.Behavior;
+import com.alta.behaviorprocess.service.Behavior;
 import com.alta.behaviorprocess.core.DataStorage;
-import com.alta.behaviorprocess.shared.data.EffectModel;
-import com.alta.behaviorprocess.shared.data.InteractionModel;
-import com.alta.behaviorprocess.shared.scenario.InteractionScenario;
+import com.alta.behaviorprocess.data.interaction.InteractionModel;
+import com.alta.behaviorprocess.data.interaction.InteractionRepository;
+import com.alta.behaviorprocess.data.effect.EffectModel;
+import com.alta.behaviorprocess.shared.scenario.ScenarioImpl;
 import com.alta.behaviorprocess.shared.scenario.Scenario;
 import com.alta.behaviorprocess.shared.scenario.ScenarioFactory;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
@@ -54,7 +55,7 @@ public class InteractionBehavior implements Behavior<InteractionScenarioData> {
                 interactionModel.getInteractionEffects() :
                 interactionModel.getFailedPreConditionInteractionEffects();
 
-        InteractionScenario scenario = this.scenarioFactory.createInteractionScenario(
+        ScenarioImpl scenario = this.scenarioFactory.createScenario(
                 this.effectListener,
                 scenarioParams.getTargetUuid(),
                 effects

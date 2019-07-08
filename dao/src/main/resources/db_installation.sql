@@ -40,3 +40,14 @@ CREATE TABLE IF NOT EXISTS map_preservations (
   UNIQUE (preservation_id, uuid, map_name, is_temporary),
   FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS quest_preservations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  preservation_id INTEGER NOT NULL,
+  name VARCHAR(128) NOT NULL,
+  is_temporary BOOLEAN NOT NULL,
+  current_step_number INTEGER NOT NULL,
+  is_completed BOOLEAN DEFAULT false,
+  UNIQUE (preservation_id, name, is_temporary),
+  FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
+);

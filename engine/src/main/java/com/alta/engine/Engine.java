@@ -27,7 +27,9 @@ public class Engine {
         this.frameStageFacade = frameStageFacade;
         this.engineStorage = engineStorage;
         this.dataSynchronizer = dataSynchronizer;
+
         engineConfiguration.configure();
+        this.dataSynchronizer.synchronizeQuests();
     }
 
     /**
@@ -35,7 +37,7 @@ public class Engine {
      */
     public void tryToRenderFrameStage(FrameStageEngineDataModel data) {
         this.engineStorage.put(data);
-        this.dataSynchronizer.synchronize(data.getMapName());
+        this.dataSynchronizer.synchronizeAllDependsOnMap(data.getMapName());
         this.frameStageFacade.tryToRenderFrameStageView();
     }
 

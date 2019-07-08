@@ -1,5 +1,6 @@
 package com.alta.mediator.domain.actor;
 
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.domain.actor.ActorService;
 import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
@@ -15,7 +16,7 @@ import java.awt.*;
 import java.util.stream.Collectors;
 
 /**
- * Provides the service that manipulated data related to {@link com.alta.scene.entities.Actor}
+ * Provides the service that manipulated model related to {@link com.alta.scene.entities.Actor}
  */
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -43,7 +44,7 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     /**
      * Gets the simple npc by given npc entity.
      *
-     * @param npcEntity - the npc entity to create engine data.
+     * @param npcEntity - the npc entity to create engine model.
      * @return the {@link NpcEngineModel}
      */
     @Override
@@ -54,7 +55,7 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     /**
      * Gets the alterable npc by given npc entity.
      *
-     * @param npcEntity - the npc entity to create engine data.
+     * @param npcEntity - the npc entity to create engine model.
      * @return the {@link NpcEngineModel} instance.
      */
     @Override
@@ -74,6 +75,17 @@ public class ActorDataProviderImpl implements ActorDataProvider {
         );
 
         return npcEngineModel;
+    }
+
+    @Override
+    public FaceSetDescription getFaceSetForActor(String actorName) {
+        ActorModel actorModel = this.actorService.getActorModel(actorName);
+        if (actorModel == null) {
+            log.debug("Actor with given name not found {}", actorName);
+            return null;
+        }
+
+        return this.actorEngineMapper.doMappingForFaceSetDescriptor(actorModel);
     }
 
     private NpcEngineModel createNpcEngineModelFromNpcEntity(NpcEntity npcEntity) {

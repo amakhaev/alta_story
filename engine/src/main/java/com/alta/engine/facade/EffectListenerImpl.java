@@ -1,5 +1,6 @@
 package com.alta.engine.facade;
 
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
@@ -67,6 +68,38 @@ public class EffectListenerImpl implements EffectListener {
                         npcEngineModel.getFaceSetDescriptor().getEmotions().get(speakerEmotion).x,
                         npcEngineModel.getFaceSetDescriptor().getEmotions().get(speakerEmotion).y,
                         npcEngineModel.getFaceSetDescriptor().getPathToImageSet()
+                )
+        );
+
+        // The target participant can has type NPC or FACILITY. If interaction has started with NPC then need to do
+        // some actions for it.
+        this.frameStagePresenter.startInteractionWithNpc(targetUuid);
+    }
+
+    /**
+     * Shows the message.
+     *
+     * @param targetUuid         - the uuid of target NPC.
+     * @param message            - the message to be shown.
+     * @param faceSetDescription - the descriptor of face set.
+     * @param speakerEmotion     - the emotion that should be shown when speaker say.
+     */
+    @Override
+    public void onShowMessage(String targetUuid, String message, FaceSetDescription faceSetDescription, String speakerEmotion) {
+        if (faceSetDescription == null || Strings.isNullOrEmpty(speakerEmotion)) {
+            this.onShowMessage(targetUuid, message);
+            return;
+        }
+
+        log.debug("Perform the dialogue interaction. Target participant was given with uuid {}.", targetUuid);
+        this.messageBoxPresenter.showDialogueMessage(
+                message,
+                new FaceSetDescriptor(
+                        faceSetDescription.getTileWidth(),
+                        faceSetDescription.getTileHeight(),
+                        faceSetDescription.getEmotions().get(speakerEmotion).x,
+                        faceSetDescription.getEmotions().get(speakerEmotion).y,
+                        faceSetDescription.getPathToImageSet()
                 )
         );
 

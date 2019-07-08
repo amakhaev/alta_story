@@ -1,7 +1,8 @@
 package com.alta.behaviorprocess.shared.scenario.senarioEffects;
 
-import com.alta.behaviorprocess.shared.data.DialogueEffectModel;
-import com.alta.behaviorprocess.shared.data.EffectModel;
+import com.alta.behaviorprocess.data.effect.DialogueEffectModel;
+import com.alta.behaviorprocess.data.effect.EffectModel;
+import com.google.common.base.Strings;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.NonNull;
@@ -50,6 +51,13 @@ public class DialogueEffect implements Effect {
         DialogueEffectModel dialogueEffectModel = (DialogueEffectModel) effect;
         if (dialogueEffectModel.getDialogueSpeaker() == null) {
             this.effectListener.onShowMessage(this.targetedParticipantUuid, dialogueEffectModel.getText());
+        } else if (dialogueEffectModel.getDialogueSpeaker().getFaceSetDescription() != null) {
+            this.effectListener.onShowMessage(
+                    this.targetedParticipantUuid,
+                    dialogueEffectModel.getText(),
+                    dialogueEffectModel.getDialogueSpeaker().getFaceSetDescription(),
+                    dialogueEffectModel.getDialogueSpeaker().getEmotion()
+            );
         } else {
             this.effectListener.onShowMessage(
                     this.targetedParticipantUuid,

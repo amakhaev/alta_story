@@ -1,7 +1,7 @@
 package com.alta.mediator.command.preservation;
 
 import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -11,16 +11,16 @@ import com.google.inject.assistedinject.AssistedInject;
  */
 public class UpdateInteractionPreservationCommand implements Command {
 
-    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final InteractionPreservationService interactionPreservationService;
     private final InteractionPreservationModel interactionPreservation;
 
     /**
      * Initialize new instance of {@link UpdateInteractionPreservationCommand}
      */
     @AssistedInject
-    public UpdateInteractionPreservationCommand(TemporaryDataPreservationService temporaryDataPreservationService,
+    public UpdateInteractionPreservationCommand(InteractionPreservationService interactionPreservationService,
                                                 @Assisted InteractionPreservationModel interactionPreservation) {
-        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.interactionPreservationService = interactionPreservationService;
         this.interactionPreservation = interactionPreservation;
     }
 
@@ -29,6 +29,6 @@ public class UpdateInteractionPreservationCommand implements Command {
      */
     @Override
     public void execute() {
-        this.temporaryDataPreservationService.upsertTemporaryInteractionPreservation(this.interactionPreservation);
+        this.interactionPreservationService.upsertTemporaryInteractionPreservation(this.interactionPreservation);
     }
 }

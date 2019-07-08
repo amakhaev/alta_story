@@ -1,9 +1,11 @@
 package com.alta.behaviorprocess;
 
-import com.alta.behaviorprocess.behaviorAction.Behavior;
-import com.alta.behaviorprocess.behaviorAction.interaction.InteractionBehavior;
-import com.alta.behaviorprocess.behaviorAction.interaction.InteractionScenarioData;
+import com.alta.behaviorprocess.service.Behavior;
+import com.alta.behaviorprocess.service.interaction.InteractionBehavior;
+import com.alta.behaviorprocess.service.interaction.InteractionScenarioData;
 import com.alta.behaviorprocess.core.DataStorage;
+import com.alta.behaviorprocess.service.quest.MainQuestBehavior;
+import com.alta.behaviorprocess.service.quest.QuestScenarioData;
 import com.alta.behaviorprocess.shared.scenario.ScenarioFactory;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectFactory;
 import com.alta.behaviorprocess.sync.DataSynchronizer;
@@ -30,6 +32,10 @@ public class BehaviorProcessInjectorModule extends AbstractModule {
         bind(new TypeLiteral<Behavior<InteractionScenarioData>>(){})
                 .annotatedWith(Names.named("interactionBehavior"))
                 .to(InteractionBehavior.class);
+
+        bind(new TypeLiteral<Behavior<QuestScenarioData>>(){})
+                .annotatedWith(Names.named("mainQuestBehavior"))
+                .to(MainQuestBehavior.class);
     }
 
 }

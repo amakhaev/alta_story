@@ -3,7 +3,7 @@ package com.alta.engine.data;
 import java.awt.*;
 
 /**
- * Provides the repository to make CRUD with data related to engine in general.
+ * Provides the repository to make CRUD with model related to engine in general.
  */
 public interface EngineRepository {
 

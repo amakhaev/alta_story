@@ -59,7 +59,7 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
     /**
      * Renders the object on given coordinates
      *
-     * @param actingCharacterParticipant - the actor participant that stored data for rendering
+     * @param actingCharacterParticipant - the actor participant that stored model for rendering
      */
     @Override
     public void render(ActorParticipant actingCharacterParticipant) {
@@ -77,7 +77,7 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
     /**
      * Updates the actor state
      *
-     * @param data  - provides the data to update
+     * @param data  - provides the model to update
      * @param delta - the time between last and previous calls
      */
     @Override
@@ -98,8 +98,8 @@ public class ActorCharacterComponent implements Actor<ActorParticipant> {
         if (this.isAnimatedAlways) {
             this.stopAnimationCounter = data.isMoving() ? 0 : this.stopAnimationCounter + 1;
         } else {
-            // data.isMoving returns true when actor is moving. Sometimes it can be stopped shortly then appears lags in
-            // animation. Need to check that data.isMoving() return false several times in a row to avoid this issue.
+            // model.isMoving returns true when actor is moving. Sometimes it can be stopped shortly then appears lags in
+            // animation. Need to check that model.isMoving() return false several times in a row to avoid this issue.
             if (data.isMoving()) {
                 this.actorAnimation.setAutoupdate(data.isMoving());
                 this.stopAnimationCounter = 0;

@@ -6,12 +6,12 @@ import com.alta.engine.data.FrameStageEngineDataModel;
 import java.awt.*;
 
 /**
- * Provides the service to manipulate data related to {@link FrameStageEngineDataModel}
+ * Provides the service to manipulate model related to {@link FrameStageEngineDataModel}
  */
 public interface FrameStageDataProvider {
 
     /**
-     * Gets the data of frame stage that created from preservation
+     * Gets the model of frame stage that created from preservation
      *
      * @param characterPreservationModel - the preservation of game
      * @return the {@link FrameStageEngineDataModel} generated from preservation.
@@ -19,7 +19,7 @@ public interface FrameStageDataProvider {
     FrameStageEngineDataModel getFromPreservation(CharacterPreservationModel characterPreservationModel);
 
     /**
-     * Gets the data of frame stage that created by give params
+     * Gets the model of frame stage that created by give params
      *
      * @param mapName - the name of map to be render
      * @param skin - the skin of acting character

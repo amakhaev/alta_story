@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 import javax.inject.Named;
 
 /**
- * Describes the common app game container
+ * Describes the effect app game container
  */
 @Slf4j
 public class AppGameContainerProvider implements Provider<AppGameContainer> {

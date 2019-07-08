@@ -3,7 +3,7 @@ package com.alta.caching;
 import java.util.List;
 
 /**
- * Provides the cache for list of any data.
+ * Provides the cache for list of any model.
  */
 public interface CacheList<T> {
 

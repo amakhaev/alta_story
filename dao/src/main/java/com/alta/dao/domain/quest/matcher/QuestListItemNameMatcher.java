@@ -10,25 +10,25 @@ import java.util.List;
 /**
  * Provides the matcher for retrieve quests by name.
  */
-public class QuestNameMatcher implements QuestMatcher {
+public class QuestListItemNameMatcher implements QuestMatcher {
 
     private final List<String> names;
 
     /**
-     * Initialize new instance of {@link QuestNameMatcher}.
+     * Initialize new instance of {@link QuestListItemNameMatcher}.
      *
      * @param names - the list of names that should be retrieved from list.
      */
-    public QuestNameMatcher(List<String> names) {
+    public QuestListItemNameMatcher(List<String> names) {
         this.names = names;
     }
 
     /**
-     * Initialize new instance of {@link QuestNameMatcher}.
+     * Initialize new instance of {@link QuestListItemNameMatcher}.
      *
      * @param name - the name that should be retrieved from list.
      */
-    public QuestNameMatcher(String name) {
+    public QuestListItemNameMatcher(String name) {
         this.names = Collections.singletonList(name);
     }
 

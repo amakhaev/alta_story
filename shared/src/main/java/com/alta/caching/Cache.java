@@ -1,7 +1,7 @@
 package com.alta.caching;
 
 /**
- * Provides the cache for data.
+ * Provides the cache for model.
  */
 public interface Cache<T> {
 

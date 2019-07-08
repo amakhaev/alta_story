@@ -1,5 +1,6 @@
 package com.alta.mediator.domain.actor;
 
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.computator.service.movement.directionCalculation.MovementDirection;
 import com.alta.dao.data.actor.ActorDirectionModel;
 import com.alta.dao.data.actor.ActorModel;
@@ -15,15 +16,28 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Provides the data mapper for actors
+ * Provides the model mapper for actors
  */
 @Singleton
-class ActorEngineMapper {
+public class ActorEngineMapper {
+
+    public FaceSetDescription doMappingForFaceSetDescriptor(ActorModel actorModel) {
+        if (Strings.isNullOrEmpty(actorModel.getPathToFaceSetImage()) || actorModel.getFaceSetDescriptor() == null) {
+            return null;
+        }
+
+        return new FaceSetDescription(
+                actorModel.getFaceSetDescriptor().getTileWidth(),
+                actorModel.getFaceSetDescriptor().getTileHeight(),
+                actorModel.getFaceSetDescriptor().getEmotions(),
+                actorModel.getPathToFaceSetImage()
+        );
+    }
 
     /**
-     * Maps the DAO actors data to engine data
+     * Maps the DAO actors model to engine model
      *
-     * @param actorModel - the source actor data
+     * @param actorModel - the source actor model
      * @return the {@link ActingCharacterEngineModel} instance.
      */
     ActingCharacterEngineModel doMappingForActingCharacter(ActorModel actorModel, String skinName) {
@@ -48,9 +62,9 @@ class ActorEngineMapper {
     }
 
     /**
-     * Maps the DAO actors data to engine data
+     * Maps the DAO actors model to engine model
      *
-     * @param actorModel - the source actor data
+     * @param actorModel - the source actor model
      * @return the {@link NpcEngineModel} instance.
      */
     NpcEngineModel doMappingForSimpleNpc(ActorModel actorModel) {
@@ -97,19 +111,6 @@ class ActorEngineMapper {
                 .stopFrameIndex(stopFrameIndex)
                 .animatedTileCoordinates(positions)
                 .build();
-    }
-
-    private NpcEngineModel.FaceSetDescription doMappingForFaceSetDescriptor(ActorModel actorModel) {
-        if (Strings.isNullOrEmpty(actorModel.getPathToFaceSetImage()) || actorModel.getFaceSetDescriptor() == null) {
-            return null;
-        }
-
-        return new NpcEngineModel.FaceSetDescription(
-                actorModel.getFaceSetDescriptor().getTileWidth(),
-                actorModel.getFaceSetDescriptor().getTileHeight(),
-                actorModel.getFaceSetDescriptor().getEmotions(),
-                actorModel.getPathToFaceSetImage()
-        );
     }
 
 }

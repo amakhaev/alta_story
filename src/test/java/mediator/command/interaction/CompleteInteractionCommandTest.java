@@ -1,6 +1,6 @@
 package mediator.command.interaction;
 
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.interaction.CompleteInteractionCommand;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
@@ -15,23 +15,23 @@ import static org.mockito.Mockito.*;
 public class CompleteInteractionCommandTest {
 
     private PreservationCommandFactory preservationCommandFactory;
-    private TemporaryDataPreservationService temporaryDataPreservationService;
     private CommandExecutor commandExecutor;
     private InteractionPostProcessingService interactionPostProcessingService;
+    private InteractionPreservationService interactionPreservationService;
     private CompleteInteractionCommand command;
 
     @Before
     public void setUp() {
         this.preservationCommandFactory = mock(PreservationCommandFactory.class);
-        this.temporaryDataPreservationService = mock(TemporaryDataPreservationService.class);
         this.commandExecutor = mock(CommandExecutor.class);
         this.interactionPostProcessingService = mock(InteractionPostProcessingService.class);
+        this.interactionPreservationService = mock(InteractionPreservationService.class);
 
         this.command = new CompleteInteractionCommand(
                 this.preservationCommandFactory,
                 this.commandExecutor,
                 this.interactionPostProcessingService,
-                this.temporaryDataPreservationService,
+                this.interactionPreservationService,
                 1L,
                 "interactionUuid",
                 "relatedMapName"
@@ -41,7 +41,7 @@ public class CompleteInteractionCommandTest {
     @Test
     public void completeInteractionCommand_executeCommand_executedSuccessful() {
         UpdateInteractionPreservationCommand updateInteractionPreservationCommand =
-                new UpdateInteractionPreservationCommand(this.temporaryDataPreservationService, null);
+                new UpdateInteractionPreservationCommand(this.interactionPreservationService, null);
 
         when(this.preservationCommandFactory.createUpdateInteractionPreservationCommand(any())).thenReturn(
                 updateInteractionPreservationCommand

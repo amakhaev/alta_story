@@ -71,7 +71,7 @@ public class InteractionServiceImpl implements InteractionService {
      *
      * @param relatedMapName          - the name of map where interactions are searching.
      * @param targetUuid              - the uuid of target for interaction.
-     * @param currentChapterIndicator - the indicator of current chapter.
+     * @param currentChapterIndicator - the indicator of current character.
      * @return the {@link Map} of found interactions or empty list.
      */
     @Override

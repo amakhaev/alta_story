@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Provides the data mapper for jumping point.
+ * Provides the model mapper for jumping point.
  */
 public class JumpingEngineModelMapper {
 

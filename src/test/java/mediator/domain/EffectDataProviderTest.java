@@ -1,12 +1,13 @@
 package mediator.domain;
 
-import com.alta.behaviorprocess.shared.data.InteractionModel;
+import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.dao.data.interaction.InteractionDataModel;
 import com.alta.dao.data.common.effect.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.HideFacilityEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.common.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.domain.interaction.InteractionService;
+import com.alta.mediator.domain.effect.EffectDataProvider;
 import com.alta.mediator.domain.interaction.InteractionConditionService;
 import com.alta.mediator.domain.interaction.InteractionDataProvider;
 import com.alta.mediator.domain.interaction.InteractionDataProviderImpl;
@@ -28,13 +29,17 @@ public class EffectDataProviderTest {
 
     private InteractionService interactionService;
     private InteractionDataProvider interactionDataProvider;
+    private EffectDataProvider effectDataProvider;
     private InteractionDataModel dataModel1;
     private InteractionDataModel dataModel2;
 
     @Before
     public void setUp() {
         this.interactionService = mock(InteractionService.class);
-        this.interactionDataProvider = new InteractionDataProviderImpl(this.interactionService, mock(InteractionConditionService.class));
+        this.effectDataProvider = mock(EffectDataProvider.class);
+        this.interactionDataProvider = new InteractionDataProviderImpl(
+                this.interactionService, mock(InteractionConditionService.class), this.effectDataProvider
+        );
 
         EffectDataModel dialogueEffect = DialogueEffectDataModel.builder()
                 .text("my text")
@@ -82,7 +87,6 @@ public class EffectDataProviderTest {
         Assert.assertEquals(0, interactionModel.getShiftTiles().size());
         Assert.assertNull(interactionModel.getPreCondition());
         Assert.assertFalse(interactionModel.isCompleted());
-        Assert.assertEquals(this.dataModel1.getEffects().size(), interactionModel.getInteractionEffects().size());
     }
 
     @Test
@@ -115,7 +119,6 @@ public class EffectDataProviderTest {
         Assert.assertEquals(0, interactionModel.getShiftTiles().size());
         Assert.assertNull(interactionModel.getPreCondition());
         Assert.assertFalse(interactionModel.isCompleted());
-        Assert.assertEquals(this.dataModel1.getEffects().size(), interactionModel.getInteractionEffects().size());
     }
 
     @Test

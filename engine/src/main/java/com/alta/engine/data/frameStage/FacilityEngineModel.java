@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * Provides the data that describes map
+ * Provides the model that describes map
  */
 @Data
 @Builder

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the data that describes the direction of actors
+ * Provides the model that describes the direction of actors
  */
 @Getter
 @AllArgsConstructor

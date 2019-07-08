@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the builder that builds data for creating scene
+ * Provides the builder that builds model for creating scene
  */
 @Getter
 @Builder(toBuilder = true)
@@ -39,7 +39,7 @@ public class FrameStageEngineDataModel {
     private final Point focusPointMapStartPosition;
 
     /**
-     * The data that describes the acting character on stage
+     * The model that describes the acting character on stage
      */
     private ActingCharacterEngineModel actingCharacter;
 

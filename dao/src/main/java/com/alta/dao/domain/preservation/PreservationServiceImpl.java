@@ -1,18 +1,19 @@
 package com.alta.dao.domain.preservation;
 
-import com.alta.dao.data.preservation.CharacterPreservationModel;
-import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.dao.data.preservation.MapPreservationModel;
-import com.alta.dao.data.preservation.PreservationModel;
+import com.alta.dao.data.preservation.*;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
+import com.alta.dao.domain.preservation.map.MapPreservationService;
+import com.alta.dao.domain.preservation.quest.QuestPreservationService;
 import com.google.inject.Inject;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.support.ConnectionSource;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * Provides the service to make CRUD operation with preservation
@@ -20,21 +21,27 @@ import java.util.List;
 @Slf4j
 public class PreservationServiceImpl implements PreservationService {
 
-    private Dao<CharacterPreservationModel, Integer> characterPreservationDao;
-    private Dao<InteractionPreservationModel, Long> interactionPreservationDao;
+    private final ConnectionSource connectionSource;
+    private final InteractionPreservationService interactionPreservationService;
+    private final MapPreservationService mapPreservationService;
+    private final QuestPreservationService questPreservationService;
     private Dao<PreservationModel, Integer> preservationDao;
-    private Dao<MapPreservationModel, Long> mapPreservationDao;
+
 
     /**
      * Initialize new instance of {@link PreservationServiceImpl}
      */
     @Inject
-    public PreservationServiceImpl(ConnectionSource connectionSource) {
+    public PreservationServiceImpl(ConnectionSource connectionSource,
+                                   InteractionPreservationService interactionPreservationService,
+                                   MapPreservationService mapPreservationService,
+                                   QuestPreservationService questPreservationService) {
+        this.connectionSource = connectionSource;
+        this.interactionPreservationService = interactionPreservationService;
+        this.mapPreservationService = mapPreservationService;
+        this.questPreservationService = questPreservationService;
         try {
-            this.characterPreservationDao = DaoManager.createDao(connectionSource, CharacterPreservationModel.class);
-            this.interactionPreservationDao = DaoManager.createDao(connectionSource, InteractionPreservationModel.class);
-            this.preservationDao = DaoManager.createDao(connectionSource, PreservationModel.class);
-            this.mapPreservationDao = DaoManager.createDao(connectionSource, MapPreservationModel.class);
+            this.preservationDao = DaoManager.createDao(this.connectionSource, PreservationModel.class);
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
@@ -57,94 +64,21 @@ public class PreservationServiceImpl implements PreservationService {
     }
 
     /**
-     * Updates the preservation that related to character.
+     * Clears all temporary model that related to specific preservation.
      *
-     * @param characterPreservationModel - the data to be updated.
+     * @param preservationId - the preservation to be cleared.
      */
     @Override
-    public void updateCharacterPreservation(CharacterPreservationModel characterPreservationModel) {
-        if (characterPreservationModel == null || characterPreservationModel.getId() == null) {
-            log.error("The data to update is null or has null identifier.");
-            throw new IllegalArgumentException("The data to has invalid value.");
-        }
-
+    public void clearTemporaryDataFromPreservation(@NonNull Long preservationId) {
         try {
-            this.characterPreservationDao.update(characterPreservationModel);
+            TransactionManager.callInTransaction(this.connectionSource, (Callable<Void>) () -> {
+                this.interactionPreservationService.clearTemporaryData(preservationId);
+                this.mapPreservationService.clearTemporaryData(preservationId);
+                this.questPreservationService.clearTemporaryData(preservationId);
+                return null;
+            });
         } catch (SQLException e) {
             log.error(e.getMessage());
-        }
-    }
-
-    /**
-     * Gets the list of interactions that related to preservation.
-     *
-     * @param preservationId - the preservation id.
-     * @param mapName        - the name of map.
-     * @return the {@link List} of {@link InteractionPreservationModel} related to specific map and preservation.
-     */
-    @Override
-    public List<InteractionPreservationModel> getInteractionsPreservation(@NonNull Long preservationId, @NonNull String mapName) {
-        try {
-            return this.interactionPreservationDao.queryBuilder()
-                    .where()
-                    .eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId)
-                    .and()
-                    .eq(InteractionPreservationModel.MAP_NAME_FIELD, mapName)
-                    .and()
-                    .eq(InteractionPreservationModel.IS_TEMPORARY_FIELD, false)
-                    .query();
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Finds the saved interaction by given preservation id and uuid of interaction.
-     *
-     * @param preservationId  - the preservation id.
-     * @param interactionUuid - the interaction uuid.
-     * @return the {@link InteractionPreservationModel} instance or null if not found.
-     */
-    @Override
-    public InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId,
-                                                                               String interactionUuid) {
-        try {
-            return this.interactionPreservationDao.queryBuilder()
-                    .where()
-                    .eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId)
-                    .and()
-                    .eq(InteractionPreservationModel.UUID_FIELD, interactionUuid)
-                    .and()
-                    .eq(InteractionPreservationModel.IS_TEMPORARY_FIELD, false)
-                    .queryForFirst();
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Gets the list of maps that related to preservation.
-     *
-     * @param preservationId - the preservation id.
-     * @param mapName        - the name of map.
-     * @return the {@link List} of {@link MapPreservationModel} related to specific map and preservation.
-     */
-    @Override
-    public List<MapPreservationModel> getMapsPreservation(Long preservationId, String mapName) {
-        try {
-            return this.mapPreservationDao.queryBuilder()
-                    .where()
-                    .eq(MapPreservationModel.PRESERVATION_ID_FIELD, preservationId)
-                    .and()
-                    .eq(MapPreservationModel.MAP_NAME_FIELD, mapName)
-                    .and()
-                    .eq(MapPreservationModel.IS_TEMPORARY_FIELD, false)
-                    .query();
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            return null;
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.alta.behaviorprocess.shared.scenario.senarioEffects;
 
-import com.alta.behaviorprocess.shared.data.EffectModel;
+import com.alta.behaviorprocess.data.effect.EffectModel;
 
 /**
- * Provides the common interface to makes interaction.
+ * Provides the effect interface to makes interaction.
  */
 public interface Effect {
 

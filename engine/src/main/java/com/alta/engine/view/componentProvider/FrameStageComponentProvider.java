@@ -29,12 +29,12 @@ import java.util.stream.Collectors;
 public class FrameStageComponentProvider {
 
     /**
-     * Creates the FrameStage instance by given data
+     * Creates the FrameStage instance by given model
      *
-     * @param data - the data that full describes the frame stage
+     * @param data - the model that full describes the frame stage
      * @param stageComputator - the computator of frame stage
      * @param asyncTaskManager - the facade of async tasks
-     * @return created {@link FrameStageComponent} instance based of @param data
+     * @return created {@link FrameStageComponent} instance based of @param model
      */
     public FrameStageComponent createFrameStage(FrameStageEngineDataModel data,
                                                 StageComputator stageComputator,
@@ -56,9 +56,9 @@ public class FrameStageComponentProvider {
     }
 
     /**
-     * Creates the facility component from engine data.
+     * Creates the facility component from engine model.
      *
-     * @param facilityModel - the engine data to be used for creating component.
+     * @param facilityModel - the engine model to be used for creating component.
      * @return the created {@link FacilityComponent} instance.
      */
     public FacilityComponent createFacilityComponent(FacilityEngineModel facilityModel) {

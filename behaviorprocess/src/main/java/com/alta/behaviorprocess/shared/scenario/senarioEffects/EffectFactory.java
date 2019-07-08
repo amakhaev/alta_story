@@ -8,20 +8,20 @@ public interface EffectFactory {
     /**
      * Creates the instance of {@link DialogueEffect}.
      */
-    DialogueEffect createDialogueInteraction(String targetedParticipantUuid, EffectListener effectListener);
+    DialogueEffect createDialogueEffect(String targetedParticipantUuid, EffectListener effectListener);
 
     /**
      * Creates tje instance of {@link HideFacilityEffect}.
      *
      * @return created {@link HideFacilityEffect} instance.
      */
-    HideFacilityEffect createHideFacilityInteraction(EffectListener effectListener);
+    HideFacilityEffect createHideFacilityEffect(EffectListener effectListener);
 
     /**
      * Creates tje instance of {@link ShowFacilityEffect}.
      *
      * @return created {@link ShowFacilityEffect} instance.
      */
-    ShowFacilityEffect createShowFacilityInteraction(EffectListener effectListener);
+    ShowFacilityEffect createShowFacilityEffect(EffectListener effectListener);
 
 }

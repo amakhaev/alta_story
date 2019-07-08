@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * Provides the entity that contains data movement rules.
+ * Provides the entity that contains model movement rules.
  */
 @Getter
 @Setter

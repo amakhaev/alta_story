@@ -43,7 +43,7 @@ public abstract class NpcComputator {
     /**
      * Initialize new instance of {@link NpcComputator}.
      *
-     * @param npcParticipant - the NPC participant data.
+     * @param npcParticipant - the NPC participant model.
      */
     NpcComputator(NpcParticipant npcParticipant) {
         this(npcParticipant, MovementComputatorImpl.NORMAL_MOVE_SPEED);

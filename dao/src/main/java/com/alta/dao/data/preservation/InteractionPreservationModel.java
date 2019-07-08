@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import lombok.*;
 
 /**
- * Provides the data that described the preservation of interaction.
+ * Provides the model that described the preservation of interaction.
  */
 @Getter
 @DatabaseTable(tableName = "interaction_preservations")

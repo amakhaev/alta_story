@@ -1,6 +1,4 @@
-package com.alta.behaviorprocess.behaviorAction.interaction;
-
-import com.alta.behaviorprocess.shared.data.InteractionModel;
+package com.alta.behaviorprocess.data.interaction;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ public interface InteractionRepository {
      * Finds the interactions for target map.
      *
      * @param mapName       - the name of map where interaction available.
-     * @return found {@link List<InteractionModel>} instance.
+     * @return found {@link List< InteractionModel >} instance.
      */
     List<InteractionModel> findInteractions(String mapName);
 

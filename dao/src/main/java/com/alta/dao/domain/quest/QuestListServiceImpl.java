@@ -3,7 +3,7 @@ package com.alta.dao.domain.quest;
 import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.quest.QuestListItemModel;
 import com.alta.dao.domain.common.effect.EffectDeserializer;
-import com.alta.dao.domain.quest.matcher.QuestNameMatcher;
+import com.alta.dao.domain.quest.matcher.QuestListItemNameMatcher;
 import com.alta.utils.JsonParser;
 import com.google.common.base.Strings;
 import com.google.gson.JsonDeserializer;
@@ -56,7 +56,7 @@ public class QuestListServiceImpl implements QuestListService {
             return questListItemModel;
         }
 
-        QuestListDeserializer deserializerByName = new QuestListDeserializer(Collections.singletonList(new QuestNameMatcher(name)));
+        QuestListDeserializer deserializerByName = new QuestListDeserializer(Collections.singletonList(new QuestListItemNameMatcher(name)));
 
         Map<Type, JsonDeserializer> deserializers = new HashMap<>();
         deserializers.put(new TypeToken<ArrayList<QuestListItemModel>>(){}.getType(), deserializerByName);

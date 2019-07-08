@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the data that stored changes on map.
+ * Provides the model that stored changes on map.
  */
 @Getter
 @DatabaseTable(tableName = "map_preservations")

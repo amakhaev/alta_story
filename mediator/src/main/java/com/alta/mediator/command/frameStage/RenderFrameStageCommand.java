@@ -31,7 +31,7 @@ public class RenderFrameStageCommand implements Command {
     @Override
     public void execute() {
         if (this.frameStageEngineDataModel == null) {
-            log.error("The data of frame stage is required for rendering");
+            log.error("The model of frame stage is required for rendering");
             return;
         }
 

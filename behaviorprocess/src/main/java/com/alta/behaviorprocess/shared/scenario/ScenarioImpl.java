@@ -1,6 +1,6 @@
 package com.alta.behaviorprocess.shared.scenario;
 
-import com.alta.behaviorprocess.shared.data.EffectModel;
+import com.alta.behaviorprocess.data.effect.EffectModel;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.Effect;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectFactory;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Provides the interaction.scenario of interaction effects.
+ * Provides the scenario of effects.
  */
 @Slf4j
-public class InteractionScenario implements Scenario {
+public class ScenarioImpl implements Scenario {
 
     private final EffectListener effectListener;
     private final EffectFactory effectFactory;
@@ -33,13 +33,13 @@ public class InteractionScenario implements Scenario {
     private boolean completed;
 
     /**
-     * Initialize new instance of {@link InteractionScenario}.
+     * Initialize new instance of {@link ScenarioImpl}.
      */
     @AssistedInject
-    public InteractionScenario(EffectFactory effectFactory,
-                               @Assisted @NonNull EffectListener effectListener,
-                               @Assisted("targetedParticipantUuid") @NonNull String targetedParticipantUuid,
-                               @Assisted @NonNull List<EffectModel> effects) {
+    public ScenarioImpl(EffectFactory effectFactory,
+                        @Assisted @NonNull EffectListener effectListener,
+                        @Assisted("targetedParticipantUuid") @NonNull String targetedParticipantUuid,
+                        @Assisted @NonNull List<EffectModel> effects) {
         this.effectListener = effectListener;
         this.effectFactory = effectFactory;
         this.targetedParticipantUuid = targetedParticipantUuid;
@@ -58,10 +58,10 @@ public class InteractionScenario implements Scenario {
         }
 
         if (this.currentEffect != null) {
-            throw new RuntimeException("InteractionScenario already in progress. Can't add another effects.");
+            throw new RuntimeException("ScenarioImpl already in progress. Can't add another effects.");
         }
 
-        this.determinateInteractionAndStart();
+        this.determinateScenarioAndStart();
     }
 
     /**
@@ -85,7 +85,7 @@ public class InteractionScenario implements Scenario {
         this.failCallback = fail;
     }
 
-    private void determinateInteractionAndStart() {
+    private void determinateScenarioAndStart() {
         if (this.currentEffect != null) {
             log.warn(
                     "{} effect already in progress. No any action will be performed",
@@ -107,13 +107,13 @@ public class InteractionScenario implements Scenario {
         EffectModel effectModel = this.currentScenario.poll();
         switch (effectModel.getType()) {
             case DIALOGUE:
-                effect = this.effectFactory.createDialogueInteraction(this.targetedParticipantUuid, this.effectListener);
+                effect = this.effectFactory.createDialogueEffect(this.targetedParticipantUuid, this.effectListener);
                 break;
             case HIDE_FACILITY:
-                effect = this.effectFactory.createHideFacilityInteraction(this.effectListener);
+                effect = this.effectFactory.createHideFacilityEffect(this.effectListener);
                 break;
             case SHOW_FACILITY:
-                effect = this.effectFactory.createShowFacilityInteraction(this.effectListener);
+                effect = this.effectFactory.createShowFacilityEffect(this.effectListener);
                 break;
             default:
                 log.error("Unknown type of effect: {}", effectModel.getType());
@@ -129,7 +129,7 @@ public class InteractionScenario implements Scenario {
         this.currentEffect = effect;
         this.currentEffect.setCompleteCallback(() -> {
             this.currentEffect = null;
-            this.determinateInteractionAndStart();
+            this.determinateScenarioAndStart();
         });
         this.currentEffect.start(effectModel);
     }

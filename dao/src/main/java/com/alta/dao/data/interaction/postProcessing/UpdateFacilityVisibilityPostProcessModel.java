@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the data that describe the update of facility.
+ * Provides the model that describe the update of facility.
  */
 @Getter
 @Setter

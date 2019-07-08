@@ -1,10 +1,10 @@
-package com.alta.behaviorprocess.shared.data;
+package com.alta.behaviorprocess.data.effect;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Provides the engine data that describes the effect of interaction.
+ * Provides the engine model that describes the effect of interaction.
  */
 @Getter
 @AllArgsConstructor

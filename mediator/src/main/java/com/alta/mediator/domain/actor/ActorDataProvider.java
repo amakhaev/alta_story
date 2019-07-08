@@ -1,5 +1,6 @@
 package com.alta.mediator.domain.actor;
 
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
 import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
 import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
@@ -8,7 +9,7 @@ import com.alta.engine.data.frameStage.NpcEngineModel;
 import java.awt.*;
 
 /**
- * Provides the service that manipulated data related to {@link com.alta.scene.entities.Actor}
+ * Provides the service that manipulated model related to {@link com.alta.scene.entities.Actor}
  */
 public interface ActorDataProvider {
 
@@ -25,7 +26,7 @@ public interface ActorDataProvider {
     /**
      * Gets the simple npc by given npc entity.
      *
-     * @param npcEntity - the npc entity to create engine data.
+     * @param npcEntity - the npc entity to create engine model.
      * @return the {@link NpcEngineModel}
      */
     NpcEngineModel getSimpleNpc(SimpleNpcEntity npcEntity);
@@ -33,8 +34,16 @@ public interface ActorDataProvider {
     /**
      * Gets the alterable npc by given npc entity.
      *
-     * @param npcEntity - the npc entity to create engine data.
+     * @param npcEntity - the npc entity to create engine model.
      * @return the {@link NpcEngineModel} instance.
      */
     NpcEngineModel getAlterableNpc(AlterableNpcEntity npcEntity);
+
+    /**
+     * Gets the face set descriptor for given actor.
+     *
+     * @param actorName - the name of actor.
+     * @return the {@link FaceSetDescription} instance or null.
+     */
+    FaceSetDescription getFaceSetForActor(String actorName);
 }

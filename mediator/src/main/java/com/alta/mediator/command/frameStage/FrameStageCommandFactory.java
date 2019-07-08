@@ -13,7 +13,7 @@ public interface FrameStageCommandFactory {
     /**
      * Creates the {@link RenderFrameStageCommand} instance.
      *
-     * @param data                  - the data for creating.
+     * @param data                  - the model for creating.
      * @return the {@link RenderFrameStageCommand} instance.
      */
     RenderFrameStageCommand createRenderFrameStageCommand(FrameStageEngineDataModel data);

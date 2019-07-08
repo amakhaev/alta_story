@@ -7,8 +7,7 @@ import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
 import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
-import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.map.MapPreservationService;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
@@ -29,14 +28,13 @@ import java.util.stream.Collectors;
 
 
 /**
- * Provides the service to manipulate data related to {@link FrameStageEngineDataModel}
+ * Provides the service to manipulate model related to {@link FrameStageEngineDataModel}
  */
 @Slf4j
 public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
     private final MapService mapService;
-    private final PreservationService preservationService;
-    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final MapPreservationService mapPreservationService;
     private final ActorDataProvider actorDataProvider;
     private final FacilityEngineModelMapper facilityEngineModelMapper;
     private final JumpingEngineModelMapper jumpingEngineModelMapper;
@@ -47,15 +45,13 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
      */
     @Inject
     public FrameStageDataProviderImpl(MapService mapService,
-                                      PreservationService preservationService,
-                                      TemporaryDataPreservationService temporaryDataPreservationService,
+                                      MapPreservationService mapPreservationService,
                                       ActorDataProvider actorDataProvider,
                                       FacilityEngineModelMapper facilityEngineModelMapper,
                                       JumpingEngineModelMapper jumpingEngineModelMapper,
                                       @Named("currentPreservationId") Long currentPreservationId) {
         this.mapService = mapService;
-        this.preservationService = preservationService;
-        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.mapPreservationService = mapPreservationService;
         this.actorDataProvider = actorDataProvider;
         this.facilityEngineModelMapper = facilityEngineModelMapper;
         this.jumpingEngineModelMapper = jumpingEngineModelMapper;
@@ -63,7 +59,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     }
 
     /**
-     * Gets the data of frame stage that created from preservation
+     * Gets the model of frame stage that created from preservation
      *
      * @param characterPreservationModel - the preservation of game
      * @return the {@link FrameStageEngineDataModel} generated from preservation.
@@ -78,7 +74,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     }
 
     /**
-     * Gets the data of frame stage that created by give params
+     * Gets the model of frame stage that created by give params
      *
      * @param mapName - the name of map to be render
      * @param skin    - the skin of acting character
@@ -105,7 +101,7 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
         MapModel mapModel = this.mapService.getMap(mapName);
         if (mapModel == null) {
-            log.error("Map data is null, but required for creating of FrameStageEngineDataModel");
+            log.error("Map model is null, but required for creating of FrameStageEngineDataModel");
             return null;
         }
 
@@ -135,11 +131,11 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
         List<FacilityEngineModel> facilityEngineModels = this.facilityEngineModelMapper.doMapppingForFacilities(facilities);
 
         // The map preservation should be applied to facility if needed,
-        List<MapPreservationModel> mapPreservations = this.preservationService.getMapsPreservation(
+        List<MapPreservationModel> mapPreservations = this.mapPreservationService.getMapsPreservation(
                 this.currentPreservationId, mapName
         );
 
-        this.temporaryDataPreservationService.getMapsPreservation(this.currentPreservationId, mapName)
+        this.mapPreservationService.getTemporaryMapsPreservation(this.currentPreservationId, mapName)
                 .forEach(temporaryMapPreservation -> {
                     mapPreservations.removeIf(mp -> mp.getId().equals(temporaryMapPreservation.getId()));
                     mapPreservations.add(temporaryMapPreservation);

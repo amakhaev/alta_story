@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the engine data of acting character
+ * Provides the engine model of acting character
  */
 @Getter
 @Builder

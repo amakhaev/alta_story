@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * Provides the preservation data
+ * Provides the preservation model
  */
 @Getter
 @DatabaseTable(tableName = "character_preservations")

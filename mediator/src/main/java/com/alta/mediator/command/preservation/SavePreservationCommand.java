@@ -1,8 +1,8 @@
 package com.alta.mediator.command.preservation;
 
 import com.alta.dao.data.preservation.CharacterPreservationModel;
-import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.character.CharacterPreservationService;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -13,19 +13,19 @@ import lombok.NonNull;
  */
 public class SavePreservationCommand implements Command {
 
-    private final PreservationService preservationService;
-    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final InteractionPreservationService interactionPreservationService;
+    private final CharacterPreservationService characterPreservationService;
     private final CharacterPreservationModel characterPreservationModel;
 
     /**
      * Initialize new instance of {@link SavePreservationCommand}.
      */
     @AssistedInject
-    public SavePreservationCommand(PreservationService preservationService,
-                                   TemporaryDataPreservationService temporaryDataPreservationService,
+    public SavePreservationCommand(InteractionPreservationService interactionPreservationService,
+                                   CharacterPreservationService characterPreservationService,
                                    @NonNull @Assisted CharacterPreservationModel characterPreservationModel) {
-        this.preservationService = preservationService;
-        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.interactionPreservationService = interactionPreservationService;
+        this.characterPreservationService = characterPreservationService;
         this.characterPreservationModel = characterPreservationModel;
     }
 
@@ -34,9 +34,9 @@ public class SavePreservationCommand implements Command {
      */
     @Override
     public void execute() {
-        this.temporaryDataPreservationService.markTemporaryInteractionsAsCompletelySaved(
+        this.interactionPreservationService.markTemporaryInteractionsAsCompletelySaved(
                 this.characterPreservationModel.getId() // The same id for preservation
         );
-        this.preservationService.updateCharacterPreservation(this.characterPreservationModel);
+        this.characterPreservationService.updateCharacterPreservation(this.characterPreservationModel);
     }
 }

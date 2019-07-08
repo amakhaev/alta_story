@@ -1,11 +1,6 @@
 package com.alta.dao.domain.preservation;
 
-import com.alta.dao.data.preservation.CharacterPreservationModel;
-import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
-
-import java.util.List;
 
 /**
  * Provides the service to make CRUD operation with preservation
@@ -16,41 +11,14 @@ public interface PreservationService {
      * Gets the preservation related of game.
      *
      * @param id - the identifier preservation of character.
-     * @return the {@link CharacterPreservationModel} instance.
+     * @return the {@link PreservationModel} instance.
      */
     PreservationModel getPreservation(Long id);
 
     /**
-     * Updates the preservation that related to character.
+     * Clears all temporary model that related to specific preservation.
      *
-     * @param characterPreservationModel - the data to be updated.
+     * @param preservationId - the preservation to be cleared.
      */
-    void updateCharacterPreservation(CharacterPreservationModel characterPreservationModel);
-
-    /**
-     * Gets the list of interactions that related to preservation.
-     *
-     * @param preservationId    - the preservation id.
-     * @param mapName           - the name of map.
-     * @return the {@link List} of {@link InteractionPreservationModel} related to specific map and preservation.
-     */
-    List<InteractionPreservationModel> getInteractionsPreservation(Long preservationId, String mapName);
-
-    /**
-     * Finds the saved interaction by given preservation id and uuid of interaction.
-     *
-     * @param preservationId    - the preservation id.
-     * @param interactionUuid   - the interaction uuid.
-     * @return the {@link InteractionPreservationModel} instance or null if not found.
-     */
-    InteractionPreservationModel findInteractionByPreservationIdAndUuid(Long preservationId, String interactionUuid);
-
-    /**
-     * Gets the list of maps that related to preservation.
-     *
-     * @param preservationId    - the preservation id.
-     * @param mapName           - the name of map.
-     * @return the {@link List} of {@link MapPreservationModel} related to specific map and preservation.
-     */
-    List<MapPreservationModel> getMapsPreservation(Long preservationId, String mapName);
+    void clearTemporaryDataFromPreservation(Long preservationId);
 }

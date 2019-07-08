@@ -1,7 +1,7 @@
 package behaviorprocess.core;
 
 import com.alta.behaviorprocess.core.DataStorage;
-import com.alta.behaviorprocess.shared.data.InteractionModel;
+import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

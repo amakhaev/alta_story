@@ -1,9 +1,9 @@
-package com.alta.behaviorprocess.behaviorAction;
+package com.alta.behaviorprocess.service;
 
 import com.alta.behaviorprocess.shared.scenario.Scenario;
 
 /**
- * Provides the common behavior interface.
+ * Provides the effect behavior interface.
  */
 public interface Behavior<T> {
 

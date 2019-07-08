@@ -15,7 +15,7 @@ import javax.inject.Named;
 import java.awt.*;
 
 /**
- * Provides the repository to make CRUD with data related to engine in general.
+ * Provides the repository to make CRUD with model related to engine in general.
  */
 @Slf4j
 public class EngineRepositoryImpl implements EngineRepository {

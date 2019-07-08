@@ -1,5 +1,6 @@
-package com.alta.behaviorprocess.behaviorAction.interaction;
+package com.alta.behaviorprocess.service.interaction;
 
+import com.alta.behaviorprocess.shared.scenario.ScenarioImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.awt.*;
 
 /**
- * Provides the data to be used in {@link com.alta.behaviorprocess.shared.scenario.InteractionScenario}.
+ * Provides the model to be used in {@link ScenarioImpl}.
  */
 @Getter
 @AllArgsConstructor

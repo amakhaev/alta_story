@@ -1,7 +1,7 @@
 package mediator.dataSource;
 
 import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.interaction.CompleteInteractionCommand;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
@@ -31,7 +31,7 @@ public class EffectRepositoryImplTest {
 
         this.interactionRepository = new InteractionRepositoryImpl(
                 mock(PreservationService.class),
-                mock(TemporaryDataPreservationService.class),
+                mock(InteractionPreservationService.class),
                 mock(InteractionDataProvider.class),
                 this.interactionCommandFactory,
                 this.commandExecutor,
@@ -45,7 +45,7 @@ public class EffectRepositoryImplTest {
                 mock(PreservationCommandFactory.class),
                 this.commandExecutor,
                 mock(InteractionPostProcessingService.class),
-                mock(TemporaryDataPreservationService.class),
+                mock(InteractionPreservationService.class),
                 1L,
                 INTERACTION_UUID,
                 RELATED_MAP_NAME

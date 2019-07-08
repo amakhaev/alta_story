@@ -37,7 +37,7 @@ public class ComputatorFrameStageProvider {
      * Creates the frame stage computator
      *
      * @param focusPointStartPosition - the coordinates of focus point on map.
-     * @param actingCharacter - the acting character data.
+     * @param actingCharacter - the acting character model.
      * @param facilityModels - the facilities that available on map.
      * @param eventProducer - the event stream related to computator
      * @return the {@link StageComputatorImpl} instance.
@@ -69,7 +69,7 @@ public class ComputatorFrameStageProvider {
     /**
      * Creates the facility participant for computations.
      *
-     * @param facilityModel - the facility data from which created participant.
+     * @param facilityModel - the facility model from which created participant.
      * @return created {@link FacilityParticipant} instance.
      */
     public FacilityParticipant createFacilityParticipant(@NonNull FacilityEngineModel facilityModel) {

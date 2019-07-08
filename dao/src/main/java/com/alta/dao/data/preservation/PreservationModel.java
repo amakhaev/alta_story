@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the data that described the preservation.
+ * Provides the model that described the preservation.
  */
 @Getter
 @DatabaseTable(tableName = "preservations")
@@ -23,7 +23,7 @@ public class PreservationModel {
     public static final String CREATED_AT_FIELD = "created_at";
 
     /**
-     * Provides the chapter indicator field name.
+     * Provides the character indicator field name.
      */
     public static final String CHAPTER_INDICATOR_FIELD = "chapter_indicator";
 

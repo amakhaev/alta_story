@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Provides the data that describes the post processing of interaction.
+ * Provides the model that describes the post processing of interaction.
  */
 @Getter
 @AllArgsConstructor

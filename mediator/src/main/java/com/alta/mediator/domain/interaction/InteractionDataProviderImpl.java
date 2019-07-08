@@ -1,13 +1,10 @@
 package com.alta.mediator.domain.interaction;
 
-import com.alta.behaviorprocess.shared.data.*;
+import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.dao.data.interaction.InteractionDataModel;
-import com.alta.dao.data.common.effect.DialogueEffectDataModel;
-import com.alta.dao.data.common.effect.HideFacilityEffectDataModel;
-import com.alta.dao.data.common.effect.EffectDataModel;
-import com.alta.dao.data.common.effect.ShowFacilityEffectDataModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
+import com.alta.mediator.domain.effect.EffectDataProvider;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.NonNull;
@@ -18,7 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Describes the provider of data related to interactions.
+ * Describes the provider of model related to interactions.
  */
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -26,14 +23,15 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
 
     private final InteractionService interactionService;
     private final InteractionConditionService conditionService;
+    private final EffectDataProvider effectDataProvider;
 
     /**
-     * Gets the interaction data by given related map name.
+     * Gets the interaction model by given related map name.
      *
      * @param relatedMapName           - the name of map where interaction should be happens.
      * @param targetUuid               - the uuid of target for interaction.
-     * @param currentChapterIndicator  - the indicator of current chapter.
-     * @param interactionPreservations - the current preservation data.
+     * @param currentChapterIndicator  - the indicator of current character.
+     * @param interactionPreservations - the current preservation model.
      * @return the {@link InteractionModel} instance.
      */
     @Override
@@ -67,8 +65,8 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
      * Gets the interactions by given related map name.
      *
      * @param relatedMapName           - the name of map where interaction should be happens.
-     * @param currentChapterIndicator  - the indicator of current chapter.
-     * @param interactionPreservations - the current preservation data.
+     * @param currentChapterIndicator  - the indicator of current character.
+     * @param interactionPreservations - the current preservation model.
      * @return the {@link List<InteractionModel>} instance.
      */
     @Override
@@ -141,39 +139,12 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
         return InteractionModel.builder()
                 .uuid(rawData.getUuid())
                 .targetUuid(rawData.getTargetUuid())
-                .interactionEffects(this.createEffects(rawData.getEffects()))
-                .failedPreConditionInteractionEffects(this.createEffects(rawData.getFailedPreConditionEffects()))
+                .interactionEffects(this.effectDataProvider.getEffects(rawData.getEffects()))
+                .failedPreConditionInteractionEffects(this.effectDataProvider.getEffects(rawData.getFailedPreConditionEffects()))
                 .shiftTiles(rawData.getShiftTiles())
                 .isCompleted(interactionPreservationModel != null)
                 .preCondition(this.conditionService.build(rawData.getPreCondition()))
                 .mapName(relatedMapName)
                 .build();
-    }
-
-    private List<EffectModel> createEffects(List<EffectDataModel> effects) {
-        if (effects == null || effects.size() == 0) {
-            return Collections.emptyList();
-        }
-
-        return effects.stream()
-                .map(effect -> {
-                    switch (effect.getType()) {
-                        case DIALOGUE:
-                            DialogueEffectDataModel effectDataModel = ((DialogueEffectDataModel)effect);
-                            return new DialogueEffectModel(
-                                    effectDataModel.getText(),
-                                    new DialogueEffectModel.DialogueSpeaker(
-                                            effectDataModel.getSpeakerUuid(), effectDataModel.getSpeakerEmotion()
-                                    )
-                            );
-                        case HIDE_FACILITY:
-                            return new HideFacilityEffectModel(((HideFacilityEffectDataModel)effect).getFacilityUuid());
-                        case SHOW_FACILITY:
-                            return new ShowFacilityEffectModel(((ShowFacilityEffectDataModel)effect).getFacilityUuid());
-                        default:
-                            throw new IllegalArgumentException("Unknown type of interaction effect: " + effect.getType());
-                    }
-                })
-                .collect(Collectors.toList());
     }
 }

@@ -1,10 +1,11 @@
 {
-	"uuid": "5f2f10df-a0c9-4321-a942-9b561de2fa08",
 	"name": "main",
 	"displayName": "Основной сюжет",
 	"steps": [
 		{
 			"stepNumber": 0,
+			"chapterIndicatorFrom": 0,
+			"chapterIndicatorTo": 0,
 			"triggerType": "DIALOG",
 			"triggerMap": "village_yutta",
 			"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
@@ -24,6 +25,22 @@
 				{
 					"type": "DIALOGUE",
 					"text": "Что-то я много думаю.. Хей Леон, как дела?",
+					"speakerName": "kira",
+					"speakerEmotion": "JOY"
+				}
+			]		
+		},
+		{
+			"stepNumber": 1,
+			"chapterIndicatorFrom": 1,
+			"chapterIndicatorTo": 1,
+			"triggerType": "DIALOG",
+			"triggerMap": "village_yutta",
+			"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
+			"effects": [
+				{
+					"type": "DIALOGUE",
+					"text": "Бла бла бла для теста",
 					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				}

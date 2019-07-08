@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Provides the data that describes the show of facility effect.
+ * Provides the model that describes the show of facility effect.
  */
 @Getter
 @Setter

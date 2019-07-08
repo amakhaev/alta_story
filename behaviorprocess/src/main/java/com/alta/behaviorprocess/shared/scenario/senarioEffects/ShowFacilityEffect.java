@@ -1,7 +1,7 @@
 package com.alta.behaviorprocess.shared.scenario.senarioEffects;
 
-import com.alta.behaviorprocess.shared.data.EffectModel;
-import com.alta.behaviorprocess.shared.data.ShowFacilityEffectModel;
+import com.alta.behaviorprocess.data.effect.EffectModel;
+import com.alta.behaviorprocess.data.effect.ShowFacilityEffectModel;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.NonNull;

@@ -18,7 +18,7 @@ public interface PreservationCommandFactory {
     UpdateInteractionPreservationCommand createUpdateInteractionPreservationCommand(InteractionPreservationModel interactionPreservation);
 
     /**
-     * Creates the command to clear all temporary data related to preservation.
+     * Creates the command to clear all temporary model related to preservation.
      *
      * @return the {@link ClearTemporaryPreservationDataCommand} instance.
      */
@@ -27,7 +27,7 @@ public interface PreservationCommandFactory {
     /**
      * Creates the save preservation command.
      *
-     * @param model - the character preservation data to be saved.
+     * @param model - the character preservation model to be saved.
      * @return the {@link SavePreservationCommand} instance.
      */
     SavePreservationCommand createSavePreservationCommand(CharacterPreservationModel model);

@@ -1,9 +1,9 @@
-package com.alta.behaviorprocess.shared.data;
+package com.alta.behaviorprocess.data.effect;
 
 import lombok.Getter;
 
 /**
- * Provides the data that describes the interaction by hide facility.
+ * Provides the model that describes the interaction by hide facility.
  */
 @Getter
 public class HideFacilityEffectModel extends EffectModel {

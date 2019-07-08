@@ -1,0 +1,71 @@
+package com.alta.mediator.dataSource;
+
+import com.alta.behaviorprocess.data.common.FaceSetDescription;
+import com.alta.behaviorprocess.data.quest.QuestModel;
+import com.alta.behaviorprocess.data.quest.QuestRepository;
+import com.alta.dao.data.preservation.QuestPreservationModel;
+import com.alta.dao.data.quest.AvailableQuest;
+import com.alta.dao.domain.preservation.quest.QuestPreservationService;
+import com.alta.mediator.domain.quest.QuestDataProvider;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+/**
+ * Provides the repository of to make CRUD with quests.
+ */
+@Slf4j
+public class QuestRepositoryImpl implements QuestRepository {
+
+    private final Long currentPreservationId;
+    private final QuestPreservationService questPreservationService;
+    private final QuestDataProvider questDataProvider;
+
+    /**
+     * Initialize ew instance of {@link QuestRepositoryImpl}.
+     * @param currentPreservationId     - the Id of current preservation.
+     * @param questPreservationService  - the {@link QuestPreservationService} instance.
+     * @param questDataProvider         - the {@link QuestDataProvider} instance.
+     */
+    @Inject
+    public QuestRepositoryImpl(@Named("currentPreservationId") Long currentPreservationId,
+                               QuestPreservationService questPreservationService,
+                               QuestDataProvider questDataProvider) {
+        this.currentPreservationId = currentPreservationId;
+        this.questPreservationService = questPreservationService;
+        this.questDataProvider = questDataProvider;
+    }
+
+    /**
+     * Gets the main quest.
+     */
+    @Override
+    public QuestModel getMainQuest() {
+        QuestPreservationModel questPreservationModel = this.findPreservationForMainQuest();
+
+        if (questPreservationModel == null) {
+            throw new RuntimeException("The main quest not found in database");
+        }
+
+        return this.questDataProvider.getQuestModel(
+                questPreservationModel.getName(), questPreservationModel.getCurrentStepNumber()
+        );
+    }
+
+    private QuestPreservationModel findPreservationForMainQuest() {
+        // Try to get temporary saved quest since it newly model.
+        QuestPreservationModel questPreservationModel = this.questPreservationService.getTemporaryQuestPreservation(
+                this.currentPreservationId, AvailableQuest.MAIN_QUEST
+        );
+
+        if (questPreservationModel == null) {
+            // Try to get saved quest.
+            questPreservationModel = this.questPreservationService.getQuestPreservation(
+                    this.currentPreservationId, AvailableQuest.MAIN_QUEST
+            );
+        }
+
+        return questPreservationModel;
+    }
+}

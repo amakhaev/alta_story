@@ -1,7 +1,7 @@
 package com.alta.mediator.command.preservation;
 
 import com.alta.dao.data.preservation.MapPreservationModel;
-import com.alta.dao.domain.preservation.TemporaryDataPreservationService;
+import com.alta.dao.domain.preservation.map.MapPreservationService;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -12,16 +12,16 @@ import com.google.inject.assistedinject.AssistedInject;
 public class UpdateMapPreservationCommand implements Command {
 
     private final MapPreservationModel mapPreservationModel;
-    private final TemporaryDataPreservationService temporaryDataPreservationService;
+    private final MapPreservationService mapPreservationService;
 
     /**
      * Initialize ew instance of {@link UpdateMapPreservationCommand}.
      */
     @AssistedInject
     public UpdateMapPreservationCommand(@Assisted MapPreservationModel mapPreservationModel,
-                                        TemporaryDataPreservationService temporaryDataPreservationService) {
+                                        MapPreservationService mapPreservationService) {
         this.mapPreservationModel = mapPreservationModel;
-        this.temporaryDataPreservationService = temporaryDataPreservationService;
+        this.mapPreservationService = mapPreservationService;
     }
 
     /**
@@ -29,6 +29,6 @@ public class UpdateMapPreservationCommand implements Command {
      */
     @Override
     public void execute() {
-        this.temporaryDataPreservationService.upsertTemporaryMapPreservation(this.mapPreservationModel);
+        this.mapPreservationService.upsertTemporaryMapPreservation(this.mapPreservationModel);
     }
 }

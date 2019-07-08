@@ -119,7 +119,7 @@ public class StageComputatorImpl implements StageComputator {
     @Override
     public synchronized void onTick(int delta) {
         if (!this.isAllDataInitialized()) {
-            log.warn("One or more computator data wasn't initialized. No any action will be performed");
+            log.warn("One or more computator model wasn't initialized. No any action will be performed");
             return;
         }
 
@@ -251,7 +251,7 @@ public class StageComputatorImpl implements StageComputator {
     /**
      * Sets the event producer for computator
      *
-     * @param eventProducer - the event producer of computed data
+     * @param eventProducer - the event producer of computed model
      */
     public void setComputatorEventProducer(EventProducer<ComputatorEvent> eventProducer) {
         if (this.actingCharacterComputator == null) {
