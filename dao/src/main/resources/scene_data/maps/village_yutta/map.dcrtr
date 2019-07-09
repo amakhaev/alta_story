@@ -219,24 +219,24 @@
 		},
 		{
 			"uuid": "bf411d5a-6122-4f3a-9ebb-997d144ee332",
-			"name": "flooring2", 
-			"descriptorFileName": "facility3",
+			"name": "flooringTop", 
+			"descriptorFileName": "common1",
 			"startX": 11,
 			"startY": 28,
 			"defaultVisible": "true"
 		},
 		{
 			"uuid": "9004a0c7-87d1-4176-bad1-103bf0bc4667",
-			"name": "flooring2", 
-			"descriptorFileName": "facility3",
+			"name": "flooringFull", 
+			"descriptorFileName": "common1",
 			"startX": 11,
 			"startY": 29,
 			"defaultVisible": "true"
 		},
 		{
 			"uuid": "303b47be-544c-4b37-9009-49731a6d138c",
-			"name": "flooring2", 
-			"descriptorFileName": "facility3",
+			"name": "flooringBottom", 
+			"descriptorFileName": "common1",
 			"startX": 11,
 			"startY": 30,
 			"defaultVisible": "true"

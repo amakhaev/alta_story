@@ -29,7 +29,6 @@ public class Engine {
         this.dataSynchronizer = dataSynchronizer;
 
         engineConfiguration.configure();
-        this.dataSynchronizer.synchronizeQuests();
     }
 
     /**
@@ -39,6 +38,13 @@ public class Engine {
         this.engineStorage.put(data);
         this.dataSynchronizer.synchronizeAllDependsOnMap(data.getMapName());
         this.frameStageFacade.tryToRenderFrameStageView();
+    }
+
+    /**
+     * Runs the initial synchronizations of data.
+     */
+    public void runInitialSync() {
+        this.dataSynchronizer.synchronizeQuests();
     }
 
     /**

@@ -36,7 +36,7 @@ public class MainQuestBehavior implements Behavior<QuestScenarioData> {
     @Override
     public Scenario getScenario(QuestScenarioData scenarioParams) {
         QuestModel mainQuest = this.dataStorage.getMainQuest();
-        if (mainQuest == null) {
+        if (mainQuest == null || mainQuest.getCurrentStep() == null) {
             log.error("No main quest found in model storage");
             return null;
         }

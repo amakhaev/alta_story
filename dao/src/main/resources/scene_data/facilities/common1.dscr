@@ -1,0 +1,46 @@
+{
+  "imageName": "common1.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "flooringTop",
+      "positions": [
+        {
+          "x": 1,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "flooringBottom",
+      "positions": [
+        {
+          "x": 3,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "flooringFull",
+      "positions": [
+        {
+          "x": 4,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    }
+  ]
+}

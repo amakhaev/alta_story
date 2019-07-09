@@ -4,8 +4,6 @@ import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
-import com.alta.dao.domain.quest.QuestListService;
-import com.alta.dao.domain.quest.QuestService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
 import com.google.inject.Inject;
@@ -25,8 +23,6 @@ public class RenderFrameStageFromPreservationCommand implements Command {
     private final InteractionPreservationService interactionPreservationService;
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final Long currentPreservationId;
-    private final QuestListService questListService;
-    private final QuestService questService;
 
     /**
      * Initialize ew instance of {@link RenderFrameStageFromPreservationCommand}.
@@ -36,16 +32,12 @@ public class RenderFrameStageFromPreservationCommand implements Command {
                                                    PreservationService preservationService,
                                                    InteractionPreservationService interactionPreservationService,
                                                    FrameStageCommandFactory frameStageCommandFactory,
-                                                   @Named("currentPreservationId") Long currentPreservationId,
-                                                   QuestListService questListService,
-                                                   QuestService questService) {
+                                                   @Named("currentPreservationId") Long currentPreservationId) {
         this.frameStageDataProvider = frameStageDataProvider;
         this.preservationService = preservationService;
         this.interactionPreservationService = interactionPreservationService;
         this.frameStageCommandFactory = frameStageCommandFactory;
         this.currentPreservationId = currentPreservationId;
-        this.questListService = questListService;
-        this.questService = questService;
     }
 
     /**

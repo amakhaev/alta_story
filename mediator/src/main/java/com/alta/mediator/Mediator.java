@@ -55,6 +55,8 @@ public class Mediator {
     public void loadSavedGameAndStart() {
         this.engineMainThread.execute(() -> {
             this.commandExecutor.executeCommand(this.preservationCommandFactory.createClearTemporaryPreservationDataCommand());
+            this.engine.runInitialSync();
+
             this.commandExecutor.executeCommand(this.frameStageCommandFactory.createRenderFrameStageFromPreservationCommand());
             this.engine.startScene();
         });
