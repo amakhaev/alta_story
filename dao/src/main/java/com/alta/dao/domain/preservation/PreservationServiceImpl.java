@@ -81,4 +81,23 @@ public class PreservationServiceImpl implements PreservationService {
             log.error(e.getMessage());
         }
     }
+
+    /**
+     * Marks all temporary interactions/quests etc. as not temporary.
+     *
+     * @param preservationId - the preservation id.
+     */
+    @Override
+    public void markTemporaryAsCompletelySaved(Long preservationId) {
+        try {
+            TransactionManager.callInTransaction(this.connectionSource, (Callable<Void>) () -> {
+                this.interactionPreservationService.markTemporaryInteractionsAsSaved(preservationId);
+                this.questPreservationService.markTemporaryQuestsAsSaved(preservationId);
+                this.mapPreservationService.markTemporaryMapsAsSaved(preservationId);
+                return null;
+            });
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+    }
 }

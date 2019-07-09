@@ -331,7 +331,7 @@ public class MessageBoxFrameImpl implements MessageBoxFrame {
 
         int containerWidth = this.width - this.marginLeft - this.marginRight;
         if (this.faceSetDescriptor != null) {
-            containerWidth -= FACE_IMAGE_WIDTH - 24; // 24 is the sum of border width and margin
+            containerWidth -= FACE_IMAGE_WIDTH - 32; // 32 is the sum of border width and margin
         }
 
         for (String word: words) {

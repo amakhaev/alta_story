@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-public class EffectRepositoryImplTest {
+public class InteractionRepositoryImplTest {
 
     private final static String INTERACTION_UUID = "interactionUuid";
     private final static String RELATED_MAP_NAME = "mapName";

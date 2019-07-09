@@ -39,6 +39,23 @@ public class QuestDataProviderImpl implements QuestDataProvider {
         return this.createQuestModel(questModel);
     }
 
+    /**
+     * Gets the count of steps that available in quest.
+     *
+     * @param questName - the name of quest to search steps.
+     * @return the count of steps.
+     */
+    @Override
+    public int getCountOfStepsInQuest(String questName) {
+        QuestListItemModel mainQuestListItem = this.questListService.findQuestByName(questName);
+        if (mainQuestListItem == null) {
+            log.error("Quest with given name {} not found", questName);
+            return 0;
+        }
+
+        return mainQuestListItem.getStepCount();
+    }
+
     private QuestModel createQuestModel(com.alta.dao.data.quest.QuestModel questModel) {
         return QuestModel.builder()
                 .name(questModel.getName())

@@ -7,6 +7,7 @@ import com.alta.engine.data.EngineRepository;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
+import com.alta.mediator.command.quest.QuestCommandFactory;
 import com.alta.mediator.dataSource.EngineRepositoryImpl;
 import com.alta.mediator.dataSource.InteractionRepositoryImpl;
 import com.alta.mediator.dataSource.QuestRepositoryImpl;
@@ -39,6 +40,7 @@ public class MediatorInjectorModule extends AbstractModule {
         install(new FactoryModuleBuilder().build(FrameStageCommandFactory.class));
         install(new FactoryModuleBuilder().build(PreservationCommandFactory.class));
         install(new FactoryModuleBuilder().build(InteractionCommandFactory.class));
+        install(new FactoryModuleBuilder().build(QuestCommandFactory.class));
 
         bind(ExecutorService.class).toProvider(ThreadPoolProvider.class).in(Singleton.class);
 

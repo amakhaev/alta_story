@@ -5,10 +5,14 @@ import com.google.inject.Inject;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class QuestPreservationServiceImpl implements QuestPreservationService {
@@ -76,6 +80,48 @@ public class QuestPreservationServiceImpl implements QuestPreservationService {
     }
 
     /**
+     * Updates or creates the preservation about quest marked as temporary.
+     *
+     * @param preservationModel - the model to be saved or updated.
+     */
+    @Override
+    public void upsertTemporaryQuestPreservation(QuestPreservationModel preservationModel) {
+        try {
+            preservationModel.setTemporary(true);
+            this.questPreservationDao.createOrUpdate(preservationModel);
+        } catch (SQLException e) {
+            log.error("Upsert of quest failed", e);
+        }
+    }
+
+    /**
+     * Marks all temporary quests as not temporary
+     *
+     * @param preservationId - the preservation id.
+     */
+    @Override
+    public void markTemporaryQuestsAsSaved(Long preservationId) {
+        try {
+            List<QuestPreservationModel> allQuests = this.questPreservationDao.queryBuilder()
+                    .where()
+                    .eq(QuestPreservationModel.PRESERVATION_ID_FIELD, preservationId)
+                    .query();
+
+            List<Long> questsToBeDeleted = this.findAllSavedQuestssToBeRemoved(allQuests);
+            DeleteBuilder<QuestPreservationModel, Integer> deleteBuilder = this.questPreservationDao.deleteBuilder();
+            deleteBuilder.where().in(QuestPreservationModel.ID_FIELD, questsToBeDeleted);
+            deleteBuilder.delete();
+
+            UpdateBuilder<QuestPreservationModel, Integer> updateBuilder = this.questPreservationDao.updateBuilder();
+            updateBuilder.where().eq(QuestPreservationModel.PRESERVATION_ID_FIELD, preservationId);
+            updateBuilder.updateColumnValue(QuestPreservationModel.IS_TEMPORARY_FIELD, false);
+            updateBuilder.update();
+        } catch (SQLException e) {
+            log.error("Failed to mark temporary quests as saved", e);
+        }
+    }
+
+    /**
      * Clears the temporary model related to given preservation.
      *
      * @param preservationId - the id of preservation for which temporary model should be deleted.
@@ -97,5 +143,29 @@ public class QuestPreservationServiceImpl implements QuestPreservationService {
         } catch (SQLException e) {
             log.error("Can't clear temporary model for quest preservation with id {}. Error: {}", preservationId, e.getMessage());
         }
+    }
+
+    private List<Long> findAllSavedQuestssToBeRemoved(List<QuestPreservationModel> quests) {
+        if (quests == null || quests.size() == 0) {
+            return Collections.emptyList();
+        }
+
+        // The quests that were saved but already has new temporary values should be removed.
+        List<QuestPreservationModel> savedQuests = quests.stream()
+                .filter(quest -> !quest.isTemporary())
+                .collect(Collectors.toList());
+
+        List<QuestPreservationModel> temporaryQuests = quests.stream()
+                .filter(QuestPreservationModel::isTemporary)
+                .collect(Collectors.toList());
+
+        return savedQuests.stream()
+                .filter(savedQuest -> temporaryQuests.stream().anyMatch(
+                        temp -> savedQuest.getPreservationId().equals(temp.getPreservationId()) &&
+                                savedQuest.getName().equals(temp.getName())
+                        )
+                )
+                .map(QuestPreservationModel::getId)
+                .collect(Collectors.toList());
     }
 }

@@ -26,6 +26,20 @@ public interface QuestPreservationService {
     QuestPreservationModel getTemporaryQuestPreservation(Long preservationId, String name);
 
     /**
+     * Updates or creates the preservation about quest marked as temporary.
+     *
+     * @param preservationModel - the model to be saved or updated.
+     */
+    void upsertTemporaryQuestPreservation(QuestPreservationModel preservationModel);
+
+    /**
+     * Marks all temporary quests as not temporary
+     *
+     * @param preservationId    - the preservation id.
+     */
+    void markTemporaryQuestsAsSaved(Long preservationId);
+
+    /**
      * Clears the temporary model related to given preservation.
      *
      * @param preservationId - the id of preservation for which temporary model should be deleted.

@@ -1,8 +1,8 @@
 package com.alta.mediator.command.preservation;
 
 import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.character.CharacterPreservationService;
-import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.Command;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -13,18 +13,18 @@ import lombok.NonNull;
  */
 public class SavePreservationCommand implements Command {
 
-    private final InteractionPreservationService interactionPreservationService;
     private final CharacterPreservationService characterPreservationService;
     private final CharacterPreservationModel characterPreservationModel;
+    private final PreservationService preservationService;
 
     /**
      * Initialize new instance of {@link SavePreservationCommand}.
      */
     @AssistedInject
-    public SavePreservationCommand(InteractionPreservationService interactionPreservationService,
-                                   CharacterPreservationService characterPreservationService,
+    public SavePreservationCommand(CharacterPreservationService characterPreservationService,
+                                   PreservationService preservationService,
                                    @NonNull @Assisted CharacterPreservationModel characterPreservationModel) {
-        this.interactionPreservationService = interactionPreservationService;
+        this.preservationService = preservationService;
         this.characterPreservationService = characterPreservationService;
         this.characterPreservationModel = characterPreservationModel;
     }
@@ -34,7 +34,7 @@ public class SavePreservationCommand implements Command {
      */
     @Override
     public void execute() {
-        this.interactionPreservationService.markTemporaryInteractionsAsCompletelySaved(
+        this.preservationService.markTemporaryAsCompletelySaved(
                 this.characterPreservationModel.getId() // The same id for preservation
         );
         this.characterPreservationService.updateCharacterPreservation(this.characterPreservationModel);

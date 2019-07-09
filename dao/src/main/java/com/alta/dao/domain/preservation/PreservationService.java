@@ -21,4 +21,11 @@ public interface PreservationService {
      * @param preservationId - the preservation to be cleared.
      */
     void clearTemporaryDataFromPreservation(Long preservationId);
+
+    /**
+     * Marks all temporary interactions/quests etc. as not temporary.
+     *
+     * @param preservationId    - the preservation id.
+     */
+    void markTemporaryAsCompletelySaved(Long preservationId);
 }

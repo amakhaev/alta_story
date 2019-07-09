@@ -15,5 +15,6 @@ public class QuestListItemModel {
     private final String pathToDescriptor;
     private Integer chapterIndicatorFrom;
     private Integer chapterIndicatorTo;
+    private int stepCount;
 
 }

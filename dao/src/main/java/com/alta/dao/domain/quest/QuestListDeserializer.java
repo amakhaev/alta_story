@@ -18,6 +18,7 @@ public class QuestListDeserializer implements JsonDeserializer<List<QuestListIte
     public static final String PATH_TO_DESCRIPTOR_FIELD_NAME = "pathToDescriptor";
     public static final String CHAPTER_INDICATOR_FROM_FIELD_NAME = "chapterIndicatorFrom";
     public static final String CHAPTER_INDICATOR_TO_FIELD_NAME = "chapterIndicatorTo";
+    public static final String STEP_COUNT_FIELD_NAME = "stepCount";
 
     private final List<QuestListItemNameMatcher> matchers;
 
@@ -64,6 +65,7 @@ public class QuestListDeserializer implements JsonDeserializer<List<QuestListIte
                     .chapterIndicatorTo(jsonQuestListItem.has(CHAPTER_INDICATOR_TO_FIELD_NAME) ?
                             jsonQuestListItem.get(CHAPTER_INDICATOR_TO_FIELD_NAME).getAsInt() : null
                     )
+                    .stepCount(jsonQuestListItem.get(STEP_COUNT_FIELD_NAME).getAsInt())
                     .build();
         } catch (Exception e) {
             log.error("Can't parse QuestListItem.", e);

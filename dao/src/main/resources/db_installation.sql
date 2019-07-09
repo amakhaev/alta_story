@@ -51,3 +51,6 @@ CREATE TABLE IF NOT EXISTS quest_preservations (
   UNIQUE (preservation_id, name, is_temporary),
   FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO quest_preservations (preservation_id, name, is_temporary, current_step_number, is_completed)
+    SELECT 1, 'main', 0, 0, 0 WHERE (SELECT count(*) FROM quest_preservations) = 0;

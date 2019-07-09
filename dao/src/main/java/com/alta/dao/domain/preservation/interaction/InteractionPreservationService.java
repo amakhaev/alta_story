@@ -66,7 +66,7 @@ public interface InteractionPreservationService {
      *
      * @param preservationId    - the preservation id.
      */
-    void markTemporaryInteractionsAsCompletelySaved(Long preservationId);
+    void markTemporaryInteractionsAsSaved(Long preservationId);
 
     /**
      * Clears the temporary model related to given preservation.

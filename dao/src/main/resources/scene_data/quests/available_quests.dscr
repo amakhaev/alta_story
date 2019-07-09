@@ -2,6 +2,7 @@
 	{
 		"name": "main",
 		"pathToDescriptor": "scene_data/quests/main/quest.dscr",
-		"chapterIndicatorFrom": 0
+		"chapterIndicatorFrom": 0,
+		"stepCount": 2
 	}
 ]

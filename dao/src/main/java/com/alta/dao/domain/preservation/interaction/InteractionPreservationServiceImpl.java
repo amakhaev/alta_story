@@ -185,13 +185,22 @@ public class InteractionPreservationServiceImpl implements InteractionPreservati
      * @param preservationId - the preservation id.
      */
     @Override
-    public void markTemporaryInteractionsAsCompletelySaved(Long preservationId) {
+    public void markTemporaryInteractionsAsSaved(Long preservationId) {
         try {
-            TransactionManager.callInTransaction(this.connectionSource, (Callable<Void>) () -> {
-                this.markTemporaryInteractionsAsSaved(preservationId);
-                this.mapPreservationService.markTemporaryMapsAsSaved(preservationId);
-                return null;
-            });
+            List<InteractionPreservationModel> allInteractions = this.interactionPreservationDao.queryBuilder()
+                    .where()
+                    .eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId)
+                    .query();
+
+            List<Long> interactionToBeDeleted = this.findAllSavedInteractionsToBeRemoved(allInteractions);
+            DeleteBuilder<InteractionPreservationModel, Long> deleteBuilder = this.interactionPreservationDao.deleteBuilder();
+            deleteBuilder.where().in(InteractionPreservationModel.ID_FIELD, interactionToBeDeleted);
+            deleteBuilder.delete();
+
+            UpdateBuilder<InteractionPreservationModel, Long> updateBuilder = this.interactionPreservationDao.updateBuilder();
+            updateBuilder.where().eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId);
+            updateBuilder.updateColumnValue(InteractionPreservationModel.IS_TEMPORARY_FIELD, false);
+            updateBuilder.update();
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
@@ -218,27 +227,6 @@ public class InteractionPreservationServiceImpl implements InteractionPreservati
             );
         } catch (SQLException e) {
             log.error("Can't clear temporary model for interaction preservation with id {}. Error: {}", preservationId, e.getMessage());
-        }
-    }
-
-    private void markTemporaryInteractionsAsSaved(Long preservationId) {
-        try {
-            List<InteractionPreservationModel> allInteractions = this.interactionPreservationDao.queryBuilder()
-                    .where()
-                    .eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId)
-                    .query();
-
-            List<Long> interactionToBeDeleted = this.findAllSavedInteractionsToBeRemoved(allInteractions);
-            DeleteBuilder<InteractionPreservationModel, Long> deleteBuilder = this.interactionPreservationDao.deleteBuilder();
-            deleteBuilder.where().in(InteractionPreservationModel.ID_FIELD, interactionToBeDeleted);
-            deleteBuilder.delete();
-
-            UpdateBuilder<InteractionPreservationModel, Long> updateBuilder = this.interactionPreservationDao.updateBuilder();
-            updateBuilder.where().eq(InteractionPreservationModel.PRESERVATION_ID_FIELD, preservationId);
-            updateBuilder.updateColumnValue(InteractionPreservationModel.IS_TEMPORARY_FIELD, false);
-            updateBuilder.update();
-        } catch (SQLException e) {
-            log.error(e.getMessage());
         }
     }
 

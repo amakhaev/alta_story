@@ -2,7 +2,9 @@ package com.alta.dao.data.preservation;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Provides the model that described the preservation of interaction.
@@ -10,6 +12,20 @@ import lombok.Getter;
 @Getter
 @DatabaseTable(tableName = "quest_preservations")
 public class QuestPreservationModel {
+
+    @Builder
+    private static QuestPreservationModel create(Long preservationId,
+                                                 String name,
+                                                 int currentStepNumber,
+                                                 boolean isCompleted) {
+        QuestPreservationModel model = new QuestPreservationModel();
+        model.preservationId = preservationId;
+        model.name = name;
+        model.currentStepNumber = currentStepNumber;
+        model.isCompleted = isCompleted;
+
+        return model;
+    }
 
     /**
      * Provides the ID field name.
@@ -50,12 +66,15 @@ public class QuestPreservationModel {
     @DatabaseField(columnName = NAME_FIELD)
     private String name;
 
+    @Setter
     @DatabaseField(columnName = CURRENT_STEP_NUMBER_FIELD)
     private int currentStepNumber;
 
+    @Setter
     @DatabaseField(columnName = IS_COMPLETED_FIELD)
     private boolean isCompleted;
 
+    @Setter
     @DatabaseField(columnName = IS_TEMPORARY_FIELD)
     private boolean isTemporary;
 

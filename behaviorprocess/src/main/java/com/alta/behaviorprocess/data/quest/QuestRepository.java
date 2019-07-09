@@ -10,4 +10,12 @@ public interface QuestRepository {
      */
     QuestModel getMainQuest();
 
+    /**
+     * Completes the step from quest.
+     *
+     * @param name          - the name of quest.
+     * @param stepNumber    - the step that was completed.
+     */
+    void completeQuestStep(String name, int stepNumber);
+
 }

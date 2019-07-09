@@ -16,4 +16,12 @@ public interface QuestDataProvider {
      */
     QuestModel getQuestModel(String questName, int currentStepNumber);
 
+    /**
+     * Gets the count of steps that available in quest.
+     *
+     * @param questName - the name of quest to search steps.
+     * @return the count of steps.
+     */
+    int getCountOfStepsInQuest(String questName);
+
 }

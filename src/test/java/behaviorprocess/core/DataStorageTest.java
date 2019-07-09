@@ -2,6 +2,7 @@ package behaviorprocess.core;
 
 import com.alta.behaviorprocess.core.DataStorage;
 import com.alta.behaviorprocess.data.interaction.InteractionModel;
+import com.alta.behaviorprocess.data.quest.QuestModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,5 +76,31 @@ public class DataStorageTest {
 
         this.dataStorage.evictAndSaveInteractions(Collections.singletonList(interaction2));
         Assert.assertEquals(interaction2.getMapName(), this.dataStorage.getInteractions().get(0).getMapName());
+    }
+
+    @Test
+    public void dataStorageTest_evictAndSaveMainQuest_savedSuccessfully() {
+        QuestModel questModel = QuestModel.builder().name("mainQuestName").build();
+
+        this.dataStorage.evictAndSaveMainQuest(questModel);
+        Assert.assertNotNull(this.dataStorage.getMainQuest());
+        Assert.assertEquals("mainQuestName", this.dataStorage.getMainQuest().getName());
+
+        QuestModel questModel2 = QuestModel.builder().name("mainQuestName2").build();
+        this.dataStorage.evictAndSaveMainQuest(questModel2);
+        Assert.assertNotNull(this.dataStorage.getMainQuest());
+        Assert.assertEquals("mainQuestName2", this.dataStorage.getMainQuest().getName());
+    }
+
+    @Test
+    public void dataStorageTest_saveMainQuestAsNull_savedSuccessfully() {
+        QuestModel questModel = QuestModel.builder().name("mainQuestName").build();
+
+        this.dataStorage.evictAndSaveMainQuest(questModel);
+        Assert.assertNotNull(this.dataStorage.getMainQuest());
+        Assert.assertEquals("mainQuestName", this.dataStorage.getMainQuest().getName());
+
+        this.dataStorage.evictAndSaveMainQuest(null);
+        Assert.assertNull(this.dataStorage.getMainQuest());
     }
 }
