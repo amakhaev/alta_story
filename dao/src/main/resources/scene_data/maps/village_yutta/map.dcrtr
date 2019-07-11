@@ -685,6 +685,26 @@
 			"movementStrategy": "AVOID_OBSTRUCTION",
 			"movementSpeed": "NORMAL",
 			"animatedAlways": "true"
+		},
+		{
+			"uuid": "e2a46ae5-f67e-4e81-b17f-d4e88a81525d",
+			"name": "guardian1",
+			"startX": 18,
+			"startY": 29,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "true",
+			"initialDirection": "RIGHT"
+		},
+		{
+			"uuid": "7cf7cc5a-a1f2-4a84-8150-5f9d967bc819",
+			"name": "guardian1",
+			"startX": 18,
+			"startY": 30,
+			"repeatingMovementDurationTime": 999999,
+			"movementStrategy": "STAND_SPOT",
+			"animatedAlways": "true",
+			"initialDirection": "RIGHT"
 		}
 	],
 	"alterableNpcList": [
@@ -1032,9 +1052,9 @@
 		{
 			"fromX": 84,
 			"fromY": 84,
-			"toX": 1,
-			"toY": 13,
-			"mapName": "test",
+			"toX": 7,
+			"toY": 18,
+			"mapName": "leon_house_first_floor",
 			"replaceFacility": {
 				"hideFacilityUuid": "588b9923-fab1-480e-96f8-7dbcff3109cf",
 				"showFacilityUuid": "4f88c106-4d80-470a-a2cb-15c936937e39"

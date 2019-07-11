@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="house1.tsx"/>
+ <tileset firstgid="118" source="house5.tsx"/>
+ <tileset firstgid="374" source="house4.tsx"/>
+ <tileset firstgid="630" source="house7.tsx"/>
+ <tileset firstgid="886" source="bathroom1.tsx"/>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA7WTSw6AIAwFu/cCJh4C3VUh8QZG7n8ZuyDxiaCtnyaTsiCT8gAifbHgoOO6Td1SXebgj30I+hZhfUkE3yz4G3phoHNupfk0vlGYCj7Mjw0+D/nVfC7tu/KF1Enh08yHvqbisuQXaC+8T3Q89eH7Yzgj/+TT5pf7HB1nst4H+kp/Np9PW6xgAytqw3CwBAAA
+  </data>
+ </layer>
+ <layer name="temp" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgoC3gw8NegUUOWQ0hM9DVKDMi+OeJMHckgvOEldAdMDMRp66aGTUetUmwo4RIOwYaeAwSd2ILLyYau62DmbAaAD7A2kywBAAA
+  </data>
+ </layer>
+ <layer name="barriers" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NkYGBgpRJmAWIuIOZDwreQ2JcYsYuD8BVGTHFeqHmySPpeoekjVhxkBsg8OyDWBbIpBSAzbKHmUQsMlHnsQKyAhAWh4gJofGLNA6kDBTEsXShDxZUYIGnEDkkdseaB0kElMwNDFRDrQMVrmRFxSqp5IHXdzKjivcyoZhBjng4TQt1sZkx5QuaJA/VLMOHWAwPTgGZPJ8J96kCzNIgwbxnQrOVk+BdZXQUB/0oCsQwDatrChuWh6jSxYGQ5EBsAuKpyJrAEAAA=
+  </data>
+ </layer>
+</map>

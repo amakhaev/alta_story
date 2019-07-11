@@ -1,0 +1,114 @@
+{
+	"displayName": "Дом Леона",
+	"facilities": [
+		{
+			"uuid": "439e83fd-ebdd-4a6b-ab6c-424cc9ea9a6b",
+			"name": "blackSquare1", 
+			"descriptorFileName": "facility13",
+			"startX": 7,
+			"startY": 19,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "aa476ec1-b4b0-4927-b885-9f88c49ee3a9",
+			"name": "sofa1", 
+			"descriptorFileName": "facility_house1",
+			"startX": 4,
+			"startY": 10,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "24176e77-7299-4e63-bc39-be4a64603473",
+			"name": "flower1", 
+			"descriptorFileName": "facility_house1",
+			"startX": 4,
+			"startY": 9,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "1e71f5c0-8981-4be2-89b5-822bd7e3a492",
+			"name": "flower2", 
+			"descriptorFileName": "facility_house1",
+			"startX": 4,
+			"startY": 12,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "75c17ecd-598f-40b9-85f9-cafaf0790317",
+			"name": "nightstand1", 
+			"descriptorFileName": "facility_house2",
+			"startX": 10,
+			"startY": 2,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "6de26748-54bb-4725-ab90-f99312db86fd",
+			"name": "cupboard1", 
+			"descriptorFileName": "facility_house2",
+			"startX": 11,
+			"startY": 13,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "f664a408-efa5-4d22-b29c-e67418013242",
+			"name": "dinnerTable1", 
+			"descriptorFileName": "facility_house2",
+			"startX": 15,
+			"startY": 11,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "5a22b1ef-d9f6-4b5a-8874-b6f0dfd0fbff",
+			"name": "cupboard2", 
+			"descriptorFileName": "facility_house2",
+			"startX": 22,
+			"startY": 8,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "7abd98c0-3a84-40a0-aa02-b2fd4caee812",
+			"name": "stairs1", 
+			"descriptorFileName": "facility_house3",
+			"startX": 23,
+			"startY": 17,
+			"defaultVisible": "true"
+		}
+	],
+	"simpleNpcList": [
+		{
+			"uuid": "3ac435f5-035e-44a1-b1c8-b95d54d2a5bc",
+			"name": "person9",
+			"startX": 20,
+			"startY": 4,
+			"repeatingMovementDurationTime": 4000,
+			"animatedAlways": "true",
+			"movementStrategy": "AVOID_OBSTRUCTION"
+		},
+		{
+			"uuid": "8e004219-24cf-48ad-a50a-d4578f7059fa",
+			"name": "cat3",
+			"startX": 10,
+			"startY": 10,
+			"repeatingMovementDurationTime": 5000,
+			"animatedAlways": "true",
+			"movementStrategy": "AVOID_OBSTRUCTION"
+		}
+	],
+	"alterableNpcList": [],
+	"jumping": [
+		{
+			"fromX": 7,
+			"fromY": 19,
+			"toX": 84,
+			"toY": 85,
+			"mapName": "village_yutta"
+		},
+		{
+			"fromX": 23,
+			"fromY": 17,
+			"toX": 18,
+			"toY": 13,
+			"mapName": "leon_house_second_floor"
+		}
+	]
+}

@@ -1,0 +1,73 @@
+[
+	{
+		"uuid": "d9364488-cc5b-4b41-8beb-5c7e191a5539",
+		"targetUuid": "6de26748-54bb-4725-ab90-f99312db86fd",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 2
+			},
+			{
+				"x": 1,
+				"y": 2
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Сборники кулинарных рецептов. Комнатные растения и как за ними ухаживать."
+			}
+		]
+	},
+	{
+		"uuid": "49dc2535-253e-4445-91bb-0e863e8fe8fd",
+		"targetUuid": "3ac435f5-035e-44a1-b1c8-b95d54d2a5bc",
+		"nextInteractionUuid": "8c316db9-f155-4c94-bb4e-2cba49fa62a3",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Сколько можно спать, соня."
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Помнишь какой сегодня день? По глазам вижу что нет."
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "День рождения Киры! Не забудь поздравить её от меня."
+			}
+		]
+	},
+	{
+		"uuid": "8c316db9-f155-4c94-bb4e-2cba49fa62a3",
+		"targetUuid": "3ac435f5-035e-44a1-b1c8-b95d54d2a5bc",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Кира заходила пока ты спал, просила передать, что будет ждать около памятника. Не заставляй девушку ждать!"
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Постарайся вернуться пока будет светло."
+			}
+		]
+	},
+	{
+		"uuid": "072d0f8e-d1b9-4cf5-84d6-e5d037184b44",
+		"targetUuid": "8e004219-24cf-48ad-a50a-d4578f7059fa",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Мяу! Мурмя! Мяяяяя....."
+			}
+		]
+	}
+]

@@ -1,0 +1,24 @@
+[
+	{
+		"uuid": "e5dacf6c-90d1-4fd3-b587-d691e0acb9fd",
+		"targetUuid": "2c0f5c6d-4ce5-4dcf-9694-5627bf8a0098",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 1
+			},
+			{
+				"x": 1,
+				"y": 1
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Современная наука. Парадоксы путешествия во времени."
+			}
+		]
+	}
+]

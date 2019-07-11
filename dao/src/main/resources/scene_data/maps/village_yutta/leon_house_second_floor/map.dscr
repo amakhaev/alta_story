@@ -1,0 +1,42 @@
+{
+	"displayName": "Комната Леона",
+	"facilities": [
+		{
+			"uuid": "7d516fb9-aa68-40f6-a8bd-856a142bbc5d",
+			"name": "stairs2", 
+			"descriptorFileName": "facility_house3",
+			"startX": 18,
+			"startY": 13,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "29c0ef58-5f0a-4b62-a5bd-5564f2a35392",
+			"name": "cupboard3", 
+			"descriptorFileName": "facility_house2",
+			"startX": 2,
+			"startY": 7,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "2c0f5c6d-4ce5-4dcf-9694-5627bf8a0098",
+			"name": "cupboard4", 
+			"descriptorFileName": "facility_house2",
+			"startX": 6,
+			"startY": 7,
+			"defaultVisible": "true"
+		}
+	],
+	"simpleNpcList": [
+		
+	],
+	"alterableNpcList": [],
+	"jumping": [
+		{
+			"fromX": 18,
+			"fromY": 13,
+			"toX": 23,
+			"toY": 17,
+			"mapName": "leon_house_first_floor"
+		}
+	]
+}

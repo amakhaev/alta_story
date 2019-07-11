@@ -16,6 +16,7 @@ import org.newdawn.slick.Graphics;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -135,9 +136,9 @@ public class FrameStageComponent extends FrameStage {
         this.frameTemplate.render(mapCoordinates);
     }
 
-    private void renderAllParticipants() {
+    private synchronized void renderAllParticipants() {
         List<CoordinatedParticipant> sortedParticipants = this.stageComputator.getSortedParticipants();
-        if (sortedParticipants == null || sortedParticipants.isEmpty()) {
+        if (sortedParticipants.isEmpty()) {
             log.debug("Not participants to render");
             return;
         }

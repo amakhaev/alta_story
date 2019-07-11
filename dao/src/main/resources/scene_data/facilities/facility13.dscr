@@ -1,0 +1,20 @@
+{
+  "imageName": "facility13.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "blackSquare1",
+      "positions": [
+        {
+          "x": 5,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 10
+        }
+      ]
+    }
+  ]
+}

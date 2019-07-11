@@ -1,0 +1,78 @@
+{
+  "imageName": "facility_house1.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "sofa1",
+      "positions": [
+        {
+          "x": 5,
+          "y": 13,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 14,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 5,
+          "y": 15,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 2,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
+    },
+    {
+      "name": "flower1",
+      "positions": [
+        {
+          "x": 7,
+          "y": 10,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 9
+        },
+        {
+          "x": 7,
+          "y": 11,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 9
+        }
+      ]
+    },
+    {
+      "name": "flower2",
+      "positions": [
+        {
+          "x": 7,
+          "y": 10,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "BARRIER",
+          "zIndex": 11
+        },
+        {
+          "x": 7,
+          "y": 11,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 11
+        }
+      ]
+    }
+  ]
+}

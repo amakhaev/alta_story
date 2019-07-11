@@ -1,0 +1,33 @@
+{
+  "imageName": "facility_house3.png",
+  "tileWidth": 32,
+  "tileHeight": 32,
+  "details": [
+    {
+      "name": "stairs1",
+      "positions": [
+        {
+          "x": 2,
+          "y": 0,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "stairs2",
+      "positions": [
+        {
+          "x": 2,
+          "y": 1,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "JUMP",
+          "zIndex": 0
+        }
+      ]
+    }
+  ]
+}

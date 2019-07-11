@@ -18,5 +18,15 @@
 		name: "village_yutta",
 		tiledMapPath: "scene_data/maps/village_yutta/map.tmx",
 		decoratorPath: "scene_data/maps/village_yutta/map.dcrtr"
+	},
+	{
+		name: "leon_house_first_floor",
+		tiledMapPath: "scene_data/maps/village_yutta/leon_house_first_floor/map.tmx",
+		decoratorPath: "scene_data/maps/village_yutta/leon_house_first_floor/map.dscr"
+	},
+	{
+		name: "leon_house_second_floor",
+		tiledMapPath: "scene_data/maps/village_yutta/leon_house_second_floor/map.tmx",
+		decoratorPath: "scene_data/maps/village_yutta/leon_house_second_floor/map.dscr"
 	}
 ]

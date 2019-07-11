@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="house1.tsx"/>
+ <tileset firstgid="118" source="house4.tsx"/>
+ <tileset firstgid="374" source="house5.tsx"/>
+ <tileset firstgid="630" source="house7.tsx"/>
+ <layer name="background" width="25" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgwA7sgdiYQmyDw2xi7bCHmoFNjm+A7PAD4gASMcwMGN8AiA2x0DAgDcTWSJgByRxC4Q1jWwKxFRYamx0SRIYVuh3Y1COH1WC2g5S0O2oHdezgR9IjRCM7CKWdwWyH8TCxgx5hRQs7sAE7IHYjoIZaAOYmdDYpAABtyNbT0AcAAA==
+  </data>
+ </layer>
+ <layer name="temp" width="25" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgoB/gQ8MMSDQDmji6HDrYjscOfGLIduhgUc+NpOY4lOZBU3OSEdMObGLEyA00cKOy2zyYMcX+MpFujjYDJH4GC6B2OI2CUTAKhibwIgPTCwAADe0vttAHAAA=
+  </data>
+ </layer>
+ <layer name="barriers" width="25" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+WTzwqCQBCHZ7U6lIrRqQiKOvUQdqw3qN6lOnSuIN8g69SxOnns31t16CcKboubqCFBAx+7M+vMB64yIipmoABYzHkfGODA/PUKbkLN4w4eFObemYZVB2VQ4c6I2+ucw+XmGRE1EnpdwbFDvgdTMANzsOAcWaIOGuCEmWewBCuwBjbqlsRhgmpChyxkDlk9KjqgG+wHKtGQw1LfZz0VohpL7tigz1b8/QgzxxwTwaEh19Xkji3mO4r8/BvvKi7+zZHkW07riPsHfsnhMLkjy/3wvcccHJccHJ/qWR1N0BZoUXjHZpB7z/VS4PWWcuAFr/zanNAHAAA=
+  </data>
+ </layer>
+</map>
