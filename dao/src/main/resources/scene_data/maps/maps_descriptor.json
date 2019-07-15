@@ -23,5 +23,10 @@
 		name: "yutta_unnamed_house_1",
 		tiledMapPath: "scene_data/maps/village_yutta/yutta_unnamed_house_1/map.tmx",
 		decoratorPath: "scene_data/maps/village_yutta/yutta_unnamed_house_1/map.dscr"
+	},
+	{
+		name: "yuttal_mayor_house",
+		tiledMapPath: "scene_data/maps/village_yutta/yuttal_mayor_house/map.tmx",
+		decoratorPath: "scene_data/maps/village_yutta/yuttal_mayor_house/map.dscr"
 	}
 ]

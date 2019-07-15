@@ -27,10 +27,6 @@ public class Scene {
     public Scene(AppGameContainer gameContainer, SceneContainer sceneContainer) {
         this.gameContainer = gameContainer;
         this.sceneContainer = sceneContainer;
-        // Injector injector = Guice.createInjector(new SceneInjectorModule());
-        // this.gameContainer = injector.getInstance(AppGameContainer.class);
-        // this.gameContainer.setMouseGrabbed(true);
-        // this.sceneContainer = injector.getInstance(SceneContainer.class);
         this.isSceneInitialized = false;
     }
 

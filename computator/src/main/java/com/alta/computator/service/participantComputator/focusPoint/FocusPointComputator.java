@@ -46,7 +46,7 @@ public class FocusPointComputator {
      */
     public FocusPointComputator(FocusPointParticipant focusPointParticipant) {
         this.focusPointParticipant = focusPointParticipant;
-        this.movementComputator = MovementFactory.createComputator(MovementComputatorImpl.FAST_MOVE_SPEED);
+        this.movementComputator = MovementFactory.createComputator(MovementComputatorImpl.NORMAL_MOVE_SPEED);
         this.movementDirectionStrategy = MovementFactory.createFocusPointStrategy();
         this.isInitializedFirstTime = false;
         this.isComputationPause = false;

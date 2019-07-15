@@ -26,5 +26,9 @@
 	{
 		name: "yutta_unnamed_house_1",
 		decoratorPath: "scene_data/maps/village_yutta/yutta_unnamed_house_1/interactions.dcrtr"
+	},
+	{
+		name: "yuttal_mayor_house",
+		decoratorPath: "scene_data/maps/village_yutta/yuttal_mayor_house/interactions.dcrtr"
 	}
 ]

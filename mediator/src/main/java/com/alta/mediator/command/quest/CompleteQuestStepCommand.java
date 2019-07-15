@@ -68,7 +68,7 @@ public class CompleteQuestStepCommand implements Command {
                     .build();
         } else {
             questToUpdate.setCurrentStepNumber(this.stepCountInQuest < this.stepNumber ? this.stepNumber + 1 : this.stepNumber);
-            questToUpdate.setCompleted(this.stepCountInQuest >= this.stepNumber);
+            questToUpdate.setCompleted(this.stepCountInQuest <= this.stepNumber);
         }
 
         Command command = this.preservationCommandFactory.createUpdateQuestPreservationCommand(questToUpdate);

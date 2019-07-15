@@ -1063,9 +1063,9 @@
 		{
 			"fromX": 17,
 			"fromY": 83,
-			"toX": 1,
-			"toY": 13,
-			"mapName": "test",
+			"toX": 15,
+			"toY": 18,
+			"mapName": "yuttal_mayor_house",
 			"replaceFacility": {
 				"hideFacilityUuid": "5fca6a7b-2157-440e-901f-ae2c06bec349",
 				"showFacilityUuid": "7e2b0846-9d7d-4601-9d44-08ff808b883b"

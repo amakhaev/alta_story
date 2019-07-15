@@ -28,6 +28,43 @@
           "zIndex": 0
         }
       ]
+    },
+    {
+      "name": "bookcase1",
+      "positions": [
+        {
+          "x": 6,
+          "y": 8,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 8,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 0,
+          "tileType": "FREE",
+          "zIndex": 10
+        },
+        {
+          "x": 6,
+          "y": 9,
+          "shiftFromStartX": 0,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        },
+        {
+          "x": 7,
+          "y": 9,
+          "shiftFromStartX": 1,
+          "shiftFromStartY": 1,
+          "tileType": "BARRIER",
+          "zIndex": 10
+        }
+      ]
     }
   ]
 }

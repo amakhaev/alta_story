@@ -1,0 +1,52 @@
+[
+	{
+		"uuid": "e8480b15-7059-4a9e-8961-77dc96b91d78",
+		"targetUuid": "76c639b3-21b0-4b5b-b1b2-109ef815a4c1",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"shiftTiles": [
+			{
+				"x": 0,
+				"y": 1
+			},
+			{
+				"x": 1,
+				"y": 1
+			}
+		],
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Знаменитые мыслители прошлого."
+			}
+		]
+	},
+	{
+		"uuid": "36cd38e0-7126-4eb2-a6be-9d01765d87e8",
+		"targetUuid": "a35c630a-05f7-4946-8c6c-604c3cb3a345",
+		"chapterIndicatorFrom": 0,
+		"chapterIndicatorTo": 0,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Здравствуй Леон."
+			},
+			{
+				"type": "DIALOGUE",
+				"text": "Кира еще не возвращалась. Думаю она у памятника, поговори  ней."
+			}
+		]
+	},
+	{
+		"uuid": "ae168c38-b253-4d46-a7d7-34b4d71bcb61",
+		"targetUuid": "a35c630a-05f7-4946-8c6c-604c3cb3a345",
+		"chapterIndicatorFrom": 1,
+		"chapterIndicatorTo": 1000,
+		"effects": [
+			{
+				"type": "DIALOGUE",
+				"text": "Че то там."
+			}
+		]
+	}
+]
