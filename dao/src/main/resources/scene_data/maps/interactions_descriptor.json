@@ -22,5 +22,9 @@
 	{
 		name: "leon_house_second_floor",
 		decoratorPath: "scene_data/maps/village_yutta/leon_house_second_floor/interactions.dcrtr"
+	},
+	{
+		name: "yutta_unnamed_house_1",
+		decoratorPath: "scene_data/maps/village_yutta/yutta_unnamed_house_1/interactions.dcrtr"
 	}
 ]

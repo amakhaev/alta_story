@@ -57,7 +57,6 @@ public class MainQuestBehavior implements Behavior<QuestScenarioData> {
             return null;
         }
 
-
         ScenarioImpl scenario = this.scenarioFactory.createScenario(
                 this.effectListener,
                 targetUuid,

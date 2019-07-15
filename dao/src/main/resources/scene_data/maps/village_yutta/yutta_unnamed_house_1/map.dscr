@@ -1,0 +1,34 @@
+{
+	"displayName": "",
+	"facilities": [	
+		{
+			"uuid": "b68e4abc-a9b3-4e47-9483-778db9d1a2c7",
+			"name": "transparencySquare1", 
+			"descriptorFileName": "facility13",
+			"startX": 5,
+			"startY": 19,
+			"defaultVisible": "true"
+		}
+	],
+	"simpleNpcList": [
+		{
+			"uuid": "4eee3235-a40f-4ccc-b353-754274542712",
+			"name": "person8",
+			"startX": 5,
+			"startY": 3,
+			"repeatingMovementDurationTime": 4000,
+			"animatedAlways": "true",
+			"movementStrategy": "AVOID_OBSTRUCTION"
+		}
+	],
+	"alterableNpcList": [],
+	"jumping": [
+		{
+			"fromX": 5,
+			"fromY": 19,
+			"toX": 84,
+			"toY": 22,
+			"mapName": "village_yutta"
+		}
+	]
+}

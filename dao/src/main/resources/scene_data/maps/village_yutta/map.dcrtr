@@ -1085,9 +1085,9 @@
 		{
 			"fromX": 84,
 			"fromY": 21,
-			"toX": 1,
-			"toY": 13,
-			"mapName": "test",
+			"toX": 5,
+			"toY": 18,
+			"mapName": "yutta_unnamed_house_1",
 			"replaceFacility": {
 				"hideFacilityUuid": "67c60dec-a4e7-46e1-9d45-6fb74f3d8f65",
 				"showFacilityUuid": "f6d9efc9-3052-4505-b6bd-239e46d18faf"
