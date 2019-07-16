@@ -1,6 +1,6 @@
 package com.alta.behaviorprocess.service.quest;
 
-import com.alta.behaviorprocess.core.DataStorage;
+import com.alta.behaviorprocess.sync.DataStorage;
 import com.alta.behaviorprocess.data.quest.QuestRepository;
 import com.alta.behaviorprocess.service.Behavior;
 import com.alta.behaviorprocess.data.quest.QuestModel;
@@ -8,11 +8,14 @@ import com.alta.behaviorprocess.shared.scenario.ScenarioImpl;
 import com.alta.behaviorprocess.shared.scenario.Scenario;
 import com.alta.behaviorprocess.shared.scenario.ScenarioFactory;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
-import com.alta.behaviorprocess.sync.DataSynchronizer;
+import com.alta.behaviorprocess.sync.DataType;
+import com.alta.behaviorprocess.sync.SynchronizationManager;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Arrays;
 
 /**
  * Provides the behavior processor for main quest.
@@ -25,7 +28,7 @@ public class MainQuestBehavior implements Behavior<QuestScenarioData> {
     private final ScenarioFactory scenarioFactory;
     private final EffectListener effectListener;
     private final QuestRepository questRepository;
-    private final DataSynchronizer dataSynchronizer;
+    private final SynchronizationManager synchronizationManager;
 
     /**
      * Gets the scenario by given params.
@@ -71,7 +74,10 @@ public class MainQuestBehavior implements Behavior<QuestScenarioData> {
 
     private void onScenarioCompleted(String questName, int stepNumber) {
         this.questRepository.completeQuestStep(questName, stepNumber);
-        this.dataSynchronizer.synchronizeQuests();
+        this.synchronizationManager.sync(
+                Arrays.asList(DataType.MAIN_QUEST, DataType.INTERACTION),
+                this.dataStorage.getCurrentMap()
+        );
         log.debug("The step {} in quest {} was completed", stepNumber, questName);
     }
 

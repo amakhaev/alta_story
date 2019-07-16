@@ -1,6 +1,7 @@
 package com.alta.dao.domain.preservation;
 
 import com.alta.dao.data.preservation.*;
+import com.alta.dao.domain.preservation.global.GlobalPreservationService;
 import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.dao.domain.preservation.map.MapPreservationService;
 import com.alta.dao.domain.preservation.quest.QuestPreservationService;
@@ -25,6 +26,7 @@ public class PreservationServiceImpl implements PreservationService {
     private final InteractionPreservationService interactionPreservationService;
     private final MapPreservationService mapPreservationService;
     private final QuestPreservationService questPreservationService;
+    private final GlobalPreservationService globalPreservationService;
     private Dao<PreservationModel, Integer> preservationDao;
 
 
@@ -35,11 +37,13 @@ public class PreservationServiceImpl implements PreservationService {
     public PreservationServiceImpl(ConnectionSource connectionSource,
                                    InteractionPreservationService interactionPreservationService,
                                    MapPreservationService mapPreservationService,
-                                   QuestPreservationService questPreservationService) {
+                                   QuestPreservationService questPreservationService,
+                                   GlobalPreservationService globalPreservationService) {
         this.connectionSource = connectionSource;
         this.interactionPreservationService = interactionPreservationService;
         this.mapPreservationService = mapPreservationService;
         this.questPreservationService = questPreservationService;
+        this.globalPreservationService = globalPreservationService;
         try {
             this.preservationDao = DaoManager.createDao(this.connectionSource, PreservationModel.class);
         } catch (SQLException e) {
@@ -94,6 +98,7 @@ public class PreservationServiceImpl implements PreservationService {
                 this.interactionPreservationService.markTemporaryInteractionsAsSaved(preservationId);
                 this.questPreservationService.markTemporaryQuestsAsSaved(preservationId);
                 this.mapPreservationService.markTemporaryMapsAsSaved(preservationId);
+                this.globalPreservationService.markTemporaryGlobalPreservationAsSaved(preservationId);
                 return null;
             });
         } catch (SQLException e) {

@@ -1,4 +1,4 @@
-package com.alta.behaviorprocess.core;
+package com.alta.behaviorprocess.sync;
 
 import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.behaviorprocess.data.quest.QuestModel;

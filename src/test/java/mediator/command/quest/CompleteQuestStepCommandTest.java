@@ -5,10 +5,13 @@ import com.alta.dao.domain.preservation.quest.QuestPreservationService;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
 import com.alta.mediator.command.quest.CompleteQuestStepCommand;
+import com.alta.mediator.domain.effect.BackgroundEffectService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+
+import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 
@@ -29,8 +32,10 @@ public class CompleteQuestStepCommandTest {
                 this.preservationCommandFactory,
                 this.commandExecutor,
                 this.questPreservationService,
+                mock(BackgroundEffectService.class),
                 1L,
                 "testQuestName",
+                Collections.emptyList(),
                 5,
                 1
         );
@@ -73,6 +78,6 @@ public class CompleteQuestStepCommandTest {
         Assert.assertEquals("testQuestName", questPreservationArgumentCaptor.getValue().getName());
         Assert.assertEquals(1, questPreservationArgumentCaptor.getValue().getCurrentStepNumber());
         Assert.assertEquals(1L, questPreservationArgumentCaptor.getValue().getPreservationId().longValue());
-        Assert.assertTrue(questPreservationArgumentCaptor.getValue().isCompleted());
+        Assert.assertFalse(questPreservationArgumentCaptor.getValue().isCompleted());
     }
 }

@@ -1,9 +1,10 @@
 package com.alta.dao.domain.common.effect;
 
-import com.alta.dao.data.common.effect.DialogueEffectDataModel;
+import com.alta.dao.data.common.effect.background.IncrementChapterIndicatorDataModel;
+import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
-import com.alta.dao.data.common.effect.HideFacilityEffectDataModel;
-import com.alta.dao.data.common.effect.ShowFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.ShowFacilityEffectDataModel;
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,8 +53,8 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
         effects.forEach(jsonInteractionEffectItem -> {
             JsonObject item = jsonInteractionEffectItem.getAsJsonObject();
 
-            EffectDataModel.InteractionEffectType type =
-                    EffectDataModel.InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
+            EffectDataModel.EffectType type =
+                    EffectDataModel.EffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
 
             EffectDataModel model = null;
             switch (type) {
@@ -66,8 +67,11 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
                 case SHOW_FACILITY:
                     model = this.parseShowFacilityEffect(item);
                     break;
+                case INCREMENT_CHAPTER_INDICATOR:
+                    model = this.parseIncrementChapterEffect();
+                    break;
                 default:
-                    log.error("Unknown type of interaction effect {}", type);
+                    log.error("Unknown type of effect {}.", type);
             }
 
             if (model != null) {
@@ -119,6 +123,15 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
             return model;
         } catch (Exception e) {
             log.error("Parsing of ShowFacilityEffectDataModel was failed with error: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private IncrementChapterIndicatorDataModel parseIncrementChapterEffect() {
+        try {
+            return new IncrementChapterIndicatorDataModel();
+        } catch (Exception e) {
+            log.error("Parsing of IncrementChapterIndicatorDataModel was failed with error", e);
             return null;
         }
     }

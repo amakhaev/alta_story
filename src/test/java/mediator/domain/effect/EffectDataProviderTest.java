@@ -1,11 +1,11 @@
-package mediator.domain;
+package mediator.domain.effect;
 
 import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.dao.data.interaction.InteractionDataModel;
-import com.alta.dao.data.common.effect.DialogueEffectDataModel;
-import com.alta.dao.data.common.effect.HideFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
+import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
-import com.alta.dao.data.common.effect.ShowFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.ShowFacilityEffectDataModel;
 import com.alta.dao.domain.interaction.InteractionService;
 import com.alta.mediator.domain.effect.EffectDataProvider;
 import com.alta.mediator.domain.interaction.InteractionConditionService;

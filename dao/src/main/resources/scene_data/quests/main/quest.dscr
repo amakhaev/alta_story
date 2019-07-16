@@ -64,7 +64,12 @@
 					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				}
-			]		
+			],
+			"backgroundEffects": [
+				{
+					"type": "INCREMENT_CHAPTER_INDICATOR"
+				}
+			]
 		},
 		{
 			"stepNumber": 1,

@@ -1,5 +1,6 @@
-package com.alta.dao.data.common.effect;
+package com.alta.dao.data.common.effect.visible;
 
+import com.alta.dao.data.common.effect.EffectDataModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,6 @@ public class ShowFacilityEffectDataModel extends EffectDataModel {
      * Initialize new instance of {@link ShowFacilityEffectDataModel}.
      */
     public ShowFacilityEffectDataModel() {
-        super(InteractionEffectType.SHOW_FACILITY);
+        super(EffectType.SHOW_FACILITY);
     }
 }

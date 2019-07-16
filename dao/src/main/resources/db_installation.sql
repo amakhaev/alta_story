@@ -1,10 +1,9 @@
 CREATE TABLE IF NOT EXISTS preservations (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  chapter_indicator INTEGER NOT NULL
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO preservations (id, chapter_indicator) SELECT 1, 1 WHERE (SELECT count(*) FROM preservations) = 0;
+INSERT INTO preservations (id) SELECT 1 WHERE (SELECT count(*) FROM preservations) = 0;
 
 
 CREATE TABLE IF NOT EXISTS character_preservations (
@@ -54,3 +53,15 @@ CREATE TABLE IF NOT EXISTS quest_preservations (
 
 INSERT INTO quest_preservations (preservation_id, name, is_temporary, current_step_number, is_completed)
     SELECT 1, 'main', 0, 0, 0 WHERE (SELECT count(*) FROM quest_preservations) = 0;
+
+CREATE TABLE IF NOT EXISTS global_preservations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  preservation_id INTEGER NOT NULL,
+  is_temporary BOOLEAN NOT NULL,
+  chapter_indicator INTEGER NOT NULL,
+  UNIQUE (preservation_id, is_temporary),
+  FOREIGN KEY (preservation_id) REFERENCES preservations (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO global_preservations (preservation_id, chapter_indicator, is_temporary)
+    SELECT 1, 0, 0 WHERE (SELECT count(*) FROM global_preservations) = 0;

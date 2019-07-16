@@ -1,6 +1,6 @@
-package behaviorprocess.core;
+package behaviorprocess.sync;
 
-import com.alta.behaviorprocess.core.DataStorage;
+import com.alta.behaviorprocess.sync.DataStorage;
 import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.behaviorprocess.data.quest.QuestModel;
 import org.junit.Assert;

@@ -1,7 +1,7 @@
 package com.alta.behaviorprocess.service.interaction;
 
 import com.alta.behaviorprocess.service.Behavior;
-import com.alta.behaviorprocess.core.DataStorage;
+import com.alta.behaviorprocess.sync.DataStorage;
 import com.alta.behaviorprocess.data.interaction.InteractionModel;
 import com.alta.behaviorprocess.data.interaction.InteractionRepository;
 import com.alta.behaviorprocess.data.effect.EffectModel;

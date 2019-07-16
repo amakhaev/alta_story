@@ -14,6 +14,8 @@ import com.alta.mediator.dataSource.QuestRepositoryImpl;
 import com.alta.mediator.di.ThreadPoolProvider;
 import com.alta.mediator.domain.actor.ActorDataProvider;
 import com.alta.mediator.domain.actor.ActorDataProviderImpl;
+import com.alta.mediator.domain.effect.BackgroundEffectService;
+import com.alta.mediator.domain.effect.BackgroundEffectServiceImpl;
 import com.alta.mediator.domain.effect.EffectDataProvider;
 import com.alta.mediator.domain.effect.EffectDataProviderImpl;
 import com.alta.mediator.domain.frameStage.FrameStageDataProvider;
@@ -51,7 +53,9 @@ public class MediatorInjectorModule extends AbstractModule {
         bind(FrameStageDataProvider.class).to(FrameStageDataProviderImpl.class);
 
         bind(Engine.class).in(Singleton.class);
+
         bind(InteractionPostProcessingService.class).to(InteractionPostProcessingServiceImpl.class).in(Singleton.class);
+        bind(BackgroundEffectService.class).to(BackgroundEffectServiceImpl.class).in(Singleton.class);
 
         bind(InteractionRepository.class).to(InteractionRepositoryImpl.class).in(Singleton.class);
         bind(QuestRepository.class).to(QuestRepositoryImpl.class).in(Singleton.class);

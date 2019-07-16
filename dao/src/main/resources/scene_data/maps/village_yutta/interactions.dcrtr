@@ -2,7 +2,7 @@
 	{
 		"uuid": "71037d69-aa8e-42d1-ad29-a6ea6f7df4f4",
 		"targetUuid": "bb0f1b71-ddc8-4c78-aa9b-92cab0f6127f",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -24,7 +24,7 @@
 	{
 		"uuid": "b7a72d01-4b59-4573-a6eb-9c093da47697",
 		"targetUuid": "1d3eaaba-2d82-45be-b506-fc4018b0c432",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -42,7 +42,7 @@
 	{
 		"uuid": "f1846fa7-421f-4bf9-846b-f4a7b3eddeff",
 		"targetUuid": "4a6fc485-d808-4c8b-ac74-e7ac21f5f32f",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -60,7 +60,7 @@
 	{
 		"uuid": "707b7845-2793-4688-8fc6-08700721a6ea",
 		"targetUuid": "b6f6584c-9fc0-44a0-b5da-b5eab511f9ac",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -78,7 +78,7 @@
 	{
 		"uuid": "66aeb417-30ee-4ba3-9885-889eb24bed73",
 		"targetUuid": "0f511bae-446e-4951-9780-48877b4dfa7e",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -96,7 +96,7 @@
 	{
 		"uuid": "bea0b328-aed6-41dc-ba4e-4705ddf23767",
 		"targetUuid": "523480e3-5a91-4d7c-b3d2-9b2d4a15e1ae",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -114,7 +114,7 @@
 	{
 		"uuid": "7e1f96d9-1471-46de-ad36-aeb5ba93c3d1",
 		"targetUuid": "d051b31e-4c7a-40a6-af85-5114827f3e47",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -132,7 +132,7 @@
 	{
 		"uuid": "14988ead-dd96-4404-ba9f-ac7a90d47034",
 		"targetUuid": "b413ea6b-5990-4acb-9ff8-9b5167438418",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -150,7 +150,7 @@
 	{
 		"uuid": "d7bfea78-4803-4bf8-9f80-fb8aab9300de",
 		"targetUuid": "97eaa2af-0ce9-4a67-95a4-40f5a0d1203b",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"shiftTiles": [
 			{
@@ -168,7 +168,7 @@
 	{
 		"uuid": "b3a6ee2b-7496-4318-a48e-33be2fec193d",
 		"targetUuid": "892f2cbd-8945-42fc-ae50-759c48df2528",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -180,7 +180,7 @@
 	{
 		"uuid": "b380cdf8-f9f7-473a-8e1d-3b7685bc832f",
 		"targetUuid": "3aee0d7d-4d6e-4750-915e-ac174cf2cfd0",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -192,7 +192,7 @@
 	{
 		"uuid": "724dfb7f-acb0-4cc0-b970-43843bc0e406",
 		"targetUuid": "a9013305-8e34-4760-8e80-3b3fac4b02db",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -204,7 +204,7 @@
 	{
 		"uuid": "45619cd5-005f-41bb-abd7-fda9512acca4",
 		"targetUuid": "1fcd5bc0-43c6-4db8-b418-a972be5ce2e0",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -216,7 +216,7 @@
 	{
 		"uuid": "bc117c4c-6e73-43e7-afd0-2cf40ecb2d92",
 		"targetUuid": "96ae9b16-97a4-4370-9eb1-22e57a22be80",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -228,7 +228,7 @@
 	{
 		"uuid": "33a3e656-d74b-40d0-b61a-37f9819b297e",
 		"targetUuid": "de819fa2-a508-4093-b2ef-d5acad24f174",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -240,7 +240,7 @@
 	{
 		"uuid": "07f5b464-1488-4a3a-8a76-12b3d90ba4d3",
 		"targetUuid": "9cafa8f6-f2d7-4446-8919-e420074cca3b",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -252,7 +252,7 @@
 	{
 		"uuid": "74e98ef6-dc85-4bf8-8c76-d9490d5df5e0",
 		"targetUuid": "bf66c6ab-9a08-4274-8c1b-e259d378092f",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -264,7 +264,7 @@
 	{
 		"uuid": "b7d4ab49-1e8d-4628-ba72-f21458b7f7d0",
 		"targetUuid": "89081fb9-7f95-43e3-bbf8-d89d1f3ac1a5",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -284,7 +284,7 @@
 	{
 		"uuid": "eba7324a-cffd-49c4-b0ee-7e1a7e9b793a",
 		"targetUuid": "08a72088-cea9-4708-bdf1-0312ccd7007d",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -297,7 +297,7 @@
 		"uuid": "f1fa8abd-d29e-45cf-9e82-735cd44848d8",
 		"targetUuid": "92e9e85d-3d12-4e72-9cb7-952a8b654385",
 		"nextInteractionUuid": "6cdf4b2b-0c00-474b-80b5-014b9d470d2f",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -309,7 +309,7 @@
 	{
 		"uuid": "6cdf4b2b-0c00-474b-80b5-014b9d470d2f",
 		"targetUuid": "92e9e85d-3d12-4e72-9cb7-952a8b654385",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -321,7 +321,7 @@
 	{
 		"uuid": "1208465f-a73d-41da-8a64-3b93ab418bb9",
 		"targetUuid": "07442078-d057-4648-9457-30b0f7002ee3",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -333,7 +333,7 @@
 	{
 		"uuid": "a9e27c74-cb1e-4791-ad47-7a79635114fd",
 		"targetUuid": "9998d708-207d-419e-9ba0-3b8b781ddd31",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -350,7 +350,7 @@
 		"uuid": "38b9b831-6ec4-4682-99cf-0c91de31c6b3",
 		"targetUuid": "b2067645-b173-414c-b99c-f36f25f9ff47",
 		"nextInteractionUuid": "6ca3a83e-b8b1-4b24-85af-b0f92316c2af",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -366,7 +366,7 @@
 	{
 		"uuid": "6ca3a83e-b8b1-4b24-85af-b0f92316c2af",
 		"targetUuid": "b2067645-b173-414c-b99c-f36f25f9ff47",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -382,7 +382,7 @@
 	{
 		"uuid": "177cf8aa-6065-4442-a819-ab0caf856219",
 		"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -396,7 +396,7 @@
 	{
 		"uuid": "2be725af-f07b-4d69-8bfb-11fba93adf15",
 		"targetUuid": "e2a46ae5-f67e-4e81-b17f-d4e88a81525d",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{
@@ -408,7 +408,7 @@
 	{
 		"uuid": "32d9010d-0f41-4f90-bd5f-eaa8eea26bc5",
 		"targetUuid": "7cf7cc5a-a1f2-4a84-8150-5f9d967bc819",
-		"chapterIndicatorFrom": 1,
+		"chapterIndicatorFrom": 0,
 		"chapterIndicatorTo": 1000,
 		"effects": [
 			{

@@ -1,5 +1,6 @@
-package com.alta.dao.data.common.effect;
+package com.alta.dao.data.common.effect.visible;
 
+import com.alta.dao.data.common.effect.EffectDataModel;
 import lombok.Builder;
 import lombok.Data;
 
@@ -30,7 +31,7 @@ public class DialogueEffectDataModel extends EffectDataModel {
      * @param speakerEmotion    - the emotion of speaker.
      */
     private DialogueEffectDataModel(String text, String speakerName, String speakerUuid, String speakerEmotion) {
-        super(InteractionEffectType.DIALOGUE);
+        super(EffectType.DIALOGUE);
         this.text = text;
         this.speakerName = speakerName;
         this.speakerUuid = speakerUuid;

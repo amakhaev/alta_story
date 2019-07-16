@@ -34,9 +34,9 @@ public class PreservationModel {
     @DatabaseField(columnName = CREATED_AT_FIELD)
     private String createdAt;
 
-    @DatabaseField(columnName = CHAPTER_INDICATOR_FIELD)
-    private Integer chapterIndicator;
-
     @DatabaseField(foreign = true, columnName = ID_FIELD, foreignAutoRefresh = true)
     private CharacterPreservationModel characterPreservation;
+
+    @DatabaseField(foreign = true, columnName = ID_FIELD, foreignAutoRefresh = true)
+    private GlobalPreservationModel globalPreservation;
 }

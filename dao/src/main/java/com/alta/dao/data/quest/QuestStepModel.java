@@ -21,7 +21,10 @@ public class QuestStepModel {
     private int chapterIndicatorFrom;
     private int chapterIndicatorTo;
 
-    @Singular
+    @Singular("effects")
     private List<EffectDataModel> effects;
+
+    @Singular("backgroundEffects")
+    private List<EffectDataModel> backgroundEffects;
 
 }
