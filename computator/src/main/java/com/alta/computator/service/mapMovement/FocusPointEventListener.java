@@ -1,4 +1,4 @@
-package com.alta.computator.service.participantComputator.focusPoint;
+package com.alta.computator.service.mapMovement;
 
 import java.awt.*;
 

@@ -10,23 +10,18 @@ import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.actor.NpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
-import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
-import com.alta.computator.model.participant.map.MapParticipant;
+import com.alta.computator.service.actingCharacterMovement.ActingCharacterMovementManager;
 import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.facilityMovement.FacilityMovementManager;
 import com.alta.computator.service.layer.LayerComputator;
-import com.alta.computator.service.npcMovementProcessor.NpcProcessingManager;
-import com.alta.computator.service.participantComputator.FacilityComputator;
-import com.alta.computator.service.participantComputator.MapComputator;
-import com.alta.computator.service.participantComputator.actor.ActingCharacterComputator;
-import com.alta.computator.service.participantComputator.focusPoint.FocusPointComputator;
+import com.alta.computator.service.mapMovement.MapMovementManager;
+import com.alta.computator.service.npcMovement.NpcMovementManager;
 import com.alta.eventStream.EventProducer;
-import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Provides the computations that help with participantComputator on stage e.g. frame, actors
@@ -35,15 +30,13 @@ import java.util.UUID;
 public class StageComputatorImpl implements StageComputator {
 
     private final LayerComputator layerComputator;
-    private final FacilityComputator facilityComputator;
-    private final NpcProcessingManager npcProcessingManager;
+    private final NpcMovementManager npcMovementManager;
+    private final FacilityMovementManager facilityMovementManager;
 
-    private FocusPointComputator focusPointComputator;
-    private MapComputator mapComputator;
-    private ActingCharacterComputator actingCharacterComputator;
+    private MapMovementManager mapMovementManager;
+    private ActingCharacterMovementManager actingCharacterMovementManager;
 
     @Setter
-    @Getter
     private AltitudeMap altitudeMap;
 
     /**
@@ -51,8 +44,8 @@ public class StageComputatorImpl implements StageComputator {
      */
     public StageComputatorImpl() {
         this.layerComputator = new LayerComputator();
-        this.facilityComputator = new FacilityComputator();
-        this.npcProcessingManager = new NpcProcessingManager();
+        this.npcMovementManager = new NpcMovementManager();
+        this.facilityMovementManager = new FacilityMovementManager();
     }
 
     /**
@@ -62,8 +55,7 @@ public class StageComputatorImpl implements StageComputator {
      */
     @Override
     public Point getMapGlobalCoordinates() {
-        return this.mapComputator != null && this.mapComputator.getMapParticipant() != null ?
-                this.mapComputator.getMapParticipant().getCurrentGlobalCoordinates() : null;
+        return this.mapMovementManager == null ? null : this.mapMovementManager.getMapGlobalCoordinates();
     }
 
     /**
@@ -84,11 +76,11 @@ public class StageComputatorImpl implements StageComputator {
      */
     @Override
     public ActorParticipant getActorParticipant(String uuid) {
-        if (this.actingCharacterComputator.getActingCharacterParticipant().getUuid().equals(uuid)) {
-            return this.actingCharacterComputator.getActingCharacterParticipant();
+        if (this.actingCharacterMovementManager.getActingCharacterParticipant().getUuid().equals(uuid)) {
+            return this.actingCharacterMovementManager.getActingCharacterParticipant();
         }
 
-        return this.npcProcessingManager.getParticipant(uuid);
+        return this.npcMovementManager.getParticipant(uuid);
     }
 
     /**
@@ -98,17 +90,18 @@ public class StageComputatorImpl implements StageComputator {
      */
     @Override
     public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
-        if (this.actingCharacterComputator == null || this.actingCharacterComputator.getActingCharacterParticipant() == null) {
-            throw new RuntimeException("Acting character not set.");
+        if (this.actingCharacterMovementManager == null ||
+                this.actingCharacterMovementManager.getActingCharacterParticipant() == null) {
+            throw new RuntimeException("Acting character is empty.");
         }
 
-        Point targetParticipantMapCoordinates = this.actingCharacterComputator.getMapCoordinatesOfTargetParticipant();
-        TargetedParticipantSummary summary = this.npcProcessingManager.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
+        Point targetParticipantMapCoordinates = this.actingCharacterMovementManager.getMapCoordinatesOfTargetParticipant();
+        TargetedParticipantSummary summary = this.npcMovementManager.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
         if (summary != null) {
             return summary;
         }
 
-        return this.facilityComputator.findFacilityTargetByMapCoordinates(targetParticipantMapCoordinates);
+        return this.facilityMovementManager.findFacilityByMapCoordinates(targetParticipantMapCoordinates);
     }
 
     /**
@@ -123,31 +116,21 @@ public class StageComputatorImpl implements StageComputator {
             return;
         }
 
-        this.focusPointComputator.onCompute(this.altitudeMap);
-        this.mapComputator.onCompute(
-                this.altitudeMap,
-                this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
-        );
+        this.mapMovementManager.onCompute(this.altitudeMap);
+        this.facilityMovementManager.onCompute(this.altitudeMap, this.mapMovementManager.getFocusPointGlobalCoordinates());
 
-        this.facilityComputator.onCompute(
-                this.altitudeMap,
-                this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates()
-        );
-
-        if (this.actingCharacterComputator != null) {
-            this.actingCharacterComputator.onCompute(
+        if (this.actingCharacterMovementManager != null) {
+            this.actingCharacterMovementManager.onCompute(
                     this.altitudeMap,
-                    this.focusPointComputator.getFocusPointParticipant().getCurrentMapCoordinates(),
-                    this.focusPointComputator.getConstantGlobalStartCoordination(),
-                    this.focusPointComputator.getLastMovementDirection(),
-                    this.focusPointComputator.isMoving()
+                    this.mapMovementManager.getFocusPointMapCoordinates(),
+                    this.mapMovementManager.getFocusPointGlobalStartCoordinates(),
+                    this.mapMovementManager.getFocusPointLastMovementDirection(),
+                    this.mapMovementManager.isFocusPointMoving()
             );
         }
 
-        this.npcProcessingManager.onCompute(
-                this.altitudeMap,
-                this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
-                delta
+        this.npcMovementManager.onCompute(
+                this.altitudeMap, this.mapMovementManager.getFocusPointGlobalCoordinates(), delta
         );
     }
 
@@ -160,13 +143,7 @@ public class StageComputatorImpl implements StageComputator {
         if (mapStartPosition == null) {
             throw new RuntimeException("The coordinates of focus point is required.");
         }
-        FocusPointParticipant focusPointParticipant = new FocusPointParticipant(mapStartPosition, UUID.randomUUID().toString());
-        focusPointParticipant.updateCurrentMapCoordinates(mapStartPosition.x, mapStartPosition.y);
-        this.focusPointComputator = new FocusPointComputator(focusPointParticipant);
-        log.info("Added focus point to stage with UUID: {}", focusPointParticipant.getUuid());
-
-        this.mapComputator = new MapComputator(new MapParticipant(UUID.randomUUID().toString()));
-        log.info("Added map participant to stage with UUID: {}", this.mapComputator.getMapParticipant().getUuid());
+        this.mapMovementManager = new MapMovementManager(mapStartPosition);
     }
 
     /**
@@ -181,7 +158,7 @@ public class StageComputatorImpl implements StageComputator {
         }
 
         facilityParticipants.forEach(participant -> {
-            this.facilityComputator.add(participant);
+            this.facilityMovementManager.addFacilities(participant);
             this.layerComputator.addParticipants(participant.getFacilityPartParticipants());
         });
     }
@@ -189,7 +166,7 @@ public class StageComputatorImpl implements StageComputator {
     /**
      * Adds the acting character for computation
      *
-     * @param actingCharacterParticipant - the acting haracter participant.
+     * @param actingCharacterParticipant - the acting character participant.
      */
     public void addActingCharacter(ActingCharacterParticipant actingCharacterParticipant) {
         if (actingCharacterParticipant == null) {
@@ -197,20 +174,20 @@ public class StageComputatorImpl implements StageComputator {
             return;
         }
 
-        if (this.focusPointComputator == null) {
+        if (this.mapMovementManager == null) {
             log.error("The focus point is required for adding acting character");
             return;
         }
 
-        this.actingCharacterComputator = new ActingCharacterComputator(actingCharacterParticipant);
-        this.layerComputator.addParticipant(this.actingCharacterComputator.getActingCharacterParticipant());
+        this.actingCharacterMovementManager = new ActingCharacterMovementManager(actingCharacterParticipant);
+        this.layerComputator.addParticipant(this.actingCharacterMovementManager.getActingCharacterParticipant());
         log.info("Added acting character to stage with UUID: {}", actingCharacterParticipant.getUuid());
     }
 
     /**
-     * Adds the simple npcMovementProcessor to stage for computation
+     * Adds the simple npcMovement to stage for computation
      *
-     * @param npcParticipants - the npcMovementProcessor participants to be added for computation.
+     * @param npcParticipants - the npcMovement participants to be added for computation.
      */
     public void addNpcCharacters(List<NpcParticipant> npcParticipants) {
         if (npcParticipants == null || npcParticipants.isEmpty()) {
@@ -219,9 +196,9 @@ public class StageComputatorImpl implements StageComputator {
         }
 
         npcParticipants.forEach(npcParticipant -> {
-            this.npcProcessingManager.addParticipantForComputation(npcParticipant);
+            this.npcMovementManager.addParticipantForComputation(npcParticipant);
             this.layerComputator.addParticipant(npcParticipant);
-            log.debug("Added simple npcMovementProcessor character to stage with UUID: {}.", npcParticipant.getUuid());
+            log.debug("Added simple npcMovement character to stage with UUID: {}.", npcParticipant.getUuid());
         });
     }
 
@@ -231,7 +208,7 @@ public class StageComputatorImpl implements StageComputator {
      * @param facilityUuid - the uuid of facility to be removed.
      */
     public synchronized void removeFacility(String facilityUuid) {
-        FacilityParticipant facilityParticipant = this.facilityComputator.findParticipantByUuid(facilityUuid);
+        FacilityParticipant facilityParticipant = this.facilityMovementManager.findFacilityByUuid(facilityUuid);
         if (facilityParticipant == null) {
             log.warn("Can't remove facility from computation. Facility with give uuid {} not found.", facilityUuid);
             return;
@@ -245,7 +222,7 @@ public class StageComputatorImpl implements StageComputator {
                     TileState.FREE
             );
         });
-        this.facilityComputator.removeFacility(facilityUuid);
+        this.facilityMovementManager.removeFacility(facilityUuid);
     }
 
     /**
@@ -254,12 +231,12 @@ public class StageComputatorImpl implements StageComputator {
      * @param eventProducer - the event producer of computed model
      */
     public void setComputatorEventProducer(EventProducer<ComputatorEvent> eventProducer) {
-        if (this.actingCharacterComputator == null) {
+        if (this.actingCharacterMovementManager == null) {
             log.warn("The acting character computator is empty. EventStream will not be set.");
         }
 
-        this.actingCharacterComputator.setEventListener(new ActingCharacterEventListenerImpl(eventProducer));
-        this.focusPointComputator.setEventListener(new FocusPointEventListenerImpl(eventProducer));
+        this.actingCharacterMovementManager.setEventListener(new ActingCharacterEventListenerImpl(eventProducer));
+        this.mapMovementManager.setFocusPointEventListener(new FocusPointEventListenerImpl(eventProducer));
     }
 
     /**
@@ -268,11 +245,11 @@ public class StageComputatorImpl implements StageComputator {
      * @param isPause - indicates when calculation should be paused.
      */
     public void setPause(boolean isPause) {
-        if (this.focusPointComputator != null) {
-            this.focusPointComputator.setComputationPause(isPause);
+        if (this.mapMovementManager != null) {
+            this.mapMovementManager.setPause(isPause);
         }
 
-        this.npcProcessingManager.setPause(isPause);
+        this.npcMovementManager.setPause(isPause);
     }
 
     /**
@@ -282,16 +259,16 @@ public class StageComputatorImpl implements StageComputator {
      * @param uuid      - the uuid of NPC to be paused
      */
     public void setPause(boolean isPause, String uuid) {
-        this.npcProcessingManager.setPause(isPause, uuid);
+        this.npcMovementManager.setPause(isPause, uuid);
     }
 
     /**
-     * Tries to run participantComputator process. If process successfully ran then coordinates will update after calling onTick method
+     * Tries to run movement process. If process successfully ran then coordinates will update after calling onTick method
      *
-     * @param movementDirection - the direction of participantComputator
+     * @param movementDirection - the direction of participant
      */
     public void tryToRunMovement(MovementDirection movementDirection) {
-        this.focusPointComputator.tryToRunMovement(movementDirection, this.altitudeMap);
+        this.mapMovementManager.tryToRunMovement(movementDirection, this.altitudeMap);
     }
 
     /**
@@ -314,7 +291,7 @@ public class StageComputatorImpl implements StageComputator {
         if (this.altitudeMap == null) {
             log.warn("Altitude map is not set.");
             return false;
-        } else if (this.focusPointComputator == null || this.focusPointComputator.getFocusPointParticipant() == null) {
+        } else if (this.mapMovementManager == null) {
             log.warn("The focus point participant is not set.");
             return false;
         }

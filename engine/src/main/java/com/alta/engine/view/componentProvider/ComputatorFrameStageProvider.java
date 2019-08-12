@@ -93,7 +93,7 @@ public class ComputatorFrameStageProvider {
                                 MovementType.AVOID_OBSTRUCTION : MovementType.valueOf(npcEngineModel.getMovementStrategy());
                     } catch (Exception e) {
                         log.error(
-                                "Can't get participantComputator strategy for simple npcMovementProcessor {}, given strategy {}",
+                                "Can't get participantComputator strategy for simple npcMovement {}, given strategy {}",
                                 npcEngineModel.getUuid(),
                                 npcEngineModel.getMovementStrategy()
                         );
@@ -154,7 +154,7 @@ public class ComputatorFrameStageProvider {
                     MovementDirection.valueOf(engineModel.getInitialDirection());
         } catch (Exception e) {
             log.error(
-                    "Can't get initial direction for simple npcMovementProcessor {}, given direction {}",
+                    "Can't get initial direction for simple npcMovement {}, given direction {}",
                     engineModel.getUuid(),
                     engineModel.getInitialDirection()
             );
@@ -178,7 +178,7 @@ public class ComputatorFrameStageProvider {
                     MovementDirection.valueOf(engineModel.getInitialDirection());
         } catch (Exception e) {
             log.error(
-                    "Can't get initial direction for simple npcMovementProcessor {}, given direction {}",
+                    "Can't get initial direction for simple npcMovement {}, given direction {}",
                     engineModel.getUuid(),
                     engineModel.getInitialDirection()
             );

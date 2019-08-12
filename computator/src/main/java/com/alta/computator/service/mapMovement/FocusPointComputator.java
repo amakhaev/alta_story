@@ -1,4 +1,4 @@
-package com.alta.computator.service.participantComputator.focusPoint;
+package com.alta.computator.service.mapMovement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
@@ -76,8 +76,7 @@ public class FocusPointComputator {
      * @param movementDirection - the direction of participantComputator
      * @param altitudeMap - the {@link AltitudeMap} instance
      */
-    public void tryToRunMovement(MovementDirection movementDirection,
-                                 AltitudeMap altitudeMap) {
+    public void tryToRunMovement(MovementDirection movementDirection, AltitudeMap altitudeMap) {
         if (this.movementWorker.isCurrentlyRunning() || movementDirection == null || this.isComputationPause) {
             return;
         }

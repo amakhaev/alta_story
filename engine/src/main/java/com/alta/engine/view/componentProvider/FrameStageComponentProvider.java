@@ -100,7 +100,7 @@ public class FrameStageComponentProvider {
      * Creates the list of actors that available for scene
      *
      * @param actingCharacter - the acting character on scene
-     * @param simpleNpc - the list of simple npcMovementProcessor
+     * @param simpleNpc - the list of simple npcMovement
      * @return the {@link List< ActorCharacterComponent >} instance.
      */
     private List<ActorCharacterComponent> createActors(ActingCharacterEngineModel actingCharacter, List<NpcEngineModel> simpleNpc) {
@@ -119,7 +119,7 @@ public class FrameStageComponentProvider {
     }
 
     /**
-     * Creates the simple npcMovementProcessor entities
+     * Creates the simple npcMovement entities
      *
      * @param npcEngineModels - the models to create scee compionent
      * @return the {@link List< ActorCharacterComponent >} instance.

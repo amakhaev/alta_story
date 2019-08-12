@@ -50,7 +50,12 @@ public class RouteMovementComputator implements Computator<RouteMovementEvaluabl
                 args.getFocusPointGlobalCoordinates()
         );
         evaluableModel.setRepeatingMovementTime(0);
-        evaluableModel.getParticipant().setCurrentDirection(evaluableModel.getMovementDirectionStrategy().getDirection());
+
+        // The running process can be finished in ComputatorUtils.calculateMovementStep.
+        // In that case direction should be changed.
+        if (!evaluableModel.getWorker().isCurrentlyRunning()) {
+            evaluableModel.getParticipant().setCurrentDirection(evaluableModel.getMovementDirectionStrategy().getDirection());
+        }
     }
 
     private void calculateNextStep(RouteMovementEvaluableModel evaluableModel, RouteMovementArgs args) {

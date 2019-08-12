@@ -1,4 +1,4 @@
-package com.alta.computator.service.npcMovementProcessor;
+package com.alta.computator.service.npcMovement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.ParticipatType;
@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  * Provides the manager make computations related to NPC.
  */
 @Slf4j
-public class NpcProcessingManager {
+public class NpcMovementManager {
 
     private final NpcParticipantContainer<RandomMovementEvaluableModel> simpleNpcParticipantContainer;
     private final RandomMovementArgs randomMovementArgs;
@@ -37,9 +37,9 @@ public class NpcProcessingManager {
     private final RouteMovementComputator routeMovementComputator;
 
     /**
-     * Initialize new instance of {@link NpcProcessingManager}.
+     * Initialize new instance of {@link NpcMovementManager}.
      */
-    public NpcProcessingManager() {
+    public NpcMovementManager() {
         this.simpleNpcParticipantContainer = new NpcParticipantContainer<>();
         this.randomMovementArgs = new RandomMovementArgs();
         this.randomMovementComputator = new RandomMovementComputator();
@@ -52,11 +52,11 @@ public class NpcProcessingManager {
     /**
      * Adds the participant into container to be used for future computations.
      *
-     * @param npcParticipant - the npcMovementProcessor participant to be added.
+     * @param npcParticipant - the npcMovement participant to be added.
      */
     public void addParticipantForComputation(NpcParticipant npcParticipant) {
         if (npcParticipant == null) {
-            log.warn("Null reference to npcMovementProcessor participant");
+            log.warn("Null reference to npcMovement participant");
             return;
         }
 
@@ -86,7 +86,7 @@ public class NpcProcessingManager {
     }
 
     /**
-     * Handles the computing of coordinates for npcMovementProcessor participants.
+     * Handles the computing of coordinates for npcMovement participants.
      *
      * @param altitudeMap                   - the altitude map
      * @param focusPointGlobalCoordinates   - the global coordinates of focus point

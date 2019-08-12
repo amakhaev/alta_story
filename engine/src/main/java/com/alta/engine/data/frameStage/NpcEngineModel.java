@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the model that describes the simple npcMovementProcessor
+ * Provides the model that describes the simple npcMovement
  */
 @Getter
 @Builder

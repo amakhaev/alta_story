@@ -1,4 +1,4 @@
-package com.alta.computator.service.participantComputator;
+package com.alta.computator.service.mapMovement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.map.MapParticipant;

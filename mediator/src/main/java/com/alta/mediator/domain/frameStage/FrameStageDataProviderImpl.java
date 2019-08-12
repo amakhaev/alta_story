@@ -157,12 +157,12 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
     private List<NpcEngineModel> createNpcList(List<SimpleNpcEntity> simpleNpcList,
                                                List<AlterableNpcEntity> alterableNpcList) {
 
-        // Simple npcMovementProcessor
+        // Simple npcMovement
         List<NpcEngineModel> engineModels = simpleNpcList.stream()
                 .map(this.actorDataProvider::getSimpleNpc)
                 .collect(Collectors.toList());
 
-        // Alterable npcMovementProcessor
+        // Alterable npcMovement
         engineModels.addAll(
                 alterableNpcList.stream().map(this.actorDataProvider::getAlterableNpc).collect(Collectors.toList())
         );

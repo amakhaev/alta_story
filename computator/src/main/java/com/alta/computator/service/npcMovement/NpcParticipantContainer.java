@@ -1,4 +1,4 @@
-package com.alta.computator.service.npcMovementProcessor;
+package com.alta.computator.service.npcMovement;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Provides the container to store npcMovementProcessor participants.
+ * Provides the container to store npcMovement participants.
  */
 class NpcParticipantContainer<T> {
 
@@ -61,7 +61,7 @@ class NpcParticipantContainer<T> {
     /**
      * Add participant into container and mark it as not initialized.
      *
-     * @param value - the npcMovementProcessor participant to be added.
+     * @param value - the npcMovement participant to be added.
      */
     void addParticipant(String uuid, T value) {
         this.notInitializedParticipants.put(uuid, value);

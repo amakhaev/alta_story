@@ -24,17 +24,17 @@ public interface ActorDataProvider {
     ActingCharacterEngineModel getActingCharacter(String skinName, Point startCoordinates, String uuid);
 
     /**
-     * Gets the simple npcMovementProcessor by given npcMovementProcessor entity.
+     * Gets the simple npcMovement by given npcMovement entity.
      *
-     * @param npcEntity - the npcMovementProcessor entity to create engine model.
+     * @param npcEntity - the npcMovement entity to create engine model.
      * @return the {@link NpcEngineModel}
      */
     NpcEngineModel getSimpleNpc(SimpleNpcEntity npcEntity);
 
     /**
-     * Gets the alterable npcMovementProcessor by given npcMovementProcessor entity.
+     * Gets the alterable npcMovement by given npcMovement entity.
      *
-     * @param npcEntity - the npcMovementProcessor entity to create engine model.
+     * @param npcEntity - the npcMovement entity to create engine model.
      * @return the {@link NpcEngineModel} instance.
      */
     NpcEngineModel getAlterableNpc(AlterableNpcEntity npcEntity);

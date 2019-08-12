@@ -42,9 +42,9 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     }
 
     /**
-     * Gets the simple npcMovementProcessor by given npcMovementProcessor entity.
+     * Gets the simple npcMovement by given npcMovement entity.
      *
-     * @param npcEntity - the npcMovementProcessor entity to create engine model.
+     * @param npcEntity - the npcMovement entity to create engine model.
      * @return the {@link NpcEngineModel}
      */
     @Override
@@ -53,9 +53,9 @@ public class ActorDataProviderImpl implements ActorDataProvider {
     }
 
     /**
-     * Gets the alterable npcMovementProcessor by given npcMovementProcessor entity.
+     * Gets the alterable npcMovement by given npcMovement entity.
      *
-     * @param npcEntity - the npcMovementProcessor entity to create engine model.
+     * @param npcEntity - the npcMovement entity to create engine model.
      * @return the {@link NpcEngineModel} instance.
      */
     @Override
