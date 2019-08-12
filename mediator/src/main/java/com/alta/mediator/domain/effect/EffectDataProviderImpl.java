@@ -1,14 +1,13 @@
 package com.alta.mediator.domain.effect;
 
 import com.alta.behaviorprocess.data.common.FaceSetDescription;
-import com.alta.behaviorprocess.data.effect.DialogueEffectModel;
-import com.alta.behaviorprocess.data.effect.EffectModel;
-import com.alta.behaviorprocess.data.effect.HideFacilityEffectModel;
-import com.alta.behaviorprocess.data.effect.ShowFacilityEffectModel;
+import com.alta.behaviorprocess.data.effect.*;
+import com.alta.computator.service.computator.movement.MovementWorker;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.RouteMovementEffectDataModel;
 import com.alta.dao.data.common.effect.visible.ShowFacilityEffectDataModel;
 import com.alta.dao.domain.actor.ActorService;
 import com.alta.mediator.domain.actor.ActorEngineMapper;
@@ -52,6 +51,8 @@ public class EffectDataProviderImpl implements EffectDataProvider {
                             return new HideFacilityEffectModel(((HideFacilityEffectDataModel)effect).getFacilityUuid());
                         case SHOW_FACILITY:
                             return new ShowFacilityEffectModel(((ShowFacilityEffectDataModel)effect).getFacilityUuid());
+                        case ROUTE_MOVEMENT:
+                            return this.createRouteMovementEffectModel(((RouteMovementEffectDataModel)effect));
                         default:
                             throw new IllegalArgumentException("Unknown type of effect: " + effect.getType());
                     }
@@ -79,5 +80,15 @@ public class EffectDataProviderImpl implements EffectDataProvider {
                         faceSetDescription
                 )
         );
+    }
+
+    private RouteMovementEffectModel createRouteMovementEffectModel(RouteMovementEffectDataModel effectDataModel) {
+        return RouteMovementEffectModel.builder()
+                .targetUuid(effectDataModel.getTargetUuid())
+                .finalDirection(effectDataModel.getFinalDirection())
+                .movementSpeed(MovementWorker.determinateSpeed(effectDataModel.getMovementSpeed()))
+                .x(effectDataModel.getX())
+                .y(effectDataModel.getY())
+                .build();
     }
 }

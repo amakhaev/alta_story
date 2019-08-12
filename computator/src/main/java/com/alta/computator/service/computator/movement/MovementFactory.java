@@ -1,14 +1,13 @@
-package com.alta.computator.service.movement;
+package com.alta.computator.service.computator.movement;
 
-import com.alta.computator.service.movement.directionCalculation.*;
+import com.alta.computator.service.computator.movement.directionCalculation.*;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
-import java.awt.*;
 import java.util.List;
 
 /**
- * Provides the factory to get {@link MovementComputator} specific instance
+ * Provides the factory to get {@link MovementWorker} specific instance
  */
 @Slf4j
 @UtilityClass
@@ -17,20 +16,20 @@ public class MovementFactory {
     /**
      * Gets the movement strategy.
      *
-     * @return the {@link MovementComputator} instance.
+     * @return the {@link MovementWorker} instance.
      */
-    public MovementComputator createComputator() {
-        return new MovementComputatorImpl();
+    public MovementWorker createWorker() {
+        return new MovementWorkerImpl();
     }
 
     /**
      * Creates the movement computator with given movement speed.
      *
      * @param movementSpeed - the speed of movement.
-     * @return created {@link MovementComputator} instance.
+     * @return created {@link MovementWorker} instance.
      */
-    public MovementComputator createComputator(int movementSpeed) {
-        return new MovementComputatorImpl(movementSpeed);
+    public MovementWorker createWorker(int movementSpeed) {
+        return new MovementWorkerImpl(movementSpeed);
     }
 
     /**

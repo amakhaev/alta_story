@@ -3,12 +3,11 @@ package com.alta.engine.view;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.core.storage.EngineStorage;
-import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.view.componentProvider.ComputatorFrameStageProvider;
@@ -16,7 +15,6 @@ import com.alta.engine.view.componentProvider.FrameStageComponentProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
-import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.Getter;
 import lombok.NonNull;
@@ -65,12 +63,23 @@ public class FrameStageView {
     }
 
     /**
-     * Performs the participantComputator on scene
+     * Performs the movement of focus point on scene
      *
-     * @param movementDirection - the participantComputator that should be performed
+     * @param movementDirection - the direction of movement to be performed.
      */
     public void onMovementPerform(MovementDirection movementDirection) {
         this.stageComputatorImpl.tryToRunMovement(movementDirection);
+    }
+
+    /**
+     * Performs the movement of NPC on scene.
+     *
+     * @param npcTargetUuid - the NPC uuid.
+     * @param x             - the X coordinate to be moved.
+     * @param y             - the Y coordinate to be moved.
+     */
+    public void onMovementPerform(String npcTargetUuid, int x, int y) {
+        this.stageComputatorImpl.tryToRunNpcMovement(npcTargetUuid, x, y);
     }
 
     /**

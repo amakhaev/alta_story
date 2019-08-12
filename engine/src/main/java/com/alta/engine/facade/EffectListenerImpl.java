@@ -153,4 +153,16 @@ public class EffectListenerImpl implements EffectListener {
     public void onShowFacility(@NonNull String facilityUuid) {
         this.frameStagePresenter.addFacility(facilityUuid);
     }
+
+    /**
+     * Runs the movement process for NPC with given UUID.
+     *
+     * @param npcTargetUuid - the UUID of NPC to be moved.
+     * @param x             - the target X coordinate.
+     * @param y             - the target Y coordinate.
+     */
+    @Override
+    public void onRouteMovement(String npcTargetUuid, int x, int y) {
+        this.frameStagePresenter.movementPerform(npcTargetUuid, x, y);
+    }
 }

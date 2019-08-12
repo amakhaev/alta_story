@@ -30,13 +30,13 @@ public class NpcListComputator {
     }
 
     /**
-     * Adds the npc participant for computation
+     * Adds the npcMovementProcessor participant for computation
      *
-     * @param npcParticipant - the npc for which calculation should be applied
+     * @param npcParticipant - the npcMovementProcessor for which calculation should be applied
      */
     public void add(NpcParticipant npcParticipant) {
         if (npcParticipant == null) {
-            log.warn("Null reference to npc participant");
+            log.warn("Null reference to npcMovementProcessor participant");
             return;
         }
 
@@ -48,7 +48,7 @@ public class NpcListComputator {
     }
 
     /**
-     * Handles the computing of coordinates for simple npc participants
+     * Handles the computing of coordinates for simple npcMovementProcessor participants
      *
      * @param altitudeMap - the altitude map
      * @param focusPointGlobalCoordinates - the global coordinates of focus point
@@ -63,7 +63,7 @@ public class NpcListComputator {
     }
 
     /**
-     * Gets the npc participant by given UUID
+     * Gets the npcMovementProcessor participant by given UUID
      *
      * @param uuid - the UUID of participant
      * @return the {@link SimpleNpcParticipant} instance of null if key not present
@@ -117,16 +117,5 @@ public class NpcListComputator {
                         c.getNpcParticipant().getParticipantType()
                 ))
                 .orElse(null);
-    }
-
-    /**
-     * Gets the list of npc participats.
-     *
-     * @return the {@link java.util.List} of {@link SimpleNpcParticipant}.
-     */
-    public java.util.List<NpcParticipant> getNpcList() {
-        return this.npcComputators.values().stream()
-                .map(NpcComputator::getNpcParticipant)
-                .collect(Collectors.toList());
     }
 }

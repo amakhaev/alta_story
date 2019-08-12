@@ -12,13 +12,13 @@ import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
 import com.alta.computator.model.participant.map.MapParticipant;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.layer.LayerComputator;
+import com.alta.computator.service.npcMovementProcessor.NpcProcessingManager;
 import com.alta.computator.service.participantComputator.FacilityComputator;
-import com.alta.computator.service.participantComputator.focusPoint.FocusPointComputator;
 import com.alta.computator.service.participantComputator.MapComputator;
 import com.alta.computator.service.participantComputator.actor.ActingCharacterComputator;
-import com.alta.computator.service.participantComputator.actor.NpcListComputator;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.participantComputator.focusPoint.FocusPointComputator;
 import com.alta.eventStream.EventProducer;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class StageComputatorImpl implements StageComputator {
 
     private final LayerComputator layerComputator;
     private final FacilityComputator facilityComputator;
-    private final NpcListComputator npcListComputator;
+    private final NpcProcessingManager npcProcessingManager;
 
     private FocusPointComputator focusPointComputator;
     private MapComputator mapComputator;
@@ -52,7 +52,7 @@ public class StageComputatorImpl implements StageComputator {
     public StageComputatorImpl() {
         this.layerComputator = new LayerComputator();
         this.facilityComputator = new FacilityComputator();
-        this.npcListComputator = new NpcListComputator();
+        this.npcProcessingManager = new NpcProcessingManager();
     }
 
     /**
@@ -88,7 +88,7 @@ public class StageComputatorImpl implements StageComputator {
             return this.actingCharacterComputator.getActingCharacterParticipant();
         }
 
-        return this.npcListComputator.getSimpleNpcParticipant(uuid);
+        return this.npcProcessingManager.getParticipant(uuid);
     }
 
     /**
@@ -103,7 +103,7 @@ public class StageComputatorImpl implements StageComputator {
         }
 
         Point targetParticipantMapCoordinates = this.actingCharacterComputator.getMapCoordinatesOfTargetParticipant();
-        TargetedParticipantSummary summary = this.npcListComputator.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
+        TargetedParticipantSummary summary = this.npcProcessingManager.findNpcTargetByMapCoordinates(targetParticipantMapCoordinates);
         if (summary != null) {
             return summary;
         }
@@ -144,7 +144,7 @@ public class StageComputatorImpl implements StageComputator {
             );
         }
 
-        this.npcListComputator.onCompute(
+        this.npcProcessingManager.onCompute(
                 this.altitudeMap,
                 this.focusPointComputator.getFocusPointParticipant().getCurrentGlobalCoordinates(),
                 delta
@@ -208,9 +208,9 @@ public class StageComputatorImpl implements StageComputator {
     }
 
     /**
-     * Adds the simple npc to stage for computation
+     * Adds the simple npcMovementProcessor to stage for computation
      *
-     * @param npcParticipants - the npc participants to be added for computation.
+     * @param npcParticipants - the npcMovementProcessor participants to be added for computation.
      */
     public void addNpcCharacters(List<NpcParticipant> npcParticipants) {
         if (npcParticipants == null || npcParticipants.isEmpty()) {
@@ -219,9 +219,9 @@ public class StageComputatorImpl implements StageComputator {
         }
 
         npcParticipants.forEach(npcParticipant -> {
-            this.npcListComputator.add(npcParticipant);
+            this.npcProcessingManager.addParticipantForComputation(npcParticipant);
             this.layerComputator.addParticipant(npcParticipant);
-            log.debug("Added simple npc character to stage with UUID: {}.", npcParticipant.getUuid());
+            log.debug("Added simple npcMovementProcessor character to stage with UUID: {}.", npcParticipant.getUuid());
         });
     }
 
@@ -272,7 +272,7 @@ public class StageComputatorImpl implements StageComputator {
             this.focusPointComputator.setComputationPause(isPause);
         }
 
-        this.npcListComputator.setPause(isPause);
+        this.npcProcessingManager.setPause(isPause);
     }
 
     /**
@@ -282,7 +282,7 @@ public class StageComputatorImpl implements StageComputator {
      * @param uuid      - the uuid of NPC to be paused
      */
     public void setPause(boolean isPause, String uuid) {
-        this.npcListComputator.setPause(isPause, uuid);
+        this.npcProcessingManager.setPause(isPause, uuid);
     }
 
     /**
@@ -292,6 +292,22 @@ public class StageComputatorImpl implements StageComputator {
      */
     public void tryToRunMovement(MovementDirection movementDirection) {
         this.focusPointComputator.tryToRunMovement(movementDirection, this.altitudeMap);
+    }
+
+    /**
+     * Tries to run movement for NPC participant.
+     *
+     * @param npcTargetUuid - the NPC uuid.
+     * @param x             - the X coordinate to be moved.
+     * @param y             - the Y coordinate to be moved.
+     */
+    public void tryToRunNpcMovement(String npcTargetUuid, int x, int y) {
+        if (this.altitudeMap == null) {
+            log.warn("The movement for NPC failed since altitude map is null");
+            return;
+        }
+
+        //this.npcListComputator.tryToRunRouteMovementOnceTime(this.altitudeMap, npcTargetUuid, x, y);
     }
 
     private boolean isAllDataInitialized() {

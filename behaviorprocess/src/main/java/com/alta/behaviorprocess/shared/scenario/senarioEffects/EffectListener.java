@@ -56,4 +56,13 @@ public interface EffectListener {
      * @param facilityUuid - the uuid of facility to be show.
      */
     void onShowFacility(String facilityUuid);
+
+    /**
+     * Runs the movement process for NPC with given UUID.
+     *
+     * @param npcTargetUuid - the UUID of NPC to be moved.
+     * @param x             - the target X coordinate.
+     * @param y             - the target Y coordinate.
+     */
+    void onRouteMovement(String npcTargetUuid, int x, int y);
 }

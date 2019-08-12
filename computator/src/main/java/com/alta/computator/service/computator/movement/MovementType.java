@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement;
+package com.alta.computator.service.computator.movement;
 
 /**
  * Provides possible types of movement.

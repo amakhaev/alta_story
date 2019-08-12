@@ -3,7 +3,7 @@ package com.alta.computator.service.participantComputator.actor;
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

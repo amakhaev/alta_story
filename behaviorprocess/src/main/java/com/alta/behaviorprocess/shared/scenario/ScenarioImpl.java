@@ -115,6 +115,9 @@ public class ScenarioImpl implements Scenario {
             case SHOW_FACILITY:
                 effect = this.effectFactory.createShowFacilityEffect(this.effectListener);
                 break;
+            case ROUTE_MOVEMENT:
+                effect = this.effectFactory.createRouteMovementEffect(this.effectListener);
+                break;
             default:
                 log.error("Unknown type of effect: {}", effectModel.getType());
                 this.markAsFailedCompleted();

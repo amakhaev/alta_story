@@ -1,13 +1,11 @@
 package com.alta.engine.facade;
 
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.core.storage.EngineStorage;
-import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.JumpingEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
 import com.google.inject.Inject;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

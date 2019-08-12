@@ -1,7 +1,7 @@
 package com.alta.engine.view.components.actor;
 
 import com.alta.computator.model.participant.actor.ActorParticipant;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimation;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import com.alta.scene.entities.Actor;

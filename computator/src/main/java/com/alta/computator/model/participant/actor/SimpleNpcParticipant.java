@@ -1,8 +1,8 @@
 package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.ParticipatType;
-import com.alta.computator.service.movement.MovementType;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.MovementType;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import lombok.NonNull;
 
 import java.awt.*;

@@ -6,13 +6,16 @@ import mediator.command.quest.CompleteQuestStepCommandTest;
 import mediator.dataSource.QuestRepositoryTest;
 import mediator.domain.effect.BackgroundEffectServiceTest;
 import mediator.domain.effect.EffectDataProviderTest;
+import mediator.domain.interaction.InteractionDataProviderTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EffectDataProviderTest.class,
         BackgroundEffectServiceTest.class,
+        EffectDataProviderTest.class,
+
+        InteractionDataProviderTest.class,
 
         UpdateGlobalPreservationCommandTest.class,
         CompleteInteractionCommandTest.class,

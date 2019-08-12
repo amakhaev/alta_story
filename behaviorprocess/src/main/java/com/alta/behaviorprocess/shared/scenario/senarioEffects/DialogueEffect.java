@@ -2,7 +2,6 @@ package com.alta.behaviorprocess.shared.scenario.senarioEffects;
 
 import com.alta.behaviorprocess.data.effect.DialogueEffectModel;
 import com.alta.behaviorprocess.data.effect.EffectModel;
-import com.google.common.base.Strings;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.NonNull;

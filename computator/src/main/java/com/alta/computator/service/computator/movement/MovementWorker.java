@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement;
+package com.alta.computator.service.computator.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 
@@ -7,7 +7,26 @@ import java.awt.*;
 /**
  * Provides the interface for calculates the participantComputator of participant
  */
-public interface MovementComputator {
+public interface MovementWorker {
+
+    /**
+     * Determinate the speed as number by given string representation.
+     *
+     * @param representation - the string representation of speed.
+     * @return the speed as number.
+     */
+    static int determinateSpeed(String representation) {
+        switch (representation) {
+            case "SLOW":
+                return MovementWorkerImpl.SLOW_MOVE_SPEED;
+            case "NORMAL":
+                return MovementWorkerImpl.NORMAL_MOVE_SPEED;
+            case "FAST":
+                return MovementWorkerImpl.FAST_MOVE_SPEED;
+            default:
+                throw new RuntimeException("Unknown type of movement speed: " + representation);
+        }
+    }
 
     /**
      * Indicates if participantComputator already running or not

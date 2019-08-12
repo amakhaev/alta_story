@@ -7,10 +7,10 @@ import com.alta.computator.model.participant.actor.RouteNpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
-import com.alta.computator.service.movement.MovementComputatorImpl;
-import com.alta.computator.service.movement.MovementType;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.movement.directionCalculation.RouteMovementDescription;
+import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.MovementType;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.RouteMovementDescription;
 import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
@@ -93,7 +93,7 @@ public class ComputatorFrameStageProvider {
                                 MovementType.AVOID_OBSTRUCTION : MovementType.valueOf(npcEngineModel.getMovementStrategy());
                     } catch (Exception e) {
                         log.error(
-                                "Can't get participantComputator strategy for simple npc {}, given strategy {}",
+                                "Can't get participantComputator strategy for simple npcMovementProcessor {}, given strategy {}",
                                 npcEngineModel.getUuid(),
                                 npcEngineModel.getMovementStrategy()
                         );
@@ -154,7 +154,7 @@ public class ComputatorFrameStageProvider {
                     MovementDirection.valueOf(engineModel.getInitialDirection());
         } catch (Exception e) {
             log.error(
-                    "Can't get initial direction for simple npc {}, given direction {}",
+                    "Can't get initial direction for simple npcMovementProcessor {}, given direction {}",
                     engineModel.getUuid(),
                     engineModel.getInitialDirection()
             );
@@ -178,7 +178,7 @@ public class ComputatorFrameStageProvider {
                     MovementDirection.valueOf(engineModel.getInitialDirection());
         } catch (Exception e) {
             log.error(
-                    "Can't get initial direction for simple npc {}, given direction {}",
+                    "Can't get initial direction for simple npcMovementProcessor {}, given direction {}",
                     engineModel.getUuid(),
                     engineModel.getInitialDirection()
             );
@@ -198,19 +198,7 @@ public class ComputatorFrameStageProvider {
             return routeNpcParticipant;
         }
 
-        switch (engineModel.getMovementSpeed()) {
-            case "SLOW":
-                routeNpcParticipant.setMovementSpeed(MovementComputatorImpl.SLOW_MOVE_SPEED);
-                break;
-            case "NORMAL":
-                routeNpcParticipant.setMovementSpeed(MovementComputatorImpl.NORMAL_MOVE_SPEED);
-                break;
-            case "FAST":
-                routeNpcParticipant.setMovementSpeed(MovementComputatorImpl.FAST_MOVE_SPEED);
-                break;
-            default:
-                log.error("Unknown type of movement speed: {}", engineModel.getMovementSpeed());
-        }
+        routeNpcParticipant.setMovementSpeed(MovementWorker.determinateSpeed(engineModel.getMovementSpeed()));
 
         return routeNpcParticipant;
     }

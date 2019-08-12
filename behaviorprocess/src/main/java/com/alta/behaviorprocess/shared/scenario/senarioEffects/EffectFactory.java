@@ -11,17 +11,24 @@ public interface EffectFactory {
     DialogueEffect createDialogueEffect(String targetedParticipantUuid, EffectListener effectListener);
 
     /**
-     * Creates tje instance of {@link HideFacilityEffect}.
+     * Creates the instance of {@link HideFacilityEffect}.
      *
      * @return created {@link HideFacilityEffect} instance.
      */
     HideFacilityEffect createHideFacilityEffect(EffectListener effectListener);
 
     /**
-     * Creates tje instance of {@link ShowFacilityEffect}.
+     * Creates the instance of {@link ShowFacilityEffect}.
      *
      * @return created {@link ShowFacilityEffect} instance.
      */
     ShowFacilityEffect createShowFacilityEffect(EffectListener effectListener);
+
+    /**
+     * Creates the instance of {@link ShowFacilityEffect}.
+     *
+     * @return created {@link ShowFacilityEffect} instance.
+     */
+    RouteMovementEffect createRouteMovementEffect(EffectListener effectListener);
 
 }

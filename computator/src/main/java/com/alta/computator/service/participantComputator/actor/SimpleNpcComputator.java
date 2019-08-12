@@ -2,9 +2,9 @@ package com.alta.computator.service.participantComputator.actor;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
-import com.alta.computator.service.movement.MovementFactory;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.movement.directionCalculation.MovementDirectionStrategy;
+import com.alta.computator.service.computator.movement.MovementFactory;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirectionStrategy;
 
 import java.awt.*;
 
@@ -24,7 +24,7 @@ class SimpleNpcComputator extends NpcComputator {
     }
 
     /**
-     * Updates the movement of npc includes the direction.
+     * Updates the movement of npcMovementProcessor includes the direction.
      *
      * @param altitudeMap                 - the {@link AltitudeMap} instance.
      * @param focusPointGlobalCoordinates - the global coordinates of focus point.

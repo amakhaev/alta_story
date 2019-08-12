@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement;
+package com.alta.computator.service.computator.movement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.utils.MovementCoordinateComputator;
@@ -10,7 +10,7 @@ import java.awt.*;
  * Provides the base implementation of participantComputator strategy
  */
 @Slf4j
-public class MovementComputatorImpl implements MovementComputator {
+public class MovementWorkerImpl implements MovementWorker {
 
     public static final int FAST_MOVE_SPEED = 4;
     public static final int NORMAL_MOVE_SPEED = 3;
@@ -31,17 +31,17 @@ public class MovementComputatorImpl implements MovementComputator {
     private boolean isRunning;
 
     /**
-     * Initialize new instance of {@link MovementComputatorImpl}
+     * Initialize new instance of {@link MovementWorkerImpl}
      */
-    MovementComputatorImpl(int moveSpeed) {
+    MovementWorkerImpl(int moveSpeed) {
         this.moveSpeed = moveSpeed;
         this.isRunning = false;
     }
 
     /**
-     * Initialize new instance of {@link MovementComputatorImpl}.
+     * Initialize new instance of {@link MovementWorkerImpl}.
      */
-    MovementComputatorImpl() {
+    MovementWorkerImpl() {
         this(NORMAL_MOVE_SPEED);
     }
 

@@ -1,4 +1,4 @@
-package com.alta.computator.service.movement.directionCalculation;
+package com.alta.computator.service.computator.movement.directionCalculation;
 
 import java.util.Arrays;
 import java.util.Collections;

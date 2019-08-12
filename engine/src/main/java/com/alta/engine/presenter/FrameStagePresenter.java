@@ -1,7 +1,7 @@
 package com.alta.engine.presenter;
 
 import com.alta.computator.model.participant.TargetedParticipantSummary;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
@@ -49,13 +49,26 @@ public class FrameStagePresenter {
     }
 
     /**
-     * Performs the participantComputator on scene
+     * Performs the movement of focus point on scene
      *
-     * @param movementDirection - the participantComputator that should be performed
+     * @param movementDirection - the direction of movement to be performed.
      */
     public void movementPerform(MovementDirection movementDirection) {
         if (this.currentView != null) {
             this.currentView.onMovementPerform(movementDirection);
+        }
+    }
+
+    /**
+     * Performs the movement of NPC on scene.
+     *
+     * @param npcTargetUuid - the NPC uuid.
+     * @param x             - the X coordinate to be moved.
+     * @param y             - the Y coordinate to be moved.
+     */
+    public void movementPerform(String npcTargetUuid, int x, int y) {
+        if (this.currentView != null) {
+            this.currentView.onMovementPerform(npcTargetUuid, x, y);
         }
     }
 

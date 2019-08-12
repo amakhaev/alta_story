@@ -17,6 +17,7 @@ public class EffectDataModel {
         DIALOGUE,
         HIDE_FACILITY,
         SHOW_FACILITY,
+        ROUTE_MOVEMENT,
 
         // Background effects
         INCREMENT_CHAPTER_INDICATOR

@@ -41,7 +41,7 @@ public class SynchronizationManager {
         }
 
         log.info(
-                "Synchronize job is going to run with types {}",
+                "Synchronize job is going to be run with types {}",
                 dataTypes.stream().map(DataType::toString).collect(Collectors.joining(","))
         );
         ExecutorService executorService = ExecutorServiceFactory.create(SYNC_THREAD_COUNT, SYNC_THREAD_POOL_NAME);

@@ -3,9 +3,9 @@ package com.alta.computator.service.participantComputator.actor;
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.actor.NpcParticipant;
-import com.alta.computator.service.movement.MovementComputator;
-import com.alta.computator.service.movement.MovementComputatorImpl;
-import com.alta.computator.service.movement.MovementFactory;
+import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.MovementWorkerImpl;
+import com.alta.computator.service.computator.movement.MovementFactory;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ import java.awt.*;
  */
 public abstract class NpcComputator {
 
-    private final MovementComputator movementComputator;
+    private final MovementWorker movementWorker;
 
     private boolean isInitializedFirstTime;
 
@@ -37,7 +37,7 @@ public abstract class NpcComputator {
         this.isInitializedFirstTime = false;
         this.repeatingMovementTime = 0;
         this.isComputationPause = false;
-        this.movementComputator = MovementFactory.createComputator(movementSpeed);
+        this.movementWorker = MovementFactory.createWorker(movementSpeed);
     }
 
     /**
@@ -46,11 +46,11 @@ public abstract class NpcComputator {
      * @param npcParticipant - the NPC participant model.
      */
     NpcComputator(NpcParticipant npcParticipant) {
-        this(npcParticipant, MovementComputatorImpl.NORMAL_MOVE_SPEED);
+        this(npcParticipant, MovementWorkerImpl.NORMAL_MOVE_SPEED);
     }
 
     /**
-     * Handles the computing of coordinates for npc participants
+     * Handles the computing of coordinates for npcMovementProcessor participants
      *
      * @param altitudeMap - the altitude map
      * @param focusPointGlobalCoordinates - the global coordinates of focus point
@@ -66,7 +66,7 @@ public abstract class NpcComputator {
             this.isInitializedFirstTime = true;
         }
 
-        if (this.movementComputator.isCurrentlyRunning()) {
+        if (this.movementWorker.isCurrentlyRunning()) {
             this.updateRunningMovement(altitudeMap, focusPointGlobalCoordinates);
             this.repeatingMovementTime = 0;
         } else {
@@ -75,7 +75,7 @@ public abstract class NpcComputator {
     }
 
     /**
-     * Updates the movement of npc includes the direction.
+     * Updates the movement of npcMovementProcessor includes the direction.
      *
      * @param altitudeMap                   - the {@link AltitudeMap} instance.
      * @param focusPointGlobalCoordinates   - the global coordinates of focus point.
@@ -96,11 +96,11 @@ public abstract class NpcComputator {
      * @param altitudeMap       - the {@link AltitudeMap} instance.
      */
     protected void tryToRunMovement(Point targetMapPoint, AltitudeMap altitudeMap) {
-        if (this.movementComputator.isCurrentlyRunning() || this.isComputationPause) {
+        if (this.movementWorker.isCurrentlyRunning() || this.isComputationPause) {
             return;
         }
 
-        this.movementComputator.tryToRunMoveProcess(
+        this.movementWorker.tryToRunMoveProcess(
                 altitudeMap,
                 this.npcParticipant.getCurrentMapCoordinates(),
                 targetMapPoint
@@ -115,18 +115,18 @@ public abstract class NpcComputator {
      * @param focusPointGlobalCoordinates   - the global coordinates of focus point.
      */
     protected void updateRunningMovement(AltitudeMap altitudeMap, Point focusPointGlobalCoordinates) {
-        this.movementComputator.onUpdate();
+        this.movementWorker.onUpdate();
 
         // If last update complete computation then it should be cleared, otherwise just update coordinates
-        if (movementComputator.isCurrentlyRunning()) {
-            int x = movementComputator.getGlobalCurrentCoordinates().x +
+        if (movementWorker.isCurrentlyRunning()) {
+            int x = movementWorker.getGlobalCurrentCoordinates().x +
                     MovementCoordinateComputator.calculateGlobalCoordinateOfMap(
                             altitudeMap.getScreenWidth(),
                             altitudeMap.getTileWidth(),
                             focusPointGlobalCoordinates.x
                     );
 
-            int y = movementComputator.getGlobalCurrentCoordinates().y +
+            int y = movementWorker.getGlobalCurrentCoordinates().y +
                     MovementCoordinateComputator.calculateGlobalCoordinateOfMap(
                             altitudeMap.getScreenHeight(),
                             altitudeMap.getTileHeight(),
@@ -142,11 +142,11 @@ public abstract class NpcComputator {
             );
 
             this.npcParticipant.updateCurrentMapCoordinates(
-                    movementComputator.getMapTargetCoordinates().x,
-                    movementComputator.getMapTargetCoordinates().y
+                    movementWorker.getMapTargetCoordinates().x,
+                    movementWorker.getMapTargetCoordinates().y
             );
             this.calculateGlobalCoordinates(altitudeMap, focusPointGlobalCoordinates);
-            this.movementComputator.clearLastMovement();
+            this.movementWorker.clearLastMovement();
             this.onAfterMovementCompleted();
         }
     }

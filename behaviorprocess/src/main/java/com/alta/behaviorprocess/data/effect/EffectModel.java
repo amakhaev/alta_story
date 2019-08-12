@@ -15,6 +15,7 @@ public abstract class EffectModel {
     public enum EffectType {
         DIALOGUE,
         HIDE_FACILITY,
-        SHOW_FACILITY
+        SHOW_FACILITY,
+        ROUTE_MOVEMENT
     }
 }
