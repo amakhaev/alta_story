@@ -173,5 +173,11 @@
 		"tileSetImageName": "person15.png",
 		"zIndex": 5,
 		"durationTime": 300
+	},
+	{
+		"name": "mayor1",
+		"tileSetImageName": "mayor1.png",
+		"zIndex": 5,
+		"durationTime": 300
 	}
 ]

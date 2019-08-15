@@ -10,11 +10,16 @@ import lombok.Getter;
 @AllArgsConstructor
 public class EffectDataModel {
 
-    private final InteractionEffectType type;
+    private final EffectType type;
 
-    public enum InteractionEffectType {
+    public enum EffectType {
+        // UI effects
         DIALOGUE,
         HIDE_FACILITY,
-        SHOW_FACILITY
+        SHOW_FACILITY,
+        ROUTE_MOVEMENT,
+
+        // Background effects
+        INCREMENT_CHAPTER_INDICATOR
     }
 }

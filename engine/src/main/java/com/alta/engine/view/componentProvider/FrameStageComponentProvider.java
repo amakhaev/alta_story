@@ -1,6 +1,6 @@
 package com.alta.engine.view.componentProvider;
 
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
@@ -100,7 +100,7 @@ public class FrameStageComponentProvider {
      * Creates the list of actors that available for scene
      *
      * @param actingCharacter - the acting character on scene
-     * @param simpleNpc - the list of simple npc
+     * @param simpleNpc - the list of simple npcMovement
      * @return the {@link List< ActorCharacterComponent >} instance.
      */
     private List<ActorCharacterComponent> createActors(ActingCharacterEngineModel actingCharacter, List<NpcEngineModel> simpleNpc) {
@@ -119,7 +119,7 @@ public class FrameStageComponentProvider {
     }
 
     /**
-     * Creates the simple npc entities
+     * Creates the simple npcMovement entities
      *
      * @param npcEngineModels - the models to create scee compionent
      * @return the {@link List< ActorCharacterComponent >} instance.

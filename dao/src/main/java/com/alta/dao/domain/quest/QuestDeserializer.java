@@ -28,6 +28,7 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
     public static final String TARGET_UUID_FIELD_NAME = "targetUuid";
 
     public static final String EFFECTS_FIELD_NAME = "effects";
+    public static final String BACKGROUND_EFFECTS_FIELD_NAME = "backgroundEffects";
 
     public static final String CHAPTER_INDICATOR_FROM_FIELD_NAME = "chapterIndicatorFrom";
     public static final String CHAPTER_INDICATOR_TO_FIELD_NAME = "chapterIndicatorTo";
@@ -78,6 +79,15 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
                     item.getAsJsonArray(EFFECTS_FIELD_NAME), new TypeToken<ArrayList<EffectDataModel>>(){}.getType()
             );
 
+            List<EffectDataModel> backgroundEffects;
+            if (item.has(BACKGROUND_EFFECTS_FIELD_NAME)) {
+                backgroundEffects = context.deserialize(
+                        item.getAsJsonArray(BACKGROUND_EFFECTS_FIELD_NAME), new TypeToken<ArrayList<EffectDataModel>>(){}.getType()
+                );
+            } else {
+                backgroundEffects = Collections.emptyList();
+            }
+
             steps.add(
                     QuestStepModel.builder()
                             .stepNumber(item.get(STEP_NUMBER_FIELD_NAME).getAsInt())
@@ -87,6 +97,7 @@ public class QuestDeserializer implements JsonDeserializer<QuestModel> {
                             .chapterIndicatorFrom(item.get(CHAPTER_INDICATOR_FROM_FIELD_NAME).getAsInt())
                             .chapterIndicatorTo(item.get(CHAPTER_INDICATOR_TO_FIELD_NAME).getAsInt())
                             .effects(effects)
+                            .backgroundEffects(backgroundEffects)
                             .build()
             );
         });

@@ -82,7 +82,7 @@ public class InteractionRepositoryImpl implements InteractionRepository {
         );
 
         return this.interactionDataProvider.getInteractionsByRelatedMapName(
-                mapName, preservationModel.getChapterIndicator(), interactionPreservations
+                mapName, preservationModel.getGlobalPreservation().getChapterIndicator(), interactionPreservations
         );
     }
 

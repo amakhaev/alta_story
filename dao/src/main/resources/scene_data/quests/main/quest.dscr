@@ -12,23 +12,64 @@
 			"effects": [
 				{
 					"type": "DIALOGUE",
-					"text": "Я тут размышляла о этих воротах. Сколько им лет и кто построил? Столько загадок в этом мире.",
+					"text": "Леон, доброе утро, хотя сейчас уже полдень.",
+					"speakerName": "kira",
+					"speakerEmotion": "CALM"
+				},
+				{
+					"type": "DIALOGUE",
+					"text": "Как по твоему сколько я здесь жду?",
+					"speakerName": "kira",
+					"speakerEmotion": "IRRITATION"
+				},
+				{
+					"type": "DIALOGUE",
+					"text": "Пока кто-то спал я размышляла о этих врата. Сколько им лет и кто построил?",
+					"speakerName": "kira",
+					"speakerEmotion": "ANNOYANCE"
+				},
+				{
+					"type": "DIALOGUE",
+					"text": "80 лет назад, когда первые рудокопы прибыли к этим безжизненным скалам, врата уже стояли, поросшие густой травой и деревьями. С тех времен была основана деревня рудокопов - Ютта. Лес вырубили, построили дома и памятники. Но...",
+					"speakerName": "kira",
+					"speakerEmotion": "CALM"
+				},
+				{
+					"type": "DIALOGUE",
+					"text": "Даже сотни лет спустя они остаются как новые. Как такое возможно?",
+					"speakerName": "kira",
+					"speakerEmotion": "CALM"
+				},
+				{
+					"type": "DIALOGUE",
+					"text": "Хоте ла бы я увидеть создателей. Наверняка если их открыть, что-нибудь должно произойти, правда?",
+					"speakerName": "kira",
+					"speakerEmotion": "FRUSTRATION"
+				},
+				{
+					"type": "DIALOGUE",
+					"text": "Что-то я много думаю.. Слушай Леон, вообщет-то у меня есть просьба.",
 					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				},
 				{
 					"type": "DIALOGUE",
-					"text": "Что останется от нас в будущем? Множество людей ходит по планете, но лишь единицы остаются в памяти.",
+					"text": "Я хотела испечь праздничный пирог, отец велел присмотреть за сестрой. Не мог бы ты принести мясо кабана? Пожааалуйса!",
 					"speakerName": "kira",
-					"speakerEmotion": "SADNESS"
+					"speakerEmotion": "JOY"
 				},
 				{
 					"type": "DIALOGUE",
-					"text": "Что-то я много думаю.. Хей Леон, как дела?",
+					"text": "Я буду ждать тебя дома. Возвращайся поскорее.",
 					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				}
-			]		
+			],
+			"backgroundEffects": [
+				{
+					"type": "INCREMENT_CHAPTER_INDICATOR"
+				}
+			]
 		},
 		{
 			"stepNumber": 1,
@@ -39,8 +80,26 @@
 			"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
 			"effects": [
 				{
+					"type": "ROUTE_MOVEMENT",
+					"targetUuid": "5583d306-254f-4c6f-bf33-a3423b34532e",
+					"x": 17,
+					"y": 84,
+					"finalDirection": "UP",
+					"movementSpeed": "SLOW"
+				}
+			]		
+		},
+		{
+			"stepNumber": 2,
+			"chapterIndicatorFrom": 2,
+			"chapterIndicatorTo": 2,
+			"triggerType": "DIALOG",
+			"triggerMap": "village_yutta",
+			"targetUuid": "e2a46ae5-f67e-4e81-b17f-d4e88a81525d",
+			"effects": [
+				{
 					"type": "DIALOGUE",
-					"text": "Бла бла бла для теста",
+					"text": "Прости парень, выход пока закрыт из-за особого распоряжения мэра.",
 					"speakerName": "kira",
 					"speakerEmotion": "JOY"
 				}

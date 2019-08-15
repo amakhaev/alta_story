@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="10" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" source="house2.tsx"/>
+ <tileset firstgid="257" source="walls2_common1.tsx"/>
+ <tileset firstgid="285" source="house4.tsx"/>
+ <tileset firstgid="541" source="house7.tsx"/>
+ <tileset firstgid="797" source="house5.tsx"/>
+ <layer id="1" name="background" width="10" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAytkYGAoJBKzMjIwsDEiaGL1jeJRPFQxADf58+4gAwAA
+  </data>
+ </layer>
+ <layer id="2" name="temp" width="10" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgwATcjFgEsQAeItXRArxlRKVHAQK8QwuTdcyoNLIadLXEmDeSAAAgIqq4IAMAAA==
+  </data>
+ </layer>
+ <layer id="3" name="barriers" width="10" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NkZGDgRsN7mVH5TEDMBcRCQHFhIP7AxMDwEYjPAtm8QHEeRgjNDFX3Dyj3H4gZgPKMQHwXiJEBTB0hQEjdXUbyzGMFuo0NiI/h0ANSJwnEwkiYD6pWBElMmkR7XaHhAKLZseiDqQuFqgPRQnjUpULVpRJQhwyQ1d1HCz9k/4oTaR42AFOnxgzBhNSZMUMwIXXE2kuMOg4gZkHDIIDM5wRiAPl+nNsgAwAA
+  </data>
+ </layer>
+</map>

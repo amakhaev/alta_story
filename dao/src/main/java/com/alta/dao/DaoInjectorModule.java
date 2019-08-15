@@ -13,6 +13,8 @@ import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.PreservationServiceImpl;
 import com.alta.dao.domain.preservation.character.CharacterPreservationService;
 import com.alta.dao.domain.preservation.character.CharacterPreservationServiceImpl;
+import com.alta.dao.domain.preservation.global.GlobalPreservationService;
+import com.alta.dao.domain.preservation.global.GlobalPreservationServiceImpl;
 import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.dao.domain.preservation.interaction.InteractionPreservationServiceImpl;
 import com.alta.dao.domain.preservation.map.MapPreservationService;
@@ -35,6 +37,7 @@ public class DaoInjectorModule extends AbstractModule {
         bind(InteractionPreservationService.class).to(InteractionPreservationServiceImpl.class);
         bind(MapPreservationService.class).to(MapPreservationServiceImpl.class);
         bind(QuestPreservationService.class).to(QuestPreservationServiceImpl.class);
+        bind(GlobalPreservationService.class).to(GlobalPreservationServiceImpl.class);
         bind(PreservationService.class).to(PreservationServiceImpl.class);
 
         bind(MapService.class).to(MapServiceImpl.class);

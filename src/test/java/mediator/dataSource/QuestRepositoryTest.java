@@ -15,6 +15,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static org.mockito.Mockito.*;
 
 public class QuestRepositoryTest {
@@ -92,13 +94,13 @@ public class QuestRepositoryTest {
 
         when(this.questDataProvider.getCountOfStepsInQuest(AvailableQuest.MAIN_QUEST)).thenReturn(5);
         when(this.questCommandFactory.createCompleteQuestStepCommand(
-                AvailableQuest.MAIN_QUEST, 5, 1)).thenReturn(command);
+                AvailableQuest.MAIN_QUEST, Collections.emptyList(),5, 1)).thenReturn(command);
 
         this.questRepository.completeQuestStep("main", 1);
 
         verify(this.questDataProvider, times(1)).getCountOfStepsInQuest(AvailableQuest.MAIN_QUEST);
         verify(this.questCommandFactory, times(1)).createCompleteQuestStepCommand(
-                AvailableQuest.MAIN_QUEST, 5, 1
+                AvailableQuest.MAIN_QUEST, Collections.emptyList(), 5, 1
         );
         verify(this.commandExecutor, times(1)).executeCommand(command);
     }
@@ -108,7 +110,9 @@ public class QuestRepositoryTest {
         this.questRepository.completeQuestStep(null, 1);
 
         verify(this.questDataProvider, times(0)).getCountOfStepsInQuest(any());
-        verify(this.questCommandFactory, times(0)).createCompleteQuestStepCommand(anyString(), anyInt(), anyInt());
+        verify(this.questCommandFactory, times(0)).createCompleteQuestStepCommand(
+                anyString(), anyList(), anyInt(), anyInt()
+        );
         verify(this.commandExecutor, times(0)).executeCommand(any());
     }
 
@@ -117,7 +121,9 @@ public class QuestRepositoryTest {
         this.questRepository.completeQuestStep("main", -1);
 
         verify(this.questDataProvider, times(0)).getCountOfStepsInQuest(any());
-        verify(this.questCommandFactory, times(0)).createCompleteQuestStepCommand(anyString(), anyInt(), anyInt());
+        verify(this.questCommandFactory, times(0)).createCompleteQuestStepCommand(
+                anyString(), anyList(), anyInt(), anyInt()
+        );
         verify(this.commandExecutor, times(0)).executeCommand(any());
     }
 }

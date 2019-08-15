@@ -44,7 +44,12 @@ public class MessageBoxPresenter {
      * @param title - the title that should be shown.
      */
     public void showTitle(String title) {
-        this.messageBoxView.showTitle(title);
+        if (!Strings.isNullOrEmpty(title)) {
+            this.messageBoxView.showTitle(title);
+        } else {
+            log.debug("No title message found.");
+        }
+
     }
 
     /**

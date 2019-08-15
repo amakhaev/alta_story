@@ -1,0 +1,42 @@
+{
+	"displayName": "Дом мэра",
+	"facilities": [
+		{
+			"uuid": "b7022be4-d256-445f-a3f0-c9f39f3d5dea",
+			"name": "transparencySquare1", 
+			"descriptorFileName": "facility13",
+			"startX": 15,
+			"startY": 19,
+			"defaultVisible": "true"
+		},
+		{
+			"uuid": "76c639b3-21b0-4b5b-b1b2-109ef815a4c1",
+			"name": "bookcase1", 
+			"descriptorFileName": "facility_house3",
+			"startX": 1,
+			"startY": 16,
+			"defaultVisible": "true"
+		}
+	],
+	"simpleNpcList": [
+		{
+			"uuid": "a35c630a-05f7-4946-8c6c-604c3cb3a345",
+			"name": "mayor1",
+			"startX": 4,
+			"startY": 15,
+			"repeatingMovementDurationTime": 5000,
+			"animatedAlways": "true",
+			"movementStrategy": "AVOID_OBSTRUCTION"
+		}
+	],
+	"alterableNpcList": [],
+	"jumping": [
+		{
+			"fromX": 15,
+			"fromY": 19,
+			"toX": 17,
+			"toY": 84,
+			"mapName": "village_yutta"
+		}
+	]
+}

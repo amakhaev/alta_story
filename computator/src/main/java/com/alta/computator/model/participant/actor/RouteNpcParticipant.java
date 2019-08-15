@@ -1,10 +1,10 @@
 package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.ParticipatType;
-import com.alta.computator.service.movement.MovementComputatorImpl;
-import com.alta.computator.service.movement.MovementType;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.movement.directionCalculation.RouteMovementDescription;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculatorImpl;
+import com.alta.computator.service.computator.movement.MovementType;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.RouteMovementDescription;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -48,6 +48,6 @@ public class RouteNpcParticipant extends NpcParticipant {
         );
         this.isRouteLooped = isRouteLooped;
         this.routeDescription = routeDescription;
-        this.movementSpeed = MovementComputatorImpl.NORMAL_MOVE_SPEED;
+        this.movementSpeed = GlobalMovementCalculatorImpl.NORMAL_MOVE_SPEED;
     }
 }

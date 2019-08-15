@@ -2,6 +2,7 @@ package com.alta.mediator.dataSource;
 
 import com.alta.behaviorprocess.data.quest.QuestModel;
 import com.alta.behaviorprocess.data.quest.QuestRepository;
+import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.preservation.QuestPreservationModel;
 import com.alta.dao.data.quest.AvailableQuest;
 import com.alta.dao.domain.preservation.quest.QuestPreservationService;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 /**
  * Provides the repository of to make CRUD with quests.
@@ -77,8 +79,11 @@ public class QuestRepositoryImpl implements QuestRepository {
             return;
         }
 
+        List<EffectDataModel> backgroundPostEffects = this.questDataProvider.getBackgroundPostEffects(name, stepNumber);
         int stepCountInQuest = this.questDataProvider.getCountOfStepsInQuest(name);
-        Command command = this.questCommandFactory.createCompleteQuestStepCommand(name, stepCountInQuest, stepNumber);
+        Command command = this.questCommandFactory.createCompleteQuestStepCommand(
+                name, backgroundPostEffects, stepCountInQuest, stepNumber
+        );
         this.commandExecutor.executeCommand(command);
     }
 

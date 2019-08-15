@@ -1,14 +1,19 @@
 package com.alta.mediator.command.preservation;
 
-import com.alta.dao.data.preservation.CharacterPreservationModel;
-import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.dao.data.preservation.MapPreservationModel;
-import com.alta.dao.data.preservation.QuestPreservationModel;
+import com.alta.dao.data.preservation.*;
 
 /**
  * Provides the factory for commands related to preservation
  */
 public interface PreservationCommandFactory {
+
+    /**
+     * Creates the command to update base part of preservation.
+     *
+     * @param globalPreservationModel - the preservation model to be used for updating.
+     * @return created {@link UpdateGlobalPreservationCommand} instance.
+     */
+    UpdateGlobalPreservationCommand createUpdatePreservationCommand(GlobalPreservationModel globalPreservationModel);
 
     /**
      * Creates the command to update preservation of interaction.

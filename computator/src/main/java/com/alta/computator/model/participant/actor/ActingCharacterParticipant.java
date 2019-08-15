@@ -14,6 +14,6 @@ public class ActingCharacterParticipant extends ActorParticipant {
      * Initialize new instance of {@link CoordinatedParticipant}
      */
     public ActingCharacterParticipant(String uuid, Point startMapCoordinates, int zIndex) {
-        super(uuid, startMapCoordinates, zIndex, ParticipatType.ACTING_CHARACTER);
+        super(uuid, startMapCoordinates, zIndex, ParticipatType.ACTING_CHARACTER, -1);
     }
 }

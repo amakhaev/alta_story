@@ -11,10 +11,13 @@ import java.awt.*;
  */
 public class FocusPointParticipant extends ParticipantComputation {
 
-    @Getter private final Point startMapCoordinates;
+    @Getter
+    private final Point startMapCoordinates;
 
-    @Getter private Point currentMapCoordinates;
-    @Getter private Point currentGlobalCoordinates;
+    @Getter
+    private Point currentMapCoordinates;
+    @Getter
+    private Point currentGlobalCoordinates;
 
     /**
      * Initialize new instance of {@link FocusPointParticipant}

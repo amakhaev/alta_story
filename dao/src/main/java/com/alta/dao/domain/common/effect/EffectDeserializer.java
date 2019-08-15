@@ -1,9 +1,11 @@
 package com.alta.dao.domain.common.effect;
 
-import com.alta.dao.data.common.effect.DialogueEffectDataModel;
+import com.alta.dao.data.common.effect.background.IncrementChapterIndicatorDataModel;
+import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
-import com.alta.dao.data.common.effect.HideFacilityEffectDataModel;
-import com.alta.dao.data.common.effect.ShowFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
+import com.alta.dao.data.common.effect.visible.RouteMovementEffectDataModel;
+import com.alta.dao.data.common.effect.visible.ShowFacilityEffectDataModel;
 import com.google.gson.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,10 +19,17 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
 
     private static final String TYPE_FIELD_NAME = "type";
     private static final String TEXT_FIELD_NAME = "text";
+
     private static final String SPEAKER_UUID_FIELD_NAME = "speakerUuid";
     private static final String SPEAKER_EMOTION_FIELD_NAME = "speakerEmotion";
     private static final String SPEAKER_NAME_FIELD_NAME = "speakerName";
     private static final String FACILITY_UUID_FIELD_NAME = "facilityUuid";
+
+    private static final String TARGET_UUID_FIELD_NAME = "targetUuid";
+    private static final String X_FIELD_NAME = "x";
+    private static final String Y_FIELD_NAME = "y";
+    private static final String FINAL_DIRECTION_FIELD_NAME = "finalDirection";
+    private static final String MOVEMENT_SPEED_FIELD_NAME = "movementSpeed";
 
     /**
      * Gson invokes this call-back method during deserialization when it encounters a field of the
@@ -52,8 +61,8 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
         effects.forEach(jsonInteractionEffectItem -> {
             JsonObject item = jsonInteractionEffectItem.getAsJsonObject();
 
-            EffectDataModel.InteractionEffectType type =
-                    EffectDataModel.InteractionEffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
+            EffectDataModel.EffectType type =
+                    EffectDataModel.EffectType.valueOf(item.get(TYPE_FIELD_NAME).getAsString());
 
             EffectDataModel model = null;
             switch (type) {
@@ -66,8 +75,14 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
                 case SHOW_FACILITY:
                     model = this.parseShowFacilityEffect(item);
                     break;
+                case ROUTE_MOVEMENT:
+                    model = this.parseRouteMovementEffect(item);
+                    break;
+                case INCREMENT_CHAPTER_INDICATOR:
+                    model = this.parseIncrementChapterEffect();
+                    break;
                 default:
-                    log.error("Unknown type of interaction effect {}", type);
+                    log.error("Unknown type of effect {}.", type);
             }
 
             if (model != null) {
@@ -119,6 +134,30 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
             return model;
         } catch (Exception e) {
             log.error("Parsing of ShowFacilityEffectDataModel was failed with error: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    private RouteMovementEffectDataModel parseRouteMovementEffect(JsonObject jsonRouteMovementEffect) {
+        try {
+            return RouteMovementEffectDataModel.builder()
+                    .targetUuid(jsonRouteMovementEffect.get(TARGET_UUID_FIELD_NAME).getAsString())
+                    .finalDirection(jsonRouteMovementEffect.get(FINAL_DIRECTION_FIELD_NAME).getAsString())
+                    .movementSpeed(jsonRouteMovementEffect.get(MOVEMENT_SPEED_FIELD_NAME).getAsString())
+                    .x(jsonRouteMovementEffect.get(X_FIELD_NAME).getAsInt())
+                    .y(jsonRouteMovementEffect.get(Y_FIELD_NAME).getAsInt())
+                    .build();
+        } catch (Exception e) {
+            log.error("Parsing of RouteMovementEffectDataModel failed with error", e);
+            return null;
+        }
+    }
+
+    private IncrementChapterIndicatorDataModel parseIncrementChapterEffect() {
+        try {
+            return new IncrementChapterIndicatorDataModel();
+        } catch (Exception e) {
+            log.error("Parsing of IncrementChapterIndicatorDataModel was failed with error", e);
             return null;
         }
     }

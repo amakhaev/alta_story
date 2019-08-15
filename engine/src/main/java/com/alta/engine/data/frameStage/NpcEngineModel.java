@@ -1,16 +1,15 @@
 package com.alta.engine.data.frameStage;
 
 import com.alta.behaviorprocess.data.common.FaceSetDescription;
-import com.alta.computator.service.movement.directionCalculation.MovementDirection;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
 import lombok.*;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Provides the model that describes the simple npc
+ * Provides the model that describes the simple npcMovement
  */
 @Getter
 @Builder

@@ -3,6 +3,7 @@ package com.alta.mediator.domain.quest;
 import com.alta.behaviorprocess.data.quest.QuestModel;
 import com.alta.behaviorprocess.data.quest.QuestStepModel;
 import com.alta.behaviorprocess.data.quest.QuestStepTriggerType;
+import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.quest.QuestListItemModel;
 import com.alta.dao.domain.quest.QuestListService;
 import com.alta.dao.domain.quest.QuestService;
@@ -10,6 +11,9 @@ import com.alta.mediator.domain.effect.EffectDataProvider;
 import com.google.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Describes the provider of model related to interactions.
@@ -37,6 +41,33 @@ public class QuestDataProviderImpl implements QuestDataProvider {
         );
 
         return this.createQuestModel(questModel);
+    }
+
+    /**
+     * Gets the list of post effects from quest.
+     *
+     * @param questName         - the name of quest to be retrieved.
+     * @param currentStepNumber - the number of current step to be retrieved.
+     * @return the {@link List} of post effects.
+     */
+    @Override
+    public List<EffectDataModel> getBackgroundPostEffects(String questName, int currentStepNumber) {
+        QuestListItemModel questListItem = this.questListService.findQuestByName(questName);
+        com.alta.dao.data.quest.QuestModel questModel = this.questService.getQuestWithSpecifiedSteps(
+                questListItem.getPathToDescriptor(), currentStepNumber
+        );
+
+        if (questModel == null || questModel.getSteps() == null) {
+            log.warn("Quest with given name not found: {}", questName);
+            return Collections.emptyList();
+        }
+
+        if (questModel.getSteps().size() != 1) {
+            log.error("Count of steps is {} but should be 1. No data returns.", questModel.getSteps().size());
+            return Collections.emptyList();
+        }
+
+        return questModel.getSteps().get(0).getBackgroundEffects();
     }
 
     /**
