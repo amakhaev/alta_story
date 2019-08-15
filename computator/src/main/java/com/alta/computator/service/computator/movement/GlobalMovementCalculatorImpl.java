@@ -10,7 +10,7 @@ import java.awt.*;
  * Provides the base implementation of participantComputator strategy
  */
 @Slf4j
-public class MovementWorkerImpl implements MovementWorker {
+public class GlobalMovementCalculatorImpl implements GlobalMovementCalculator {
 
     public static final int FAST_MOVE_SPEED = 4;
     public static final int NORMAL_MOVE_SPEED = 3;
@@ -31,17 +31,17 @@ public class MovementWorkerImpl implements MovementWorker {
     private boolean isRunning;
 
     /**
-     * Initialize new instance of {@link MovementWorkerImpl}
+     * Initialize new instance of {@link GlobalMovementCalculatorImpl}
      */
-    MovementWorkerImpl(int moveSpeed) {
+    GlobalMovementCalculatorImpl(int moveSpeed) {
         this.moveSpeed = moveSpeed;
         this.isRunning = false;
     }
 
     /**
-     * Initialize new instance of {@link MovementWorkerImpl}.
+     * Initialize new instance of {@link GlobalMovementCalculatorImpl}.
      */
-    MovementWorkerImpl() {
+    GlobalMovementCalculatorImpl() {
         this(NORMAL_MOVE_SPEED);
     }
 

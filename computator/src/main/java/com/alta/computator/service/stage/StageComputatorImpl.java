@@ -277,14 +277,16 @@ public class StageComputatorImpl implements StageComputator {
      * @param npcTargetUuid - the NPC uuid.
      * @param x             - the X coordinate to be moved.
      * @param y             - the Y coordinate to be moved.
+     * @param movementSpeed     - the speed of movement.
+     * @param finalDirection    - the final direction of participant after finishing the movement.
      */
-    public void tryToRunNpcMovement(String npcTargetUuid, int x, int y) {
+    public void tryToRunNpcMovement(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
         if (this.altitudeMap == null) {
             log.warn("The movement for NPC failed since altitude map is null");
             return;
         }
 
-        //this.npcListComputator.tryToRunRouteMovementOnceTime(this.altitudeMap, npcTargetUuid, x, y);
+        this.npcMovementManager.tryToRunNpcMovement(npcTargetUuid, x, y, movementSpeed, finalDirection);
     }
 
     private boolean isAllDataInitialized() {

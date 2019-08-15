@@ -2,7 +2,7 @@ package com.alta.mediator.domain.effect;
 
 import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.behaviorprocess.data.effect.*;
-import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculator;
 import com.alta.dao.data.actor.ActorModel;
 import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
@@ -86,7 +86,7 @@ public class EffectDataProviderImpl implements EffectDataProvider {
         return RouteMovementEffectModel.builder()
                 .targetUuid(effectDataModel.getTargetUuid())
                 .finalDirection(effectDataModel.getFinalDirection())
-                .movementSpeed(MovementWorker.determinateSpeed(effectDataModel.getMovementSpeed()))
+                .movementSpeed(GlobalMovementCalculator.determinateSpeed(effectDataModel.getMovementSpeed()))
                 .x(effectDataModel.getX())
                 .y(effectDataModel.getY())
                 .build();

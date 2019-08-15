@@ -39,9 +39,9 @@ public class RandomMovementComputator implements Computator<RandomMovementEvalua
             return;
         }
 
-        if (evaluableModel.getWorker().isCurrentlyRunning()) {
-            ComputatorUtils.calculateMovementStep(
-                    evaluableModel.getWorker(),
+        if (evaluableModel.getGlobalMovementCalculator().isCurrentlyRunning()) {
+            ComputatorUtils.calculateGlobalMovementStep(
+                    evaluableModel.getGlobalMovementCalculator(),
                     evaluableModel.getParticipant(),
                     args.getAltitudeMap(),
                     args.getFocusPointGlobalCoordinates()
@@ -69,14 +69,14 @@ public class RandomMovementComputator implements Computator<RandomMovementEvalua
         );
         Point targetMapPoint = evaluableModel.getMovementDirectionStrategy().getTargetPointForMoving();
 
-        if (evaluableModel.getWorker().isCurrentlyRunning() ||
+        if (evaluableModel.getGlobalMovementCalculator().isCurrentlyRunning() ||
                 evaluableModel.isComputationPause() ||
                 !evaluableModel.getMovementDirectionStrategy().isCanMoveTo(targetMapPoint, args.getAltitudeMap())) {
             evaluableModel.setRepeatingMovementTime(0);
             return;
         }
 
-        evaluableModel.getWorker().tryToRunMoveProcess(
+        evaluableModel.getGlobalMovementCalculator().tryToRunMoveProcess(
                 args.getAltitudeMap(),
                 evaluableModel.getParticipant().getCurrentMapCoordinates(),
                 targetMapPoint

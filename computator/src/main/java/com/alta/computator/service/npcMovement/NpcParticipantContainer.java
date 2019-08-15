@@ -2,8 +2,8 @@ package com.alta.computator.service.npcMovement;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Provides the container to store npcMovement participants.
@@ -18,8 +18,8 @@ class NpcParticipantContainer<T> {
      * Initialize new instance of {@link NpcParticipantContainer}.
      */
     NpcParticipantContainer() {
-        this.initializedParticipants = new HashMap<>();
-        this.notInitializedParticipants = new HashMap<>();
+        this.initializedParticipants = new ConcurrentHashMap<>();
+        this.notInitializedParticipants = new ConcurrentHashMap<>();
     }
 
     /**
@@ -65,6 +65,16 @@ class NpcParticipantContainer<T> {
      */
     void addParticipant(String uuid, T value) {
         this.notInitializedParticipants.put(uuid, value);
+    }
+
+    /**
+     * Removes the participant from container.
+     *
+     * @param uuid - the uuid of participant.
+     */
+    void removeParticipant(String uuid) {
+        this.notInitializedParticipants.remove(uuid);
+        this.initializedParticipants.remove(uuid);
     }
 
     /**

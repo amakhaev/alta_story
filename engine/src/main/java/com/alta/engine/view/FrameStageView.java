@@ -77,9 +77,11 @@ public class FrameStageView {
      * @param npcTargetUuid - the NPC uuid.
      * @param x             - the X coordinate to be moved.
      * @param y             - the Y coordinate to be moved.
+     * @param movementSpeed     - the speed of movement.
+     * @param finalDirection    - the final direction of participant after finishing the movement.
      */
-    public void onMovementPerform(String npcTargetUuid, int x, int y) {
-        this.stageComputatorImpl.tryToRunNpcMovement(npcTargetUuid, x, y);
+    public void onMovementPerform(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
+        this.stageComputatorImpl.tryToRunNpcMovement(npcTargetUuid, x, y, movementSpeed, finalDirection);
     }
 
     /**

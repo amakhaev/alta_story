@@ -65,10 +65,12 @@ public class FrameStagePresenter {
      * @param npcTargetUuid - the NPC uuid.
      * @param x             - the X coordinate to be moved.
      * @param y             - the Y coordinate to be moved.
+     * @param movementSpeed     - the speed of movement.
+     * @param finalDirection    - the final direction of participant after finishing the movement.
      */
-    public void movementPerform(String npcTargetUuid, int x, int y) {
+    public void movementPerform(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
         if (this.currentView != null) {
-            this.currentView.onMovementPerform(npcTargetUuid, x, y);
+            this.currentView.onMovementPerform(npcTargetUuid, x, y, movementSpeed, finalDirection);
         }
     }
 

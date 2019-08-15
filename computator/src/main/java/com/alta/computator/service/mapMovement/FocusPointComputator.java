@@ -2,11 +2,11 @@ package com.alta.computator.service.mapMovement;
 
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.focusPoint.FocusPointParticipant;
-import com.alta.computator.service.computator.movement.MovementWorkerImpl;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculatorImpl;
 import com.alta.computator.service.computator.movement.MovementFactory;
 import com.alta.computator.service.computator.movement.directionCalculation.MovementDirectionStrategy;
 import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculator;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ import java.awt.*;
 @Slf4j
 public class FocusPointComputator {
 
-    private final MovementWorker movementWorker;
+    private final GlobalMovementCalculator globalMovementCalculator;
     private final MovementDirectionStrategy movementDirectionStrategy;
 
     private boolean isInitializedFirstTime;
@@ -45,7 +45,7 @@ public class FocusPointComputator {
      */
     public FocusPointComputator(FocusPointParticipant focusPointParticipant) {
         this.focusPointParticipant = focusPointParticipant;
-        this.movementWorker = MovementFactory.createWorker(MovementWorkerImpl.NORMAL_MOVE_SPEED);
+        this.globalMovementCalculator = MovementFactory.createGlobalCalculator(GlobalMovementCalculatorImpl.NORMAL_MOVE_SPEED);
         this.movementDirectionStrategy = MovementFactory.createFocusPointStrategy();
         this.isInitializedFirstTime = false;
         this.isComputationPause = false;
@@ -65,7 +65,7 @@ public class FocusPointComputator {
             this.isInitializedFirstTime = true;
         }
 
-        if (this.movementWorker.isCurrentlyRunning()) {
+        if (this.globalMovementCalculator.isCurrentlyRunning()) {
             this.updateRunningMovement(altitudeMap);
         }
     }
@@ -77,7 +77,7 @@ public class FocusPointComputator {
      * @param altitudeMap - the {@link AltitudeMap} instance
      */
     public void tryToRunMovement(MovementDirection movementDirection, AltitudeMap altitudeMap) {
-        if (this.movementWorker.isCurrentlyRunning() || movementDirection == null || this.isComputationPause) {
+        if (this.globalMovementCalculator.isCurrentlyRunning() || movementDirection == null || this.isComputationPause) {
             return;
         }
 
@@ -88,14 +88,14 @@ public class FocusPointComputator {
         Point targetMapPoint = this.movementDirectionStrategy.getTargetPointForMoving();
 
         if (this.movementDirectionStrategy.isCanMoveTo(targetMapPoint, altitudeMap)) {
-            this.movementWorker.tryToRunMoveProcess(
+            this.globalMovementCalculator.tryToRunMoveProcess(
                     altitudeMap,
                     this.focusPointParticipant.getCurrentMapCoordinates(),
                     targetMapPoint
             );
 
             if (this.eventListener != null &&
-                    this.movementWorker.isCurrentlyRunning() &&
+                    this.globalMovementCalculator.isCurrentlyRunning() &&
                     altitudeMap.isJumpTileState(targetMapPoint.x,targetMapPoint.y)) {
                 this.eventListener.onBeforeMovingToJumpTile(targetMapPoint);
             }
@@ -108,22 +108,22 @@ public class FocusPointComputator {
      * @return true if moving between two map coordinates is running now, false otherwise.
      */
     public boolean isMoving() {
-        return this.movementWorker.isCurrentlyRunning();
+        return this.globalMovementCalculator.isCurrentlyRunning();
     }
 
     private void updateRunningMovement(AltitudeMap altitudeMap) {
-        this.movementWorker.onUpdate();
+        this.globalMovementCalculator.onUpdate();
 
         // If last update completing participantComputator then it should be cleared, otherwise just update coordinates
-        if (this.movementWorker.isCurrentlyRunning()) {
+        if (this.globalMovementCalculator.isCurrentlyRunning()) {
             this.focusPointParticipant.updateCurrentGlobalCoordinates(
-                    this.movementWorker.getGlobalCurrentCoordinates().x,
-                    this.movementWorker.getGlobalCurrentCoordinates().y
+                    this.globalMovementCalculator.getGlobalCurrentCoordinates().x,
+                    this.globalMovementCalculator.getGlobalCurrentCoordinates().y
             );
         } else {
             this.focusPointParticipant.updateCurrentMapCoordinates(
-                    this.movementWorker.getMapTargetCoordinates().x,
-                    this.movementWorker.getMapTargetCoordinates().y
+                    this.globalMovementCalculator.getMapTargetCoordinates().x,
+                    this.globalMovementCalculator.getMapTargetCoordinates().y
             );
             this.focusPointParticipant.updateCurrentGlobalCoordinates(
                     MovementCoordinateComputator.calculateGlobalStartCoordinateOfObject(
@@ -135,7 +135,7 @@ public class FocusPointComputator {
                             this.focusPointParticipant.getCurrentMapCoordinates().y
                     )
             );
-            this.movementWorker.clearLastMovement();
+            this.globalMovementCalculator.clearLastMovement();
         }
     }
 

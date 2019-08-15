@@ -1,7 +1,7 @@
 package mediator.domain.effect;
 
 import com.alta.behaviorprocess.data.effect.*;
-import com.alta.computator.service.computator.movement.MovementWorkerImpl;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculatorImpl;
 import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
 import com.alta.dao.data.common.effect.visible.RouteMovementEffectDataModel;
@@ -91,7 +91,7 @@ public class EffectDataProviderTest {
         Assert.assertEquals(EffectModel.EffectType.ROUTE_MOVEMENT, effects.get(0).getType());
         Assert.assertEquals(dataModel.getTargetUuid(), ((RouteMovementEffectModel) effects.get(0)).getTargetUuid());
         Assert.assertEquals(dataModel.getFinalDirection(), ((RouteMovementEffectModel) effects.get(0)).getFinalDirection());
-        Assert.assertEquals(MovementWorkerImpl.SLOW_MOVE_SPEED, ((RouteMovementEffectModel) effects.get(0)).getMovementSpeed());
+        Assert.assertEquals(GlobalMovementCalculatorImpl.SLOW_MOVE_SPEED, ((RouteMovementEffectModel) effects.get(0)).getMovementSpeed());
         Assert.assertEquals(dataModel.getX(), ((RouteMovementEffectModel) effects.get(0)).getX());
         Assert.assertEquals(dataModel.getY(), ((RouteMovementEffectModel) effects.get(0)).getY());
     }

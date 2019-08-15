@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * Provides the factory to get {@link MovementWorker} specific instance
+ * Provides the factory to get {@link GlobalMovementCalculator} specific instance
  */
 @Slf4j
 @UtilityClass
@@ -16,20 +16,20 @@ public class MovementFactory {
     /**
      * Gets the movement strategy.
      *
-     * @return the {@link MovementWorker} instance.
+     * @return the {@link GlobalMovementCalculator} instance.
      */
-    public MovementWorker createWorker() {
-        return new MovementWorkerImpl();
+    public GlobalMovementCalculator createGlobalCalculator() {
+        return new GlobalMovementCalculatorImpl();
     }
 
     /**
      * Creates the movement computator with given movement speed.
      *
      * @param movementSpeed - the speed of movement.
-     * @return created {@link MovementWorker} instance.
+     * @return created {@link GlobalMovementCalculator} instance.
      */
-    public MovementWorker createWorker(int movementSpeed) {
-        return new MovementWorkerImpl(movementSpeed);
+    public GlobalMovementCalculator createGlobalCalculator(int movementSpeed) {
+        return new GlobalMovementCalculatorImpl(movementSpeed);
     }
 
     /**

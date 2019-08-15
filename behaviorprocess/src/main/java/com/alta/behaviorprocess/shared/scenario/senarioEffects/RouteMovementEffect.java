@@ -39,7 +39,13 @@ public class RouteMovementEffect implements Effect {
         }
 
         RouteMovementEffectModel effectModel = (RouteMovementEffectModel) effect;
-        this.effectListener.onRouteMovement(effectModel.getTargetUuid(), effectModel.getX(), effectModel.getY());
+        this.effectListener.onRouteMovement(
+                effectModel.getTargetUuid(),
+                effectModel.getX(),
+                effectModel.getY(),
+                effectModel.getMovementSpeed(),
+                effectModel.getFinalDirection()
+        );
         this.completeCallback.run();
     }
 

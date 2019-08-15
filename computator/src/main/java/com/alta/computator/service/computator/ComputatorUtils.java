@@ -4,7 +4,7 @@ import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
-import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculator;
 import com.alta.computator.utils.MovementCoordinateComputator;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -65,15 +65,15 @@ public class ComputatorUtils {
     /**
      * Calculates the coordinates of step for participant.
      *
-     * @param worker                        - the {@link MovementWorker} instance.
+     * @param worker                        - the {@link GlobalMovementCalculator} instance.
      * @param participant                   - the participant for which data is calculating.
      * @param altitudeMap                   - the {@link AltitudeMap} instance.
      * @param focusPointGlobalCoordinates   - the focus point coordinates.
      */
-    public void calculateMovementStep(MovementWorker worker,
-                                      ActorParticipant participant,
-                                      AltitudeMap altitudeMap,
-                                      Point focusPointGlobalCoordinates) {
+    public void calculateGlobalMovementStep(GlobalMovementCalculator worker,
+                                            ActorParticipant participant,
+                                            AltitudeMap altitudeMap,
+                                            Point focusPointGlobalCoordinates) {
         worker.onUpdate();
 
         // If last update complete computation then it should be cleared, otherwise just update coordinates
@@ -111,7 +111,7 @@ public class ComputatorUtils {
         actorParticipant.updateCurrentGlobalCoordinates(x, y);
     }
 
-    private void makeCalculationForRunningWorker(MovementWorker worker,
+    private void makeCalculationForRunningWorker(GlobalMovementCalculator worker,
                                                  ActorParticipant participant,
                                                  AltitudeMap altitudeMap,
                                                  Point focusPointGlobalCoordinates) {
@@ -128,7 +128,7 @@ public class ComputatorUtils {
         participant.updateCurrentGlobalCoordinates(x, y);
     }
 
-    private void makeCalculationForStoppedWorker(MovementWorker worker,
+    private void makeCalculationForStoppedWorker(GlobalMovementCalculator worker,
                                                  ActorParticipant participant,
                                                  AltitudeMap altitudeMap,
                                                  Point focusPointGlobalCoordinates) {

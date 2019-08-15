@@ -2,6 +2,7 @@ package com.alta.engine.facade;
 
 import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
+import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;
@@ -23,10 +24,7 @@ public class EffectListenerImpl implements EffectListener {
     private final MessageBoxPresenter messageBoxPresenter;
 
     /**
-     * Shows the message.
-     *
-     * @param targetUuid - the uuid of target NPC.
-     * @param message    - the message to be shown.
+     * {@inheritDoc}
      */
     @Override
     public void onShowMessage(String targetUuid, String message) {
@@ -44,12 +42,7 @@ public class EffectListenerImpl implements EffectListener {
     }
 
     /**
-     * Shows the message.
-     *
-     * @param targetUuid     - the uuid of target NPC.
-     * @param message        - the message to be shown.
-     * @param speakerUuid    - the uuid of speaker.
-     * @param speakerEmotion - the emotion that should be shown when speaker say.
+     * {@inheritDoc}
      */
     @Override
     public void onShowMessage(String targetUuid, String message, String speakerUuid, String speakerEmotion) {
@@ -77,12 +70,7 @@ public class EffectListenerImpl implements EffectListener {
     }
 
     /**
-     * Shows the message.
-     *
-     * @param targetUuid         - the uuid of target NPC.
-     * @param message            - the message to be shown.
-     * @param faceSetDescription - the descriptor of face set.
-     * @param speakerEmotion     - the emotion that should be shown when speaker say.
+     * {@inheritDoc}
      */
     @Override
     public void onShowMessage(String targetUuid, String message, FaceSetDescription faceSetDescription, String speakerEmotion) {
@@ -109,10 +97,7 @@ public class EffectListenerImpl implements EffectListener {
     }
 
     /**
-     * Triggers the state of message box to next one.
-     *
-     * @param targetUuid       - the uuid of target NPC.
-     * @param completeCallback - the callback to be invoked after complete showing of message.
+     * {@inheritDoc}
      */
     @Override
     public void onTriggerNextStateForMessage(String targetUuid, Runnable completeCallback) {
@@ -135,9 +120,7 @@ public class EffectListenerImpl implements EffectListener {
     }
 
     /**
-     * Hides the facility with given uuid.
-     *
-     * @param facilityUuid - the uuid of facility to be hide.
+     * {@inheritDoc}
      */
     @Override
     public void onHideFacility(@NonNull String facilityUuid) {
@@ -145,24 +128,19 @@ public class EffectListenerImpl implements EffectListener {
     }
 
     /**
-     * Shows the facility with given uuid.
-     *
-     * @param facilityUuid - the uuid of facility to be show.
+     * {@inheritDoc}
      */
     @Override
     public void onShowFacility(@NonNull String facilityUuid) {
         this.frameStagePresenter.addFacility(facilityUuid);
     }
 
+
     /**
-     * Runs the movement process for NPC with given UUID.
-     *
-     * @param npcTargetUuid - the UUID of NPC to be moved.
-     * @param x             - the target X coordinate.
-     * @param y             - the target Y coordinate.
+     * {@inheritDoc}
      */
     @Override
-    public void onRouteMovement(String npcTargetUuid, int x, int y) {
-        this.frameStagePresenter.movementPerform(npcTargetUuid, x, y);
+    public void onRouteMovement(String npcTargetUuid, int x, int y, int movementSpeed, String finalDirection) {
+        this.frameStagePresenter.movementPerform(npcTargetUuid, x, y, movementSpeed, MovementDirection.valueOf(finalDirection));
     }
 }

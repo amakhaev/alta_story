@@ -85,7 +85,7 @@
 					"x": 17,
 					"y": 84,
 					"finalDirection": "UP",
-					"movementSpeed": "NORMAL"
+					"movementSpeed": "SLOW"
 				}
 			]		
 		},

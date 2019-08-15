@@ -7,7 +7,7 @@ import com.alta.computator.model.participant.actor.RouteNpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
-import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculator;
 import com.alta.computator.service.computator.movement.MovementType;
 import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import com.alta.computator.service.computator.movement.directionCalculation.RouteMovementDescription;
@@ -198,7 +198,7 @@ public class ComputatorFrameStageProvider {
             return routeNpcParticipant;
         }
 
-        routeNpcParticipant.setMovementSpeed(MovementWorker.determinateSpeed(engineModel.getMovementSpeed()));
+        routeNpcParticipant.setMovementSpeed(GlobalMovementCalculator.determinateSpeed(engineModel.getMovementSpeed()));
 
         return routeNpcParticipant;
     }

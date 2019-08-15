@@ -5,7 +5,7 @@ import com.alta.computator.model.altitudeMap.TileState;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.service.computator.Computator;
 import com.alta.computator.service.computator.ComputatorUtils;
-import com.alta.computator.service.computator.movement.MovementWorker;
+import com.alta.computator.service.computator.movement.GlobalMovementCalculator;
 import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,13 +38,25 @@ public class RouteMovementComputator implements Computator<RouteMovementEvaluabl
             return;
         }
 
-        if (!evaluableModel.getWorker().isCurrentlyRunning()) {
-            this.calculateNextStep(evaluableModel, args);
-            return;
+        if (evaluableModel.getGlobalMovementCalculator().isCurrentlyRunning()) {
+            // In case if global calculator isn't working, try to run calculation based on given parameters.
+            this.proceedGlobalCalculation(evaluableModel, args);
+        } else {
+            // In case if calculator already ran, just proceed calculation based on new parameters.
+            this.tryToStartGlobalCalculation(evaluableModel, args);
         }
 
-        ComputatorUtils.calculateMovementStep(
-                evaluableModel.getWorker(),
+        // Try to detect when route was completed.
+        if (evaluableModel.getOnComplete() != null &&
+                evaluableModel.getMovementDirectionStrategy().isRouteCompleted() &&
+                !evaluableModel.getGlobalMovementCalculator().isCurrentlyRunning()) {
+            evaluableModel.getOnComplete().apply(evaluableModel.getParticipant());
+        }
+    }
+
+    private void proceedGlobalCalculation(RouteMovementEvaluableModel evaluableModel, RouteMovementArgs args) {
+        ComputatorUtils.calculateGlobalMovementStep(
+                evaluableModel.getGlobalMovementCalculator(),
                 evaluableModel.getParticipant(),
                 args.getAltitudeMap(),
                 args.getFocusPointGlobalCoordinates()
@@ -53,12 +65,12 @@ public class RouteMovementComputator implements Computator<RouteMovementEvaluabl
 
         // The running process can be finished in ComputatorUtils.calculateMovementStep.
         // In that case direction should be changed.
-        if (!evaluableModel.getWorker().isCurrentlyRunning()) {
+        if (!evaluableModel.getGlobalMovementCalculator().isCurrentlyRunning()) {
             evaluableModel.getParticipant().setCurrentDirection(evaluableModel.getMovementDirectionStrategy().getDirection());
         }
     }
 
-    private void calculateNextStep(RouteMovementEvaluableModel evaluableModel, RouteMovementArgs args) {
+    private void tryToStartGlobalCalculation(RouteMovementEvaluableModel evaluableModel, RouteMovementArgs args) {
         if (!evaluableModel.getMovementDirectionStrategy().isRouteCompleted()) {
             this.continueAlongRoute(evaluableModel, args);
             return;
@@ -68,7 +80,8 @@ public class RouteMovementComputator implements Computator<RouteMovementEvaluabl
                 evaluableModel.getParticipant(), args.getAltitudeMap(), args.getFocusPointGlobalCoordinates()
         );
         evaluableModel.setRepeatingMovementTime(evaluableModel.getRepeatingMovementTime() + args.getDelta());
-        if (evaluableModel.getRepeatingMovementTime() <= evaluableModel.getParticipant().getRepeatingMovementDurationTime()) {
+        if (evaluableModel.getRepeatingMovementTime() <= evaluableModel.getParticipant().getRepeatingMovementDurationTime() &&
+                !args.isRunImmediately()) {
             return;
         }
 
@@ -94,7 +107,7 @@ public class RouteMovementComputator implements Computator<RouteMovementEvaluabl
 
         if (evaluableModel.getMovementDirectionStrategy().isCanMoveTo(targetMapPoint, args.getAltitudeMap())) {
             this.tryToRunMovement(
-                    evaluableModel.getWorker(), evaluableModel.getParticipant(), targetMapPoint, args.getAltitudeMap()
+                    evaluableModel.getGlobalMovementCalculator(), evaluableModel.getParticipant(), targetMapPoint, args.getAltitudeMap()
             );
             evaluableModel.getParticipant().setMoving(true);
         } else {
@@ -126,19 +139,22 @@ public class RouteMovementComputator implements Computator<RouteMovementEvaluabl
             return;
         }
 
-        if (!evaluableModel.isComputationPause() && !evaluableModel.getWorker().isCurrentlyRunning()) {
+        if (!evaluableModel.isComputationPause() && !evaluableModel.getGlobalMovementCalculator().isCurrentlyRunning()) {
             this.tryToRunMovement(
-                    evaluableModel.getWorker(), evaluableModel.getParticipant(), targetMapPoint, args.getAltitudeMap()
+                    evaluableModel.getGlobalMovementCalculator(),
+                    evaluableModel.getParticipant(),
+                    targetMapPoint,
+                    args.getAltitudeMap()
             );
         }
         evaluableModel.getParticipant().setMoving(true);
     }
 
-    private void tryToRunMovement(MovementWorker movementWorker,
+    private void tryToRunMovement(GlobalMovementCalculator globalMovementCalculator,
                                   ActorParticipant participant,
                                   Point targetMapPoint,
                                   AltitudeMap altitudeMap) {
-        movementWorker.tryToRunMoveProcess(
+        globalMovementCalculator.tryToRunMoveProcess(
                 altitudeMap,
                 participant.getCurrentMapCoordinates(),
                 targetMapPoint

@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Provides the interface for calculates the participantComputator of participant
  */
-public interface MovementWorker {
+public interface GlobalMovementCalculator {
 
     /**
      * Determinate the speed as number by given string representation.
@@ -18,11 +18,11 @@ public interface MovementWorker {
     static int determinateSpeed(String representation) {
         switch (representation) {
             case "SLOW":
-                return MovementWorkerImpl.SLOW_MOVE_SPEED;
+                return GlobalMovementCalculatorImpl.SLOW_MOVE_SPEED;
             case "NORMAL":
-                return MovementWorkerImpl.NORMAL_MOVE_SPEED;
+                return GlobalMovementCalculatorImpl.NORMAL_MOVE_SPEED;
             case "FAST":
-                return MovementWorkerImpl.FAST_MOVE_SPEED;
+                return GlobalMovementCalculatorImpl.FAST_MOVE_SPEED;
             default:
                 throw new RuntimeException("Unknown type of movement speed: " + representation);
         }

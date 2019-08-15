@@ -17,5 +17,6 @@ public class RouteMovementArgs implements ComputatorArgs {
     private AltitudeMap altitudeMap;
     private Point focusPointGlobalCoordinates;
     private int delta;
+    private boolean runImmediately;
 
 }
