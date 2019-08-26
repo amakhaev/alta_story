@@ -1,5 +1,11 @@
 package com.alta.behaviorprocess;
 
+import com.alta.behaviorprocess.controller.globalEvent.GlobalEventController;
+import com.alta.behaviorprocess.controller.globalEvent.GlobalEventControllerImpl;
+import com.alta.behaviorprocess.controller.localMap.LocalMapController;
+import com.alta.behaviorprocess.controller.localMap.LocalMapControllerImpl;
+import com.alta.behaviorprocess.controller.scenario.ScenarioController;
+import com.alta.behaviorprocess.controller.scenario.ScenarioControllerImpl;
 import com.alta.behaviorprocess.service.Behavior;
 import com.alta.behaviorprocess.service.interaction.InteractionBehavior;
 import com.alta.behaviorprocess.service.interaction.InteractionScenarioData;
@@ -25,6 +31,10 @@ public class BehaviorProcessInjectorModule extends AbstractModule {
     private void configureFactories() {
         bind(DataStorage.class).in(Singleton.class);
         bind(SynchronizationManager.class).in(Singleton.class);
+
+        bind(ScenarioController.class).to(ScenarioControllerImpl.class).in(Singleton.class);
+        bind(LocalMapController.class).to(LocalMapControllerImpl.class).in(Singleton.class);
+        bind(GlobalEventController.class).to(GlobalEventControllerImpl.class).in(Singleton.class);
 
         install(new FactoryModuleBuilder().build(EffectFactory.class));
         install(new FactoryModuleBuilder().build(ScenarioFactory.class));

@@ -1,9 +1,10 @@
 package com.alta.engine.facade;
 
+import com.alta.behaviorprocess.controller.globalEvent.GlobalEventController;
+import com.alta.behaviorprocess.controller.localMap.LocalMapController;
 import com.alta.computator.model.event.ActingCharacterJumpEvent;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.engine.core.storage.EngineStorage;
-import com.alta.engine.data.EngineRepository;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.JumpingEngineModel;
 import com.google.common.base.Strings;
@@ -20,9 +21,10 @@ import java.awt.*;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class FrameStageListener {
 
-    private final EngineRepository engineRepository;
     private final FrameStageFacade frameStageFacade;
     private final EngineStorage engineStorage;
+    private final LocalMapController localMapController;
+    private final GlobalEventController globalEventController;
 
     /**
      * Handles the save event from frame stage.
@@ -35,7 +37,7 @@ public class FrameStageListener {
             return;
         }
 
-        this.engineRepository.saveState(
+        this.globalEventController.saveGameState(
                 frameStageEngineDataModel.getMapName(),
                 frameStageEngineDataModel.getActingCharacter().getSkinName(),
                 actionCharacterMapCoordinates
@@ -70,7 +72,7 @@ public class FrameStageListener {
                         ((ActingCharacterJumpEvent) event).getMapCoordinates()
                 );
                 if (jumpingEngineModel != null) {
-                    this.engineRepository.makeJumping(jumpingEngineModel.getMapName(), jumpingEngineModel.getTo());
+                    this.localMapController.jumpToMap(jumpingEngineModel.getMapName(), jumpingEngineModel.getTo());
                 }
                 break;
             default:

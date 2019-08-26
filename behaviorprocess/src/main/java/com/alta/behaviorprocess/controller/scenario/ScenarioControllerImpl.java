@@ -1,4 +1,4 @@
-package com.alta.behaviorprocess;
+package com.alta.behaviorprocess.controller.scenario;
 
 import com.alta.behaviorprocess.service.Behavior;
 import com.alta.behaviorprocess.service.interaction.InteractionScenarioData;
@@ -11,10 +11,10 @@ import javax.inject.Named;
 import java.awt.*;
 
 /**
- * Provides the behavior processor for game world.
+ * Provides the controller that allow execute scenarios.
  */
 @Slf4j
-public class WorldBehaviorProcessor {
+public class ScenarioControllerImpl implements ScenarioController {
 
     private final Behavior<InteractionScenarioData> interactionBehavior;
     private final Behavior<QuestScenarioData> mainQuestBehavior;
@@ -22,50 +22,44 @@ public class WorldBehaviorProcessor {
     private Scenario currentScenario;
 
     /**
-     * Initialize new instance of {@link WorldBehaviorProcessor}.
+     * Initialize new instance of {@link ScenarioControllerImpl}.
      *
      * @param interactionBehavior - the {@link Behavior} instance related to interactions.
      * @param mainQuestBehavior     - the {@link Behavior} instance related to main quest.
      */
     @Inject
-    public WorldBehaviorProcessor(@Named("interactionBehavior") Behavior<InteractionScenarioData> interactionBehavior,
+    public ScenarioControllerImpl(@Named("interactionBehavior") Behavior<InteractionScenarioData> interactionBehavior,
                                   @Named("mainQuestBehavior") Behavior<QuestScenarioData> mainQuestBehavior) {
         this.interactionBehavior = interactionBehavior;
         this.mainQuestBehavior = mainQuestBehavior;
     }
 
     /**
-     * Indicates when process already running.
-     *
-     * @return true if any process already running, false otherwise.
+     * {@inheritDoc}
      */
-    public boolean isProcessRunning() {
+    @Override
+    public boolean isScenarioRunning() {
         return this.currentScenario != null && !this.currentScenario.isCompleted();
     }
 
     /**
-     * Runs the next step in scenario.
+     * {@inheritDoc}
      */
-    public void runNextStep() {
-        if (this.isProcessRunning()) {
+    @Override
+    public void runNextScenarioStep() {
+        if (this.isScenarioRunning()) {
             this.currentScenario.runNextEffect();
         }
     }
 
     /**
-     * Runs the process execution. Use rules for detect which exactly process (scenario) should be executed.
-     * 1. If any scenario in progress then just ignore this call.
-     * 2. Try to get scenario for main quest.
-     * 3. Try to get scenario for secondary quest.
-     * 4. Try to get scenario for interaction.
-     *
-     * @param targetUuid                - the uuid of target.
-     * @param shiftTileMapCoordinate    - the coordinate of target tile.
+     * {@inheritDoc}
      */
-    public synchronized void runProcessing(String targetUuid, Point shiftTileMapCoordinate) {
+    @Override
+    public synchronized void runScenario(String targetUuid, Point shiftTileMapCoordinate) {
 
         // 1. If any scenario in progress then just ignore this call.
-        if (this.isProcessRunning()) {
+        if (this.isScenarioRunning()) {
             log.warn("One of scenarios already running. Attempt ignored to run process for target {}", targetUuid);
             return;
         }

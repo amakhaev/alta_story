@@ -1,6 +1,6 @@
-package behaviorprocess;
+package behaviorprocess.controller;
 
-import com.alta.behaviorprocess.WorldBehaviorProcessor;
+import com.alta.behaviorprocess.controller.scenario.ScenarioControllerImpl;
 import com.alta.behaviorprocess.service.Behavior;
 import com.alta.behaviorprocess.service.interaction.InteractionScenarioData;
 import com.alta.behaviorprocess.service.quest.QuestScenarioData;
@@ -14,17 +14,17 @@ import java.awt.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class WorldBehaviorProcessorTest {
+public class ScenarioControllerTest {
 
     private Behavior<InteractionScenarioData> interactionBehavior;
     private Behavior<QuestScenarioData> mainQuestBehavior;
-    private WorldBehaviorProcessor worldBehaviorProcessor;
+    private ScenarioControllerImpl scenarioControllerImpl;
 
     @Before
     public void setUp() {
         this.interactionBehavior = mock(Behavior.class);
         this.mainQuestBehavior = mock(Behavior.class);
-        this.worldBehaviorProcessor = new WorldBehaviorProcessor(this.interactionBehavior, this.mainQuestBehavior);
+        this.scenarioControllerImpl = new ScenarioControllerImpl(this.interactionBehavior, this.mainQuestBehavior);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(this.interactionBehavior.getScenario(any())).thenReturn(scenario);
 
-        this.worldBehaviorProcessor.runProcessing("testUuid", new Point());
+        this.scenarioControllerImpl.runScenario("testUuid", new Point());
 
         verify(scenario, times(1)).execute();
     }
@@ -42,7 +42,7 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(this.interactionBehavior.getScenario(any())).thenReturn(scenario);
 
-        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+        this.scenarioControllerImpl.runScenario("testUuid", null);
 
         verify(scenario, times(1)).execute();
     }
@@ -52,18 +52,18 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(scenario.isCompleted()).thenReturn(false);
         when(this.interactionBehavior.getScenario(any())).thenReturn(scenario);
-        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+        this.scenarioControllerImpl.runScenario("testUuid", null);
         verify(scenario, times(1)).execute();
 
         Scenario newScenario = mock(Scenario.class);
         when(this.interactionBehavior.getScenario(any())).thenReturn(newScenario);
-        this.worldBehaviorProcessor.runProcessing("testUuid2", null);
+        this.scenarioControllerImpl.runScenario("testUuid2", null);
         verify(newScenario, times(0)).execute();
     }
 
     @Test
     public void worldBehaviorProcessorTest_checkProcessRunning_processIsNotRunning() {
-        Assert.assertFalse(this.worldBehaviorProcessor.isProcessRunning());
+        Assert.assertFalse(this.scenarioControllerImpl.isScenarioRunning());
     }
 
     @Test
@@ -71,9 +71,9 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(scenario.isCompleted()).thenReturn(false);
         when(this.interactionBehavior.getScenario(any())).thenReturn(scenario);
-        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+        this.scenarioControllerImpl.runScenario("testUuid", null);
 
-        Assert.assertTrue(this.worldBehaviorProcessor.isProcessRunning());
+        Assert.assertTrue(this.scenarioControllerImpl.isScenarioRunning());
     }
 
     @Test
@@ -81,9 +81,9 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(scenario.isCompleted()).thenReturn(true);
         when(this.interactionBehavior.getScenario(any())).thenReturn(scenario);
-        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+        this.scenarioControllerImpl.runScenario("testUuid", null);
 
-        Assert.assertFalse(this.worldBehaviorProcessor.isProcessRunning());
+        Assert.assertFalse(this.scenarioControllerImpl.isScenarioRunning());
     }
 
     @Test
@@ -91,9 +91,9 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(scenario.isCompleted()).thenReturn(false);
         when(this.interactionBehavior.getScenario(any())).thenReturn(scenario);
-        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+        this.scenarioControllerImpl.runScenario("testUuid", null);
 
-        this.worldBehaviorProcessor.runNextStep();
+        this.scenarioControllerImpl.runNextScenarioStep();
         verify(scenario, times(1)).runNextEffect();
     }
 
@@ -102,9 +102,9 @@ public class WorldBehaviorProcessorTest {
         Scenario scenario = mock(Scenario.class);
         when(scenario.isCompleted()).thenReturn(false);
         when(this.mainQuestBehavior.getScenario(any())).thenReturn(scenario);
-        this.worldBehaviorProcessor.runProcessing("testUuid", null);
+        this.scenarioControllerImpl.runScenario("testUuid", null);
 
-        Assert.assertTrue(this.worldBehaviorProcessor.isProcessRunning());
+        Assert.assertTrue(this.scenarioControllerImpl.isScenarioRunning());
         verify(this.mainQuestBehavior, times(1)).getScenario(any());
         verify(this.interactionBehavior, times(0)).getScenario(any());
     }
