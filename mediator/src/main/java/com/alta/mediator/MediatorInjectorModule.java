@@ -1,15 +1,17 @@
 package com.alta.mediator;
 
+import com.alta.behaviorprocess.data.globalEvent.GlobalEventRepository;
 import com.alta.behaviorprocess.data.interaction.InteractionRepository;
+import com.alta.behaviorprocess.data.localMap.LocalMapRepository;
 import com.alta.behaviorprocess.data.quest.QuestRepository;
 import com.alta.engine.Engine;
-import com.alta.engine.data.EngineRepository;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.interaction.InteractionCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
 import com.alta.mediator.command.quest.QuestCommandFactory;
-import com.alta.mediator.dataSource.EngineRepositoryImpl;
+import com.alta.mediator.dataSource.GlobalEventRepositoryImpl;
 import com.alta.mediator.dataSource.InteractionRepositoryImpl;
+import com.alta.mediator.dataSource.LocalMapRepositoryImpl;
 import com.alta.mediator.dataSource.QuestRepositoryImpl;
 import com.alta.mediator.di.ThreadPoolProvider;
 import com.alta.mediator.domain.actor.ActorDataProvider;
@@ -59,6 +61,7 @@ public class MediatorInjectorModule extends AbstractModule {
 
         bind(InteractionRepository.class).to(InteractionRepositoryImpl.class).in(Singleton.class);
         bind(QuestRepository.class).to(QuestRepositoryImpl.class).in(Singleton.class);
-        bind(EngineRepository.class).to(EngineRepositoryImpl.class).in(Singleton.class);
+        bind(LocalMapRepository.class).to(LocalMapRepositoryImpl.class).in(Singleton.class);
+        bind(GlobalEventRepository.class).to(GlobalEventRepositoryImpl.class).in(Singleton.class);
     }
 }

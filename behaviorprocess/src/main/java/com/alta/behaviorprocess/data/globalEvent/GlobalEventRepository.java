@@ -1,11 +1,11 @@
-package com.alta.engine.data;
+package com.alta.behaviorprocess.data.globalEvent;
 
 import java.awt.*;
 
 /**
- * Provides the repository to make CRUD with model related to engine in general.
+ * Provides the repository tp handle global events.
  */
-public interface EngineRepository {
+public interface GlobalEventRepository {
 
     /**
      * Saves the state of game.
@@ -16,11 +16,4 @@ public interface EngineRepository {
      */
     void saveState(String mapName, String actionCharacterSkin, Point actionCharacterMapCoordinate);
 
-    /**
-     * Makes the jump to another map.
-     *
-     * @param mapName               - the name of map where acting character stay currently.
-     * @param mapStartCoordinate    - the coordinates on map of acting character.
-     */
-    void makeJumping(String mapName, Point mapStartCoordinate);
 }

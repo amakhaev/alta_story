@@ -1,6 +1,5 @@
 package com.alta.engine;
 
-import com.alta.behaviorprocess.WorldBehaviorProcessor;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
@@ -38,7 +37,6 @@ public class EngineInjectorModule extends AbstractModule {
 
         bind(AsyncTaskManager.class).in(Singleton.class);
         bind(EngineStorage.class).in(Singleton.class);
-        bind(WorldBehaviorProcessor.class).in(Singleton.class);
 
         bind(new TypeLiteral<EventProducer<ComputatorEvent>>(){})
                 .annotatedWith(Names.named("computatorActionProducer"))

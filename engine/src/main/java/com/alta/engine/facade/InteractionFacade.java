@@ -1,6 +1,6 @@
 package com.alta.engine.facade;
 
-import com.alta.behaviorprocess.WorldBehaviorProcessor;
+import com.alta.behaviorprocess.controller.scenario.ScenarioController;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.google.inject.Inject;
@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 public class InteractionFacade {
 
     private final FrameStagePresenter frameStagePresenter;
-    private final WorldBehaviorProcessor worldBehaviorProcessor;
+    private final ScenarioController scenarioControllerImpl;
 
     /**
      * Triggers the interaction between acting character and another participant.
      */
     public void triggerInteraction() {
-        if (this.worldBehaviorProcessor.isProcessRunning()) {
-            this.worldBehaviorProcessor.runNextStep();
+        if (this.scenarioControllerImpl.isScenarioRunning()) {
+            this.scenarioControllerImpl.runNextScenarioStep();
             return;
         }
 
@@ -32,9 +32,8 @@ public class InteractionFacade {
             return;
         }
 
-        this.worldBehaviorProcessor.runProcessing(
-                targetedParticipant.getUuid(),
-                targetedParticipant.getRelatedMapCoordinates()
+        this.scenarioControllerImpl.runScenario(
+                targetedParticipant.getUuid(), targetedParticipant.getRelatedMapCoordinates()
         );
     }
 }
