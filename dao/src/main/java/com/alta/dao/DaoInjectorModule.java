@@ -1,5 +1,6 @@
 package com.alta.dao;
 
+import com.alta.dao.configuration.CassandraConnector;
 import com.alta.dao.di.DatabaseConnectionProvider;
 import com.alta.dao.domain.actor.ActorService;
 import com.alta.dao.domain.actor.ActorServiceImpl;
@@ -33,6 +34,8 @@ public class DaoInjectorModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(CassandraConnector.class).in(Singleton.class);
+
         bind(CharacterPreservationService.class).to(CharacterPreservationServiceImpl.class);
         bind(InteractionPreservationService.class).to(InteractionPreservationServiceImpl.class);
         bind(MapPreservationService.class).to(MapPreservationServiceImpl.class);

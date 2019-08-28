@@ -14,12 +14,16 @@ repositories {
 ext {
     ormLiteVersion = "5.1"
     jdbcDriverVersion = "3.23.1"
+    cassandraDriverVersion = "3.7.2"
 }
 
 dependencies {
     compile project(':shared')
     compile "com.j256.ormlite:ormlite-jdbc:${ormLiteVersion}"
     compile "org.xerial:sqlite-jdbc:${jdbcDriverVersion}"
+    compile "com.datastax.cassandra:cassandra-driver-core:${cassandraDriverVersion}"
+    compile "com.datastax.cassandra:cassandra-driver-mapping:${cassandraDriverVersion}"
+    compile "com.datastax.cassandra:cassandra-driver-extras:${cassandraDriverVersion}"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.27.0'
