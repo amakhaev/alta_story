@@ -1,16 +1,11 @@
 package com.alta.mediator;
 
-import com.alta.behaviorprocess.BehaviorProcessInjectorModule;
-import com.alta.dao.DaoInjectorModule;
 import com.alta.engine.Engine;
-import com.alta.engine.EngineInjectorModule;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.frameStage.FrameStageCommandFactory;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
-import com.alta.scene.SceneInjectorModule;
 import com.alta.utils.ExecutorServiceFactory;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
@@ -32,19 +27,15 @@ public class Mediator {
     /**
      * Initialize new instance of {@link Mediator}
      */
-    public Mediator() {
-        Injector injector = Guice.createInjector(
-                new MediatorInjectorModule(),
-                new DaoInjectorModule(),
-                new EngineInjectorModule(),
-                new SceneInjectorModule(),
-                new BehaviorProcessInjectorModule()
-        );
-
-        this.engine = injector.getInstance(Engine.class);
-        this.commandExecutor = injector.getInstance(CommandExecutor.class);
-        this.frameStageCommandFactory = injector.getInstance(FrameStageCommandFactory.class);
-        this.preservationCommandFactory = injector.getInstance(PreservationCommandFactory.class);
+    @Inject
+    public Mediator(Engine engine,
+                    CommandExecutor commandExecutor,
+                    FrameStageCommandFactory frameStageCommandFactory,
+                    PreservationCommandFactory preservationCommandFactory) {
+        this.engine = engine;
+        this.commandExecutor = commandExecutor;
+        this.frameStageCommandFactory = frameStageCommandFactory;
+        this.preservationCommandFactory = preservationCommandFactory;
 
         this.engineMainThread = ExecutorServiceFactory.create(1, ENGINE_THREAD_POOL_NAME);
     }
