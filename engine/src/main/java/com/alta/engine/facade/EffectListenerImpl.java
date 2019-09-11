@@ -2,7 +2,7 @@ package com.alta.engine.facade;
 
 import com.alta.behaviorprocess.data.common.FaceSetDescription;
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;

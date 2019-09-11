@@ -1,5 +1,7 @@
 package com.alta.engine.view;
 
+import com.alta.computator.Computator;
+
 /**
  * The factory to create the views.
  */
@@ -10,6 +12,6 @@ public interface ViewFactory {
      *
      * @return created {@link FrameStageView}.
      */
-    FrameStageView createFrameStageView();
+    FrameStageView createFrameStageView(Computator computator);
 
 }

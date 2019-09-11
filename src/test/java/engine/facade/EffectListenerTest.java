@@ -1,7 +1,7 @@
 package engine.facade;
 
 import com.alta.behaviorprocess.shared.scenario.senarioEffects.EffectListener;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.facade.EffectListenerImpl;
 import com.alta.engine.presenter.FrameStagePresenter;
 import com.alta.engine.presenter.MessageBoxPresenter;

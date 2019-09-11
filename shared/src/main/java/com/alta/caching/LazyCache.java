@@ -1,20 +1,16 @@
 package com.alta.caching;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 /**
  * Provides the implementation of lazy caching pattern.
  */
 public class LazyCache<T> implements Cache<T> {
 
-    private Deque<T> values;
+    private T value;
 
     /**
      * Initialize new instance of {@link LazyCache}.
      */
     public LazyCache() {
-        this.values = new LinkedList<>();
     }
 
     /**
@@ -23,12 +19,8 @@ public class LazyCache<T> implements Cache<T> {
      * @param value - the values to be cached.
      */
     @Override
-    public void push(T value) {
-        if (!this.values.isEmpty()) {
-            this.values.removeFirst();
-        }
-
-        this.values.push(value);
+    public synchronized void push(T value) {
+        this.value = value;
     }
 
     /**
@@ -38,7 +30,7 @@ public class LazyCache<T> implements Cache<T> {
      */
     @Override
     public T get() {
-        return this.values.peekFirst();
+        return this.value;
     }
 
     /**
@@ -46,6 +38,6 @@ public class LazyCache<T> implements Cache<T> {
      */
     @Override
     public void clear() {
-        this.values.clear();
+        this.value = null;
     }
 }

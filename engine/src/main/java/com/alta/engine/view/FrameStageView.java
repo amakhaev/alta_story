@@ -1,11 +1,10 @@
 package com.alta.engine.view;
 
+import com.alta.computator.Computator;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.stage.StageComputatorImpl;
-import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
@@ -15,6 +14,7 @@ import com.alta.engine.view.componentProvider.FrameStageComponentProvider;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
 import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
+import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import lombok.Getter;
 import lombok.NonNull;
@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import java.awt.*;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -31,8 +30,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FrameStageView {
 
-    private final StageComputatorImpl stageComputatorImpl;
     private final EngineStorage engineStorage;
+    private final FrameStageComponentProvider frameStageComponentProvider;
+    private final Computator computator;
 
     @Getter
     private final FrameStageComponent frameStage;
@@ -41,21 +41,25 @@ public class FrameStageView {
      * Initialize new instance of {@link FrameStageView}
      */
     @AssistedInject
-    public FrameStageView(AsyncTaskManager asyncTaskManager,
+    public FrameStageView(@Assisted Computator computator,
                           @Named("computatorActionProducer") EventProducer<ComputatorEvent> computatorEventProducer,
-                          EngineStorage engineStorage) {
+                          EngineStorage engineStorage,
+                          FrameStageComponentProvider frameStageComponentProvider) {
         this.engineStorage = engineStorage;
+        this.computator = computator;
+        this.frameStageComponentProvider = frameStageComponentProvider;
         try {
-            this.stageComputatorImpl = ComputatorFrameStageProvider.createStageComputator(
+            ComputatorFrameStageProvider.initializeComputator(
+                    this.computator.getDataWriterFacade(),
                     this.engineStorage.getFrameStageData().getFocusPointMapStartPosition(),
                     this.engineStorage.getFrameStageData().getActingCharacter(),
                     this.engineStorage.getFrameStageData().getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList()),
-                    this.engineStorage.getFrameStageData().getNpcList(),
-                    computatorEventProducer
+                    this.engineStorage.getFrameStageData().getNpcList()
             );
 
-            this.frameStage = FrameStageComponentProvider.createFrameStage(
-                    this.engineStorage.getFrameStageData(), this.stageComputatorImpl, asyncTaskManager
+            this.computator.getActionFacade().setEventListener(computatorEventProducer);
+            this.frameStage = frameStageComponentProvider.createFrameStage(
+                    this.engineStorage.getFrameStageData(), this.computator
             );
         } catch (Exception e) {
             throw new EngineException(e);
@@ -63,12 +67,12 @@ public class FrameStageView {
     }
 
     /**
-     * Performs the movement of focus point on scene
+     * Performs the movement of focus point on scene.
      *
      * @param movementDirection - the direction of movement to be performed.
      */
     public void onMovementPerform(MovementDirection movementDirection) {
-        this.stageComputatorImpl.tryToRunMovement(movementDirection);
+        this.computator.getActionFacade().tryToRunActingCharacterMovement(movementDirection);
     }
 
     /**
@@ -81,14 +85,14 @@ public class FrameStageView {
      * @param finalDirection    - the final direction of participant after finishing the movement.
      */
     public void onMovementPerform(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
-        this.stageComputatorImpl.tryToRunNpcMovement(npcTargetUuid, x, y, movementSpeed, finalDirection);
+        this.computator.getActionFacade().tryToRunNpcMovement(npcTargetUuid, x, y, movementSpeed, finalDirection);
     }
 
     /**
      * Gets the map coordinates of acting character.
      */
     public Point getActingCharacterMapCoordinate() {
-        return this.stageComputatorImpl.getActorParticipant(
+        return this.computator.getDataReaderFacade().findActorByUuid(
                 this.engineStorage.getFrameStageData().getActingCharacter().getUuid()
         ).getCurrentMapCoordinates();
     }
@@ -99,7 +103,7 @@ public class FrameStageView {
      * @param isPause - indicates when pause is enabled.
      */
     public void setPauseComputation(boolean isPause) {
-        this.stageComputatorImpl.setPause(isPause);
+        this.computator.getActionFacade().setPauseForAll(isPause);
     }
 
     /**
@@ -109,7 +113,7 @@ public class FrameStageView {
      * @param uuid - the uuid of NPC to be paused
      */
     public void setPauseComputationForSimpleNpc(boolean isPause, String uuid) {
-        this.stageComputatorImpl.setPause(isPause, uuid);
+        this.computator.getActionFacade().setNpcPause(isPause, uuid);
     }
 
     /**
@@ -123,8 +127,8 @@ public class FrameStageView {
             return;
         }
 
-        ActorParticipant npcCharacter = this.stageComputatorImpl.getActorParticipant(uuid);
-        ActorParticipant actingCharacter = this.stageComputatorImpl.getActorParticipant(
+        ActorParticipant npcCharacter = this.computator.getDataReaderFacade().findActorByUuid(uuid);
+        ActorParticipant actingCharacter = this.computator.getDataReaderFacade().findActorByUuid(
                 this.engineStorage.getFrameStageData().getActingCharacter().getUuid()
         );
 
@@ -149,7 +153,7 @@ public class FrameStageView {
      * @return the {@link TargetedParticipantSummary} instance or null if not found.
      */
     public TargetedParticipantSummary findParticipantTargetedByActingCharacter() {
-        return this.stageComputatorImpl.findParticipantTargetedByActingCharacter();
+        return this.computator.getDataReaderFacade().findParticipantTargetedByActingCharacter();
     }
 
     /**
@@ -181,10 +185,8 @@ public class FrameStageView {
             return;
         }
 
-        this.stageComputatorImpl.addFacilities(
-                Collections.singletonList(ComputatorFrameStageProvider.createFacilityParticipant(facilityEngineModel))
-        );
-        this.frameStage.addFacilityComponent(FrameStageComponentProvider.createFacilityComponent(facilityEngineModel));
+        ComputatorFrameStageProvider.addFacilityParticipant(this.computator.getDataWriterFacade(), facilityEngineModel);
+        this.frameStage.addFacilityComponent(this.frameStageComponentProvider.createFacilityComponent(facilityEngineModel));
     }
 
     /**
@@ -194,7 +196,7 @@ public class FrameStageView {
      */
     public void removeFacility(@NonNull String facilityUuid) {
         this.frameStage.removeFacilityComponent(facilityUuid);
-        this.stageComputatorImpl.removeFacility(facilityUuid);
+        this.computator.getDataWriterFacade().removeFacility(facilityUuid);
     }
 
 }

@@ -1,21 +1,19 @@
 package com.alta.engine.view.componentProvider;
 
-import com.alta.computator.model.event.ComputatorEvent;
+import com.alta.computator.core.computator.movement.GlobalMovementCalculator;
+import com.alta.computator.core.computator.movement.MovementType;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.RouteMovementDescription;
+import com.alta.computator.facade.dataWriter.DataWriterFacade;
 import com.alta.computator.model.participant.actor.ActingCharacterParticipant;
 import com.alta.computator.model.participant.actor.NpcParticipant;
 import com.alta.computator.model.participant.actor.RouteNpcParticipant;
 import com.alta.computator.model.participant.actor.SimpleNpcParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
 import com.alta.computator.model.participant.facility.FacilityParticipant;
-import com.alta.computator.service.computator.movement.GlobalMovementCalculator;
-import com.alta.computator.service.computator.movement.MovementType;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.computator.movement.directionCalculation.RouteMovementDescription;
-import com.alta.computator.service.stage.StageComputatorImpl;
 import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
 import com.alta.engine.data.frameStage.NpcEngineModel;
-import com.alta.eventStream.EventProducer;
 import com.google.common.base.Strings;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
@@ -34,45 +32,44 @@ import java.util.stream.Collectors;
 public class ComputatorFrameStageProvider {
 
     /**
-     * Creates the frame stage computator
+     * Initializes the computator for initial values.
      *
+     * @param dataWriterFacade - the {@link DataWriterFacade} instance.
      * @param focusPointStartPosition - the coordinates of focus point on map.
      * @param actingCharacter - the acting character model.
      * @param facilityModels - the facilities that available on map.
-     * @param eventProducer - the event stream related to computator
-     * @return the {@link StageComputatorImpl} instance.
      */
-    public StageComputatorImpl createStageComputator(Point focusPointStartPosition,
-                                                     ActingCharacterEngineModel actingCharacter,
-                                                     List<FacilityEngineModel> facilityModels,
-                                                     List<NpcEngineModel> simpleNpc,
-                                                     EventProducer<ComputatorEvent> eventProducer) {
-        log.debug("Started creating FrameStageComputator");
-        StageComputatorImpl stageComputatorImpl = new StageComputatorImpl();
-        stageComputatorImpl.addFocusPointParticipant(focusPointStartPosition);
-        stageComputatorImpl.addFacilities(createFacilityParticipants(facilityModels));
-        stageComputatorImpl.addNpcCharacters(createNpcParticipants(simpleNpc));
+    public void initializeComputator(DataWriterFacade dataWriterFacade,
+                                     Point focusPointStartPosition,
+                                     ActingCharacterEngineModel actingCharacter,
+                                     List<FacilityEngineModel> facilityModels,
+                                     List<NpcEngineModel> simpleNpc) {
+        log.debug("Started initializing of computator");
+        dataWriterFacade.addFocusPoint(focusPointStartPosition);
+        dataWriterFacade.addFacilities(createFacilityParticipants(facilityModels));
+        dataWriterFacade.addNpcCharacters(createNpcParticipants(simpleNpc));
 
-        stageComputatorImpl.addActingCharacter(
+        dataWriterFacade.addActingCharacter(
                 new ActingCharacterParticipant(
-                        actingCharacter.getUuid(),
-                        actingCharacter.getStartMapCoordinates(),
-                        actingCharacter.getZIndex()
+                        actingCharacter.getUuid(), actingCharacter.getStartMapCoordinates(), actingCharacter.getZIndex()
                 )
         );
 
-        stageComputatorImpl.setComputatorEventProducer(eventProducer);
-        log.info("Creating of StageComputatorImpl completed.");
-        return stageComputatorImpl;
+        log.info("Computator initialization was completed.");
     }
 
     /**
-     * Creates the facility participant for computations.
+     * Adds the facility participant into computator.
      *
      * @param facilityModel - the facility model from which created participant.
-     * @return created {@link FacilityParticipant} instance.
      */
-    public FacilityParticipant createFacilityParticipant(@NonNull FacilityEngineModel facilityModel) {
+    public void addFacilityParticipant(DataWriterFacade dataWriterFacade, @NonNull FacilityEngineModel facilityModel) {
+        dataWriterFacade.addFacilities(
+                Collections.singletonList(ComputatorFrameStageProvider.createFacilityParticipant(facilityModel))
+        );
+    }
+
+    private FacilityParticipant createFacilityParticipant(@NonNull FacilityEngineModel facilityModel) {
         return new FacilityParticipant(
                 facilityModel.getUuid(),
                 new Point(facilityModel.getStartX(), facilityModel.getStartY()),

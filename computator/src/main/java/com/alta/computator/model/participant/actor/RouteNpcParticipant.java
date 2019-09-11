@@ -1,10 +1,10 @@
 package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.ParticipatType;
-import com.alta.computator.service.computator.movement.GlobalMovementCalculatorImpl;
-import com.alta.computator.service.computator.movement.MovementType;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.computator.movement.directionCalculation.RouteMovementDescription;
+import com.alta.computator.core.computator.movement.GlobalMovementCalculatorImpl;
+import com.alta.computator.core.computator.movement.MovementType;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.RouteMovementDescription;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

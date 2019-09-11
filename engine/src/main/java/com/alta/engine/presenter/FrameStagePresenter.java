@@ -1,7 +1,8 @@
 package com.alta.engine.presenter;
 
+import com.alta.computator.Computator;
 import com.alta.computator.model.participant.TargetedParticipantSummary;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.presenter.sceneProxy.SceneProxy;
 import com.alta.engine.view.FrameStageView;
@@ -37,7 +38,7 @@ public class FrameStagePresenter {
      * Loads scene state from preservation
      */
     public void tryToRenderFrameStageView() {
-        this.currentView = this.viewFactory.createFrameStageView();
+        this.currentView = this.viewFactory.createFrameStageView(new Computator());
         this.sceneProxy.renderFrameStage(this.currentView.getFrameStage());
     }
 
