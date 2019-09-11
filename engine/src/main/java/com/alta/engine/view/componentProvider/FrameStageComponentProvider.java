@@ -1,7 +1,7 @@
 package com.alta.engine.view.componentProvider;
 
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
-import com.alta.computator.service.stage.StageComputator;
+import com.alta.computator.Computator;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.core.customException.EngineException;
 import com.alta.engine.data.FrameStageEngineDataModel;
@@ -11,9 +11,11 @@ import com.alta.engine.data.frameStage.NpcEngineModel;
 import com.alta.engine.view.components.actor.ActorCharacterComponent;
 import com.alta.engine.view.components.facility.FacilityComponent;
 import com.alta.engine.view.components.frameStage.FrameStageComponent;
+import com.alta.engine.view.components.frameStage.FrameStageComponentFactory;
 import com.alta.engine.view.components.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.component.actorAnimation.ActorAnimationDescriptor;
-import lombok.experimental.UtilityClass;
+import com.google.inject.Inject;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -25,31 +27,29 @@ import java.util.stream.Collectors;
  * Provides the factory that creates the entities related to scene
  */
 @Slf4j
-@UtilityClass
+@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class FrameStageComponentProvider {
+
+    private final FrameStageComponentFactory componentFactory;
 
     /**
      * Creates the FrameStage instance by given model
      *
      * @param data - the model that full describes the frame stage
-     * @param stageComputator - the computator of frame stage
-     * @param asyncTaskManager - the facade of async tasks
+     * @param computator - the {@link Computator} instance.
      * @return created {@link FrameStageComponent} instance based of @param model
      */
-    public FrameStageComponent createFrameStage(FrameStageEngineDataModel data,
-                                                StageComputator stageComputator,
-                                                AsyncTaskManager asyncTaskManager) {
+    public FrameStageComponent createFrameStage(FrameStageEngineDataModel data, Computator computator) {
         validateFrameStageData(data);
 
         List<ActorCharacterComponent> actorCharacters = createActors(data.getActingCharacter(), data.getNpcList());
         log.info("Creating of actors completed. Count: {}", actorCharacters.size());
 
-        FrameStageComponent frameStageComponent = new FrameStageComponent(
+        FrameStageComponent frameStageComponent = this.componentFactory.createFrameStage(
                 createFrameTemplate(data.getTiledMapAbsolutePath()),
                 actorCharacters,
                 createStageFacilities(data.getFacilities().stream().filter(FacilityEngineModel::isVisible).collect(Collectors.toList())),
-                stageComputator,
-                asyncTaskManager
+                computator
         );
         log.debug("Completed creating FrameStageComponent with map: {}", data.getTiledMapAbsolutePath());
         return frameStageComponent;
@@ -92,7 +92,7 @@ public class FrameStageComponentProvider {
         }
 
         return facilityEngineModels.parallelStream()
-                .map(FrameStageComponentProvider::createFacilityComponent)
+                .map(this::createFacilityComponent)
                 .collect(Collectors.toList());
     }
 

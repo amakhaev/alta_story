@@ -1,6 +1,6 @@
 package engine.facade;
 
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import com.alta.engine.core.storage.EngineStorage;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.JumpingEngineModel;

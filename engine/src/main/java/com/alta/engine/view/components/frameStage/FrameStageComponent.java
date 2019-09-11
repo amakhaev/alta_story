@@ -1,22 +1,23 @@
 package com.alta.engine.view.components.frameStage;
 
+import com.alta.computator.Computator;
 import com.alta.computator.model.altitudeMap.AltitudeMap;
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 import com.alta.computator.model.participant.facility.FacilityPartParticipant;
-import com.alta.computator.service.stage.StageComputator;
 import com.alta.engine.core.asyncTask.AsyncTaskManager;
 import com.alta.engine.view.components.actor.ActorCharacterComponent;
 import com.alta.engine.view.components.facility.FacilityComponent;
 import com.alta.engine.view.components.frameTemplate.FrameTemplateComponent;
 import com.alta.scene.entities.FrameStage;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 import lombok.extern.slf4j.Slf4j;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class FrameStageComponent extends FrameStage {
 
     private final AsyncTaskManager asyncTaskManager;
-    private final StageComputator stageComputator;
+    private final Computator computator;
 
     private final Map<String, FacilityComponent> facilitiesByUuid;
     private final Map<String, ActorCharacterComponent> actorCharacters;
@@ -38,14 +39,15 @@ public class FrameStageComponent extends FrameStage {
     /**
      * Initialize new instance of {@link FrameStage}
      */
-    public FrameStageComponent(FrameTemplateComponent frameTemplate,
-                               List<ActorCharacterComponent> actorCharacters,
-                               List<FacilityComponent> facilities,
-                               StageComputator stageComputator,
+    @AssistedInject
+    public FrameStageComponent(@Assisted FrameTemplateComponent frameTemplate,
+                               @Assisted List<ActorCharacterComponent> actorCharacters,
+                               @Assisted List<FacilityComponent> facilities,
+                               @Assisted Computator computator,
                                AsyncTaskManager asyncTaskManager) {
         super(frameTemplate, actorCharacters, facilities);
         this.asyncTaskManager = asyncTaskManager;
-        this.stageComputator = stageComputator;
+        this.computator = computator;
 
         this.facilitiesByUuid = facilities.stream().collect(Collectors.toMap(FacilityComponent::getUuid, f -> f));
         this.actorCharacters = actorCharacters.stream().collect(Collectors.toMap(ActorCharacterComponent::getUuid, npc -> npc));
@@ -88,11 +90,9 @@ public class FrameStageComponent extends FrameStage {
                 "init-base-frame",
                 () -> {
                     log.debug("Initialize computator for FrameStageComponent");
-                    this.stageComputator.setAltitudeMap(
+                    this.computator.getDataWriterFacade().addAltitudeMap(
                             new AltitudeMap(
-                                    this.frameTemplate.getTiledMap(),
-                                    gameContainer.getWidth(),
-                                    gameContainer.getHeight()
+                                    this.frameTemplate.getTiledMap(), gameContainer.getWidth(), gameContainer.getHeight()
                             )
                     );
                     log.debug("Completed initialization of computator for FrameStageComponent.");
@@ -128,7 +128,7 @@ public class FrameStageComponent extends FrameStage {
     }
 
     private void renderFrame() {
-        Point mapCoordinates = this.stageComputator.getMapGlobalCoordinates();
+        Point mapCoordinates = this.computator.getDataReaderFacade().getMapGlobalCoordinates();
         if (mapCoordinates == null) {
             return;
         }
@@ -137,7 +137,7 @@ public class FrameStageComponent extends FrameStage {
     }
 
     private synchronized void renderAllParticipants() {
-        List<CoordinatedParticipant> sortedParticipants = this.stageComputator.getSortedParticipants();
+        List<CoordinatedParticipant> sortedParticipants = this.computator.getDataReaderFacade().getSortedParticipants();
         if (sortedParticipants.isEmpty()) {
             log.debug("Not participants to render");
             return;
@@ -162,6 +162,10 @@ public class FrameStageComponent extends FrameStage {
     }
 
     private void onUpdate(GameContainer gameContainer, int delta) {
+        if (this.computator.getUpdaterFacade().isLock()) {
+            return;
+        }
+
         if (!this.facilitiesToInitialize.isEmpty()) {
             this.facilitiesToInitialize.forEach(facility -> {
                 facility.initialize(gameContainer);
@@ -170,12 +174,12 @@ public class FrameStageComponent extends FrameStage {
         }
 
         this.actorCharacters.forEach((uuid, baseSimpleNpc) -> {
-            ActorParticipant participant = this.stageComputator.getActorParticipant(uuid);
+            ActorParticipant participant = this.computator.getDataReaderFacade().findActorByUuid(uuid);
             if (participant != null) {
                 baseSimpleNpc.update(participant, delta);
             }
         });
 
-        this.stageComputator.onTick(delta);
+        this.computator.getUpdaterFacade().onUpdate(delta);
     }
 }

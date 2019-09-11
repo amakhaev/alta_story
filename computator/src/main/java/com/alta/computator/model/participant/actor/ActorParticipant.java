@@ -2,7 +2,7 @@ package com.alta.computator.model.participant.actor;
 
 import com.alta.computator.model.participant.CoordinatedParticipant;
 import com.alta.computator.model.participant.ParticipatType;
-import com.alta.computator.service.computator.movement.directionCalculation.MovementDirection;
+import com.alta.computator.core.computator.movement.directionCalculation.MovementDirection;
 import lombok.Getter;
 import lombok.Setter;
 

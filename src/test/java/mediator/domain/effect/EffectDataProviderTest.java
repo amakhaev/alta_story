@@ -1,7 +1,7 @@
 package mediator.domain.effect;
 
 import com.alta.behaviorprocess.data.effect.*;
-import com.alta.computator.service.computator.movement.GlobalMovementCalculatorImpl;
+import com.alta.computator.core.computator.movement.GlobalMovementCalculatorImpl;
 import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
 import com.alta.dao.data.common.effect.visible.RouteMovementEffectDataModel;
