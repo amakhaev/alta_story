@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.util.Collections;
+import java.util.function.Function;
 
 /**
  * Provides the implementation of movement calculator that applied to NPC only.
@@ -119,7 +120,12 @@ public class NpcMediatorImpl implements NpcMediator, MovementUpdater {
      * {@inheritDoc}
      */
     @Override
-    public void tryToRunNpcMovement(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
+    public void tryToRunNpcMovement(String npcTargetUuid,
+                                    int x,
+                                    int y,
+                                    int movementSpeed,
+                                    MovementDirection finalDirection,
+                                    Function<String, Void> completeCallback) {
         ActorParticipant actorParticipant = this.findParticipantFromService(npcTargetUuid);
         if (actorParticipant == null) {
             log.debug("NPC with given UUID {} not found", npcTargetUuid);
@@ -136,7 +142,7 @@ public class NpcMediatorImpl implements NpcMediator, MovementUpdater {
                         false, Collections.singletonList(new RouteMovementDescription(x, y, finalDirection))
                 )
         );
-        evaluableModel.setOnComplete(this::onCustomRouteCompleted);
+        evaluableModel.setOnComplete((participant) -> this.onCustomRouteCompleted(participant, completeCallback));
 
         this.customRouteNpcMovementService.addEvaluableModel(evaluableModel);
     }
@@ -154,7 +160,7 @@ public class NpcMediatorImpl implements NpcMediator, MovementUpdater {
         }
     }
 
-    private Void onCustomRouteCompleted(ActorParticipant participant) {
+    private Void onCustomRouteCompleted(ActorParticipant participant, Function<String, Void> completeCallback) {
         if (participant == null) {
             log.warn("Custom route complete handler invoked but doesn't get the participant.");
             return null;
@@ -162,6 +168,9 @@ public class NpcMediatorImpl implements NpcMediator, MovementUpdater {
 
         this.customRouteNpcMovementService.removeEvaluableModel(participant.getUuid());
         this.addParticipantForComputation((NpcParticipant) participant);
+        if (completeCallback != null) {
+            completeCallback.apply(participant.getUuid());
+        }
         return null;
     }
 

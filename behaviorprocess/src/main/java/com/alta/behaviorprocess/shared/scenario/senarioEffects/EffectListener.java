@@ -2,6 +2,9 @@ package com.alta.behaviorprocess.shared.scenario.senarioEffects;
 
 import com.alta.behaviorprocess.data.common.FaceSetDescription;
 
+import java.awt.*;
+import java.util.function.Function;
+
 /**
  * Provides the listener of effects.
  */
@@ -60,11 +63,14 @@ public interface EffectListener {
     /**
      * Runs the movement process for NPC with given UUID.
      *
-     * @param npcTargetUuid     - the UUID of NPC to be moved.
-     * @param x                 - the target X coordinate.
-     * @param y                 - the target Y coordinate.
+     * @param npcTargetUuid     - the NPC uuid.
+     * @param target            - the map coordinates where NPC should come.
      * @param movementSpeed     - the speed of movement.
      * @param finalDirection    - the final direction of participant after finishing the movement.
      */
-    void onRouteMovement(String npcTargetUuid, int x, int y, int movementSpeed, String finalDirection);
+    void onRouteMovement(String npcTargetUuid,
+                         Point target,
+                         int movementSpeed,
+                         String finalDirection,
+                         Function<String, Void> completeCallback);
 }

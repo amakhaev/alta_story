@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import java.awt.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -79,13 +80,18 @@ public class FrameStageView {
      * Performs the movement of NPC on scene.
      *
      * @param npcTargetUuid - the NPC uuid.
-     * @param x             - the X coordinate to be moved.
-     * @param y             - the Y coordinate to be moved.
+     * @param target  - the map coordinates where NPC should come.
      * @param movementSpeed     - the speed of movement.
      * @param finalDirection    - the final direction of participant after finishing the movement.
      */
-    public void onMovementPerform(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
-        this.computator.getActionFacade().tryToRunNpcMovement(npcTargetUuid, x, y, movementSpeed, finalDirection);
+    public void onMovementPerform(String npcTargetUuid,
+                                  Point target,
+                                  int movementSpeed,
+                                  MovementDirection finalDirection,
+                                  Function<String, Void> completeCallback) {
+        this.computator.getActionFacade().tryToRunNpcMovement(
+                npcTargetUuid, target, movementSpeed, finalDirection, completeCallback
+        );
     }
 
     /**

@@ -32,6 +32,7 @@ public class GlobalPreservationModel {
      */
     public static final String PRESERVATION_ID_FIELD = "preservation_id";
 
+    @Setter
     @DatabaseField(id = true, columnName = ID_FIELD)
     private Long id;
 

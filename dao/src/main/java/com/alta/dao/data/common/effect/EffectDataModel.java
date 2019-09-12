@@ -20,6 +20,6 @@ public class EffectDataModel {
         ROUTE_MOVEMENT,
 
         // Background effects
-        INCREMENT_CHAPTER_INDICATOR
+        UPDATE_CHAPTER_INDICATOR
     }
 }

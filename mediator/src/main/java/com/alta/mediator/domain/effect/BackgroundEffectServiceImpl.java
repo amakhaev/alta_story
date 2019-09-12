@@ -1,6 +1,7 @@
 package com.alta.mediator.domain.effect;
 
 import com.alta.dao.data.common.effect.EffectDataModel;
+import com.alta.dao.data.common.effect.background.UpdateChapterIndicatorDataModel;
 import com.alta.dao.data.preservation.GlobalPreservationModel;
 import com.alta.dao.domain.preservation.global.GlobalPreservationService;
 import com.alta.mediator.command.CommandExecutor;
@@ -53,8 +54,8 @@ public class BackgroundEffectServiceImpl implements BackgroundEffectService {
 
         effects.forEach(effect -> {
             switch (effect.getType()) {
-                case INCREMENT_CHAPTER_INDICATOR:
-                    this.incrementChapterIndicator();
+                case UPDATE_CHAPTER_INDICATOR:
+                    this.updateChapterIndicator(((UpdateChapterIndicatorDataModel) effect).getChapterValue());
                     break;
                 default:
                     log.warn("Unsupported type of effect: {}", effect.getType());
@@ -62,21 +63,23 @@ public class BackgroundEffectServiceImpl implements BackgroundEffectService {
         });
     }
 
-    private void incrementChapterIndicator() {
+    private void updateChapterIndicator(int chapterValue) {
         GlobalPreservationModel globalPreservation = this.globalPreservationService.getTemporaryGlobalPreservation(
                 this.currentPreservationId
         );
 
         if (globalPreservation == null) {
             globalPreservation = this.globalPreservationService.getGlobalPreservation(this.currentPreservationId);
+
+            if (globalPreservation == null) {
+                log.error("The global preservation with id {} not found into storage", this.currentPreservationId);
+                return;
+            }
+
+            globalPreservation.setId(null);
         }
 
-        if (globalPreservation == null) {
-            log.error("The global preservation with id {} not found into storage", this.currentPreservationId);
-            return;
-        }
-
-        globalPreservation.setChapterIndicator(globalPreservation.getChapterIndicator() + 1);
+        globalPreservation.setChapterIndicator(chapterValue);
         this.commandExecutor.executeCommand(
                 this.preservationCommandFactory.createUpdatePreservationCommand(globalPreservation)
         );

@@ -37,4 +37,11 @@ public interface GlobalPreservationService {
      */
     GlobalPreservationModel getGlobalPreservation(Long preservationId);
 
+    /**
+     * Clears the temporary model related to given preservation.
+     *
+     * @param preservationId - the id of preservation for which temporary model should be deleted.
+     */
+    void clearTemporaryData(Long preservationId);
+
 }

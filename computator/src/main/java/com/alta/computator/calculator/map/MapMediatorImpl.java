@@ -25,12 +25,11 @@ public class MapMediatorImpl implements MapMediator, MovementUpdater {
         if (this.storageReader.getMap() == null ||
                 this.storageReader.getAltitudeMap() == null ||
                 this.storageReader.getFocusPoint() == null) {
-            log.warn("Map: {}, AltitudeMap: {}, Focus point: {}",
+            log.warn("One or more required arguments are null. Map: {}, AltitudeMap: {}, Focus point: {}",
                     this.storageReader.getMap(),
                     this.storageReader.getAltitudeMap(),
                     this.storageReader.getFocusPoint()
             );
-            throw new RuntimeException("One or more required arguments are null.");
         }
 
         this.storageReader.getMap().updateCurrentGlobalCoordinates(

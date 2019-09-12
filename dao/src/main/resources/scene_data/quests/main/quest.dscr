@@ -42,7 +42,7 @@
 				},
 				{
 					"type": "DIALOGUE",
-					"text": "Хоте ла бы я увидеть создателей. Наверняка если их открыть, что-нибудь должно произойти, правда?",
+					"text": "Хотела бы я увидеть создателей. Наверняка если их открыть, что-нибудь должно произойти, правда?",
 					"speakerName": "kira",
 					"speakerEmotion": "FRUSTRATION"
 				},
@@ -67,7 +67,8 @@
 			],
 			"backgroundEffects": [
 				{
-					"type": "INCREMENT_CHAPTER_INDICATOR"
+					"type": "UPDATE_CHAPTER_INDICATOR",
+					"value": 1
 				}
 			]
 		},
@@ -87,7 +88,13 @@
 					"finalDirection": "UP",
 					"movementSpeed": "SLOW"
 				}
-			]		
+			],
+			"backgroundEffects": [
+				{
+					"type": "UPDATE_CHAPTER_INDICATOR",
+					"value": 2
+				}
+			]
 		},
 		{
 			"stepNumber": 2,

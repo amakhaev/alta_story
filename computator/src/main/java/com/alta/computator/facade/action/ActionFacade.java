@@ -4,6 +4,9 @@ import com.alta.computator.core.computator.movement.directionCalculation.Movemen
 import com.alta.computator.model.event.ComputatorEvent;
 import com.alta.eventStream.EventProducer;
 
+import java.awt.*;
+import java.util.function.Function;
+
 /**
  * Provides the list of high level method to make actions in the system.
  */
@@ -41,11 +44,14 @@ public interface ActionFacade {
     /**
      * Tries to run movement for NPC participant.
      *
-     * @param npcTargetUuid - the NPC uuid.
-     * @param x             - the X coordinate to be moved.
-     * @param y             - the Y coordinate to be moved.
-     * @param movementSpeed     - the speed of movement.
-     * @param finalDirection    - the final direction of participant after finishing the movement.
+     * @param npcTargetUuid         - the NPC uuid.
+     * @param targetMapCoordinates  - the map coordinates where NPC should come.
+     * @param movementSpeed         - the speed of movement.
+     * @param finalDirection        - the final direction of participant after finishing the movement.
      */
-    void tryToRunNpcMovement(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection);
+    void tryToRunNpcMovement(String npcTargetUuid,
+                             Point targetMapCoordinates,
+                             int movementSpeed,
+                             MovementDirection finalDirection,
+                             Function<String, Void> completeCallback);
 }

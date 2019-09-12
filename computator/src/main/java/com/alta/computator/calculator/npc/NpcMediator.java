@@ -5,6 +5,7 @@ import com.alta.computator.model.participant.TargetedParticipantSummary;
 import com.alta.computator.model.participant.actor.ActorParticipant;
 
 import java.awt.*;
+import java.util.function.Function;
 
 /**
  * Provides the mediator to control NPC.
@@ -50,6 +51,13 @@ public interface NpcMediator {
      * @param y                 - the Y coordinate to be moved.
      * @param movementSpeed     - the speed of movement.
      * @param finalDirection    - the final direction of participant after finishing the movement.
+     * @param completeCallback  - the callback to be invoked when movement completed.
      */
-    void tryToRunNpcMovement(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection);
+    void tryToRunNpcMovement(String npcTargetUuid,
+                             int x,
+                             int y,
+                             int movementSpeed,
+                             MovementDirection finalDirection,
+                             Function<String, Void> completeCallback
+    );
 }

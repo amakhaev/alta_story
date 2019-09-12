@@ -8,6 +8,8 @@ import com.google.inject.assistedinject.AssistedInject;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.awt.*;
+
 public class RouteMovementEffect implements Effect {
 
     private final EffectListener effectListener;
@@ -41,12 +43,14 @@ public class RouteMovementEffect implements Effect {
         RouteMovementEffectModel effectModel = (RouteMovementEffectModel) effect;
         this.effectListener.onRouteMovement(
                 effectModel.getTargetUuid(),
-                effectModel.getX(),
-                effectModel.getY(),
+                new Point(effectModel.getX(), effectModel.getY()),
                 effectModel.getMovementSpeed(),
-                effectModel.getFinalDirection()
+                effectModel.getFinalDirection(),
+                (uuid) -> {
+                    this.completeCallback.run();
+                    return null;
+                }
         );
-        this.completeCallback.run();
     }
 
     /**
