@@ -121,6 +121,28 @@ public class GlobalPreservationServiceImpl implements GlobalPreservationService 
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void clearTemporaryData(Long preservationId) {
+        try {
+            DeleteBuilder<GlobalPreservationModel, Integer> deleteBuilder = this.globalPreservationDao.deleteBuilder();
+            deleteBuilder.where()
+                    .eq(GlobalPreservationModel.PRESERVATION_ID_FIELD, preservationId)
+                    .and()
+                    .eq(GlobalPreservationModel.IS_TEMPORARY_FIELD, true);
+            int deletedCount = deleteBuilder.delete();
+            log.info(
+                    "Temporary model from global preservation with id {} was deleted. Count of removed items: {}",
+                    preservationId,
+                    deletedCount
+            );
+        } catch (SQLException e) {
+            log.error("Can't clear temporary model for quest preservation with id {}. Error: {}", preservationId, e.getMessage());
+        }
+    }
+
     private List<Long> findAllSavedPreservationsToBeRemoved(List<GlobalPreservationModel> globalPreservation) {
         if (globalPreservation == null || globalPreservation.isEmpty()) {
             return Collections.emptyList();

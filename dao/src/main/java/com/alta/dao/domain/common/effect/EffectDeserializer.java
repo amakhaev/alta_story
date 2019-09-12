@@ -1,6 +1,6 @@
 package com.alta.dao.domain.common.effect;
 
-import com.alta.dao.data.common.effect.background.IncrementChapterIndicatorDataModel;
+import com.alta.dao.data.common.effect.background.UpdateChapterIndicatorDataModel;
 import com.alta.dao.data.common.effect.visible.DialogueEffectDataModel;
 import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.common.effect.visible.HideFacilityEffectDataModel;
@@ -30,6 +30,8 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
     private static final String Y_FIELD_NAME = "y";
     private static final String FINAL_DIRECTION_FIELD_NAME = "finalDirection";
     private static final String MOVEMENT_SPEED_FIELD_NAME = "movementSpeed";
+
+    private static final String VALUE_FIELD_NAME = "value";
 
     /**
      * Gson invokes this call-back method during deserialization when it encounters a field of the
@@ -78,8 +80,8 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
                 case ROUTE_MOVEMENT:
                     model = this.parseRouteMovementEffect(item);
                     break;
-                case INCREMENT_CHAPTER_INDICATOR:
-                    model = this.parseIncrementChapterEffect();
+                case UPDATE_CHAPTER_INDICATOR:
+                    model = this.parseUpdateChapterEffect(item);
                     break;
                 default:
                     log.error("Unknown type of effect {}.", type);
@@ -153,11 +155,11 @@ public class EffectDeserializer implements JsonDeserializer<List<EffectDataModel
         }
     }
 
-    private IncrementChapterIndicatorDataModel parseIncrementChapterEffect() {
+    private UpdateChapterIndicatorDataModel parseUpdateChapterEffect(JsonObject jsonUpdateChapterIndicatorEffect) {
         try {
-            return new IncrementChapterIndicatorDataModel();
+            return new UpdateChapterIndicatorDataModel(jsonUpdateChapterIndicatorEffect.get(VALUE_FIELD_NAME).getAsInt());
         } catch (Exception e) {
-            log.error("Parsing of IncrementChapterIndicatorDataModel was failed with error", e);
+            log.error("Parsing of UpdateChapterIndicatorDataModel was failed with error", e);
             return null;
         }
     }

@@ -12,6 +12,7 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
+import java.util.function.Function;
 
 /**
  * Provides the presenter of view.
@@ -63,15 +64,18 @@ public class FrameStagePresenter {
     /**
      * Performs the movement of NPC on scene.
      *
-     * @param npcTargetUuid - the NPC uuid.
-     * @param x             - the X coordinate to be moved.
-     * @param y             - the Y coordinate to be moved.
+     * @param npcTargetUuid     - the NPC uuid.
+     * @param target            - the map coordinates where NPC should come.
      * @param movementSpeed     - the speed of movement.
      * @param finalDirection    - the final direction of participant after finishing the movement.
      */
-    public void movementPerform(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
+    public void movementPerform(String npcTargetUuid,
+                                Point target,
+                                int movementSpeed,
+                                MovementDirection finalDirection,
+                                Function<String, Void> completeCallback) {
         if (this.currentView != null) {
-            this.currentView.onMovementPerform(npcTargetUuid, x, y, movementSpeed, finalDirection);
+            this.currentView.onMovementPerform(npcTargetUuid, target, movementSpeed, finalDirection, completeCallback);
         }
     }
 

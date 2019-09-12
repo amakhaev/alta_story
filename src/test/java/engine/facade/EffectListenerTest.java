@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.awt.*;
+import java.util.function.Function;
+
 import static org.mockito.Mockito.*;
 
 public class EffectListenerTest {
@@ -82,30 +85,29 @@ public class EffectListenerTest {
     @Test
     public void effectListener_routeMovement_movementPerformed() {
         ArgumentCaptor<String> uuidArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<Integer> xArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
-        ArgumentCaptor<Integer> yArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+        ArgumentCaptor<Point> targetArgumentCaptor = ArgumentCaptor.forClass(Point.class);
         ArgumentCaptor<Integer> speedArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
         ArgumentCaptor<MovementDirection> finalDirectionArgumentCaptor = ArgumentCaptor.forClass(MovementDirection.class);
+        ArgumentCaptor<Function<String, Void>> callbackArgumentCaptor = ArgumentCaptor.forClass(Function.class);
 
-        this.effectListener.onRouteMovement("my_uuid", 5, 6, 10, "UP");
+        this.effectListener.onRouteMovement("my_uuid", new Point(5, 6), 10, "UP", null);
 
         verify(this.frameStagePresenter, times(1)).movementPerform(
                 uuidArgumentCaptor.capture(),
-                xArgumentCaptor.capture(),
-                yArgumentCaptor.capture(),
+                targetArgumentCaptor.capture(),
                 speedArgumentCaptor.capture(),
-                finalDirectionArgumentCaptor.capture()
+                finalDirectionArgumentCaptor.capture(),
+                callbackArgumentCaptor.capture()
         );
 
         Assert.assertEquals("my_uuid", uuidArgumentCaptor.getValue());
-        Assert.assertEquals(5, xArgumentCaptor.getValue().intValue());
-        Assert.assertEquals(6, yArgumentCaptor.getValue().intValue());
+        Assert.assertEquals(new Point(5, 6), targetArgumentCaptor.getValue());
         Assert.assertEquals(10, speedArgumentCaptor.getValue().intValue());
         Assert.assertEquals(MovementDirection.UP, finalDirectionArgumentCaptor.getValue());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void effectListener_routeMovementWrongFinalDirection_movementPerformFailed() {
-        this.effectListener.onRouteMovement("my_uuid", 5, 6, 10, "WRONG_DIRECTION");
+        this.effectListener.onRouteMovement("my_uuid", new Point(5, 6), 10, "WRONG_DIRECTION", null);
     }
 }

@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.awt.*;
+import java.util.function.Function;
+
 import static org.mockito.Mockito.*;
 
 public class ActionFacadeTest {
@@ -73,15 +76,17 @@ public class ActionFacadeTest {
         ArgumentCaptor<Integer> yArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
         ArgumentCaptor<Integer> speedArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
         ArgumentCaptor<MovementDirection> directionArgumentCaptor = ArgumentCaptor.forClass(MovementDirection.class);
+        ArgumentCaptor<Function<String, Void>> callbackArgumentCaptor = ArgumentCaptor.forClass(Function.class);
 
-        this.actionFacade.tryToRunNpcMovement("testUuid", 5, 10, 2, MovementDirection.UP);
+        this.actionFacade.tryToRunNpcMovement("testUuid", new Point(5, 10), 2, MovementDirection.UP, null);
 
         verify(this.npcMediator, times(1)).tryToRunNpcMovement(
                 uuidArgumentCaptor.capture(),
                 xArgumentCaptor.capture(),
                 yArgumentCaptor.capture(),
                 speedArgumentCaptor.capture(),
-                directionArgumentCaptor.capture()
+                directionArgumentCaptor.capture(),
+                callbackArgumentCaptor.capture()
         );
 
         Assert.assertEquals("testUuid", uuidArgumentCaptor.getValue());

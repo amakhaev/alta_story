@@ -11,6 +11,9 @@ import com.alta.eventStream.EventProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.awt.*;
+import java.util.function.Function;
+
 /**
  * Provides the list of high level method to make actions in the system.
  */
@@ -60,7 +63,13 @@ public class ActionFacadeImpl implements ActionFacade {
      * {@inheritDoc}
      */
     @Override
-    public void tryToRunNpcMovement(String npcTargetUuid, int x, int y, int movementSpeed, MovementDirection finalDirection) {
-        this.npcMediator.tryToRunNpcMovement(npcTargetUuid, x, y, movementSpeed, finalDirection);
+    public void tryToRunNpcMovement(String npcTargetUuid,
+                                    Point targetMapCoordinates,
+                                    int movementSpeed,
+                                    MovementDirection finalDirection,
+                                    Function<String, Void> completeCallback) {
+        this.npcMediator.tryToRunNpcMovement(
+                npcTargetUuid, targetMapCoordinates.x, targetMapCoordinates.y, movementSpeed, finalDirection, completeCallback
+        );
     }
 }

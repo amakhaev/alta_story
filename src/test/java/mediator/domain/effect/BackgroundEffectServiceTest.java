@@ -1,6 +1,7 @@
 package mediator.domain.effect;
 
 import com.alta.dao.data.common.effect.EffectDataModel;
+import com.alta.dao.data.common.effect.background.UpdateChapterIndicatorDataModel;
 import com.alta.dao.data.preservation.GlobalPreservationModel;
 import com.alta.dao.domain.preservation.global.GlobalPreservationService;
 import com.alta.mediator.command.CommandExecutor;
@@ -46,7 +47,7 @@ public class BackgroundEffectServiceTest {
 
     @Test
     public void backgroundEffectServiceTest_executeOneEffect_effectExecuted() {
-        EffectDataModel effectDataModel = new EffectDataModel(EffectDataModel.EffectType.INCREMENT_CHAPTER_INDICATOR);
+        EffectDataModel effectDataModel = new UpdateChapterIndicatorDataModel(1);
 
         this.backgroundEffectService.executeBackgroundEffects(Collections.singletonList(effectDataModel));
 
@@ -56,9 +57,9 @@ public class BackgroundEffectServiceTest {
 
     @Test
     public void backgroundEffectServiceTest_executeThreeEffect_effectsExecuted() {
-        EffectDataModel effectDataModel1 = new EffectDataModel(EffectDataModel.EffectType.INCREMENT_CHAPTER_INDICATOR);
-        EffectDataModel effectDataModel2 = new EffectDataModel(EffectDataModel.EffectType.INCREMENT_CHAPTER_INDICATOR);
-        EffectDataModel effectDataModel3 = new EffectDataModel(EffectDataModel.EffectType.INCREMENT_CHAPTER_INDICATOR);
+        EffectDataModel effectDataModel1 = new UpdateChapterIndicatorDataModel(1);
+        EffectDataModel effectDataModel2 = new UpdateChapterIndicatorDataModel(1);
+        EffectDataModel effectDataModel3 = new UpdateChapterIndicatorDataModel(1);
 
         this.backgroundEffectService.executeBackgroundEffects(Arrays.asList(effectDataModel1, effectDataModel2, effectDataModel3));
 

@@ -37,6 +37,6 @@ public class PreservationModel {
     @DatabaseField(foreign = true, columnName = ID_FIELD, foreignAutoRefresh = true)
     private CharacterPreservationModel characterPreservation;
 
-    @DatabaseField(foreign = true, columnName = ID_FIELD, foreignAutoRefresh = true)
+    @Setter
     private GlobalPreservationModel globalPreservation;
 }

@@ -60,7 +60,17 @@ public class PreservationServiceImpl implements PreservationService {
     @Override
     public PreservationModel getPreservation(Long id) {
         try {
-            return this.preservationDao.queryBuilder().where().eq(PreservationModel.ID_FIELD, id).queryForFirst();
+            PreservationModel preservationModel = this.preservationDao.queryBuilder()
+                    .where()
+                    .eq(PreservationModel.ID_FIELD, id)
+                    .queryForFirst();
+
+            preservationModel.setGlobalPreservation(this.globalPreservationService.getTemporaryGlobalPreservation(id));
+            if (preservationModel.getGlobalPreservation() == null) {
+                preservationModel.setGlobalPreservation(this.globalPreservationService.getGlobalPreservation(id));
+            }
+            return preservationModel;
+
         } catch (SQLException e) {
             log.error(e.getMessage());
             return null;
@@ -79,6 +89,7 @@ public class PreservationServiceImpl implements PreservationService {
                 this.interactionPreservationService.clearTemporaryData(preservationId);
                 this.mapPreservationService.clearTemporaryData(preservationId);
                 this.questPreservationService.clearTemporaryData(preservationId);
+                this.globalPreservationService.clearTemporaryData(preservationId);
                 return null;
             });
         } catch (SQLException e) {

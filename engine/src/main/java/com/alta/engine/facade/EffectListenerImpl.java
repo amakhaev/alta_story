@@ -13,6 +13,9 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.awt.*;
+import java.util.function.Function;
+
 /**
  * Provides the implementation of listening effects.
  */
@@ -140,7 +143,13 @@ public class EffectListenerImpl implements EffectListener {
      * {@inheritDoc}
      */
     @Override
-    public void onRouteMovement(String npcTargetUuid, int x, int y, int movementSpeed, String finalDirection) {
-        this.frameStagePresenter.movementPerform(npcTargetUuid, x, y, movementSpeed, MovementDirection.valueOf(finalDirection));
+    public void onRouteMovement(String npcTargetUuid,
+                                Point target,
+                                int movementSpeed,
+                                String finalDirection,
+                                Function<String, Void> completeCallback) {
+        this.frameStagePresenter.movementPerform(
+                npcTargetUuid, target, movementSpeed, MovementDirection.valueOf(finalDirection), completeCallback
+        );
     }
 }
