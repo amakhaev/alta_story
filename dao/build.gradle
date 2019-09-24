@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
 
 group 'dao'
 version '1.0'
@@ -21,6 +19,7 @@ dependencies {
     compile project(':shared')
     compile "com.j256.ormlite:ormlite-jdbc:${ormLiteVersion}"
     compile "org.xerial:sqlite-jdbc:${jdbcDriverVersion}"
+
     compile "com.datastax.cassandra:cassandra-driver-core:${cassandraDriverVersion}"
     compile "com.datastax.cassandra:cassandra-driver-mapping:${cassandraDriverVersion}"
     compile "com.datastax.cassandra:cassandra-driver-extras:${cassandraDriverVersion}"

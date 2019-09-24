@@ -1,81 +1,45 @@
 package com.alta.dao.data.preservation;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.datastax.driver.mapping.annotations.Column;
+import com.datastax.driver.mapping.annotations.PartitionKey;
+import com.datastax.driver.mapping.annotations.Table;
+import com.google.gson.annotations.SerializedName;
 import lombok.*;
 
+import java.util.UUID;
+
 /**
- * Provides the model that described the preservation of interaction.
+ * Represent preservation of characters in database.
  */
 @Getter
-@DatabaseTable(tableName = "interaction_preservations")
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = InteractionPreservationModel.TABLE_NAME)
 public class InteractionPreservationModel {
 
-    @Builder
-    private static InteractionPreservationModel create(Long id,
-                                                       @NonNull Long preservationId,
-                                                       @NonNull String uuid,
-                                                       @NonNull String mapName,
-                                                       boolean isComplete,
-                                                       boolean isTemporary) {
-        InteractionPreservationModel interactionPreservationModel = new InteractionPreservationModel();
-        interactionPreservationModel.id = id;
-        interactionPreservationModel.uuid = uuid;
-        interactionPreservationModel.isCompleted = isComplete;
-        interactionPreservationModel.isTemporary = isTemporary;
-        interactionPreservationModel.preservationId = preservationId;
-        interactionPreservationModel.mapName = mapName;
+    public static final String TABLE_NAME = "interaction_preservations";
 
-        return interactionPreservationModel;
-    }
-
-    /**
-     * Provides the ID field name.
-     */
-    public static final String ID_FIELD = "id";
-
-    /**
-     * Provides the preservation id field name.
-     */
-    public static final String PRESERVATION_ID_FIELD = "preservation_id";
-
-    /**
-     * Provides the uuid field name.
-     */
-    public static final String UUID_FIELD = "uuid";
-
-    /**
-     * Provides the map name field name.
-     */
+    public static final String PRESERVATION_FIELD = "preservation_id";
+    public static final String INTERACTION_UUID_FIELD = "interaction_uuid";
     public static final String MAP_NAME_FIELD = "map_name";
+    public static final String COMPLETED_FIELD = "completed";
 
-    /**
-     * Provides the is complete field name.
-     */
-    public static final String IS_COMPLETED_FIELD = "is_completed";
+    @PartitionKey
+    @Column(name = PRESERVATION_FIELD)
+    @SerializedName(PRESERVATION_FIELD)
+    private int preservationId;
 
-    /**
-     * Provides the is temporary field name.
-     */
-    public static final String IS_TEMPORARY_FIELD = "is_temporary";
+    @SerializedName(INTERACTION_UUID_FIELD)
+    @Column(name = INTERACTION_UUID_FIELD)
+    private UUID interactionUuid;
 
-    @DatabaseField(id = true, columnName = ID_FIELD)
-    private Long id;
-
-    @DatabaseField(columnName = PRESERVATION_ID_FIELD)
-    private Long preservationId;
-
-    @DatabaseField(columnName = UUID_FIELD)
-    private String uuid;
-
-    @DatabaseField(columnName = MAP_NAME_FIELD)
+    @SerializedName(MAP_NAME_FIELD)
+    @Column(name = MAP_NAME_FIELD)
     private String mapName;
 
-    @Setter
-    @DatabaseField(columnName = IS_COMPLETED_FIELD)
+    @SerializedName(COMPLETED_FIELD)
+    @Column(name = COMPLETED_FIELD)
     private boolean isCompleted;
-
-    @Setter
-    @DatabaseField(columnName = IS_TEMPORARY_FIELD)
-    private boolean isTemporary;
 }

@@ -10,7 +10,6 @@ import com.google.common.base.Strings;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Type;
@@ -23,11 +22,16 @@ import java.util.Map;
  * Provides the service to make CRUD operations with quests.
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class QuestServiceImpl implements QuestService {
 
     private final QuestDeserializer questDeserializer;
     private final EffectDeserializer effectDeserializer;
+
+    @Inject
+    public QuestServiceImpl(QuestDeserializer questDeserializer, EffectDeserializer effectDeserializer) {
+        this.questDeserializer = questDeserializer;
+        this.effectDeserializer = effectDeserializer;
+    }
 
     /**
      * Gets the quest by given path;

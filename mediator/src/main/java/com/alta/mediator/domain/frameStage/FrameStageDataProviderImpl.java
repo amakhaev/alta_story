@@ -2,12 +2,12 @@ package com.alta.mediator.domain.frameStage;
 
 import com.alta.dao.data.map.MapFacilityModel;
 import com.alta.dao.data.map.MapModel;
-import com.alta.dao.data.preservation.CharacterPreservationModel;
 import com.alta.dao.data.preservation.MapPreservationModel;
+import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.internalEntities.AlterableNpcEntity;
 import com.alta.dao.domain.map.internalEntities.SimpleNpcEntity;
-import com.alta.dao.domain.preservation.map.MapPreservationService;
+import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.engine.data.FrameStageEngineDataModel;
 import com.alta.engine.data.frameStage.ActingCharacterEngineModel;
 import com.alta.engine.data.frameStage.FacilityEngineModel;
@@ -34,42 +34,39 @@ import java.util.stream.Collectors;
 public class FrameStageDataProviderImpl implements FrameStageDataProvider {
 
     private final MapService mapService;
-    private final MapPreservationService mapPreservationService;
     private final ActorDataProvider actorDataProvider;
     private final FacilityEngineModelMapper facilityEngineModelMapper;
     private final JumpingEngineModelMapper jumpingEngineModelMapper;
     private final Long currentPreservationId;
+    private final PreservationService preservationService;
 
     /**
      * Initialize new instance of {@link FrameStageDataProviderImpl}.
      */
     @Inject
     public FrameStageDataProviderImpl(MapService mapService,
-                                      MapPreservationService mapPreservationService,
                                       ActorDataProvider actorDataProvider,
                                       FacilityEngineModelMapper facilityEngineModelMapper,
                                       JumpingEngineModelMapper jumpingEngineModelMapper,
-                                      @Named("currentPreservationId") Long currentPreservationId) {
+                                      @Named("currentPreservationId") Long currentPreservationId,
+                                      PreservationService preservationService) {
         this.mapService = mapService;
-        this.mapPreservationService = mapPreservationService;
         this.actorDataProvider = actorDataProvider;
         this.facilityEngineModelMapper = facilityEngineModelMapper;
         this.jumpingEngineModelMapper = jumpingEngineModelMapper;
         this.currentPreservationId = currentPreservationId;
+        this.preservationService = preservationService;
     }
 
     /**
-     * Gets the model of frame stage that created from preservation
-     *
-     * @param characterPreservationModel - the preservation of game
-     * @return the {@link FrameStageEngineDataModel} generated from preservation.
+     * {@inheritDoc}
      */
     @Override
-    public FrameStageEngineDataModel getFromPreservation(CharacterPreservationModel characterPreservationModel) {
+    public FrameStageEngineDataModel getFromPreservation(PreservationModel preservationModel) {
         return this.getByParams(
-                characterPreservationModel.getMapName(),
-                characterPreservationModel.getMainCharaterSkin(),
-                new Point(characterPreservationModel.getFocusX(), characterPreservationModel.getFocusY())
+                preservationModel.getActingCharacter().getMapName(),
+                preservationModel.getActingCharacter().getSkin(),
+                new Point(preservationModel.getActingCharacter().getFocusX(), preservationModel.getActingCharacter().getFocusY())
         );
     }
 
@@ -131,20 +128,14 @@ public class FrameStageDataProviderImpl implements FrameStageDataProvider {
         List<FacilityEngineModel> facilityEngineModels = this.facilityEngineModelMapper.doMapppingForFacilities(facilities);
 
         // The map preservation should be applied to facility if needed,
-        List<MapPreservationModel> mapPreservations = this.mapPreservationService.getMapsPreservation(
-                this.currentPreservationId, mapName
+        List<MapPreservationModel> mapPreservation = this.preservationService.getMaps(
+                this.currentPreservationId.intValue(), mapName
         );
 
-        this.mapPreservationService.getTemporaryMapsPreservation(this.currentPreservationId, mapName)
-                .forEach(temporaryMapPreservation -> {
-                    mapPreservations.removeIf(mp -> mp.getId().equals(temporaryMapPreservation.getId()));
-                    mapPreservations.add(temporaryMapPreservation);
-                });
-
         // Apply preservation to facilities
-        mapPreservations.forEach(mapPreservationModel -> {
+        mapPreservation.forEach(mapPreservationModel -> {
             facilityEngineModels.stream()
-                    .filter(facilityEngineModel -> mapPreservationModel.getParticipantUuid().equals(facilityEngineModel.getUuid()))
+                    .filter(facilityEngineModel -> mapPreservationModel.getParticipantUuid().toString().equals(facilityEngineModel.getUuid()))
                     .findFirst()
                     .ifPresent(facilityEngineModel -> {
                         facilityEngineModel.setVisible(mapPreservationModel.isVisible());

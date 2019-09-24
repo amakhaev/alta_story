@@ -1,42 +1,41 @@
 package com.alta.dao.data.preservation;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import lombok.Getter;
-import lombok.Setter;
+import com.alta.dao.data.preservation.udt.ActingCharacterUdt;
+import com.datastax.driver.mapping.annotations.Column;
+import com.datastax.driver.mapping.annotations.Frozen;
+import com.datastax.driver.mapping.annotations.PartitionKey;
+import com.datastax.driver.mapping.annotations.Table;
+import com.google.gson.annotations.SerializedName;
+import lombok.*;
 
 /**
- * Provides the model that described the preservation.
+ * Represent preservation of preservation in database.
  */
 @Getter
-@DatabaseTable(tableName = "preservations")
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = PreservationModel.TABLE_NAME)
 public class PreservationModel {
 
-    /**
-     * Provides the ID field name.
-     */
+    public static final String TABLE_NAME = "preservations";
+
     public static final String ID_FIELD = "id";
-
-    /**
-     * Provides the created at field name.
-     */
-    public static final String CREATED_AT_FIELD = "created_at";
-
-    /**
-     * Provides the character indicator field name.
-     */
     public static final String CHAPTER_INDICATOR_FIELD = "chapter_indicator";
+    public static final String ACTING_CHARACTER_FIELD = "acting_character";
 
-    @Setter
-    @DatabaseField(id = true, columnName = ID_FIELD)
-    private Long id;
+    @PartitionKey
+    @Column(name = PreservationModel.ID_FIELD)
+    private int id;
 
-    @DatabaseField(columnName = CREATED_AT_FIELD)
-    private String createdAt;
+    @SerializedName(CHAPTER_INDICATOR_FIELD)
+    @Column(name = PreservationModel.CHAPTER_INDICATOR_FIELD)
+    private int chapterIndicator;
 
-    @DatabaseField(foreign = true, columnName = ID_FIELD, foreignAutoRefresh = true)
-    private CharacterPreservationModel characterPreservation;
+    @Frozen
+    @SerializedName(ACTING_CHARACTER_FIELD)
+    @Column(name = PreservationModel.ACTING_CHARACTER_FIELD)
+    private ActingCharacterUdt actingCharacter;
 
-    @Setter
-    private GlobalPreservationModel globalPreservation;
 }

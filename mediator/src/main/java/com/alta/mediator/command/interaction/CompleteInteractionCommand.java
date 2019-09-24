@@ -1,7 +1,5 @@
 package com.alta.mediator.command.interaction;
 
-import com.alta.dao.data.preservation.InteractionPreservationModel;
-import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
@@ -19,7 +17,6 @@ public class CompleteInteractionCommand implements Command {
     private final PreservationCommandFactory preservationCommandFactory;
     private final CommandExecutor commandExecutor;
     private final InteractionPostProcessingService interactionPostProcessingService;
-    private final InteractionPreservationService interactionPreservationService;
     private final Long currentPreservationId;
     private final String interactionUuid;
     private final String relatedMapName;
@@ -29,7 +26,6 @@ public class CompleteInteractionCommand implements Command {
      * @param preservationCommandFactory        - the {@link PreservationCommandFactory} instance.
      * @param commandExecutor                   - the {@link CommandExecutor} instance.
      * @param interactionPostProcessingService  - the {@link InteractionPostProcessingService} instance.
-     * @param interactionPreservationService    - the {@link InteractionPreservationService} instance.
      * @param currentPreservationId             - the Id of current preservation.
      * @param interactionUuid                   - the uuid of interaction that was completed.
      * @param relatedMapName                    - the name of map where interaction was executing.
@@ -38,14 +34,12 @@ public class CompleteInteractionCommand implements Command {
     public CompleteInteractionCommand(PreservationCommandFactory preservationCommandFactory,
                                       CommandExecutor commandExecutor,
                                       InteractionPostProcessingService interactionPostProcessingService,
-                                      InteractionPreservationService interactionPreservationService,
                                       @Named("currentPreservationId") Long currentPreservationId,
                                       @Assisted("interactionUuid") String interactionUuid,
                                       @Assisted("relatedMapName") String relatedMapName) {
         this.preservationCommandFactory = preservationCommandFactory;
         this.commandExecutor = commandExecutor;
         this.interactionPostProcessingService = interactionPostProcessingService;
-        this.interactionPreservationService = interactionPreservationService;
         this.currentPreservationId = currentPreservationId;
         this.interactionUuid = interactionUuid;
         this.relatedMapName = relatedMapName;
@@ -61,26 +55,8 @@ public class CompleteInteractionCommand implements Command {
     }
 
     private void executeUpdateInteractionPreservationCommand() {
-        InteractionPreservationModel interactionPreservationToUpdate;
-        interactionPreservationToUpdate = this.interactionPreservationService.getTemporaryInteractionPreservation(
-                this.currentPreservationId, this.interactionUuid
-        );
-
-        if (interactionPreservationToUpdate == null) {
-            interactionPreservationToUpdate = InteractionPreservationModel
-                    .builder()
-                    .preservationId(this.currentPreservationId)
-                    .uuid(this.interactionUuid)
-                    .isComplete(true)
-                    .isTemporary(true)
-                    .mapName(this.relatedMapName)
-                    .build();
-        } else {
-            interactionPreservationToUpdate.setCompleted(true);
-        }
-
         Command command = this.preservationCommandFactory.createUpdateInteractionPreservationCommand(
-                interactionPreservationToUpdate
+                 this.currentPreservationId.intValue(), this.interactionUuid, this.relatedMapName, true
         );
 
         this.commandExecutor.executeCommand(command);

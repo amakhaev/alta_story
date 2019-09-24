@@ -3,12 +3,12 @@ package com.alta.mediator.domain.interaction;
 import com.alta.dao.data.interaction.InteractionConditionModel;
 import com.alta.dao.data.preservation.InteractionPreservationModel;
 import com.alta.dao.domain.preservation.PreservationService;
-import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
+import java.util.UUID;
 import java.util.function.Function;
 
 /**
@@ -18,7 +18,6 @@ import java.util.function.Function;
 public class InteractionConditionService {
 
     private final PreservationService preservationService;
-    private final InteractionPreservationService interactionPreservationService;
     private final Long currentPreservationId;
 
     /**
@@ -26,10 +25,8 @@ public class InteractionConditionService {
      */
     @Inject
     public InteractionConditionService(PreservationService preservationService,
-                                       InteractionPreservationService interactionPreservationService,
                                        @Named("currentPreservationId") Long currentPreservationId) {
         this.preservationService = preservationService;
-        this.interactionPreservationService = interactionPreservationService;
         this.currentPreservationId = currentPreservationId;
     }
 
@@ -62,14 +59,9 @@ public class InteractionConditionService {
         }
 
         return aVoid -> {
-            InteractionPreservationModel interactionPreservation = this.interactionPreservationService
-                    .findTemporaryInteractionByPreservationIdAndUuid(this.currentPreservationId, uuid);
-
-            if (interactionPreservation == null) {
-                interactionPreservation = this.interactionPreservationService.findInteractionByPreservationIdAndUuid(
-                        this.currentPreservationId, uuid
-                );
-            }
+            InteractionPreservationModel interactionPreservation = this.preservationService.getInteraction(
+                    this.currentPreservationId.intValue(), UUID.fromString(uuid)
+            );
 
             if (interactionPreservation == null) {
                 return false;

@@ -5,7 +5,7 @@ import com.alta.behaviorprocess.data.quest.QuestRepository;
 import com.alta.dao.data.common.effect.EffectDataModel;
 import com.alta.dao.data.preservation.QuestPreservationModel;
 import com.alta.dao.data.quest.AvailableQuest;
-import com.alta.dao.domain.preservation.quest.QuestPreservationService;
+import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.quest.QuestCommandFactory;
@@ -24,7 +24,7 @@ import java.util.List;
 public class QuestRepositoryImpl implements QuestRepository {
 
     private final Long currentPreservationId;
-    private final QuestPreservationService questPreservationService;
+    private final PreservationService preservationService;
     private final QuestDataProvider questDataProvider;
     private final QuestCommandFactory questCommandFactory;
     private final CommandExecutor commandExecutor;
@@ -32,19 +32,19 @@ public class QuestRepositoryImpl implements QuestRepository {
     /**
      * Initialize ew instance of {@link QuestRepositoryImpl}.
      * @param currentPreservationId     - the Id of current preservation.
-     * @param questPreservationService  - the {@link QuestPreservationService} instance.
+     * @param preservationService       - the {@link PreservationService} instance.
      * @param questDataProvider         - the {@link QuestDataProvider} instance.
      * @param questCommandFactory       - the {@link QuestCommandFactory} instance.
      * @param commandExecutor           - the {@link CommandExecutor} instance.
      */
     @Inject
     public QuestRepositoryImpl(@Named("currentPreservationId") Long currentPreservationId,
-                               QuestPreservationService questPreservationService,
+                               PreservationService preservationService,
                                QuestDataProvider questDataProvider,
                                QuestCommandFactory questCommandFactory,
                                CommandExecutor commandExecutor) {
         this.currentPreservationId = currentPreservationId;
-        this.questPreservationService = questPreservationService;
+        this.preservationService = preservationService;
         this.questDataProvider = questDataProvider;
         this.questCommandFactory = questCommandFactory;
         this.commandExecutor = commandExecutor;
@@ -55,14 +55,16 @@ public class QuestRepositoryImpl implements QuestRepository {
      */
     @Override
     public QuestModel getMainQuest() {
-        QuestPreservationModel questPreservationModel = this.findPreservationForMainQuest();
+        QuestPreservationModel questPreservationModel = this.preservationService.getQuest(
+                this.currentPreservationId.intValue(), AvailableQuest.MAIN_QUEST
+        );
 
         if (questPreservationModel == null) {
             throw new RuntimeException("The main quest not found in database");
         }
 
         return this.questDataProvider.getQuestModel(
-                questPreservationModel.getName(), questPreservationModel.getCurrentStepNumber()
+                questPreservationModel.getQuestName(), questPreservationModel.getCurrentStepNumber()
         );
     }
 
@@ -85,21 +87,5 @@ public class QuestRepositoryImpl implements QuestRepository {
                 name, backgroundPostEffects, stepCountInQuest, stepNumber
         );
         this.commandExecutor.executeCommand(command);
-    }
-
-    private QuestPreservationModel findPreservationForMainQuest() {
-        // Try to get temporary saved quest since it newly model.
-        QuestPreservationModel questPreservationModel = this.questPreservationService.getTemporaryQuestPreservation(
-                this.currentPreservationId, AvailableQuest.MAIN_QUEST
-        );
-
-        if (questPreservationModel == null) {
-            // Try to get saved quest.
-            questPreservationModel = this.questPreservationService.getQuestPreservation(
-                    this.currentPreservationId, AvailableQuest.MAIN_QUEST
-            );
-        }
-
-        return questPreservationModel;
     }
 }

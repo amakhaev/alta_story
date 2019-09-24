@@ -1,6 +1,6 @@
 package com.alta.mediator.domain.frameStage;
 
-import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.dao.data.preservation.PreservationModel;
 import com.alta.engine.data.FrameStageEngineDataModel;
 
 import java.awt.*;
@@ -13,10 +13,10 @@ public interface FrameStageDataProvider {
     /**
      * Gets the model of frame stage that created from preservation
      *
-     * @param characterPreservationModel - the preservation of game
+     * @param preservationModel - the preservation of game.
      * @return the {@link FrameStageEngineDataModel} generated from preservation.
      */
-    FrameStageEngineDataModel getFromPreservation(CharacterPreservationModel characterPreservationModel);
+    FrameStageEngineDataModel getFromPreservation(PreservationModel preservationModel);
 
     /**
      * Gets the model of frame stage that created by give params

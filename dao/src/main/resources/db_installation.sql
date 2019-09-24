@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS character_preservations (
 );
 
 INSERT INTO character_preservations (map_name, focus_x, focus_y, main_character_skin)
-    SELECT 'test', 1, 1, 'person12' WHERE (SELECT count(*) FROM character_preservations) = 0;
+    SELECT 'village_yutta', 58, 72, 'person12' WHERE (SELECT count(*) FROM character_preservations) = 0;
 
 CREATE TABLE IF NOT EXISTS interaction_preservations (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -44,8 +44,9 @@ public class LocalMapRepositoryImpl implements LocalMapRepository {
      */
     @Override
     public void makeJumping(String mapName, Point mapStartCoordinate) {
-        String skinName = this.preservationService.getPreservation(this.currentPreservationId)
-                .getCharacterPreservation().getMainCharaterSkin();
+        String skinName = this.preservationService.getPreservation(this.currentPreservationId.intValue())
+                .getActingCharacter()
+                .getSkin();
 
         this.commandExecutor.executeCommand(
                 this.frameStageCommandFactory.createRenderFrameStageByParametersCommand(

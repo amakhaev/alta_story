@@ -2,13 +2,11 @@
 
 ### How to run
 ##### Prepare database
-1. Install `sqlite3` tool
-2. Navigate to `dao/src/main/resources`
-3. Create file 'game.db3'
-4. Open terminal then run commands
+1. Install `cassandra` database
+2. Navigate to root folder
+3. Open terminal then run commands
 ```
-> sqlite3 game.db3;
-> .read ./db_installation.sql
+cqlsh -f dao/src/main/resources/db_keyspace.cql
 ```
 
 ##### Run from Intellij IDEA
