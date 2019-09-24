@@ -8,6 +8,7 @@ import com.alta.utils.ExecutorServiceFactory;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.inject.Named;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -23,6 +24,7 @@ public class Mediator {
     private final FrameStageCommandFactory frameStageCommandFactory;
     private final PreservationCommandFactory preservationCommandFactory;
     private final CommandExecutor commandExecutor;
+    private final Long currentPreservationId;
 
     /**
      * Initialize new instance of {@link Mediator}
@@ -31,11 +33,13 @@ public class Mediator {
     public Mediator(Engine engine,
                     CommandExecutor commandExecutor,
                     FrameStageCommandFactory frameStageCommandFactory,
-                    PreservationCommandFactory preservationCommandFactory) {
+                    PreservationCommandFactory preservationCommandFactory,
+                    @Named("currentPreservationId") Long currentPreservationId) {
         this.engine = engine;
         this.commandExecutor = commandExecutor;
         this.frameStageCommandFactory = frameStageCommandFactory;
         this.preservationCommandFactory = preservationCommandFactory;
+        this.currentPreservationId = currentPreservationId;
 
         this.engineMainThread = ExecutorServiceFactory.create(1, ENGINE_THREAD_POOL_NAME);
     }
@@ -45,7 +49,9 @@ public class Mediator {
      */
     public void loadSavedGameAndStart() {
         this.engineMainThread.execute(() -> {
-            this.commandExecutor.executeCommand(this.preservationCommandFactory.createClearTemporaryPreservationDataCommand());
+            this.commandExecutor.executeCommand(
+                    this.preservationCommandFactory.createRestoreSnapshotCommand(this.currentPreservationId.intValue())
+            );
             this.engine.runInitialSync();
 
             this.commandExecutor.executeCommand(this.frameStageCommandFactory.createRenderFrameStageFromPreservationCommand());

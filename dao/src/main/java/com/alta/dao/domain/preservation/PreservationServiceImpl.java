@@ -1,20 +1,18 @@
 package com.alta.dao.domain.preservation;
 
-import com.alta.dao.data.preservation.*;
-import com.alta.dao.domain.preservation.global.GlobalPreservationService;
-import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
-import com.alta.dao.domain.preservation.map.MapPreservationService;
-import com.alta.dao.domain.preservation.quest.QuestPreservationService;
-import com.google.inject.Inject;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.misc.TransactionManager;
-import com.j256.ormlite.support.ConnectionSource;
-import lombok.NonNull;
+import com.alta.dao.configuration.CassandraConnector;
+import com.alta.dao.data.preservation.InteractionPreservationModel;
+import com.alta.dao.data.preservation.MapPreservationModel;
+import com.alta.dao.data.preservation.PreservationModel;
+import com.alta.dao.data.preservation.QuestPreservationModel;
+import com.alta.dao.data.preservation.udt.ActingCharacterUdt;
+import com.datastax.driver.mapping.Mapper;
+import com.datastax.driver.mapping.MappingManager;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.SQLException;
-import java.util.concurrent.Callable;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Provides the service to make CRUD operation with preservation
@@ -22,98 +20,170 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class PreservationServiceImpl implements PreservationService {
 
-    private final ConnectionSource connectionSource;
-    private final InteractionPreservationService interactionPreservationService;
-    private final MapPreservationService mapPreservationService;
-    private final QuestPreservationService questPreservationService;
-    private final GlobalPreservationService globalPreservationService;
-    private Dao<PreservationModel, Integer> preservationDao;
+    private final Mapper<PreservationModel> preservationModelMapper;
+    private final Mapper<InteractionPreservationModel> interactionPreservationModelMapper;
+    private final Mapper<QuestPreservationModel> questPreservationModelMapper;
+    private final Mapper<MapPreservationModel> mapPreservationModelMapper;
 
+    private final MapPreservationAccessor mapPreservationAccessor;
+    private final InteractionPreservationAccessor interactionPreservationAccessor;
 
     /**
-     * Initialize new instance of {@link PreservationServiceImpl}
+     * Initialize new instance of {@link PreservationServiceImpl}.
      */
     @Inject
-    public PreservationServiceImpl(ConnectionSource connectionSource,
-                                   InteractionPreservationService interactionPreservationService,
-                                   MapPreservationService mapPreservationService,
-                                   QuestPreservationService questPreservationService,
-                                   GlobalPreservationService globalPreservationService) {
-        this.connectionSource = connectionSource;
-        this.interactionPreservationService = interactionPreservationService;
-        this.mapPreservationService = mapPreservationService;
-        this.questPreservationService = questPreservationService;
-        this.globalPreservationService = globalPreservationService;
-        try {
-            this.preservationDao = DaoManager.createDao(this.connectionSource, PreservationModel.class);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
+    public PreservationServiceImpl(CassandraConnector cassandraConnector) {
+        MappingManager mappingManager = new MappingManager(cassandraConnector.getSession());
+
+        this.preservationModelMapper = mappingManager.mapper(PreservationModel.class);
+        this.interactionPreservationModelMapper = mappingManager.mapper(InteractionPreservationModel.class);
+        this.questPreservationModelMapper = mappingManager.mapper(QuestPreservationModel.class);
+        this.mapPreservationModelMapper = mappingManager.mapper(MapPreservationModel.class);
+
+        this.mapPreservationAccessor = mappingManager.createAccessor(MapPreservationAccessor.class);
+        this.interactionPreservationAccessor = mappingManager.createAccessor(InteractionPreservationAccessor.class);
     }
 
     /**
-     * Gets the preservation related of game.
-     *
-     * @param id - the identifier preservation of character.
-     * @return the {@link CharacterPreservationModel} instance.
+     * {@inheritDoc}
      */
     @Override
-    public PreservationModel getPreservation(Long id) {
-        try {
-            PreservationModel preservationModel = this.preservationDao.queryBuilder()
-                    .where()
-                    .eq(PreservationModel.ID_FIELD, id)
-                    .queryForFirst();
+    public void updateChapterIndicator(int id, int chapterIndicator) {
+        log.debug("Update chapter indicator of preservation {} with value {}", id, chapterIndicator);
 
-            preservationModel.setGlobalPreservation(this.globalPreservationService.getTemporaryGlobalPreservation(id));
-            if (preservationModel.getGlobalPreservation() == null) {
-                preservationModel.setGlobalPreservation(this.globalPreservationService.getGlobalPreservation(id));
-            }
-            return preservationModel;
-
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-            return null;
+        PreservationModel preservationModel = this.preservationModelMapper.get(id);
+        if (preservationModel == null) {
+            throw new RuntimeException("Preservation with given id " + id + " not found.");
         }
+
+        preservationModel.setChapterIndicator(chapterIndicator);
+        this.preservationModelMapper.save(preservationModel);
+
+        log.debug(
+                "Updating of chapter indicator of preservation {} with value {} was completed successfully",
+                id, chapterIndicator
+        );
     }
 
     /**
-     * Clears all temporary model that related to specific preservation.
-     *
-     * @param preservationId - the preservation to be cleared.
+     * {@inheritDoc}
      */
     @Override
-    public void clearTemporaryDataFromPreservation(@NonNull Long preservationId) {
-        try {
-            TransactionManager.callInTransaction(this.connectionSource, (Callable<Void>) () -> {
-                this.interactionPreservationService.clearTemporaryData(preservationId);
-                this.mapPreservationService.clearTemporaryData(preservationId);
-                this.questPreservationService.clearTemporaryData(preservationId);
-                this.globalPreservationService.clearTemporaryData(preservationId);
-                return null;
-            });
-        } catch (SQLException e) {
-            log.error(e.getMessage());
+    public void updateActingCharacter(int preservationId, ActingCharacterUdt actingCharacter) {
+        PreservationModel preservationModel = this.preservationModelMapper.get(preservationId);
+        if (preservationModel == null) {
+            throw new RuntimeException("Preservation with given id " + preservationId + " not found.");
         }
+
+        preservationModel.setActingCharacter(actingCharacter);
+        this.preservationModelMapper.save(preservationModel);
+
+        log.debug("Updating of acting character in preservation {} was completed successfully", preservationId);
     }
 
     /**
-     * Marks all temporary interactions/quests etc. as not temporary.
-     *
-     * @param preservationId - the preservation id.
+     * {@inheritDoc}
      */
     @Override
-    public void markTemporaryAsCompletelySaved(Long preservationId) {
-        try {
-            TransactionManager.callInTransaction(this.connectionSource, (Callable<Void>) () -> {
-                this.interactionPreservationService.markTemporaryInteractionsAsSaved(preservationId);
-                this.questPreservationService.markTemporaryQuestsAsSaved(preservationId);
-                this.mapPreservationService.markTemporaryMapsAsSaved(preservationId);
-                this.globalPreservationService.markTemporaryGlobalPreservationAsSaved(preservationId);
-                return null;
-            });
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
+    public void upsertInteraction(int preservationId, UUID interactionUuid, String mapName, boolean isComplete) {
+        log.debug(
+                "Upsert interaction of preservation {} with interaction uuid: {}, map name: {}, complete status: {}",
+                preservationId, interactionUuid, mapName, isComplete
+        );
+
+        InteractionPreservationModel model = InteractionPreservationModel.builder()
+                .preservationId(preservationId)
+                .interactionUuid(interactionUuid)
+                .mapName(mapName)
+                .isCompleted(isComplete)
+                .build();
+
+        this.interactionPreservationModelMapper.save(model);
+
+        log.debug("Upserting interaction of preservation was completed successfully");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void upsertQuest(int preservationId, String name, int currentStep, boolean isComplete) {
+        log.debug(
+                "Upsert quest of preservation {} with quest name: {}, current step: {}, complete status: {}",
+                preservationId, name, currentStep, isComplete
+        );
+
+        QuestPreservationModel model = QuestPreservationModel.builder()
+                .preservationId(preservationId)
+                .questName(name)
+                .currentStepNumber(currentStep)
+                .isCompleted(isComplete)
+                .build();
+
+        this.questPreservationModelMapper.save(model);
+
+        log.debug("Upserting quest of preservation was completed successfully");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void upsertMap(int preservationId, UUID participantUuid, String mapName, boolean isVisible) {
+        log.debug(
+                "Upsert map of preservation {} with participant uuid: {}, map name: {}, visible status: {}",
+                preservationId, participantUuid, mapName, isVisible
+        );
+
+        MapPreservationModel model = MapPreservationModel.builder()
+                .preservationId(preservationId)
+                .participantUuid(participantUuid)
+                .mapName(mapName)
+                .isVisible(isVisible)
+                .build();
+
+        this.mapPreservationModelMapper.save(model);
+
+        log.debug("Upserting map of preservation was completed successfully");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public QuestPreservationModel getQuest(int preservationId, String questName) {
+        return this.questPreservationModelMapper.get(preservationId, questName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PreservationModel getPreservation(int preservationId) {
+        return this.preservationModelMapper.get(preservationId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public InteractionPreservationModel getInteraction(int preservationId, UUID interactionUuid) {
+        return this.interactionPreservationModelMapper.get(preservationId, interactionUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<MapPreservationModel> getMaps(int preservationId, String mapName) {
+        return this.mapPreservationAccessor.findAllByPreservationIdAndMapName(preservationId, mapName).all();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<InteractionPreservationModel> getInteractions(int preservationId, String mapName) {
+        return this.interactionPreservationAccessor.findAllByPreservationIdAndMapName(preservationId, mapName).all();
     }
 }

@@ -1,7 +1,7 @@
 package com.alta.mediator.dataSource;
 
 import com.alta.behaviorprocess.data.globalEvent.GlobalEventRepository;
-import com.alta.dao.data.preservation.CharacterPreservationModel;
+import com.alta.dao.data.preservation.udt.ActingCharacterUdt;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provides the repository tp handle global events.
@@ -42,16 +44,22 @@ public class GlobalEventRepositoryImpl implements GlobalEventRepository {
      */
     @Override
     public void saveState(String mapName, String actionCharacterSkin, Point actionCharacterMapCoordinate) {
-        CharacterPreservationModel characterPreservationModel = CharacterPreservationModel.builder()
-                .id(this.currentPreservationId)
+        ActingCharacterUdt characterUdt = ActingCharacterUdt.builder()
                 .focusX(actionCharacterMapCoordinate.x)
                 .focusY(actionCharacterMapCoordinate.y)
                 .skin(actionCharacterSkin)
                 .mapName(mapName)
                 .build();
 
-        Command command = this.preservationCommandFactory.createSavePreservationCommand(characterPreservationModel);
-        this.commandExecutor.executeCommand(command);
+        List<Command> commands = Arrays.asList(
+                this.preservationCommandFactory.createUpdateActingCharacterCommand(
+                        this.currentPreservationId.intValue(), characterUdt
+                ),
+                this.preservationCommandFactory.createMakeSnapshotCommand(this.currentPreservationId.intValue())
+        );
+        this.commandExecutor.executeCommands(commands);
+
+
         log.info("Saving of preservation completed to preservation {}", this.currentPreservationId);
     }
 }

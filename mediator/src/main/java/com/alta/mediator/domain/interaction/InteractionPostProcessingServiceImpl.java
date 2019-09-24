@@ -2,9 +2,7 @@ package com.alta.mediator.domain.interaction;
 
 import com.alta.dao.data.interaction.InteractionDataModel;
 import com.alta.dao.data.interaction.postProcessing.UpdateFacilityVisibilityPostProcessModel;
-import com.alta.dao.data.preservation.MapPreservationModel;
 import com.alta.dao.domain.interaction.InteractionService;
-import com.alta.dao.domain.preservation.map.MapPreservationService;
 import com.alta.mediator.command.Command;
 import com.alta.mediator.command.CommandExecutor;
 import com.alta.mediator.command.preservation.PreservationCommandFactory;
@@ -27,19 +25,19 @@ public class InteractionPostProcessingServiceImpl implements InteractionPostProc
     private final InteractionService interactionService;
     private final CommandExecutor commandExecutor;
     private final PreservationCommandFactory preservationCommandFactory;
-    private final MapPreservationService mapPreservationService;
 
+    /**
+     * Initialize new instance of {@link InteractionPostProcessingServiceImpl}.
+     */
     @Inject
     public InteractionPostProcessingServiceImpl(InteractionService interactionService,
                                                 @Named("currentPreservationId") Long currentPreservationId,
                                                 CommandExecutor commandExecutor,
-                                                PreservationCommandFactory preservationCommandFactory,
-                                                MapPreservationService mapPreservationService) {
+                                                PreservationCommandFactory preservationCommandFactory) {
         this.interactionService = interactionService;
         this.currentPreservationId = currentPreservationId;
         this.commandExecutor = commandExecutor;
         this.preservationCommandFactory = preservationCommandFactory;
-        this.mapPreservationService = mapPreservationService;
     }
 
     /**
@@ -82,23 +80,8 @@ public class InteractionPostProcessingServiceImpl implements InteractionPostProc
 
     private Command getUpdateFacilityVisibilityCommand(UpdateFacilityVisibilityPostProcessModel postProcessModel,
                                                        String mapName) {
-        MapPreservationModel mapPreservationModel = this.mapPreservationService.findTemporaryMapPreservation(
-                this.currentPreservationId,
-                postProcessModel.getFacilityUuid()
+        return this.preservationCommandFactory.createUpdateMapPreservationCommand(
+                this.currentPreservationId.intValue(), postProcessModel.getFacilityUuid(), mapName, postProcessModel.isValue()
         );
-
-        if (mapPreservationModel == null) {
-            mapPreservationModel = MapPreservationModel.builder()
-                    .mapName(mapName)
-                    .preservationId(this.currentPreservationId)
-                    .participantUuid(postProcessModel.getFacilityUuid())
-                    .isVisible(postProcessModel.isValue())
-                    .isTemporary(true)
-                    .build();
-        } else {
-            mapPreservationModel.setVisible(postProcessModel.isValue());
-        }
-
-        return this.preservationCommandFactory.createUpdateMapPreservationCommand(mapPreservationModel);
     }
 }

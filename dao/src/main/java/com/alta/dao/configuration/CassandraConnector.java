@@ -3,7 +3,6 @@ package com.alta.dao.configuration;
 import com.alta.utils.YamlParser;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -17,8 +16,7 @@ public class CassandraConnector {
 
     private static final String FILE_NAME = "dao.yaml";
 
-    private final String host;
-    private final int port;
+    private final DaoConfig daoConfig;
     private Cluster cluster;
     private Session session;
 
@@ -29,9 +27,7 @@ public class CassandraConnector {
             throw new RuntimeException("Config with given name " + FILE_NAME + " not found.");
         }
 
-        DaoConfig daoConfig = YamlParser.parse(daoUrl.getPath(), DaoConfig.class);
-        this.host = daoConfig.getDbCon().getHost();
-        this.port = daoConfig.getDbCon().getPort();
+        this.daoConfig = YamlParser.parse(daoUrl.getPath(), DaoConfig.class);
     }
 
     /**
@@ -39,7 +35,7 @@ public class CassandraConnector {
      *
      * @return the {@link Session} instance.
      */
-    public Session getSession() {
+   public Session getSession() {
         if (this.session == null || this.session.isClosed()) {
             this.connect();
         }
@@ -56,9 +52,17 @@ public class CassandraConnector {
     }
 
     private void connect() {
-        log.info("Connect to cassandra database using {}:{}", this.host, this.port);
-        this.cluster = Cluster.builder().addContactPoint(this.host).withPort(this.port).build();
-        this.session = cluster.connect();
+        log.info(
+                "Connect to cassandra database '{}' using {}:{}",
+                this.daoConfig.getDbCon().getName(),
+                this.daoConfig.getDbCon().getHost(),
+                this.daoConfig.getDbCon().getPort()
+        );
+        this.cluster = Cluster.builder()
+                .addContactPoint(this.daoConfig.getDbCon().getHost())
+                .withPort(this.daoConfig.getDbCon().getPort())
+                .build();
+        this.session = this.cluster.connect(this.daoConfig.getDbCon().getName());
         log.info("Connection has been established");
     }
 

@@ -17,6 +17,7 @@ public class DaoConfig {
     public static class DatabaseConnectionInfo {
         private String host;
         private int port;
+        private String name;
     }
 
 }

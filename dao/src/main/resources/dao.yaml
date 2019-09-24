@@ -1,3 +1,4 @@
 dbCon:
+  name: alta_game
   host: 127.0.0.1
   port: 9042

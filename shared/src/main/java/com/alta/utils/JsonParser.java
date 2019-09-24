@@ -90,4 +90,14 @@ public class JsonParser {
         }
     }
 
+    /**
+     * Creates the JSON string from POJO.
+     *
+     * @param data - the data to be serialized.
+     * @return the json string.
+     */
+    public String toJson(Object data) {
+        return gson.toJson(data);
+    }
+
 }

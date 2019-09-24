@@ -132,7 +132,7 @@ public class InteractionDataProviderImpl implements InteractionDataProvider {
 
         InteractionPreservationModel interactionPreservationModel = interactionPreservations
                 .stream()
-                .filter(interaction -> interaction.getUuid().equals(rawData.getUuid()))
+                .filter(interaction -> interaction.getInteractionUuid().toString().equals(rawData.getUuid()))
                 .findFirst()
                 .orElse(null);
 

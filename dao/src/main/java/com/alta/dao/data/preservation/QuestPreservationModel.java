@@ -1,81 +1,43 @@
 package com.alta.dao.data.preservation;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.datastax.driver.mapping.annotations.*;
+import com.google.gson.annotations.SerializedName;
+import lombok.*;
 
 /**
- * Provides the model that described the preservation of interaction.
+ * Represent preservation of quest in database.
  */
 @Getter
-@DatabaseTable(tableName = "quest_preservations")
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = QuestPreservationModel.TABLE_NAME)
 public class QuestPreservationModel {
 
-    @Builder
-    private static QuestPreservationModel create(Long preservationId,
-                                                 String name,
-                                                 int currentStepNumber,
-                                                 boolean isCompleted) {
-        QuestPreservationModel model = new QuestPreservationModel();
-        model.preservationId = preservationId;
-        model.name = name;
-        model.currentStepNumber = currentStepNumber;
-        model.isCompleted = isCompleted;
+    public static final String TABLE_NAME = "quest_preservations";
 
-        return model;
-    }
-
-    /**
-     * Provides the ID field name.
-     */
-    public static final String ID_FIELD = "id";
-
-    /**
-     * Provides the preservation id field name.
-     */
     public static final String PRESERVATION_ID_FIELD = "preservation_id";
-
-    /**
-     * Provides the name field name.
-     */
-    public static final String NAME_FIELD = "name";
-
-    /**
-     * Provides the current step number field name.
-     */
+    public static final String QUEST_NAME_FIELD = "quest_name";
     public static final String CURRENT_STEP_NUMBER_FIELD = "current_step_number";
+    public static final String COMPLETED_FIELD = "completed";
 
-    /**
-     * Provides the is complete field name.
-     */
-    public static final String IS_COMPLETED_FIELD = "is_completed";
+    @PartitionKey(0)
+    @SerializedName(PRESERVATION_ID_FIELD)
+    @Column(name = PRESERVATION_ID_FIELD)
+    private int preservationId;
 
-    /**
-     * Provides the is temporary field name.
-     */
-    public static final String IS_TEMPORARY_FIELD = "is_temporary";
+    @PartitionKey(1)
+    @SerializedName(QUEST_NAME_FIELD)
+    @Column(name = QUEST_NAME_FIELD)
+    private String questName;
 
-    @DatabaseField(id = true, columnName = ID_FIELD)
-    private Long id;
-
-    @DatabaseField(columnName = PRESERVATION_ID_FIELD)
-    private Long preservationId;
-
-    @DatabaseField(columnName = NAME_FIELD)
-    private String name;
-
-    @Setter
-    @DatabaseField(columnName = CURRENT_STEP_NUMBER_FIELD)
+    @SerializedName(CURRENT_STEP_NUMBER_FIELD)
+    @Column(name = CURRENT_STEP_NUMBER_FIELD)
     private int currentStepNumber;
 
-    @Setter
-    @DatabaseField(columnName = IS_COMPLETED_FIELD)
+    @SerializedName(COMPLETED_FIELD)
+    @Column(name = COMPLETED_FIELD)
     private boolean isCompleted;
-
-    @Setter
-    @DatabaseField(columnName = IS_TEMPORARY_FIELD)
-    private boolean isTemporary;
 
 }

@@ -12,16 +12,8 @@ import com.alta.dao.domain.map.MapService;
 import com.alta.dao.domain.map.MapServiceImpl;
 import com.alta.dao.domain.preservation.PreservationService;
 import com.alta.dao.domain.preservation.PreservationServiceImpl;
-import com.alta.dao.domain.preservation.character.CharacterPreservationService;
-import com.alta.dao.domain.preservation.character.CharacterPreservationServiceImpl;
-import com.alta.dao.domain.preservation.global.GlobalPreservationService;
-import com.alta.dao.domain.preservation.global.GlobalPreservationServiceImpl;
-import com.alta.dao.domain.preservation.interaction.InteractionPreservationService;
-import com.alta.dao.domain.preservation.interaction.InteractionPreservationServiceImpl;
-import com.alta.dao.domain.preservation.map.MapPreservationService;
-import com.alta.dao.domain.preservation.map.MapPreservationServiceImpl;
-import com.alta.dao.domain.preservation.quest.QuestPreservationService;
-import com.alta.dao.domain.preservation.quest.QuestPreservationServiceImpl;
+import com.alta.dao.domain.snapshot.PreservationSnapshotService;
+import com.alta.dao.domain.snapshot.PreservationSnapshotServiceImpl;
 import com.alta.dao.domain.quest.QuestListService;
 import com.alta.dao.domain.quest.QuestListServiceImpl;
 import com.alta.dao.domain.quest.QuestService;
@@ -36,12 +28,8 @@ public class DaoInjectorModule extends AbstractModule {
     protected void configure() {
         bind(CassandraConnector.class).in(Singleton.class);
 
-        bind(CharacterPreservationService.class).to(CharacterPreservationServiceImpl.class);
-        bind(InteractionPreservationService.class).to(InteractionPreservationServiceImpl.class);
-        bind(MapPreservationService.class).to(MapPreservationServiceImpl.class);
-        bind(QuestPreservationService.class).to(QuestPreservationServiceImpl.class);
-        bind(GlobalPreservationService.class).to(GlobalPreservationServiceImpl.class);
-        bind(PreservationService.class).to(PreservationServiceImpl.class);
+        bind(PreservationService.class).to(PreservationServiceImpl.class).in(Singleton.class);
+        bind(PreservationSnapshotService.class).to(PreservationSnapshotServiceImpl.class).in(Singleton.class);
 
         bind(MapService.class).to(MapServiceImpl.class);
         bind(FacilityService.class).to(FacilityServiceImpl.class);
@@ -52,5 +40,4 @@ public class DaoInjectorModule extends AbstractModule {
 
         bind(ConnectionSource.class).toProvider(DatabaseConnectionProvider.class).in(Singleton.class);
     }
-
 }
